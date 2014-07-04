@@ -1,0 +1,14 @@
+#!/bin/bash
+# configuring usernames
+git config --global user.name "renan-ranelli"
+git config --global user.email "renanranelli@gmail.com"
+
+# do not change crlf configuration
+git config --global core.autocrlf false
+
+# setting up the template
+git config --global commit.template ~/.gitcommittemplate
+
+# setting up pretty logging
+git config --global alias.lg1 "log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all"
+git config --global alias.lg2 "log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all"
