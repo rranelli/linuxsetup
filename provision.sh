@@ -2,21 +2,21 @@
 #          -e for elementaryos setup
 
 # add repositories
-sh setup_repositories.sh
+./setup_repositories.sh
 
 # calls the files in this repository
-sh setup_installs.sh
-sh setup_rbenv.sh
-sh setup_editor.sh
-sh setup_git.sh
-python setup_dotfiles.py
+./setup_installs.sh
+./setup_rbenv.sh
+./setup_editor.sh
+./setup_git.sh
+./setup_dotfiles.py
 
 # clones emacs repository
 git clone https://github.com/rranelli/emacs-dotfiles.git
 
 # install and configure emacs
 cd emacs-dotfiles
-sh setup_dotfiles.sh
+./setup_dotfiles.sh
 
 # I don't know what i'm doing
 TEMP=`getopt -o pe:: --long p-long,e-long:: \

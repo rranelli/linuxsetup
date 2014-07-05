@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # ensure openssl is installed
 sudo apt-get install -y libssl-dev
 
