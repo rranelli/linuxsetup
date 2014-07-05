@@ -1,18 +1,21 @@
 # options: -p for personal setup
 #          -e for elementaryos setup
 
+# add repositories
+sh setup_repositories.sh
+
 # calls the files in this repository
 sh setup_installs.sh
 sh setup_rbenv.sh
-sh setup_dotfiles.sh
+sh setup_editor.sh
 sh setup_git.sh
+python setup_dotfiles.py
 
 # clones emacs repository
 git clone https://github.com/rranelli/emacs-dotfiles.git
-cd emacs-dotfiles
 
 # install and configure emacs
-sh install_emacs.sh
+cd emacs-dotfiles
 sh setup_dotfiles.sh
 
 # I don't know what i'm doing
