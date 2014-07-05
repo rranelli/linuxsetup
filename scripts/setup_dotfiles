@@ -1,14 +1,21 @@
 #!/usr/bin/env python
-import os
+import os, getpass
 
-username = 'renan'
+def remove_any(path):
+    if os.path.islink(path): print "removiong!" + path; os.unlink(path)
+    if os.path.isfile(path): print "removiong!" + path; os.remove(path)
+    if os.path.isdir(path): print "removiong!" + path; shutil.rmtree(path)
 
-homedir  = '/home/{0}'.format(username)
-dirname  = os.getcwd() + '/dotfiles'
+def make_path(*args):
+    return '/'.join(args)
 
-for file in os.listdir(dirname):
-    head = '{0}/{1}'.format(dirname, file)
-    tail = "{0}/{1}".format(homedir, file)
+homedir  = os.path.expanduser("~")
+scriptpath = os.path.dirname(os.path.realpath(__file__))
+dirname  = make_path(scriptpath, '..', 'dotfiles')
+
+for name in os.listdir(dirname):
+    head = make_path(dirname, name)
+    tail = make_path(homedir, name)
 
     if os.path.islink(tail): os.unlink(tail)
     if os.path.isfile(tail): os.remove(tail)
