@@ -1,0 +1,17 @@
+#!/bin/bash
+# Install Heroku toolbelt || https://toolbelt.heroku.com/debian
+#wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sudo sh
+
+# Installing emacs with X
+sudo apt-get install -y emacs24 emacs24-el emacs24-common-non-dfsg
+
+sudo apt-get install -y silversearcher-ag
+sudo apt-get install -y tmate
+sudo apt-get install -y tmux
+
+# the following line returns the directory in which this script is stored
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+# getting emacs-dotfiles repo
+cd $DIR/../../ && git clone http://github.com/rranelli/emacs-dotfiles.git
+./emacs-dotfiles/setup_dotfiles
