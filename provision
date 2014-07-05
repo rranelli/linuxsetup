@@ -16,6 +16,6 @@ call_script("setup_editor")
 call_script("setup_git")
 call_script("setup_dotfiles")
 
-# run elementary setup
-if will_run_personal : call_script("setup_personal")
+# run personal and elementary setup
+if will_run_personal   : call_script("setup_personal")
 if will_run_elementary : call_script("setup_elementary")
