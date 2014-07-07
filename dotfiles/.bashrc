@@ -111,10 +111,10 @@ function setup_ps1 {
     PS1+="$hired\$(parse_status)$clroff"
     #git branch part
     PS1+="$bldred\$(parse_git_branch)$clroff"
-    #path part
-    PS1+="$clroff[$txtcyn$path$clroff]"
     #ruby version part
     PS1+="$undblu{\$(parse_ruby_version)}$clroff"
+    #path part
+    PS1+="$clroff[$txtcyn$path$clroff]"
     #line break
     PS1+="$newline"
     #login shell indicator part
