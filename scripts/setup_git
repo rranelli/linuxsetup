@@ -3,6 +3,9 @@
 git config --global user.name "renan-ranelli"
 git config --global user.email "renanranelli@gmail.com"
 
+# use the new behavior for push
+git config --global push.default simple
+
 # do not change crlf configuration
 git config --global core.autocrlf false
 
