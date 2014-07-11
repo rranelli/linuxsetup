@@ -112,7 +112,7 @@ function setup_ps1 {
     #git branch part
     PS1+="$bldred\$(parse_git_branch)$clroff"
     #ruby version part
-    PS1+="$undblu{\$(parse_ruby_version)}$clroff"
+    PS1+="$undblu{$hiblu\$(parse_ruby_version)$undblu}$clroff"
     #path part
     PS1+="$clroff[$txtcyn$path$clroff]"
     #line break
@@ -144,6 +144,9 @@ function setup_aliases {
     # aliasing emacs
     function __emacs-x-client { emacsclient -a '' -c -n $1; }
     function __emacs-terminal-client { emacsclient -a '' -t $1; }
+
+    # export terminal to xterm256
+    export TERM=xterm-256color
 
     alias em=__emacs-x-client
     alias et=__emacs-terminal-client
