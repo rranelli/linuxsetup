@@ -161,6 +161,12 @@ function setup_aliases {
     alias 8rdbm="bundle exec rake db:migrate && bundle exec rake db:rollback && bundle exec rake db:migrate"
 }
 
+function setup_emacs_path {
+    if [ -d ~/code/emacs/ ]; then
+        PATH=$HOME/code/emacs/src:$HOME/code/emacs/lib-src:$PATH
+    fi
+}
+
 function setup {
     function is_interactive {
         if [[ $- == *i* ]]; then 1; else 0;
@@ -170,6 +176,7 @@ function setup {
     if [ is_interactive ]; then
         setup_ps1
         setup_bash_completion
+        setup_emacs_path
         setup_aliases
     fi
 
