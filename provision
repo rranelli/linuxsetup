@@ -11,7 +11,7 @@ will_run_elementary = "elementary" in sys.argv
 #calling provisioning scripts
 call_script("setup_repositories")
 call_script("setup_installs")
-call_script("setup_rbenv")
+call_script("setup_ruby")
 call_script("setup_editor")
 call_script("setup_git")
 call_script("setup_dotfiles")
