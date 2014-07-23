@@ -158,7 +158,7 @@ function setup_aliases {
     alias 8bes="bundle exec rspec"
     alias 8be="bundle exec"
     alias 8gpl="git pull"
-    alias 8rdbm="bundle exec rake db:migrate && bundle exec rake db:rollback && bundle exec rake db:migrate"
+    alias 8rdbm="bundle exec rake db:migrate db:rollback && bundle exec rake db:migrate"
 }
 
 function setup_emacs_path {
