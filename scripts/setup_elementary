@@ -1,3 +1,4 @@
+#!/bin/bash
 # elementary tweaks
 sudo apt-add-repository ppa:versable/elementary-update -y
 sudo apt-get update
