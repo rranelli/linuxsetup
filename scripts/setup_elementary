@@ -13,12 +13,11 @@ sudo apt-get install -y indicator-synapse
 
 # more tweaks
 sudo apt-get install -y elementary-wallpaper-collection
-sudo apt-get install -y wingpanel-slim super-wingpanel
+sudo apt-get install -y super-wingpanel
 sudo apt-get install -y elementary-.*-theme elementary-.*-icons
 
 # for dropbox
-cd ~ && wget -O - https://dl-web.dropbox.com/u/17/dropbox-lnx.x86_64-2.6.5.tar.gz | tar xzf - && ~/.dropbox-dist/dropboxd
-sudo apt-get install -y pantheon-files-plugin-dropbox
+# cd ~ && wget -O - https://dl-web.dropbox.com/u/17/dropbox-lnx.x86_64-2.6.5.tar.gz | tar xzf - && ~/.dropbox-dist/dropboxd
 
 # for left aligned title in windows:
 # http://elementaryos.org/answers/move-window-title-on-the-left-1
