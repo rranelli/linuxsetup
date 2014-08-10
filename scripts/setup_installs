@@ -12,4 +12,4 @@ sudo apt-get install -y nodejs
 sudo apt-get install -y npm
 
 #set completion-ignore-case on
-sudo echo 'set completion-ignore-case on' >> /etc/inputrc
+sudo su -c "echo 'set completion-ignore-case on' >> /etc/inputrc"
