@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 sudo apt-add-repository ppa:versable/elementary-update -y
 sudo apt-get update -qq -y
 
@@ -17,7 +17,9 @@ sudo apt-get install -y super-wingpanel
 sudo apt-get install -y elementary-.*-theme elementary-.*-icons
 
 # for dropbox
-# cd ~ && wget -O - https://dl-web.dropbox.com/u/17/dropbox-lnx.x86_64-2.6.5.tar.gz | tar xzf - && ~/.dropbox-dist/dropboxd
+if [[ ! -d ~/.dropbox-dist ]]; then
+    cd ~ && wget -O - https://dl-web.dropbox.com/u/17/dropbox-lnx.x86_64-2.6.5.tar.gz | tar xzf - && ~/.dropbox-dist/dropboxd &
+fi
 
 # for left aligned title in windows:
 # http://elementaryos.org/answers/move-window-title-on-the-left-1
