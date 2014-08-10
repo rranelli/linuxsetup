@@ -18,4 +18,5 @@ git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
 git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
 
 # installaing latest ruby version
+source ~/.bashrc
 rbenv install 2.1.2
