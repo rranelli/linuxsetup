@@ -12,10 +12,6 @@ sudo apt-get install -y firefox
 # install icedtea-7
 sudo apt-get install -y icedtea-7-plugin
 
-# install dropbox
-sudo apt-get update -qq
-sudo apt-get install -y nautilus-dropbox
-
 # install deluge torrent client
 sudo apt-get install -y deluge deluged deluge-console
 
