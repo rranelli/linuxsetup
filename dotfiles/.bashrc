@@ -160,15 +160,20 @@ function setup_aliases {
     alias 8pl=__open_locaweb_project
     alias 8pc=__open_code_project
 
+    # clone and update everything using my personal script
+    alias 8gcc="\$(8pc && ./github-ruby-cloner/cloner.rb)"
+    alias 8gpc="\$(8pc && ./github-ruby-cloner/puller.rb)"
+
+    alias 8gpl="\$(8pl && ./github-ruby-cloner/puller.rb)"
+
     # aliasing ruby & git stuff
     alias 8bes="bundle exec rspec"
     alias 8be="bundle exec"
-    alias 8gpl="git pull"
     alias 8rdbm="bundle exec rake db:migrate db:rollback && bundle exec rake db:migrate"
     alias 8bejs="bundle exec jekyll serve --watch"
 }
 
-function setup {
+function actual_setup {
     function is_interactive {
         if [[ $- == *i* ]]; then 1; else 0;
         fi
@@ -184,4 +189,4 @@ function setup {
 }
 
 # Must not forget to call setup!
-setup
+actual_setup
