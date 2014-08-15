@@ -150,15 +150,19 @@ function setup_aliases {
 
     alias em=__emacs-x-client
     alias et=__emacs-terminal-client
-    alias emacs-kill-daemon="emacsclient -e \"(kill-emacs)\""
-    alias edk=emacs-kill-daemon
+    alias edk="emacsclient -e \"(kill-emacs)\""
     alias ekr="edk && em && exit"
+
+    # moving to projects
+    alias 8pl="cd ~/locaweb/"
+    alias 8pc="cd ~/code/"
 
     # aliasing ruby & git stuff
     alias 8bes="bundle exec rspec"
     alias 8be="bundle exec"
     alias 8gpl="git pull"
     alias 8rdbm="bundle exec rake db:migrate db:rollback && bundle exec rake db:migrate"
+    alias 8bejs="bundle exec jekyll serve --watch"
 }
 
 function setup {
