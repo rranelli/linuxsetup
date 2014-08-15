@@ -1,7 +1,8 @@
-#!/bin/bash
-# elementary tweaks
+#!/usr/bin/env bash
 sudo apt-add-repository ppa:versable/elementary-update -y
-sudo apt-get update
+sudo apt-get update -qq -y
+
+# elementary tweaks
 sudo apt-get install -y elementary-tweaks
 
 #dconf editor to tweak pantheon terminal
@@ -10,19 +11,15 @@ sudo apt-get install -y dconf-tools
 # setup indicator-synapse
 sudo apt-get install -y indicator-synapse
 
-# for dropbox
-cd ~ && wget -O - https://dl-web.dropbox.com/u/17/dropbox-lnx.x86_64-2.6.5.tar.gz | tar xzf - && ~/.dropbox-dist/dropboxd
-sudo apt-get install -y pantheon-files-plugin-dropbox
-
-# more weaks
+# more tweaks
 sudo apt-get install -y elementary-wallpaper-collection
-sudo apt-get install -y wingpanel-slim super-wingpanel
+sudo apt-get install -y super-wingpanel wingpanel-slim
 sudo apt-get install -y elementary-.*-theme elementary-.*-icons
 
-# update stuff
-sudo apt-get update -qq -y
-sudo apt-get upgrade -y
-sudo apt-get dist-upgrade -y
+# for dropbox
+if [[ ! -d ~/.dropbox-dist ]]; then
+    cd ~ && wget -O - https://dl-web.dropbox.com/u/17/dropbox-lnx.x86_64-2.6.5.tar.gz | tar xzf - && ~/.dropbox-dist/dropboxd &
+fi
 
 # for left aligned title in windows:
 # http://elementaryos.org/answers/move-window-title-on-the-left-1
