@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+# add completion
+sudo apt-get install -y bash-completion
+
+# set completion-ignore-case on, if not set already
+if ! grep -q 'set completion-ignore-case on' /etc/inputrc ; then
+    sudo su -c "echo 'set completion-ignore-case on' >> /etc/inputrc"
+fi
+
+# copy files to the bash completion folder
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+sudo cp -f $DIR/../dotfiles/bash_completion.d/* /etc/bash_completion.d/

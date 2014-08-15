@@ -1,0 +1,17 @@
+# bash completion for 8pl
+
+_8pl()
+{
+    local cur=${COMP_WORDS[COMP_CWORD]}
+    COMPREPLY=( $(compgen -W "$(8pl && \ls)" -- $cur) )
+}
+
+complete -F _8pl 8pl
+
+# Local variables:
+# mode: shell-script
+# sh-basic-offset: 4
+# sh-indent-comment: t
+# indent-tabs-mode: nil
+# End:
+# ex: ts=4 sw=4 et filetype=sh

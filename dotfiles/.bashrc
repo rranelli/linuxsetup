@@ -154,8 +154,11 @@ function setup_aliases {
     alias ekr="edk && em && exit"
 
     # moving to projects
-    alias 8pl="cd ~/locaweb/"
-    alias 8pc="cd ~/code/"
+    function __open_code_project { cd ~/code/$1; }
+    function __open_locaweb_project { cd ~/locaweb/$1; }
+
+    alias 8pl=__open_locaweb_project
+    alias 8pc=__open_code_project
 
     # aliasing ruby & git stuff
     alias 8bes="bundle exec rspec"
