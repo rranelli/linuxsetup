@@ -2,7 +2,7 @@ function start_dropbox {
     if [[ -d ~/.dropbox-dist ]]; then
         if ! ps aux | grep "[d]ropbox-dist" > /dev/null; then
             echo "Starting Dropbox..."
-            nohup ~/.dropbox-dist/dropboxd & > /dev/null
+            nohup ~/.dropbox-dist/dropboxd & >& /dev/null
         fi
     fi
 }
