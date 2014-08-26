@@ -24,4 +24,8 @@ fi
 cd ~/code
 git clone git@github.com:rranelli/github-ruby-cloner.git
 
-github-ruby-cloner/cloner.rb
+cd github-ruby-cloner
+gem install bundler
+bundle
+cd ..
+bundle exec github-ruby-cloner/cloner.rb
