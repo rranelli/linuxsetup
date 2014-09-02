@@ -21,11 +21,10 @@ if [[ ! -d ~/code ]]; then
     mkdir ~/code
 fi
 
-cd ~/code
-git clone git@github.com:rranelli/github-ruby-cloner.git
+# install mass cloner
+gem install git_mass_do
+# reload rbenv
+source ~/.bashrc
 
-cd github-ruby-cloner
-gem install bundler
-bundle
-cd ..
-bundle exec github-ruby-cloner/cloner.rb
+# clone all repos
+cd ~/code && git_mass_do clone rranelli &
