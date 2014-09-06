@@ -10,4 +10,4 @@ fi
 
 # copy files to the bash completion folder
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-sudo cp -f $DIR/../dotfiles/bash_completion.d/* /etc/bash_completion.d/
+sudo cp -f $DIR/../bash_completion.d/* /etc/bash_completion.d/
