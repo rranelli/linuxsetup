@@ -3,10 +3,10 @@
 # install system ruby
 sudo apt-get install -y ruby2.0
 
-# ensure openssl is installed
-sudo apt-get install -y libssl-dev
-sudo apt-get install -y libcurl4-openssl-dev
+# development libraries
+sudo apt-get install -y libssl-de libcurl4-openssl-dev
 sudo apt-get install -y libsqlite3-dev
+sudo apt-get install -y libreadline6 libreadline6-dev
 
 # removing rbenv if it is already there
 if [ -d ~/.rbenv/ ]; then
