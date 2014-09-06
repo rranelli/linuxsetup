@@ -22,9 +22,9 @@ if [[ ! -d ~/code ]]; then
 fi
 
 # install mass cloner
-gem install git_mass_do
+gem install git_multicast
 # reload rbenv
 source ~/.bashrc
 
 # clone all repos
-cd ~/code && git_mass_do clone rranelli &
+cd ~/code && git_multicast clone rranelli &
