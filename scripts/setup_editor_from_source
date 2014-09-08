@@ -1,0 +1,15 @@
+#!/bin/bash
+
+sudo apt-get install -y build-essential
+sudo apt-get build-dep -y emacs23
+
+wget ftp://alpha.gnu.org/gnu/emacs/pretest/emacs-24.3.93.tar.xz
+tar -xvf emacs-24.3.93.tar.xz
+
+cd emacs-24.3.93
+./configure
+make
+sudo make install
+
+cd ..
+rm -rf ../emacs-24.3.93*
