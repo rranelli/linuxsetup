@@ -23,3 +23,6 @@ git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-bu
 source ~/.bashrc
 rbenv install 2.1.2
 rbenv global 2.1.2
+
+# install bundler
+gem install bundler
