@@ -10,13 +10,11 @@ if ! dpkg -l | grep -q google-chrome-stable ; then
     sudo rm google-chrome*
 fi
 
-# install firefox
 sudo apt-get install -y firefox
-
-# install icedtea-7
 sudo apt-get install -y icedtea-7-plugin
+sudo apt-get install -y adobe-flashplugin
 
-# install deluge torrent client
+# torrent client
 sudo apt-get install -y deluge deluged deluge-console
 
 # install spotify if not already installed
