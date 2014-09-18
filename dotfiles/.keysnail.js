@@ -156,11 +156,11 @@ key.setGlobalKey([['C-M-h'], ['M-O']], function (ev) {
     getBrowser().mTabContainer.advanceSelectedTab(-1, true);
 }, 'Select previous tab');
 
-key.setGlobalKey('[', function (ev) {
+key.setViewKey('[', function (ev) {
     BrowserBack();
 }, 'Back');
 
-key.setGlobalKey(']', function (ev) {
+key.setViewKey(']', function (ev) {
     BrowserForward();
 }, 'Forward');
 
