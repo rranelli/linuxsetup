@@ -20,9 +20,16 @@ git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
 git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
 
 # installaing latest ruby version
+VERSION='2.1.2'
+
+if ! rbenv versions | grep -q $VERSION ; then
+    rbenv install $VERSION
+fi
+
 source ~/.bashrc
-rbenv install 2.1.2
-rbenv global 2.1.2
+
+rbenv global $VERSION
+rbenv rehash
 
 # install bundler
 gem install bundler

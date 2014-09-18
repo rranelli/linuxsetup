@@ -22,9 +22,8 @@ if [[ ! -d ~/code ]]; then
 fi
 
 # install mass cloner
-sudo gem install git_multicast
-# reload rbenv
-source ~/.bashrc
+gem install git_multicast
 
 # clone all repos
+rbenv rehash
 cd ~/code && git_multicast clone rranelli &
