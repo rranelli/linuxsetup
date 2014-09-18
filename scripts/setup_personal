@@ -12,7 +12,7 @@ fi
 
 sudo apt-get install -y firefox
 sudo apt-get install -y icedtea-7-plugin
-sudo apt-get install -y adobe-flashplugin
+#sudo apt-get install -y adobe-flashplugin
 
 # torrent client
 sudo apt-get install -y deluge deluged deluge-console
