@@ -10,3 +10,4 @@ sudo service xrdp restart
 
 # Install remote desktop client
 sudo apt-get install -y remmina
+sudo apt-get install -y rdesktop
