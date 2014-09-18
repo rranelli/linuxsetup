@@ -5,7 +5,6 @@ sudo apt-get install -y git
 sudo apt-get install -y ssh openssh-server
 sudo apt-get install -y curl
 
-sudo apt-get install -y aspell-pt-br
 
 sudo apt-get install -y dnsutils
 sudo apt-get install -y telnet
