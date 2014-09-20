@@ -8,21 +8,17 @@ sudo apt-get install -y libssl-dev libcurl4-openssl-dev
 sudo apt-get install -y libsqlite3-dev
 sudo apt-get install -y libreadline6 libreadline6-dev
 
-# removing rbenv if it is already there
-if [ -d ~/.rbenv/ ]; then
-    rm -r -f ~/.rbenv/
+if [[ ! -d ~/.rbenv ]]; then
+    # get latest rbenv
+    git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
+    # get ruby-build
+    git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
 fi
 
-# get latest rbenv
-git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
-
-# get ruby-build
-git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
-
-# installaing latest ruby version
 VERSION='2.1.2'
 
-if ! rbenv versions | grep -q $VERSION ; then
+# installaing latest ruby version
+if ! (rbenv versions | grep -q $VERSION) ; then
     rbenv install $VERSION
 fi
 
