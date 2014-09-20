@@ -11,5 +11,7 @@ sudo apt-add-repository -y ppa:lvillani/silversearcher
 sudo add-apt-repository -y ppa:chris-lea/node.js
 sudo apt-add-repository -y ppa:brightbox/ruby-ng-experimental
 
+sudo add-apt-repository -y ppa:paolorotolo/copy
+
 # update them all
 sudo apt-get -qq update
