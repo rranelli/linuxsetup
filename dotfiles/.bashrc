@@ -1,12 +1,3 @@
-function start_dropbox {
-    if [[ -d ~/.dropbox-dist ]]; then
-        if ! ps aux | grep "[d]ropbox-dist" > /dev/null; then
-            echo "Starting Dropbox..."
-            nohup ~/.dropbox-dist/dropboxd & >& /dev/null
-        fi
-    fi
-}
-
 function setup_ps1 {
     function parse_login_shell {
         shopt -q login_shell && echo '(login_shell)'
@@ -191,8 +182,6 @@ function actual_setup {
         setup_ps1
         setup_bash_completion
         setup_aliases
-
-        start_dropbox
     fi
 
     setup_rbenv
