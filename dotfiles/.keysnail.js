@@ -23,7 +23,6 @@ key.suspendKey           = "<f2>";
 
 // ================================= Hooks ================================= //
 
-
 hook.setHook('KeyBoardQuit', function (aEvent) {
     if (key.currentKeySequence.length) return;
 
@@ -48,7 +47,6 @@ hook.setHook('KeyBoardQuit', function (aEvent) {
         key.generateKey(aEvent.originalTarget, KeyEvent.DOM_VK_ESCAPE, true);
     }
 });
-
 
 // ============================= Key bindings ============================== //
 
@@ -164,11 +162,11 @@ key.setViewKey(']', function (ev) {
     BrowserForward();
 }, 'Forward');
 
-key.setViewKey([['C-n'], ['j']], function (ev) {
+key.setViewKey([['C-n'], ['n']], function (ev) {
     key.generateKey(ev.originalTarget, KeyEvent.DOM_VK_DOWN, true);
 }, 'Scroll line down');
 
-key.setViewKey([['C-p'], ['k']], function (ev) {
+key.setViewKey([['C-p'], ['p']], function (ev) {
     key.generateKey(ev.originalTarget, KeyEvent.DOM_VK_UP, true);
 }, 'Scroll line up');
 
@@ -385,11 +383,11 @@ key.setCaretKey([['C-e'], ['$'], ['M->']], function (ev) {
     ev.target.ksMarked ? goDoCommand("cmd_selectEndLine") : goDoCommand("cmd_endLine");
 }, 'Move caret to the end of the line');
 
-key.setCaretKey([['C-n'], ['j']], function (ev) {
+key.setCaretKey('C-n', function (ev) {
     ev.target.ksMarked ? goDoCommand("cmd_selectLineNext") : goDoCommand("cmd_scrollLineDown");
 }, 'Move caret to the next line');
 
-key.setCaretKey([['C-p'], ['k']], function (ev) {
+key.setCaretKey('C-p', function (ev) {
     ev.target.ksMarked ? goDoCommand("cmd_selectLinePrevious") : goDoCommand("cmd_scrollLineUp");
 }, 'Move caret to the previous line');
 
@@ -420,14 +418,6 @@ key.setCaretKey([['M-v'], ['b']], function (ev) {
 key.setCaretKey('M-<', function (ev) {
     ev.target.ksMarked ? goDoCommand("cmd_selectTop") : goDoCommand("cmd_scrollTop");
 }, 'Move caret to the top of the page');
-
-key.setCaretKey('J', function (ev) {
-    util.getSelectionController().scrollLine(true);
-}, 'Scroll line down');
-
-key.setCaretKey('K', function (ev) {
-    util.getSelectionController().scrollLine(false);
-}, 'Scroll line up');
 
 key.setCaretKey(',', function (ev) {
     util.getSelectionController().scrollHorizontal(true);
