@@ -171,6 +171,11 @@ function setup_aliases {
     alias 8rdbm="bundle exec rake db:migrate db:rollback && bundle exec rake db:migrate"
     alias 8bejs="bundle exec jekyll serve --watch"
 }
+function setup_extras {
+    if [[ -f ~/.bashrc.extras ]]; then
+	source ~/.bashrc.extras
+    fi
+}
 
 function actual_setup {
     function is_interactive {
@@ -182,6 +187,8 @@ function actual_setup {
         setup_ps1
         setup_bash_completion
         setup_aliases
+
+	setup_extras
     fi
 
     setup_rbenv
