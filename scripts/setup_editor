@@ -27,7 +27,7 @@ sudo make install
 
 # Remove binaries
 cd ..
-rm -rf ../emacs-24.3.93*
+rm -rf emacs-24.3.93*
 
 # Setting up dotfiles
 cd $DIR/../../ && git clone http://github.com/rranelli/emacs-dotfiles.git
