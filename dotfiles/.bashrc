@@ -160,10 +160,8 @@ function setup_aliases {
     alias 8pc=__open_code_project
 
     # clone and update everything using my personal script
-    alias 8gcc="\$(8pc && git_multicast clone rranelli)"
-    alias 8gpc="\$(8pc && git_multicast pull)"
-
-    alias 8gpl="\$(8pl && git_multicast pull)"
+    alias 8pcp="\$(8pc && git_multicast pull)"
+    alias 8plp="\$(8pl && git_multicast pull)"
 
     # aliasing ruby & git stuff
     alias 8bes="bundle exec rspec"
