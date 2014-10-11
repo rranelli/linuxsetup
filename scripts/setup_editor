@@ -16,18 +16,18 @@ sudo apt-get build-dep -y emacs23
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 # Download Emacs
-wget ftp://alpha.gnu.org/gnu/emacs/pretest/emacs-24.3.93.tar.xz
-tar -xvf emacs-24.3.93.tar.xz
+wget http://alpha.gnu.org/gnu/emacs/pretest/emacs-24.3.94.tar.xz
+tar -xvf emacs-24.3.94.tar.xz
 
 # Build
-cd emacs-24.3.93
+cd emacs-24.3.94
 ./configure
 make
 sudo make install
 
 # Remove binaries
 cd ..
-rm -rf emacs-24.3.93*
+rm -rf emacs-24.3.*
 
 # Setting up dotfiles
 cd $DIR/../../ && git clone http://github.com/rranelli/emacs-dotfiles.git
