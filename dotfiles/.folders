@@ -1,0 +1,17 @@
+GMAIL{
+   %INBOX:renanranelli/clear@imap.gmail.com:993!         "In"
+   %[Gmail]/Sent:renanranelli/clear@imap.gmail.com:993!  "Sent"
+   %[Gmail]/Draft:renanranelli/clear@imap.gmail.com:993! "Draft"
+   %[Gmail]/Trash:renanranelli/clear@imap.gmail.com:993! "Trash"
+   %[Gmail]/Spam:renanranelli/clear@imap.gmail.com:993!  "Spam"
+}
+
+#Note: usernames with "strange" characters (like "@") must be written
+#like: "renanranelli@company.com". Folders at my work are delimited by dot '.'.
+
+WORK{
+   %INBOX:"renan.ranelli"/clear@outlook.locaweb.com.br:993!        "Inbox"
+   %INBOX.Sent:"renan.ranelli"/clear@outlook.locaweb.com.br:993!   "Sent"
+   %INBOX.Drafts:"renan.ranelli"/clear@outlook.locaweb.com.br:993! "Draft"
+   %INBOX.Trash:"renan.ranelli"/clear@outlook.locaweb.com.br:993!  "Trash"
+}
