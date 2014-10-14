@@ -12,6 +12,9 @@ sudo apt-get install -y aspell-pt-br
 sudo apt-get install -y build-essential
 sudo apt-get build-dep -y emacs23
 
+# install wanderlust email client
+sudo apt-get install -y wl
+
 # the following line returns the directory in which this script is stored
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
