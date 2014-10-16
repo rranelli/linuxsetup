@@ -1,13 +1,25 @@
 GMAIL{
-   %INBOX:renanranelli/clear@imap.gmail.com:993!         "Inbox"
-   %[Gmail]/Sent Mail:renanranelli/clear@imap.gmail.com:993!  "Sent Mail"
-   %[Gmail]/Drafts:renanranelli/clear@imap.gmail.com:993! "Drafts"
-   %[Gmail]/Trash:renanranelli/clear@imap.gmail.com:993! "Trash"
-   %[Gmail]/Spam:renanranelli/clear@imap.gmail.com:993!  "Spam"
+	%INBOX:renanranelli/clear@imap.gmail.com:993! "Inbox"
+	%[Gmail]/Sent Mail:renanranelli/clear@imap.gmail.com:993! "Sent Mail"
+	%[Gmail]/Drafts:renanranelli/clear@imap.gmail.com:993! "Drafts"
+	%[Gmail]/Trash:renanranelli/clear@imap.gmail.com:993! "Trash"
+	%[Gmail]/Spam:renanranelli/clear@imap.gmail.com:993! "Spam"
+	%[Gmail]/All Mail:renanranelli/clear@imap.gmail.com:993! "All Mail"
+# 	%Brotheragem:renanranelli/clear@imap.gmail.com:993! "Brotheragem"
+# 	%Xinho do s2:renanranelli/clear@imap.gmail.com:933! "Xinho do s2"
+# 	%Github:renanranelli/clear@imap.gmail.com:933! "Github"
+# 	%OnlineCourses:renanranelli/clear@imap.gmail.com:933! "OnlineCourses"
+# 	%emacs-devel:renanranelli/clear@imap.gmail.com:933! "emacs-devel"
+# 	%EEngSoft:renanranelli/clear@imap.gmail.com:933! "EEngSoft"
+# 	%Recibos e confirmações:renanranelli/clear@imap.gmail.com:933! "Recibos e confirmações"
 }
 
-#Note: usernames with "strange" characters (like "@") must be written
 WORK{
-   %INBOX:"renan.ranelli"/clear@outlook.locaweb.com.br:993!        "Inbox"
-   %sent items:"renan.ranelli"/clear@outlook.locaweb.com.br:993!   "Sent Mail"
+	%INBOX:"renan.ranelli"/clear@outlook.locaweb.com.br:993! "Inbox"
+	%sent items:"renan.ranelli"/clear@outlook.locaweb.com.br:993! "Sent Mail"
+
+        %PRBs:"renan.ranelli"/clear@outlook.locaweb.com.br:993! "PRBs"
+	%Junk:"renan.ranelli"/clear@outlook.locaweb.com.br:993! "Junk"
+	%Info:"renan.ranelli"/clear@outlook.locaweb.com.br:993! "Info"
+	%Important:"renan.ranelli"/clear@outlook.locaweb.com.br:993! "Important"
 }
