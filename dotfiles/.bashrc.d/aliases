@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 function setup_aliases {
     # aliasing ls to show pretyt colors
     alias ls="ls --color=tty"

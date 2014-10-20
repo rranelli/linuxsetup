@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 function setup_ps1 {
     function parse_login_shell {
         shopt -q login_shell && echo '(login_shell)'

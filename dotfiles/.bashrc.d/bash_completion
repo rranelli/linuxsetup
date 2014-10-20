@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 function setup_bash_completion {
     # -- Bash completion configuration --
     if [ -f /etc/bash_completion ]; then
