@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+function setup_extras {
+    alias rstor="rsync Downloads/*.torrent renan@lightning.rep:/home/renan/Downloads/AutoAdd"
+}
