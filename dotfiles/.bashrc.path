@@ -1,0 +1,3 @@
+function setup_path {
+    export PATH="$PATH:$HOME/.lein"
+}
