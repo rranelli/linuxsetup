@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
-function setup_aliases {
-    # aliasing ls to show pretyt colors
-    alias ls="ls --color=tty"
-
+function __alias_emacs {
     # aliasing emacs
     function __emacs-x-client { emacsclient -a '' -c -n $1; }
     function __emacs-terminal-client { emacsclient -a '' -t $1; }
@@ -14,7 +11,9 @@ function setup_aliases {
     alias et=__emacs-terminal-client
     alias edk="emacsclient -e \"(kill-emacs)\""
     alias ekr="edk && em && exit"
+}
 
+function __alias_projects {
     # moving to projects
     function __open_code_project { cd ~/code/$1; }
     function __open_locaweb_project { cd ~/locaweb/$1; }
@@ -22,16 +21,44 @@ function setup_aliases {
     alias 8pl=__open_locaweb_project
     alias 8pc=__open_code_project
 
-    # clone and update everything using my personal script
-    alias 8pcp="\$(8pc && git_multicast pull)"
-    alias 8plp="\$(8pl && git_multicast pull)"
+}
 
+function __alias_bundle_exec {
     # aliasing ruby & git stuff
     alias 8bes="bundle exec rspec"
     alias 8be="bundle exec"
     alias 8rdbm="bundle exec rake db:migrate db:rollback && bundle exec rake db:migrate"
     alias 8bejs="bundle exec jekyll serve --watch"
+}
 
-    # aliasing clojure stuff
+function __alias_multicast {
+    # clone and update everything using my personal script
+    alias 8pcp="\$(8pc && git_multicast pull)"
+    alias 8plp="\$(8pl && git_multicast pull)"
+}
+
+function __alias_lein {
     alias lrpl="lein repl"
+}
+
+function __alias_maven {
+    alias mt="mvn test"
+    alias mct="mvn clean test"
+    alias mci="mvn clean install"
+    alias mnew="mvn archetype:generate -DarchetypeArtifactId=maven-archetype-quickstart"
+}
+
+function __alias_commands {
+    # aliasing ls to show pretyt colors
+    alias ls="ls --color=tty"
+}
+
+function setup_aliases {
+    __alias_emacs
+    __alias_commands
+    __alias_projects
+    __alias_bundle_exec
+    __alias_multicast
+    __alias_lein
+    __alias_maven
 }
