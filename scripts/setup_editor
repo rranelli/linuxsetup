@@ -14,13 +14,14 @@ sudo apt-get build-dep -y emacs23
 
 # install wanderlust email client
 sudo apt-get install -y wl
+sudo apt-get install -y w3m
 
 # the following line returns the directory in which this script is stored
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 # Download Emacs
-wget ftp://alpha.gnu.org/gnu/emacs/pretest/emacs-24.4-rc1.tar.xz
-tar -xvf emacs-24.4-rc1.tar.xz
+wget http://ftpmirror.gnu.org/emacs/emacs-24.4.tar.xz
+tar -xvf emacs-24.4.tar.xz
 
 # Build
 cd emacs-24.4
