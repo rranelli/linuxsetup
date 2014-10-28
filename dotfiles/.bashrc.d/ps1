@@ -115,8 +115,8 @@ function setup_ps1 {
 	fi
     }
 
-    local curtime="$hicyn$time24h$whtdot"
-    local user_at_host="$hiblu𝛴($user$txtred@$hiblu$host)$whtdot"
+    local curtime="$hicyn𝛴($time24h)$whtdot"
+    local user_at_host="$hibluξ($user$txtred@$hiblu$host)$whtdot"
     local status="$hired\$(parse_status)"
     local path="$txtcyn𝛹 ($path)"
     local git_branch="$txtgrn\$(format_git_branch)"
