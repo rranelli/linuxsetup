@@ -16,6 +16,19 @@ sudo apt-get build-dep -y emacs23
 sudo apt-get install -y wl
 sudo apt-get install -y w3m
 
+# get mu from git (alternatively, use a github tarball)
+sudo apt-get install -y libgmime-2.6-dev libxapian-dev
+sudo apt-get install -y guile-2.0-dev html2text xdg-utils
+sudo apt-get install -y libwebkit-dev
+
+git clone git://github.com/djcb/mu.git
+
+cd mu
+autoreconf -i && ./configure && make
+sudo make install
+cd ..
+rm -rf mu
+
 # the following line returns the directory in which this script is stored
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
