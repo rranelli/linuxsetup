@@ -10,6 +10,7 @@ modules=(
     rbenv
     path
     extras
+    github
 )
 
 function __require {
