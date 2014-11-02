@@ -51,6 +51,7 @@ function __alias_maven {
 function __alias_commands {
     # aliasing ls to show pretyt colors
     alias ls="ls --color=tty"
+    alias ll="ls -l"
 }
 
 function setup_aliases {
