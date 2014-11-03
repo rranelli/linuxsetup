@@ -23,6 +23,7 @@ key.suspendKey           = "<f2>";
 
 // ================================= Hooks ================================= //
 
+
 hook.setHook('KeyBoardQuit', function (aEvent) {
     if (key.currentKeySequence.length) return;
 
@@ -47,6 +48,18 @@ hook.setHook('KeyBoardQuit', function (aEvent) {
         key.generateKey(aEvent.originalTarget, KeyEvent.DOM_VK_ESCAPE, true);
     }
 });
+
+
+// ============================== Black list =============================== //
+
+hook.addToHook("LocationChange", function (aNsURI) {
+    var URL = aNsURI ? aNsURI.spec : null;
+    key.suspendWhenMatched(URL, key.blackList);
+});
+
+key.blackList = [
+    'http://www.typingweb.com/'
+];
 
 // ============================= Key bindings ============================== //
 
