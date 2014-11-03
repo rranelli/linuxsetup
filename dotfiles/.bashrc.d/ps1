@@ -117,7 +117,7 @@ function setup_ps1 {
     local status="$hired\$(parse_status)"
     local path="$txtcyn𝛹 ($path)"
     local git_branch="$txtgrn\$(format_git_branch)"
-    local login_shell_indicator="$hiblu\$(parse_login_shell)"
+    local login_shell_indicator="$hired\$(parse_login_shell)"
     local ruby_version="$txtred\$(format_ruby_version)"
     local final="$bldbluλx ➝  "
 
