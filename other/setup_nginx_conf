@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+sudo ln -s mediaserver.nginx.conf /etc/nginx/nginx.conf
