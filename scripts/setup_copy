@@ -1,5 +1,16 @@
 #!/usr/bin/env bash
-sudo add-apt-repository -y ppa:paolorotolo/copy
-sudo apt-get update -qq
+if [[ ! -d /opt/copy/ ]]; then
+    wget https://copy.com/install/linux/Copy.tgz
+    tar xvzf Copy.tgz
 
-sudo apt-get install -y copy
+    sudo cp -r copy /opt
+
+    # this line assumes you're on a x86_64 box
+    sudo ln -s /opt/copy/x86_64/CopyAgent /usr/bin/copy_agent
+
+    rm Copy.tgz
+    rm -rf copy/
+fi
+
+# now you can run
+# ./CopyConsole -u=the_mail_you_signed_up_with -r=/home/your_linux_username/copy -p=the_password_you_signed_up_with
