@@ -135,7 +135,7 @@ function setup_ps1 {
 
     PS1+=$clroff
 
-    if [ "$TERM" == "vt100" -o "$TERM" == "dumb" -o ]; then
-	PS1="\h [\W]> "
+    if [[ "$TERM" == "vt100" || "$TERM" == "dumb" ]]; then
+    	PS1+="> "
     fi
 }
