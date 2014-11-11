@@ -2,4 +2,9 @@
 
 function setup_extras {
     alias rstor="rsync ~/Downloads/*.torrent renan@lightning.rep:/home/renan/Downloads/AutoAdd"
+
+    # adds cool compiler to the path
+    if [[ -d /usr/class/cs143/cool/bin ]]; then
+	PATH=$PATH:/usr/class/cs143/cool/bin
+    fi
 }
