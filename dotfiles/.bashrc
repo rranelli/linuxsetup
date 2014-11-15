@@ -8,7 +8,7 @@ modules=(
     aliases
     bash_completion
     rbenv
-    path
+    env_vars
     extras
     github
 )
@@ -38,7 +38,7 @@ function __setup {
 	setup_extras
     fi
 
-    setup_path
+    setup_env_vars
     setup_rbenv
 }
 

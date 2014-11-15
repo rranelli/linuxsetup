@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-function setup_path {
-    export PATH="$PATH:$HOME/.lein"
-}

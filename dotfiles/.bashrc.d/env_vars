@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+function setup_env_vars {
+    export PATH="$PATH:$HOME/.lein"
+    export EDITOR='emacs -nw -Q'
+    export EDITOR="emacsclient -a '' -t"
+    export TERM=xterm-256color
+}
