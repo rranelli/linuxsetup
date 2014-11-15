@@ -136,6 +136,7 @@ function setup_ps1 {
     PS1+=$clroff
 
     if [[ "$TERM" == "vt100" || "$TERM" == "dumb" ]]; then
+	# this had to be added in order for emacs' TRAMP to work seamlessly
     	PS1+="> "
     fi
 }
