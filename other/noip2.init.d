@@ -1,65 +1,51 @@
-#!/usr/bin/env bash
-# noip2
-# chkconfig: 345 20 80
-# description: myapp daemon
-# Dynamic dns notifier for noip
-# processname: noip2
+#! /bin/sh
+# /etc/init.d/noip2
 
-DAEMON_PATH="/usr/local/bin/noip2"
+# Supplied by no-ip.com
+# Modified for Debian GNU/Linux by Eivind L. Rygge <eivind@rygge.org>
+# Updated by David Courtney to not use pidfile 130130 for Debian 6.
+# Updated again by David Courtney to "LSBize" the script for Debian 7.
 
-DAEMON=noip2
-DAEMONOPTS=""
+### BEGIN INIT INFO
+# Provides:     noip2
+# Required-Start: networking
+# Required-Stop:
+# Should-Start:
+# Should-Stop:
+# Default-Start: 2 3 4 5
+# Default-Stop: 0 1 6
+# Short-Description: Start noip2 at boot time
+# Description: Start noip2 at boot time
+### END INIT INFO
 
+# . /etc/rc.d/init.d/functions  # uncomment/modify for your killproc
+
+DAEMON=/usr/local/bin/noip2
 NAME=noip2
-DESC="Dynamic dns notifier for noip"
-PIDFILE=/var/run/$NAME.pid
-SCRIPTNAME=/etc/init.d/$NAME
+
+test -x $DAEMON || exit 0
 
 case "$1" in
     start)
-	printf "%-50s" "Starting $NAME..."
-	cd $DAEMON_PATH
-	PID=`$DAEMON $DAEMONOPTS > /dev/null 2>&1 & echo $!`
-	#echo "Saving PID" $PID " to " $PIDFILE
-        if [ -z $PID ]; then
-            printf "%s\n" "Fail"
-        else
-            echo $PID > $PIDFILE
-            printf "%s\n" "Ok"
-        fi
-	;;
-    status)
-        printf "%-50s" "Checking $NAME..."
-	if [ -f $PIDFILE ]; then
-	    PID=`cat $PIDFILE`
-	    if [ -z "`ps axf | grep ${PID} | grep -v grep`" ]; then
-		printf "%s\n" "Process dead but pidfile exists"
-	    else
-		echo "Running"
-	    fi
-	else
-            printf "%s\n" "Service not running"
-	fi
-	;;
+    echo -n "Starting dynamic address update: "
+    start-stop-daemon --start --exec $DAEMON
+    echo "noip2."
+    ;;
     stop)
-        printf "%-50s" "Stopping $NAME"
-        PID=`cat $PIDFILE`
-        cd $DAEMON_PATH
-        if [ -f $PIDFILE ]; then
-            kill -HUP $PID
-            printf "%s\n" "Ok"
-            rm -f $PIDFILE
-        else
-            printf "%s\n" "pidfile not found"
-        fi
-	;;
+    echo -n "Shutting down dynamic address update:"
+    start-stop-daemon --stop --oknodo --retry 30 --exec $DAEMON
+    echo "noip2."
+    ;;
 
     restart)
-  	$0 stop
-  	$0 start
-	;;
+    echo -n "Restarting dynamic address update: "
+    start-stop-daemon --stop --oknodo --retry 30 --exec $DAEMON
+    start-stop-daemon --start --exec $DAEMON
+    echo "noip2."
+    ;;
 
     *)
-        echo "Usage: $0 {status|start|stop|restart}"
-        exit 1
+    echo "Usage: $0 {start|stop|restart}"
+    exit 1
 esac
+exit 0
