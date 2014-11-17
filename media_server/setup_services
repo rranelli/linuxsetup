@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+# adding nginx configuration
+sudo ln -s mediaserver.nginx.conf /etc/nginx/nginx.conf
+
+# adding init.d scripts
+sudo ln -s calibre-server.init.d /etc/init.d/calibre-server
+sudo ln -s noip2.init.d /etc/init.d/noip2
+
+# waiting for the fix. Should not run as root
+#sudo ln -s deluge-web.init.d /etc/init.d/deluge-web
+
+# starting services on boot time
+sudo update-rc.d calibre-server defaults
+sudo update-rc.d noip2 defaults
+
+# waiting for the fix. Should not run as root
+#sudo update-rc.d deluge-web defaults
