@@ -10,7 +10,7 @@ if [[ ! -d /opt/copy/ ]]; then
 
     rm Copy.tgz
     rm -rf copy/
-fi
 
-# now you can run
-# ./CopyConsole -u=the_mail_you_signed_up_with -r=/home/your_linux_username/copy -p=the_password_you_signed_up_with
+    echo "Now you can run"
+    echo "./CopyConsole -u=the_mail_you_signed_up_with -r=/home/your_linux_username/copy -p=the_password_you_signed_up_with"
+fi

@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-if [[ ! -d ~/.lein ]]; then
-    mkdir ~/.lein/
-fi
-
-wget https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
-
-mv -f lein ~/.lein/
-chmod 755 ~/.lein/lein
