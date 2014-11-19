@@ -115,8 +115,8 @@ $(MODULE_DIR)/add-repo-package:
 	$(touch-module)
 
 ###
-# Add all external repositories for packages
-repositories: add-repo-package $(MODULE_DIR)/repositories
+# Add external repositories for packages
+repositories: add-repo-package mongodb-repo spotify-repo $(MODULE_DIR)/repositories
 $(MODULE_DIR)/repositories: MODULE = repositories
 $(MODULE_DIR)/repositories:
 	echo $(REPOSITORIES) | xargs -n 1 $(SUDO) $(ADD_REPO)
@@ -126,22 +126,22 @@ $(MODULE_DIR)/repositories:
 	$(SUDO) $(UPDATE_REPO_CACHE)
 	$(touch-module)
 
-define add-mongo-repo
-if ! dpkg -l | grep -q mongodb-org ; then
-	@$(SUDO) apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
+mongodb-repo: $(MODULE_DIR)/mongodb-repo
+$(MODULE_DIR)/mongodb-repo: MODULE = mongodb-repo
+$(MODULE_DIR)/mongodb-repo:
 	echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' | $(SUDO) tee /etc/apt/sources.list.d/mongodb.list
-fi
-endef
+	$(SUDO) apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
+	$(touch-module)
 
-define add-spotify-repo
-if ! dpkg -l | grep -q spotify-client ; then
-	@$(SUDO) apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 94558F59
+spotify-repo: $(MODULE_DIR)/spotify-repo
+$(MODULE_DIR)/spotify-repo: MODULE = spotify-repo
+$(MODULE_DIR)/spotify-repo:
+	$(SUDO) apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 94558F59
 	$(SUDO) su -c "echo 'deb http://repository.spotify.com stable non-free' >> /etc/apt/sources.list"
-fi
-endef
+	$(touch-module)
 
 ###
-# Installs all packages
+# Installs packages
 packages: repositories $(MODULE_DIR)/packages
 $(MODULE_DIR)/packages: MODULE = packages
 $(MODULE_DIR)/packages:
@@ -210,7 +210,7 @@ $(MODULE_DIR)/bash-completion:
 
 ###
 # Installs the best editor in the world
-emacs: packages git $(MODULE_DIR)/emacs
+emacs: packages code $(MODULE_DIR)/emacs
 $(MODULE_DIR)/emacs: MODULE = emacs
 $(MODULE_DIR)/emacs:
 	wget http://ftpmirror.gnu.org/emacs/emacs-24.4.tar.xz
@@ -223,9 +223,7 @@ $(MODULE_DIR)/emacs:
 
 	rm -rf emacs-24.*
 
-	cd $(CODE_DIR) && \
-		git clone http://github.com/rranelli/emacs-dotfiles.git && \
-		./emacs-dotfiles/setup_dotfiles
+	$(CODE_DIR)/emacs-dotfiles/setup_dotfiles
 	$(touch-module)
 
 ###
@@ -243,6 +241,8 @@ $(MODULE_DIR)/desktop:
 	wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 	$(SUDO) dpkg -i google-chrome*
 	$(SUDO) rm google-chrome*
+
+	$(SUDO) $(INSTALL_PACKAGE) calibre
 
 	$(SUDO) $(ADD_REPO) ppa:versable/elementary-update
 
