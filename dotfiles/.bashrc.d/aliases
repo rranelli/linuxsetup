@@ -51,6 +51,10 @@ function __alias_commands {
     alias ll="ls -l"
 }
 
+function __alias_locaweb {
+    alias nibz="ssh _rranelli@nibbler0001.locaweb.com.br"
+}
+
 function setup_aliases {
     __alias_emacs
     __alias_commands
@@ -59,4 +63,5 @@ function setup_aliases {
     __alias_multicast
     __alias_lein
     __alias_maven
+    __alias_locaweb
 }
