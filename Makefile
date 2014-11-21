@@ -15,6 +15,8 @@ ADD_REPO_PACKAGE	:= python-software-properties
 UPDATE_REPO_CACHE	:= apt-get update -qq
 
 RUBY_VERSION		:= 2.1.2
+EMACS_VERSION		:= 24.4
+EMACS			:= emacs-$(EMACS_VERSION)
 
 define touch-module
 @$(MKDIR) $(MODULE_DIR)
@@ -141,7 +143,7 @@ $(MODULE_DIR)/spotify-repo:
 	$(touch-module)
 
 ###
-# Installs packages
+# Install packages
 packages: repositories $(MODULE_DIR)/packages
 $(MODULE_DIR)/packages: MODULE = packages
 $(MODULE_DIR)/packages:
@@ -149,7 +151,7 @@ $(MODULE_DIR)/packages:
 	$(touch-module)
 
 ###
-# Installs programming stuff
+# Install programming stuff
 dotfiles: $(MODULE_DIR)/dotfiles
 $(MODULE_DIR)/dotfiles: MODULE = dotfiles
 $(MODULE_DIR)/dotfiles:
@@ -209,25 +211,24 @@ $(MODULE_DIR)/bash-completion:
 	$(touch-module)
 
 ###
-# Installs the best editor in the world
+# Install the best editor in the world
 emacs: packages code $(MODULE_DIR)/emacs
 $(MODULE_DIR)/emacs: MODULE = emacs
 $(MODULE_DIR)/emacs:
-	wget http://ftpmirror.gnu.org/emacs/emacs-24.4.tar.xz
-	tar -xvf emacs-24.4.tar.xz
+	wget http://ftpmirror.gnu.org/emacs/$(EMACS).tar.xz
+	tar -xvf $(EMACS).tar.xz
 
-	cd emacs-24.4 && \
-		./configure && \
-		make && \
-		$(SUDO) make install
+	cd $(EMACS) && ./configure
+	make -C $(EMACS)/
+	$(SUDO) make -C $(EMACS)/ install
 
-	rm -rf emacs-24.*
+	rm -rf $(EMACS)*
 
 	$(CODE_DIR)/emacs-dotfiles/setup_dotfiles
 	$(touch-module)
 
 ###
-# Installs desktop stuff
+# Install desktop stuff
 remote-desktop: packages $(MODULE_DIR)/remote-desktop
 $(MODULE_DIR)/remote-desktop: MODULE = remote-desktop
 $(MODULE_DIR)/remote-desktop:
