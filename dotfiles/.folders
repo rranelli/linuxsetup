@@ -1,7 +1,6 @@
-#GMAIL{
-#        %/
-#	%INBOX:renanranelli/clear@imap.gmail.com:993! "Inbox"
-#}
+GMAIL{
+        %/
+}
 
 WORK{
 	%INBOX:"renan.ranelli"/clear@outlook.locaweb.com.br:993! "Inbox"
