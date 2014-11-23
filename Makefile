@@ -107,6 +107,8 @@ install: $(REQUIRED_MODULES)
 
 optional: $(OPTIONAL_MODULES)
 
+all: install optional
+
 clean:
 	rm -rf $(MODULE_DIR)
 
