@@ -186,7 +186,8 @@ $(MODULE_DIR)/ruby:
 code: packages git ruby $(MODULE_DIR)/code
 $(MODULE_DIR)/code: MODULE = code
 $(MODULE_DIR)/code:
-	gem install git_multicast
+	$(SUDO) gem install git_multicast
+	$(MKDIR) $(CODE_DIR)
 	cd $(CODE_DIR) && git_multicast clone rranelli
 	$(touch-module)
 
@@ -231,6 +232,8 @@ $(MODULE_DIR)/emacs: MODULE = emacs
 $(MODULE_DIR)/emacs:
 	wget http://ftpmirror.gnu.org/emacs/$(EMACS).tar.xz
 	tar -xvf $(EMACS).tar.xz
+
+	$(SUDO) apt-get build-dep emacs24 -y
 
 	cd $(EMACS) && ./configure
 	make -C $(EMACS)/
