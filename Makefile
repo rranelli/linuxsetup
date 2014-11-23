@@ -28,11 +28,11 @@ REQUIRED_MODULES = \
 	git		\
 	remote-desktop	\
 	repositories	\
-	ruby		\
-	smlnj
+	ruby
 
 OPTIONAL_MODULES = \
-	desktop
+	desktop	\
+	smlnj
 
 REPOSITORIES = \
 	ppa:brightbox/ruby-ng			\
