@@ -18,16 +18,11 @@ RUBY_VERSION		:= 2.1.2
 EMACS_VERSION		:= 24.4
 EMACS			:= emacs-$(EMACS_VERSION)
 
-define touch-module
-@$(MKDIR) $(MODULE_DIR)
-@$(TOUCH) $(MODULE_DIR)/$(MODULE)
-endef
-
-MODULES = \
+# the 'desktop' target is not a required module anymore
+REQUIRED_MODULES = \
 	bash-completion	\
 	clojure		\
 	code		\
-	desktop		\
 	dotfiles	\
 	emacs		\
 	git		\
@@ -36,6 +31,9 @@ MODULES = \
 	ruby		\
 	smlnj
 
+OPTIONAL_MODULES = \
+	desktop
+
 REPOSITORIES = \
 	ppa:brightbox/ruby-ng-experimental	\
 	ppa:cassou/emacs			\
@@ -43,16 +41,14 @@ REPOSITORIES = \
 	ppa:git-core/ppa			\
 	ppa:lvillani/silversearcher		\
 	ppa:nviennot/tmate			\
-	ppa:paolorotolo/copy
+	ppa:paolorotolo/copy			\
+	ppa:webupd8team/java
 
 PACKAGES = \
 	aspell-pt-br			\
 	bash-completion			\
 	build-essential			\
 	curl				\
-	deluge				\
-	deluge-console			\
-	deluged				\
 	dnsutils			\
 	firefox				\
 	g++-multilib			\
@@ -62,7 +58,6 @@ PACKAGES = \
 	html2text			\
 	icedtea-7-plugin		\
 	libcurl3			\
-	copy				\
 	libcurl4-openssl-dev		\
 	libgmime-2.6-dev		\
 	libnspr4-0d			\
@@ -94,16 +89,22 @@ PACKAGES = \
 	tmux				\
 	w3m				\
 	wget				\
-	wingpanel-slim			\
 	wl				\
 	xdg-utils			\
 	xrdp
 
 .PHONY: install clean
 
+define touch-module
+	@$(MKDIR) $(MODULE_DIR)
+	@$(TOUCH) $(MODULE_DIR)/$(MODULE)
+endef
+
 ###
 # It all begins here
-install: $(MODULES)
+install: $(REQUIRED_MODULES)
+
+optional: $(OPTIONAL_MODULES)
 
 clean:
 	rm -rf $(MODULE_DIR)
@@ -121,11 +122,7 @@ $(MODULE_DIR)/add-repo-package:
 repositories: add-repo-package mongodb-repo spotify-repo $(MODULE_DIR)/repositories
 $(MODULE_DIR)/repositories: MODULE = repositories
 $(MODULE_DIR)/repositories:
-	echo $(REPOSITORIES) | xargs -n 1 $(SUDO) $(ADD_REPO)
-	$(add-mongo-repo)
-	$(add-spotify-repo)
-
-	$(SUDO) $(UPDATE_REPO_CACHE)
+	$(add-repositories)
 	$(touch-module)
 
 mongodb-repo: $(MODULE_DIR)/mongodb-repo
@@ -142,13 +139,22 @@ $(MODULE_DIR)/spotify-repo:
 	$(SUDO) su -c "echo 'deb http://repository.spotify.com stable non-free' >> /etc/apt/sources.list"
 	$(touch-module)
 
+define add-repositories
+	echo $(REPOSITORIES) | xargs -n 1 $(SUDO) $(ADD_REPO)
+	$(SUDO) $(UPDATE_REPO_CACHE)
+endef
+
 ###
 # Install packages
 packages: repositories $(MODULE_DIR)/packages
 $(MODULE_DIR)/packages: MODULE = packages
 $(MODULE_DIR)/packages:
-	$(SUDO) $(INSTALL_PACKAGE) $(PACKAGES)
+	$(install-packages)
 	$(touch-module)
+
+define install-packages
+	$(SUDO) $(INSTALL_PACKAGE) $(PACKAGES)
+endef
 
 ###
 # Install programming stuff
@@ -210,6 +216,13 @@ $(MODULE_DIR)/bash-completion:
 	$(SUDO) cp -f bash_completion.d/* /etc/bash_completion.d/
 	$(touch-module)
 
+remote-desktop: packages $(MODULE_DIR)/remote-desktop
+$(MODULE_DIR)/remote-desktop: MODULE = remote-desktop
+$(MODULE_DIR)/remote-desktop:
+	echo lxsession -s LXDE -e LXDE > ~/.xsession
+	$(SUDO) service xrdp restart
+	$(touch-module)
+
 ###
 # Install the best editor in the world
 emacs: packages code $(MODULE_DIR)/emacs
@@ -227,31 +240,33 @@ $(MODULE_DIR)/emacs:
 	$(CODE_DIR)/emacs-dotfiles/setup_dotfiles
 	$(touch-module)
 
+editor: emacs
+
 ###
 # Install desktop stuff
-remote-desktop: packages $(MODULE_DIR)/remote-desktop
-$(MODULE_DIR)/remote-desktop: MODULE = remote-desktop
-$(MODULE_DIR)/remote-desktop:
-	echo lxsession -s LXDE -e LXDE > ~/.xsession
-	$(SUDO) service xrdp restart
-	$(touch-module)
-
 desktop: packages $(MODULE_DIR)/desktop
 $(MODULE_DIR)/desktop: MODULE = desktop
-$(MODULE_DIR)/desktop:
+$(MODULE_DIR)/desktop: PACKAGES = elementary-.*-icons	\
+		elementary-.*-theme			\
+		elementary-tweaks			\
+		elementary-wallpaper-collection		\
+		dconf-tools				\
+		indicator-synapse			\
+		super-wingpanel				\
+		wingpanel-slim				\
+		deluge					\
+		deluge-console				\
+		deluged					\
+		calibre
+$(MODULE_DIR)/desktop: MODULE = desktop
+$(MODULE_DIR)/desktop: REPOSITORIES = ppa:versable/elementary-update \
+		ppa:heathbar/wingpanel-slim
+$(MODULE_DIR)/desktop: packages
 	wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 	$(SUDO) dpkg -i google-chrome*
-	$(SUDO) rm google-chrome*
+	rm google-chrome*
 
-	$(SUDO) $(INSTALL_PACKAGE) calibre
+	$(add-repositories)
+	$(install-packages)
 
-	$(SUDO) $(ADD_REPO) ppa:versable/elementary-update
-
-	$(SUDO) $(INSTALL_PACKAGE) elementary-.*-icons \
-		elementary-.*-theme \
-		elementary-tweaks \
-		elementary-wallpaper-collection \
-		dconf-tools \
-		indicator-synapse \
-		super-wingpanel
 	$(touch-module)
