@@ -261,7 +261,7 @@ $(MODULE_DIR)/desktop: PACKAGES = elementary-.*-icons	\
 $(MODULE_DIR)/desktop: MODULE = desktop
 $(MODULE_DIR)/desktop: REPOSITORIES = ppa:versable/elementary-update \
 		ppa:heathbar/wingpanel-slim
-$(MODULE_DIR)/desktop: packages
+$(MODULE_DIR)/desktop: install
 	wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 	$(SUDO) dpkg -i google-chrome*
 	rm google-chrome*
