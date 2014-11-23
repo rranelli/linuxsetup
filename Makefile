@@ -35,7 +35,7 @@ OPTIONAL_MODULES = \
 	desktop
 
 REPOSITORIES = \
-	ppa:brightbox/ruby-ng-experimental	\
+	ppa:brightbox/ruby-ng			\
 	ppa:cassou/emacs			\
 	ppa:chris-lea/node.js			\
 	ppa:git-core/ppa			\
@@ -48,6 +48,7 @@ PACKAGES = \
 	aspell-pt-br			\
 	bash-completion			\
 	build-essential			\
+	copy 				\
 	curl				\
 	dnsutils			\
 	firefox				\
@@ -78,7 +79,7 @@ PACKAGES = \
 	python-software-properties	\
 	rdesktop			\
 	remmina				\
-	ruby2.0				\
+	ruby2.1				\
 	samba				\
 	silversearcher-ag		\
 	spotify-client			\
