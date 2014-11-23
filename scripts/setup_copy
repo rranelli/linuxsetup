@@ -6,7 +6,8 @@ if [[ ! -d /opt/copy/ ]]; then
     sudo cp -r copy /opt
 
     # this line assumes you're on a x86_64 box
-    sudo ln -s /opt/copy/x86_64/CopyAgent /usr/bin/copy_agent
+    sudo ln -s /opt/copy/x86_64/CopyAgent /usr/bin/copy-agent
+    sudo ln -s /opt/copy/x86_64/CopyAgent /usr/bin/copy-console
 
     rm Copy.tgz
     rm -rf copy/
