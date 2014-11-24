@@ -253,17 +253,17 @@ editor: emacs
 # Install desktop stuff
 desktop: install google-chrome $(MODULE_DIR)/desktop
 $(MODULE_DIR)/desktop: PACKAGES = \
-		elementary-.*-icons	\
-		elementary-.*-theme			\
-		elementary-tweaks			\
-		elementary-wallpaper-collection		\
-		dconf-tools				\
-		indicator-synapse			\
-		super-wingpanel				\
-		wingpanel-slim				\
-		deluge					\
-		deluge-console				\
-		deluged					\
+		elementary-.*-icons		\
+		elementary-.*-theme		\
+		elementary-tweaks		\
+		elementary-wallpaper-collection	\
+		dconf-tools			\
+		indicator-synapse		\
+		super-wingpanel			\
+		wingpanel-slim			\
+		deluge				\
+		deluge-console			\
+		deluged				\
 		calibre
 $(MODULE_DIR)/desktop: MODULE = desktop
 $(MODULE_DIR)/desktop: REPOSITORIES = \
