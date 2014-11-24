@@ -35,6 +35,11 @@ OPTIONAL_MODULES = \
 	remote-desktop	\
 	smlnj
 
+define add-repositories
+	echo $(REPOSITORIES) | xargs -n 1 $(SUDO) $(ADD_REPO)
+	$(SUDO) $(UPDATE_REPO_CACHE)
+endef
+
 REPOSITORIES = \
 	ppa:brightbox/ruby-ng			\
 	ppa:cassou/emacs			\
@@ -44,6 +49,10 @@ REPOSITORIES = \
 	ppa:nviennot/tmate			\
 	ppa:paolorotolo/copy			\
 	ppa:webupd8team/java
+
+define install-packages
+	$(SUDO) $(INSTALL_PACKAGE) $(PACKAGES)
+endef
 
 PACKAGES = \
 	aspell-pt-br			\
@@ -143,11 +152,6 @@ $(MODULE_DIR)/spotify-repo:
 	$(SUDO) su -c "echo 'deb http://repository.spotify.com stable non-free' >> /etc/apt/sources.list"
 	$(touch-module)
 
-define add-repositories
-	echo $(REPOSITORIES) | xargs -n 1 $(SUDO) $(ADD_REPO)
-	$(SUDO) $(UPDATE_REPO_CACHE)
-endef
-
 ###
 # Install packages
 packages: repositories $(MODULE_DIR)/packages
@@ -155,10 +159,6 @@ $(MODULE_DIR)/packages: MODULE = packages
 $(MODULE_DIR)/packages:
 	$(install-packages)
 	$(touch-module)
-
-define install-packages
-	$(SUDO) $(INSTALL_PACKAGE) $(PACKAGES)
-endef
 
 ###
 # Install programming stuff
