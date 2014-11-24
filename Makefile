@@ -252,7 +252,8 @@ editor: emacs
 ###
 # Install desktop stuff
 desktop: install google-chrome $(MODULE_DIR)/desktop
-$(MODULE_DIR)/desktop: PACKAGES = elementary-.*-icons	\
+$(MODULE_DIR)/desktop: PACKAGES = \
+		elementary-.*-icons	\
 		elementary-.*-theme			\
 		elementary-tweaks			\
 		elementary-wallpaper-collection		\
@@ -265,7 +266,8 @@ $(MODULE_DIR)/desktop: PACKAGES = elementary-.*-icons	\
 		deluged					\
 		calibre
 $(MODULE_DIR)/desktop: MODULE = desktop
-$(MODULE_DIR)/desktop: REPOSITORIES = ppa:versable/elementary-update \
+$(MODULE_DIR)/desktop: REPOSITORIES = \
+		ppa:versable/elementary-update \
 		ppa:heathbar/wingpanel-slim
 $(MODULE_DIR)/desktop:
 	cd $(CODE_DIR)/emacs-dotfiles && $(SUDO) ./setup_shortcut
