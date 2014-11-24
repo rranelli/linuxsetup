@@ -162,10 +162,10 @@ endef
 
 ###
 # Install programming stuff
-dotfiles: $(MODULE_DIR)/dotfiles
+dotfiles: code $(MODULE_DIR)/dotfiles
 $(MODULE_DIR)/dotfiles: MODULE = dotfiles
 $(MODULE_DIR)/dotfiles:
-	scripts/setup_dotfiles
+	$(CODE_DIR)/linuxsetup/scripts/setup_dotfiles
 	$(touch-module)
 
 git: packages $(MODULE_DIR)/git
