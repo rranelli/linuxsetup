@@ -26,12 +26,12 @@ REQUIRED_MODULES = \
 	dotfiles	\
 	emacs		\
 	git		\
-	remote-desktop	\
 	repositories	\
 	ruby
 
 OPTIONAL_MODULES = \
-	desktop	\
+	desktop		\
+	remote-desktop	\
 	smlnj
 
 REPOSITORIES = \
