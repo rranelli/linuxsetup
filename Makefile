@@ -31,6 +31,7 @@ REQUIRED_MODULES = \
 
 OPTIONAL_MODULES = \
 	desktop		\
+	google-chrome	\
 	remote-desktop	\
 	smlnj
 
@@ -250,8 +251,7 @@ editor: emacs
 
 ###
 # Install desktop stuff
-desktop: packages $(MODULE_DIR)/desktop
-$(MODULE_DIR)/desktop: MODULE = desktop
+desktop: install google-chrome $(MODULE_DIR)/desktop
 $(MODULE_DIR)/desktop: PACKAGES = elementary-.*-icons	\
 		elementary-.*-theme			\
 		elementary-tweaks			\
@@ -267,12 +267,18 @@ $(MODULE_DIR)/desktop: PACKAGES = elementary-.*-icons	\
 $(MODULE_DIR)/desktop: MODULE = desktop
 $(MODULE_DIR)/desktop: REPOSITORIES = ppa:versable/elementary-update \
 		ppa:heathbar/wingpanel-slim
-$(MODULE_DIR)/desktop: install
-	wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-	$(SUDO) dpkg -i google-chrome*
-	rm google-chrome*
+$(MODULE_DIR)/desktop:
+	cd $(CODE_DIR)/emacs-dotfiles && $(SUDO) ./setup_shortcut
 
 	$(add-repositories)
 	$(install-packages)
 
+	$(touch-module)
+
+google-chrome: $(MODULE_DIR)/google-chrome
+$(MODULE_DIR)/google-chrome: MODULE = google-chrome
+$(MODULE_DIR)/google-chrome:
+	wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+	$(SUDO) dpkg -i google-chrome*
+	rm google-chrome*
 	$(touch-module)
