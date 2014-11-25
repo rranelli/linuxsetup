@@ -18,4 +18,5 @@ git clone git@github.com:rranelli/linuxsetup.git
 
 cd linuxsetup
 
-make
+make -j 4
+make all -j 4
