@@ -88,6 +88,7 @@ PACKAGES = \
 	oracle-java8-installer		\
 	python-software-properties	\
 	rdesktop			\
+	redis-server 			\
 	remmina				\
 	ruby2.1				\
 	samba				\
