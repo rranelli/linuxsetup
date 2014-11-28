@@ -18,6 +18,11 @@ RUBY_VERSION		:= 2.1.2
 EMACS_VERSION		:= 24.4
 EMACS			:= emacs-$(EMACS_VERSION)
 
+define touch-module
+	@$(MKDIR) $(MODULE_DIR)
+	@$(TOUCH) $@
+endef
+
 # the 'desktop' target is not a required module anymore
 REQUIRED_MODULES = \
 	bash-completion	\
@@ -107,11 +112,6 @@ PACKAGES = \
 
 .PHONY: install clean
 
-define touch-module
-	@$(MKDIR) $(MODULE_DIR)
-	@$(TOUCH) $(MODULE_DIR)/$(MODULE)
-endef
-
 ###
 # It all begins here
 install: $(REQUIRED_MODULES)
@@ -126,7 +126,6 @@ clean:
 ###
 # Install package that allows to add more repositories
 add-repo-package: $(MODULE_DIR)/add-repo-package
-$(MODULE_DIR)/add-repo-package: MODULE = add-repo-package
 $(MODULE_DIR)/add-repo-package:
 	$(SUDO) $(INSTALL_PACKAGE) $(ADD_REPO_PACKAGE)
 	$(touch-module)
@@ -134,20 +133,17 @@ $(MODULE_DIR)/add-repo-package:
 ###
 # Add external repositories for packages
 repositories: add-repo-package mongodb-repo spotify-repo $(MODULE_DIR)/repositories
-$(MODULE_DIR)/repositories: MODULE = repositories
 $(MODULE_DIR)/repositories:
 	$(add-repositories)
 	$(touch-module)
 
 mongodb-repo: $(MODULE_DIR)/mongodb-repo
-$(MODULE_DIR)/mongodb-repo: MODULE = mongodb-repo
 $(MODULE_DIR)/mongodb-repo:
 	echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' | $(SUDO) tee /etc/apt/sources.list.d/mongodb.list
 	$(SUDO) apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
 	$(touch-module)
 
 spotify-repo: $(MODULE_DIR)/spotify-repo
-$(MODULE_DIR)/spotify-repo: MODULE = spotify-repo
 $(MODULE_DIR)/spotify-repo:
 	$(SUDO) apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 94558F59
 	$(SUDO) su -c "echo 'deb http://repository.spotify.com stable non-free' >> /etc/apt/sources.list"
@@ -156,7 +152,6 @@ $(MODULE_DIR)/spotify-repo:
 ###
 # Install packages
 packages: repositories $(MODULE_DIR)/packages
-$(MODULE_DIR)/packages: MODULE = packages
 $(MODULE_DIR)/packages:
 	$(install-packages)
 	$(touch-module)
@@ -164,19 +159,16 @@ $(MODULE_DIR)/packages:
 ###
 # Install programming stuff
 dotfiles: code $(MODULE_DIR)/dotfiles
-$(MODULE_DIR)/dotfiles: MODULE = dotfiles
 $(MODULE_DIR)/dotfiles:
 	$(CODE_DIR)/linuxsetup/scripts/setup_dotfiles
 	$(touch-module)
 
 git: packages $(MODULE_DIR)/git
-$(MODULE_DIR)/git: MODULE = git
 $(MODULE_DIR)/git:
 	scripts/setup_git
 	$(touch-module)
 
 ruby: packages $(MODULE_DIR)/ruby
-$(MODULE_DIR)/ruby: MODULE = ruby
 $(MODULE_DIR)/ruby:
 	git clone https://github.com/sstephenson/rbenv.git $(HOME)/.rbenv
 	git clone https://github.com/sstephenson/ruby-build.git $(HOME)/.rbenv/plugins/ruby-build
@@ -188,7 +180,6 @@ $(MODULE_DIR)/ruby:
 	$(touch-module)
 
 code: packages git ruby $(MODULE_DIR)/code
-$(MODULE_DIR)/code: MODULE = code
 $(MODULE_DIR)/code:
 	$(SUDO) gem install git_multicast
 	$(MKDIR) $(CODE_DIR)
@@ -196,7 +187,6 @@ $(MODULE_DIR)/code:
 	$(touch-module)
 
 clojure: packages $(MODULE_DIR)/clojure
-$(MODULE_DIR)/clojure: MODULE = clojure
 $(MODULE_DIR)/clojure:
 	$(MKDIR) $(HOME)/.lein
 	wget https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
@@ -204,7 +194,6 @@ $(MODULE_DIR)/clojure:
 	$(touch-module)
 
 smlnj: packages $(MODULE_DIR)/smlnj
-$(MODULE_DIR)/smlnj: MODULE = smlnj
 $(MODULE_DIR)/smlnj:
 	wget 'http://smlnj.org/dist/working/110.74/config.tgz'
 	$(MKDIR) $(HOME)/.sml
@@ -216,14 +205,12 @@ $(MODULE_DIR)/smlnj:
 	$(touch-module)
 
 bash-completion: packages $(MODULE_DIR)/bash-completion
-$(MODULE_DIR)/bash-completion: MODULE = bash-completion
 $(MODULE_DIR)/bash-completion:
 	$(SUDO) su -c "echo 'set completion-ignore-case on' >> /etc/inputrc"
 	$(SUDO) cp -f bash_completion.d/* /etc/bash_completion.d/
 	$(touch-module)
 
 remote-desktop: packages $(MODULE_DIR)/remote-desktop
-$(MODULE_DIR)/remote-desktop: MODULE = remote-desktop
 $(MODULE_DIR)/remote-desktop:
 	echo lxsession -s LXDE -e LXDE > ~/.xsession
 	$(SUDO) service xrdp restart
@@ -232,7 +219,6 @@ $(MODULE_DIR)/remote-desktop:
 ###
 # Install the best editor in the world
 emacs: packages code $(MODULE_DIR)/emacs
-$(MODULE_DIR)/emacs: MODULE = emacs
 $(MODULE_DIR)/emacs:
 	wget http://ftpmirror.gnu.org/emacs/$(EMACS).tar.xz
 	tar -xvf $(EMACS).tar.xz
@@ -266,7 +252,6 @@ $(MODULE_DIR)/desktop: PACKAGES = \
 		deluge-console			\
 		deluged				\
 		calibre
-$(MODULE_DIR)/desktop: MODULE = desktop
 $(MODULE_DIR)/desktop: REPOSITORIES = \
 		ppa:versable/elementary-update \
 		ppa:heathbar/wingpanel-slim
@@ -279,7 +264,6 @@ $(MODULE_DIR)/desktop:
 	$(touch-module)
 
 google-chrome: $(MODULE_DIR)/google-chrome
-$(MODULE_DIR)/google-chrome: MODULE = google-chrome
 $(MODULE_DIR)/google-chrome:
 	wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 	$(SUDO) dpkg -i google-chrome*
