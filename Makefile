@@ -132,7 +132,7 @@ $(MODULE_DIR)/add-repo-package:
 
 ###
 # Add external repositories for packages
-repositories: add-repo-package mongodb-repo spotify-repo $(MODULE_DIR)/repositories
+repositories: $(MODULE_DIR)/repositories | add-repo-package mongodb-repo spotify-repo
 $(MODULE_DIR)/repositories:
 	$(add-repositories)
 	$(touch-module)
@@ -151,24 +151,24 @@ $(MODULE_DIR)/spotify-repo:
 
 ###
 # Install packages
-packages: repositories $(MODULE_DIR)/packages
+packages: $(MODULE_DIR)/packages | repositories
 $(MODULE_DIR)/packages:
 	$(install-packages)
 	$(touch-module)
 
 ###
 # Install programming stuff
-dotfiles: code $(MODULE_DIR)/dotfiles
+dotfiles: $(MODULE_DIR)/dotfiles | code
 $(MODULE_DIR)/dotfiles:
 	$(CODE_DIR)/linuxsetup/scripts/setup_dotfiles
 	$(touch-module)
 
-git: packages $(MODULE_DIR)/git
+git: $(MODULE_DIR)/git | packages
 $(MODULE_DIR)/git:
 	scripts/setup_git
 	$(touch-module)
 
-ruby: packages $(MODULE_DIR)/ruby
+ruby: $(MODULE_DIR)/ruby | packages
 $(MODULE_DIR)/ruby:
 	git clone https://github.com/sstephenson/rbenv.git $(HOME)/.rbenv
 	git clone https://github.com/sstephenson/ruby-build.git $(HOME)/.rbenv/plugins/ruby-build
@@ -179,21 +179,21 @@ $(MODULE_DIR)/ruby:
 
 	$(touch-module)
 
-code: packages git ruby $(MODULE_DIR)/code
+code: $(MODULE_DIR)/code | packages git ruby
 $(MODULE_DIR)/code:
 	$(SUDO) gem install git_multicast
 	$(MKDIR) $(CODE_DIR)
 	cd $(CODE_DIR) && git_multicast clone rranelli
 	$(touch-module)
 
-clojure: packages $(MODULE_DIR)/clojure
+clojure: $(MODULE_DIR)/clojure | packages
 $(MODULE_DIR)/clojure:
 	$(MKDIR) $(HOME)/.lein
 	wget https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
 	mv -f lein ~/.lein/; chmod 755 ~/.lein/lein
 	$(touch-module)
 
-smlnj: packages $(MODULE_DIR)/smlnj
+smlnj: $(MODULE_DIR)/smlnj | packages
 $(MODULE_DIR)/smlnj:
 	wget 'http://smlnj.org/dist/working/110.74/config.tgz'
 	$(MKDIR) $(HOME)/.sml
@@ -204,13 +204,13 @@ $(MODULE_DIR)/smlnj:
 		rm -rf config.tgz config/
 	$(touch-module)
 
-bash-completion: packages $(MODULE_DIR)/bash-completion
+bash-completion: $(MODULE_DIR)/bash-completion | packages
 $(MODULE_DIR)/bash-completion:
 	$(SUDO) su -c "echo 'set completion-ignore-case on' >> /etc/inputrc"
 	$(SUDO) cp -f bash_completion.d/* /etc/bash_completion.d/
 	$(touch-module)
 
-remote-desktop: packages $(MODULE_DIR)/remote-desktop
+remote-desktop: $(MODULE_DIR)/remote-desktop | packages
 $(MODULE_DIR)/remote-desktop:
 	echo lxsession -s LXDE -e LXDE > ~/.xsession
 	$(SUDO) service xrdp restart
@@ -218,7 +218,7 @@ $(MODULE_DIR)/remote-desktop:
 
 ###
 # Install the best editor in the world
-emacs: packages code $(MODULE_DIR)/emacs
+emacs: $(MODULE_DIR)/emacs | packages code
 $(MODULE_DIR)/emacs:
 	wget http://ftpmirror.gnu.org/emacs/$(EMACS).tar.xz
 	tar -xvf $(EMACS).tar.xz
@@ -238,7 +238,7 @@ editor: emacs
 
 ###
 # Install desktop stuff
-desktop: install google-chrome $(MODULE_DIR)/desktop
+desktop: $(MODULE_DIR)/desktop | install google-chrome
 $(MODULE_DIR)/desktop: PACKAGES = \
 		elementary-.*-icons		\
 		elementary-.*-theme		\
