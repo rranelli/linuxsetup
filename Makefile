@@ -102,6 +102,7 @@ PACKAGES = \
 	ssh				\
 	surfraw				\
 	telnet				\
+	tilda				\
 	tmate				\
 	tmux				\
 	w3m				\
