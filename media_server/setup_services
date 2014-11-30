@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
 # adding nginx configuration
-sudo ln -s mediaserver.nginx.conf /etc/nginx/nginx.conf
-sudo ln -s .htpasswd /etc/nginx/.htpasswd
+sudo ln -sf mediaserver.nginx.conf /etc/nginx/nginx.conf
+sudo ln -sf .htpasswd /etc/nginx/.htpasswd
 
 # adding init.d scripts
-sudo ln -s calibre-server.init.d /etc/init.d/calibre-server
-sudo ln -s noip2.init.d /etc/init.d/noip2
+sudo ln -sf calibre-server.init.d /etc/init.d/calibre-server
+sudo ln -sf noip2.init.d /etc/init.d/noip2
 
 # waiting for the fix. Should not run as root
 #sudo ln -s deluge-web.init.d /etc/init.d/deluge-web
