@@ -1,15 +1,17 @@
 #!/usr/bin/env bash
 
+DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+
 # adding nginx configuration
-sudo ln -sf mediaserver.nginx.conf /etc/nginx/nginx.conf
-sudo ln -sf .htpasswd /etc/nginx/.htpasswd
+sudo ln -sf $DIR/mediaserver.nginx.conf /etc/nginx/nginx.conf
+sudo ln -sf $DIR/.htpasswd /etc/nginx/.htpasswd
 
 # adding init.d scripts
-sudo ln -sf calibre-server.init.d /etc/init.d/calibre-server
-sudo ln -sf noip2.init.d /etc/init.d/noip2
+sudo ln -sf $DIR/calibre-server.init.d /etc/init.d/calibre-server
+sudo ln -sf $DIR/noip2.init.d /etc/init.d/noip2
 
 # waiting for the fix. Should not run as root
-#sudo ln -s deluge-web.init.d /etc/init.d/deluge-web
+#sudo ln -sf $DIR/deluge-web.init.d /etc/init.d/deluge-web
 
 # starting services on boot time
 sudo update-rc.d calibre-server defaults
