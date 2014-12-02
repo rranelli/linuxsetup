@@ -171,8 +171,8 @@ $(MODULE_DIR)/git:
 
 ruby: $(MODULE_DIR)/ruby | packages
 $(MODULE_DIR)/ruby:
-	git clone https://github.com/sstephenson/rbenv.git $(HOME)/.rbenv
-	git clone https://github.com/sstephenson/ruby-build.git $(HOME)/.rbenv/plugins/ruby-build
+	git clone https://github.com/sstephenson/rbenv.git $(HOME)/.rbenv --depth=1
+	git clone https://github.com/sstephenson/ruby-build.git $(HOME)/.rbenv/plugins/ruby-build --depth=1
 
 	$(HOME)/.rbenv/bin/rbenv install $(RUBY_VERSION)
 	$(HOME)/.rbenv/bin/rbenv global $(RUBY_VERSION)
