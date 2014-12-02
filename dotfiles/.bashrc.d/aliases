@@ -51,8 +51,9 @@ function __alias_commands {
     alias ll="ls -l"
 }
 
-function __alias_locaweb {
+function __alias_servers {
     alias nibz="ssh _rranelli@nibbler0001.locaweb.com.br"
+    alias repz="curl http://repdoxinho.no-ip.info -I 2>1 | grep Location"
 }
 
 function setup_aliases {
@@ -63,5 +64,5 @@ function setup_aliases {
     __alias_multicast
     __alias_lein
     __alias_maven
-    __alias_locaweb
+    __alias_servers
 }
