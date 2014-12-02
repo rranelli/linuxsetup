@@ -14,7 +14,7 @@ ADD_REPO		:= apt-add-repository $(ADD_REPO_FLAGS)
 ADD_REPO_PACKAGE	:= python-software-properties
 UPDATE_REPO_CACHE	:= apt-get update -qq
 
-RUBY_VERSION		:= 2.1.2
+RUBY_VERSION		:= 2.1.5
 EMACS_VERSION		:= 24.4
 EMACS			:= emacs-$(EMACS_VERSION)
 
