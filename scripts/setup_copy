@@ -7,7 +7,7 @@ if [[ ! -d /opt/copy/ ]]; then
 
     # this line assumes you're on a x86_64 box
     sudo ln -s /opt/copy/x86_64/CopyAgent /usr/bin/copy-agent
-    sudo ln -s /opt/copy/x86_64/CopyAgent /usr/bin/copy-console
+    sudo ln -s /opt/copy/x86_64/CopyConsole /usr/bin/copy-console
 
     rm Copy.tgz
     rm -rf copy/
