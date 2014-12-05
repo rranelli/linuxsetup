@@ -62,6 +62,7 @@ endef
 PACKAGES = \
 	aspell-pt-br			\
 	bash-completion			\
+	bbdb				\
 	build-essential			\
 	copy 				\
 	curl				\
