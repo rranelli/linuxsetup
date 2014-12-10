@@ -68,6 +68,7 @@ PACKAGES = \
 	curl				\
 	dnsutils			\
 	firefox				\
+	ftp				\
 	g++-multilib			\
 	gcc-multilib			\
 	git				\
