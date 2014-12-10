@@ -30,8 +30,8 @@ function __alias_bundle_exec {
 
 function __alias_multicast {
     # clone and update everything using my personal script
-    alias 8pcp="\$(8pc && git_multicast pull)"
-    alias 8plp="\$(8pl && git_multicast pull)"
+    alias 8pcp="8pc && git_multicast pull"
+    alias 8plp="8pl && git_multicast pull"
 }
 
 function __alias_lein {
