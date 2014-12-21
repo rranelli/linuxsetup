@@ -49,6 +49,7 @@ function __alias_commands {
     # aliasing ls to show pretyt colors
     alias ls="ls --color=tty"
     alias ll="ls -l"
+    alias df-gb="df -BG"
 }
 
 function __alias_servers {
