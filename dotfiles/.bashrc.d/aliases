@@ -25,6 +25,7 @@ function __alias_bundle_exec {
     alias 8bes="bundle exec rspec"
     alias 8be="bundle exec"
     alias 8rdbm="bundle exec rake db:migrate && bundle exec rake db:rollback && bundle exec rake db:migrate"
+    alias 8frdbm="RAILS_ENV=test 8rdbm && 8rdbm"
     alias 8bejs="bundle exec jekyll serve --watch"
 }
 
