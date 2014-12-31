@@ -24,9 +24,22 @@ function __alias_bundle_exec {
     # aliasing ruby & git stuff
     alias 8bes="bundle exec rspec"
     alias 8be="bundle exec"
-    alias 8rdbm="bundle exec rake db:migrate && bundle exec rake db:rollback && bundle exec rake db:migrate"
+    alias 8rdbm=__alias_bundle_exec_rake_db_migrate
     alias 8frdbm="RAILS_ENV=test 8rdbm && 8rdbm"
     alias 8bejs="bundle exec jekyll serve --watch"
+}
+
+function __alias_bundle_exec_rake_db_migrate {
+    echo "Migrating..."
+    bundle exec rake db:migrate
+    echo "---"
+    echo "Rollbacking..."
+    bundle exec rake db:rollback
+    echo "---"
+    echo "Migrating again..."
+    bundle exec rake db:migrate
+    echo "---"
+    echo "Finished"
 }
 
 function __alias_multicast {
