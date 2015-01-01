@@ -103,6 +103,7 @@ PACKAGES = \
 	ssh				\
 	surfraw				\
 	telnet				\
+	texlive				\
 	tilda				\
 	tmate				\
 	tmux				\
