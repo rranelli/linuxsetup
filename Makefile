@@ -97,6 +97,7 @@ PACKAGES = \
 	redis-server 			\
 	remmina				\
 	ruby2.1				\
+	ruby2.1-dev			\
 	samba				\
 	silversearcher-ag		\
 	spotify-client			\
