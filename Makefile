@@ -37,6 +37,7 @@ REQUIRED_MODULES = \
 OPTIONAL_MODULES = \
 	desktop		\
 	google-chrome	\
+	octave		\
 	remote-desktop	\
 	smlnj
 
@@ -272,4 +273,13 @@ $(MODULE_DIR)/google-chrome:
 	wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 	$(SUDO) dpkg -i google-chrome*
 	rm google-chrome*
+	$(touch-module)
+
+octave: $(MODULE_DIR)/octave
+$(MODULE_DIR)/octave: PACKAGES = octave
+$(MODULE_DIR)/octave: REPOSITORIES = ppa:octave/stable
+$(MODULE_DIR)/octave:
+	$(add-repositories)
+	$(install-packages)
+
 	$(touch-module)
