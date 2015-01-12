@@ -45,7 +45,9 @@ function __alias_bundle_exec_rake_db_migrate {
 function __alias_multicast {
     # clone and update everything using my personal script
     alias 8pcp="8pc && git_multicast pull"
+    alias 8pcs="8pc && git_multicast status"
     alias 8plp="8pl && git_multicast pull"
+    alias 8pls="8pl && git_multicast status"
 }
 
 function __alias_lein {
