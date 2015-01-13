@@ -89,7 +89,7 @@ function setup_ps1 {
     }
     function parse_status {
 	if [[ $? != 0 ]]; then
-	    echo "-=(error)=-"
+	    echo "$bldred(x)$clroff"
 	fi
     }
 
