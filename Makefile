@@ -37,6 +37,7 @@ REQUIRED_MODULES = \
 OPTIONAL_MODULES = \
 	desktop		\
 	google-chrome	\
+	haskell		\
 	octave		\
 	remote-desktop	\
 	smlnj
@@ -209,6 +210,18 @@ $(MODULE_DIR)/smlnj:
 		rm -rf config.tgz config/
 	$(touch-module)
 
+haskell: $(MODULE_DIR)/haskell | packages
+$(MODULE_DIR)/haskell: TARFILE := haskell-platform-2014.2.0.0-unknown-linux-x86_64.tar.gz
+$(MODULE_DIR)/haskell: TARPATH := $(realpath ./$(TARFILE))
+$(MODULE_DIR)/haskell:
+	wget https://www.haskell.org/platform/download/2014.2.0.0/$(TARFILE)
+	cd / && $(SUDO) tar xvf $(TARPATH)
+
+	$(SUDO) /usr/local/haskell/ghc-7.8.3-x86_64/bin/activate-hs
+
+	rm $(TARPATH)
+	$(touch-module)
+
 bash-completion: $(MODULE_DIR)/bash-completion | packages
 $(MODULE_DIR)/bash-completion:
 	$(SUDO) su -c "echo 'set completion-ignore-case on' >> /etc/inputrc"
@@ -221,8 +234,6 @@ $(MODULE_DIR)/remote-desktop:
 	$(SUDO) service xrdp restart
 	$(touch-module)
 
-###
-# Install the best editor in the world
 emacs: $(MODULE_DIR)/emacs | packages code
 $(MODULE_DIR)/emacs:
 	wget http://ftpmirror.gnu.org/emacs/$(EMACS).tar.xz
