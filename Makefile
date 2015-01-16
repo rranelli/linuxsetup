@@ -212,7 +212,7 @@ $(MODULE_DIR)/smlnj:
 
 haskell: $(MODULE_DIR)/haskell | packages
 $(MODULE_DIR)/haskell: TARFILE := haskell-platform-2014.2.0.0-unknown-linux-x86_64.tar.gz
-$(MODULE_DIR)/haskell: TARPATH := $(realpath ./$(TARFILE))
+$(MODULE_DIR)/haskell: TARPATH := $(CURDIR)/$(TARFILE)
 $(MODULE_DIR)/haskell:
 	wget https://www.haskell.org/platform/download/2014.2.0.0/$(TARFILE)
 	cd / && $(SUDO) tar xvf $(TARPATH)
