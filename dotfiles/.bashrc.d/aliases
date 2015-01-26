@@ -70,7 +70,7 @@ function __alias_commands {
 
 function __alias_servers {
     alias nibz="ssh _rranelli@nibbler0001.locaweb.com.br"
-    alias repz="curl http://repdoxinho.no-ip.info -I 2>1 | grep Location"
+    alias repz="curl http://repdoxinho.no-ip.info -I | grep Location"
 }
 
 function setup_aliases {
