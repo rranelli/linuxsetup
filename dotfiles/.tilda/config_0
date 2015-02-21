@@ -1,6 +1,6 @@
 tilda_config_version = "0.9.6"
 # image = ""
-# command = ""
+command = "tmux"
 font = "Droid Sans Mono 11"
 key = "Pause"
 title = "Tilda"
@@ -43,7 +43,7 @@ bold = true
 blinks = true
 scroll_on_key = true
 bell = false
-run_command = false
+run_command = true
 pinned = true
 animation = false
 hidden = false
