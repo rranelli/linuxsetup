@@ -30,6 +30,7 @@ REQUIRED_MODULES = \
 	code		\
 	dotfiles	\
 	emacs		\
+	langtool 	\
 	git		\
 	repositories	\
 	ruby
@@ -234,6 +235,7 @@ $(MODULE_DIR)/remote-desktop:
 	$(SUDO) service xrdp restart
 	$(touch-module)
 
+editor: emacs
 emacs: $(MODULE_DIR)/emacs | packages code
 $(MODULE_DIR)/emacs:
 	wget http://ftpmirror.gnu.org/emacs/$(EMACS).tar.xz
@@ -250,7 +252,15 @@ $(MODULE_DIR)/emacs:
 	$(CODE_DIR)/emacs-dotfiles/setup_dotfiles
 	$(touch-module)
 
-editor: emacs
+langtool: $(MODULE_DIR)/langtool | packages
+$(MODULE_DIR)/langtool: LANGTOOL=LanguageTool-2.8
+$(MODULE_DIR)/langtool: LANGTOOL_ZIP_URL=https://languagetool.org/download/$(LANGTOOL).zip
+$(MODULE_DIR)/langtool:
+	wget $(LANGTOOL_ZIP_URL)
+	unzip $(LANGTOOL)
+	mv $(LANGTOOL)/ $(HOME)/.langtool
+	rm $(LANGTOOL).zip
+	$(touch-module)
 
 ###
 # Install desktop stuff
