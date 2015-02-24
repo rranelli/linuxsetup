@@ -49,14 +49,15 @@ define add-repositories
 endef
 
 REPOSITORIES = \
-	ppa:brightbox/ruby-ng			\
-	ppa:cassou/emacs			\
-	ppa:chris-lea/node.js			\
-	ppa:git-core/ppa			\
-	ppa:lvillani/silversearcher		\
-	ppa:nviennot/tmate			\
-	ppa:paolorotolo/copy			\
-	ppa:webupd8team/java
+	ppa:brightbox/ruby-ng		\
+	ppa:cassou/emacs		\
+	ppa:chris-lea/node.js		\
+	ppa:git-core/ppa		\
+	ppa:lvillani/silversearcher	\
+	ppa:nviennot/tmate		\
+	ppa:paolorotolo/copy		\
+	ppa:webupd8team/java		\
+	ppa:pi-rho/dev
 
 define install-packages
 	$(SUDO) $(INSTALL_PACKAGE) $(PACKAGES)
