@@ -113,6 +113,7 @@ PACKAGES = \
 	tmate				\
 	tmux				\
 	w3m				\
+	wordnet				\
 	wget				\
 	wl				\
 	xdg-utils			\
