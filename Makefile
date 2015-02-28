@@ -174,7 +174,7 @@ $(MODULE_DIR)/dotfiles:
 
 git: $(MODULE_DIR)/git | packages
 $(MODULE_DIR)/git:
-	scripts/setup_git
+	$(CODE_DIR)/linuxsetup/scripts/setup_git
 	$(touch-module)
 
 ruby: $(MODULE_DIR)/ruby | packages
