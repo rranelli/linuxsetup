@@ -30,6 +30,7 @@ REQUIRED_MODULES = \
 	code		\
 	dotfiles	\
 	emacs		\
+	elixir		\
 	langtool 	\
 	git		\
 	repositories	\
@@ -211,6 +212,16 @@ $(MODULE_DIR)/smlnj:
 		tar -xvf config.tgz && \
 		config/install.sh && \
 		rm -rf config.tgz config/
+	$(touch-module)
+
+elixir: $(MODULE_DIR)/elixir | packages code
+$(MODULE_DIR)/elixir:
+	wget 'http://packages.erlang-solutions.com/site/esl/esl-erlang/FLAVOUR_1_esl/esl-erlang_17.4-2~ubuntu~precise_amd64.deb'
+	$(SUDO) dpkg -i esl-erlang_17.4-2~ubuntu~precise_amd64.deb
+
+	cd $(HOME)/code/elixir && make clean test
+
+	rm esl-erlang_17.4-2~ubuntu~precise_amd64.deb
 	$(touch-module)
 
 haskell: $(MODULE_DIR)/haskell | packages
