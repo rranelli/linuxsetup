@@ -11,14 +11,14 @@ DAEMONOPTS=""
 
 NAME=deluge-web
 DESC="deluge web user interface"
-PIDFILE=/var/run/$NAME.pid
+PIDFILE=/tmp/$NAME.pid
 SCRIPTNAME=/etc/init.d/$NAME
 
 case "$1" in
     start)
 	printf "%-50s" "Starting $NAME..."
 	cd $DAEMON_PATH
-	PID=`$DAEMON $DAEMONOPTS > /dev/null 2>&1 & echo $!`
+	PID=`sudo -u renan $DAEMON $DAEMONOPTS > /dev/null 2>&1 & echo $!`
 	#echo "Saving PID" $PID " to " $PIDFILE
         if [ -z $PID ]; then
             printf "%s\n" "Fail"

@@ -142,8 +142,8 @@ $(MODULE_DIR)/add-repo-package:
 
 ###
 # Add external repositories for packages
-repositories: $(MODULE_DIR)/repositories | add-repo-package mongodb-repo spotify-repo
-$(MODULE_DIR)/repositories:
+repositories: $(MODULE_DIR)/repositories
+$(MODULE_DIR)/repositories: | add-repo-package mongodb-repo spotify-repo
 	$(add-repositories)
 	$(touch-module)
 
@@ -161,25 +161,25 @@ $(MODULE_DIR)/spotify-repo:
 
 ###
 # Install packages
-packages: $(MODULE_DIR)/packages | repositories
+packages: $(MODULE_DIR)/packages repositories
 $(MODULE_DIR)/packages:
 	$(install-packages)
 	$(touch-module)
 
 ###
 # Install programming stuff
-dotfiles: $(MODULE_DIR)/dotfiles | code
-$(MODULE_DIR)/dotfiles:
+dotfiles: $(MODULE_DIR)/dotfiles
+$(MODULE_DIR)/dotfiles: | code
 	$(CODE_DIR)/linuxsetup/scripts/setup_dotfiles
 	$(touch-module)
 
-git: $(MODULE_DIR)/git | packages
-$(MODULE_DIR)/git:
+git: $(MODULE_DIR)/git
+$(MODULE_DIR)/git: | packages
 	$(CODE_DIR)/linuxsetup/scripts/setup_git
 	$(touch-module)
 
-ruby: $(MODULE_DIR)/ruby | packages
-$(MODULE_DIR)/ruby:
+ruby: $(MODULE_DIR)/ruby
+$(MODULE_DIR)/ruby: | packages
 	git clone https://github.com/sstephenson/rbenv.git $(HOME)/.rbenv --depth=1
 	git clone https://github.com/sstephenson/ruby-build.git $(HOME)/.rbenv/plugins/ruby-build --depth=1
 
@@ -189,22 +189,22 @@ $(MODULE_DIR)/ruby:
 
 	$(touch-module)
 
-code: $(MODULE_DIR)/code | packages git ruby
-$(MODULE_DIR)/code:
+code: $(MODULE_DIR)/code git
+$(MODULE_DIR)/code: | packages ruby
 	$(SUDO) gem install git_multicast
 	$(MKDIR) $(CODE_DIR)
 	cd $(CODE_DIR) && git_multicast clone rranelli
 	$(touch-module)
 
-clojure: $(MODULE_DIR)/clojure | packages
-$(MODULE_DIR)/clojure:
+clojure: $(MODULE_DIR)/clojure
+$(MODULE_DIR)/clojure: | packages
 	$(MKDIR) $(HOME)/.lein
 	wget https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
 	mv -f lein ~/.lein/; chmod 755 ~/.lein/lein
 	$(touch-module)
 
-smlnj: $(MODULE_DIR)/smlnj | packages
-$(MODULE_DIR)/smlnj:
+smlnj: $(MODULE_DIR)/smlnj
+$(MODULE_DIR)/smlnj: | packages
 	wget 'http://smlnj.org/dist/working/110.74/config.tgz'
 	$(MKDIR) $(HOME)/.sml
 	mv config.tgz $(HOME)/.sml
@@ -214,20 +214,20 @@ $(MODULE_DIR)/smlnj:
 		rm -rf config.tgz config/
 	$(touch-module)
 
-elixir: $(MODULE_DIR)/elixir | packages code
-$(MODULE_DIR)/elixir:
+elixir: $(MODULE_DIR)/elixir
+$(MODULE_DIR)/elixir: | code
 	wget 'http://packages.erlang-solutions.com/site/esl/esl-erlang/FLAVOUR_1_esl/esl-erlang_17.4-2~ubuntu~precise_amd64.deb'
 	$(SUDO) dpkg -i esl-erlang_17.4-2~ubuntu~precise_amd64.deb
 
 	cd $(HOME)/code/elixir && make clean test
 
-	rm esl-erlang_17.4-2~ubuntu~precise_amd64.deb
+	rm esl-erlang_17.4-2~ubuntu~precise_amd64*
 	$(touch-module)
 
-haskell: $(MODULE_DIR)/haskell | packages
+haskell: $(MODULE_DIR)/haskell
 $(MODULE_DIR)/haskell: TARFILE := haskell-platform-2014.2.0.0-unknown-linux-x86_64.tar.gz
 $(MODULE_DIR)/haskell: TARPATH := $(CURDIR)/$(TARFILE)
-$(MODULE_DIR)/haskell:
+$(MODULE_DIR)/haskell: | packages
 	wget https://www.haskell.org/platform/download/2014.2.0.0/$(TARFILE)
 	cd / && $(SUDO) tar xvf $(TARPATH)
 
@@ -236,21 +236,30 @@ $(MODULE_DIR)/haskell:
 	rm $(TARPATH)
 	$(touch-module)
 
-bash-completion: $(MODULE_DIR)/bash-completion | packages
-$(MODULE_DIR)/bash-completion:
+octave: $(MODULE_DIR)/octave
+$(MODULE_DIR)/octave: PACKAGES = octave
+$(MODULE_DIR)/octave: REPOSITORIES = ppa:octave/stable
+$(MODULE_DIR)/octave:
+	$(add-repositories)
+	$(install-packages)
+
+	$(touch-module)
+
+bash-completion: $(MODULE_DIR)/bash-completion
+$(MODULE_DIR)/bash-completion: | packages
 	$(SUDO) su -c "echo 'set completion-ignore-case on' >> /etc/inputrc"
 	$(SUDO) cp -f bash_completion.d/* /etc/bash_completion.d/
 	$(touch-module)
 
-remote-desktop: $(MODULE_DIR)/remote-desktop | packages
-$(MODULE_DIR)/remote-desktop:
+remote-desktop: $(MODULE_DIR)/remote-desktop
+$(MODULE_DIR)/remote-desktop: | packages
 	echo lxsession -s LXDE -e LXDE > ~/.xsession
 	$(SUDO) service xrdp restart
 	$(touch-module)
 
 editor: emacs
-emacs: $(MODULE_DIR)/emacs | packages code
-$(MODULE_DIR)/emacs:
+emacs: $(MODULE_DIR)/emacs
+$(MODULE_DIR)/emacs: | packages code
 	wget http://ftpmirror.gnu.org/emacs/$(EMACS).tar.xz
 	tar -xvf $(EMACS).tar.xz
 
@@ -277,7 +286,7 @@ $(MODULE_DIR)/langtool:
 
 ###
 # Install desktop stuff
-desktop: $(MODULE_DIR)/desktop | install google-chrome
+desktop: $(MODULE_DIR)/desktop
 $(MODULE_DIR)/desktop: PACKAGES = \
 		elementary-.*-icons		\
 		elementary-.*-theme		\
@@ -294,7 +303,7 @@ $(MODULE_DIR)/desktop: PACKAGES = \
 $(MODULE_DIR)/desktop: REPOSITORIES = \
 		ppa:versable/elementary-update \
 		ppa:heathbar/wingpanel-slim
-$(MODULE_DIR)/desktop:
+$(MODULE_DIR)/desktop: | install google-chrome
 	cd $(CODE_DIR)/emacs-dotfiles && $(SUDO) ./setup_shortcut
 
 	$(add-repositories)
@@ -307,13 +316,4 @@ $(MODULE_DIR)/google-chrome:
 	wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 	$(SUDO) dpkg -i google-chrome*
 	rm google-chrome*
-	$(touch-module)
-
-octave: $(MODULE_DIR)/octave
-$(MODULE_DIR)/octave: PACKAGES = octave
-$(MODULE_DIR)/octave: REPOSITORIES = ppa:octave/stable
-$(MODULE_DIR)/octave:
-	$(add-repositories)
-	$(install-packages)
-
 	$(touch-module)
