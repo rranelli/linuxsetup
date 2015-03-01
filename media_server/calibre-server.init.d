@@ -1,9 +1,14 @@
 #!/usr/bin/env bash
-# calibre-server
-# chkconfig: 345 20 80
-# description: calibre book server
-# Web interface for serving calibre content
-# processname: calibre-server
+### BEGIN INIT INFO
+# Provides:          calibre-server
+# Required-Start:    $network $local_fs $syslog
+# Required-Stop:     $local_fs
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Calibre server with books
+# Description:
+#
+### END INIT INFO
 
 DAEMON_PATH="/usr/bin/"
 DAEMON=calibre-server
@@ -11,7 +16,7 @@ DAEMONOPTS="--with-library '/home/renan/Copy/Biblioteca Técnica/Computing/' -p 
 
 NAME=calibre-server
 DESC="Web interface for serving calibre content"
-PIDFILE=/var/run/$NAME.pid
+PIDFILE=/tmp/$NAME.pid
 SCRIPTNAME=/etc/init.d/$NAME
 
 case "$1" in
@@ -19,7 +24,7 @@ case "$1" in
 	printf "%-50s" "Starting $NAME..."
 	cd $DAEMON_PATH
 	echo "$DAEMON $DAEMONOPTS"
-	PID=`calibre-server --with-library '/home/renan/Copy/Biblioteca Técnica/Computing/' -p 4366 > /dev/null 2>&1 & echo $!`
+	PID=`sudo -u renan calibre-server --with-library '/home/renan/Copy/Biblioteca Técnica/Computing/' -p 4366 > /dev/null 2>&1 & echo $!`
 	#echo "Saving PID" $PID " to " $PIDFILE
         if [ -z $PID ]; then
             printf "%s\n" "Fail"
