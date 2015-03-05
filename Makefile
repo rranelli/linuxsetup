@@ -42,6 +42,7 @@ OPTIONAL_MODULES = \
 	haskell		\
 	octave		\
 	remote-desktop	\
+	vagrant		\
 	smlnj
 
 define add-repositories
@@ -83,6 +84,7 @@ PACKAGES = \
 	libcurl4-openssl-dev		\
 	libgmime-2.6-dev		\
 	libnspr4-0d			\
+	libqt4-opengl			\
 	libreadline6			\
 	libreadline6-dev		\
 	libsqlite3-dev			\
@@ -114,9 +116,9 @@ PACKAGES = \
 	tmate				\
 	tmux				\
 	w3m				\
-	wordnet				\
 	wget				\
 	wl				\
+	wordnet				\
 	xdg-utils			\
 	xrdp
 
@@ -316,4 +318,18 @@ $(MODULE_DIR)/google-chrome:
 	wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 	$(SUDO) dpkg -i google-chrome*
 	rm google-chrome*
+	$(touch-module)
+
+vagrant: $(MODULE_DIR)/vagrant
+$(MODULE_DIR)/vagrant: | virtualbox
+	wget https://dl.bintray.com/mitchellh/vagrant/vagrant_1.7.2_x86_64.deb
+	$(SUDO) dpkg -i vagrant_1.7.2_x86_64.deb
+	rm vagrant_*.deb
+	$(touch-module)
+
+virtualbox: $(MODULE_DIR)/virtualbox
+$(MODULE_DIR)/virtualbox:
+	wget http://download.virtualbox.org/virtualbox/4.3.24/virtualbox-4.3_4.3.24-98716~Ubuntu~precise_amd64.deb
+	$(SUDO) dpkg -i virtualbox-4.3_4.3.24-98716~Ubuntu~precise_amd64.deb
+	rm virtualbox-*.deb
 	$(touch-module)
