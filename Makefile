@@ -38,6 +38,7 @@ REQUIRED_MODULES = \
 
 OPTIONAL_MODULES = \
 	desktop		\
+	docker		\
 	google-chrome	\
 	haskell		\
 	octave		\
@@ -320,8 +321,15 @@ $(MODULE_DIR)/google-chrome:
 	rm google-chrome*
 	$(touch-module)
 
+docker: $(MODULE_DIR)/docker
+$(MODULE_DIR)/docker: | packages
+	$(SUDO) apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys
+	$(SUDO) sh -c "echo deb https://get.docker.com/ubuntu docker main > /etc/apt/sources.list.d/docker.list"
+	$(SUDO) apt-get update -qq
+	$(SUDO) apt-get install --yes --force-yes lxc-docker
+
 vagrant: $(MODULE_DIR)/vagrant
-$(MODULE_DIR)/vagrant: | virtualbox
+$(MODULE_DIR)/vagrant: | packages virtualbox
 	wget https://dl.bintray.com/mitchellh/vagrant/vagrant_1.7.2_x86_64.deb
 	$(SUDO) dpkg -i vagrant_1.7.2_x86_64.deb
 	rm vagrant_*.deb
