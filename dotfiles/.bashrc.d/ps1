@@ -139,4 +139,9 @@ function setup_ps1 {
 	# this had to be added in order for emacs' TRAMP to work seamlessly
     	PS1+="> "
     fi
+
+    if [[ "$TERM" == "eterm-color" ]]; then
+	# this had to be added in order for emacs' TRAMP to work seamlessly
+    	PS1="> "
+    fi
 }
