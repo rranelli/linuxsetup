@@ -142,6 +142,6 @@ function setup_ps1 {
 
     if [[ "$TERM" == "eterm-color" ]]; then
 	# this had to be added in order for emacs' TRAMP to work seamlessly
-    	PS1="> "
+    	PS1="\u@\W > "
     fi
 }
