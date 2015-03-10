@@ -328,6 +328,13 @@ $(MODULE_DIR)/docker: | packages
 	$(SUDO) apt-get update -qq
 	$(SUDO) apt-get install --yes --force-yes lxc-docker
 
+	# adding current user to docker group
+	$(SUDO) gpasswd -a ${USER} docker
+
+	$(SUDO) service docker restart
+	newgrp docker
+	$(touch-module)
+
 vagrant: $(MODULE_DIR)/vagrant
 $(MODULE_DIR)/vagrant: | packages virtualbox
 	wget https://dl.bintray.com/mitchellh/vagrant/vagrant_1.7.2_x86_64.deb
