@@ -329,7 +329,7 @@ $(MODULE_DIR)/docker: | packages
 	$(SUDO) apt-get install --yes --force-yes lxc-docker
 
 	# adding current user to docker group
-	$(SUDO) gpasswd -a ${USER} docker
+	$(SUDO) usermod -a -G docker $(USER)
 
 	$(SUDO) service docker restart
 	newgrp docker
