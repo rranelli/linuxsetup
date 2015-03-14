@@ -218,13 +218,15 @@ $(MODULE_DIR)/smlnj: | packages
 	$(touch-module)
 
 elixir: $(MODULE_DIR)/elixir
+$(MODULE_DIR)/elixir: DEBFILE := esl-erlang_17.0-1~ubuntu~precise_amd64.deb
+$(MODULE_DIR)/elixir: ERL_URL := http://packages.erlang-solutions.com/site/esl/esl-erlang/FLAVOUR_3_general/$(DEBFILE)
 $(MODULE_DIR)/elixir: | code
-	wget 'http://packages.erlang-solutions.com/site/esl/esl-erlang/FLAVOUR_1_esl/esl-erlang_17.4-2~ubuntu~precise_amd64.deb'
-	$(SUDO) dpkg -i esl-erlang_17.4-2~ubuntu~precise_amd64.deb
+	wget $(ERL_URL)
+	$(SUDO) dpkg -i $(DEBFILE)
 
 	cd $(HOME)/code/elixir && make clean test
 
-	rm esl-erlang_17.4-2~ubuntu~precise_amd64*
+	rm $(DEBFILE)
 	$(touch-module)
 
 haskell: $(MODULE_DIR)/haskell
