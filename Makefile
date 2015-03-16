@@ -332,7 +332,6 @@ $(MODULE_DIR)/docker: | packages
 	$(SUDO) usermod -a -G docker $(USER)
 
 	$(SUDO) service docker restart
-	newgrp docker
 	$(touch-module)
 
 vagrant: $(MODULE_DIR)/vagrant
