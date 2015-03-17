@@ -218,8 +218,8 @@ $(MODULE_DIR)/smlnj: | packages
 	$(touch-module)
 
 elixir: $(MODULE_DIR)/elixir
-$(MODULE_DIR)/elixir: DEBFILE := esl-erlang_17.0-1~ubuntu~precise_amd64.deb
-$(MODULE_DIR)/elixir: ERL_URL := http://packages.erlang-solutions.com/site/esl/esl-erlang/FLAVOUR_3_general/$(DEBFILE)
+$(MODULE_DIR)/elixir: DEBFILE := esl-erlang_17.4-2~ubuntu~precise_amd64.deb
+$(MODULE_DIR)/elixir: ERL_URL := http://packages.erlang-solutions.com/site/esl/esl-erlang/FLAVOUR_1_esl/$(DEBFILE)
 $(MODULE_DIR)/elixir: | code
 	wget $(ERL_URL)
 	$(SUDO) dpkg -i $(DEBFILE)
