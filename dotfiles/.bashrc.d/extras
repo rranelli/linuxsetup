@@ -8,4 +8,8 @@ function setup_extras {
     if [[ -d $COOL_PATH ]]; then
 	PATH=$PATH:$COOL_PATH
     fi
+
+    function __poor_mans_vpn {
+        ssh -R 2222:localhost:22 renan@`repz` -p 5022 -N -f
+    }
 }
