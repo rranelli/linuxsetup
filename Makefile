@@ -29,22 +29,23 @@ REQUIRED_MODULES = \
 	clojure		\
 	code		\
 	dotfiles	\
-	emacs		\
 	elixir		\
-	langtool 	\
+	emacs		\
 	git		\
+	langtool 	\
 	repositories	\
 	ruby
 
 OPTIONAL_MODULES = \
+	cask 		\
 	desktop		\
 	docker		\
 	google-chrome	\
 	haskell		\
 	octave		\
 	remote-desktop	\
-	vagrant		\
-	smlnj
+	smlnj		\
+	vagrant
 
 define add-repositories
 	echo $(REPOSITORIES) | xargs -n 1 $(SUDO) $(ADD_REPO)
@@ -277,6 +278,11 @@ $(MODULE_DIR)/emacs: | packages code
 	rm -rf $(EMACS)*
 
 	$(CODE_DIR)/emacs-dotfiles/setup_dotfiles
+	$(touch-module)
+
+cask: $(MODULE_DIR)/cask
+$(MODULE_DIR)/cask: | packages
+	curl -fsSL https://raw.githubusercontent.com/cask/cask/master/go | python
 	$(touch-module)
 
 langtool: $(MODULE_DIR)/langtool | packages

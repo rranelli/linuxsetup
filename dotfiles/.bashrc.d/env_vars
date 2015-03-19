@@ -2,6 +2,7 @@
 function setup_env_vars {
     export PATH="$PATH:$HOME/.lein"
     export PATH="$PATH:$HOME/code/elixir/bin"
+    export PATH="$PATH:$HOME/.cask/bin"
 
     export EDITOR="emacsclient -a '' -t"
 }
