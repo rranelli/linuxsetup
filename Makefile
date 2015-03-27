@@ -98,6 +98,7 @@ PACKAGES = \
 	markdown			\
 	maven				\
 	mongodb-org			\
+	network-manager-openvpn		\
 	nodejs				\
 	openssh-server			\
 	oracle-java8-installer		\
