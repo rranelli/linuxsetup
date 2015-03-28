@@ -17,7 +17,6 @@ function __alias_projects {
 
     alias 8pl=__open_locaweb_project
     alias 8pc=__open_code_project
-
 }
 
 function __alias_bundle_exec {
