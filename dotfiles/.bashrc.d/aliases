@@ -65,6 +65,7 @@ function __alias_commands {
 
 function __alias_servers {
     alias nibz="ssh _rranelli@nibbler0001.locaweb.com.br"
+    alias nibz2="ssh _rranelli@nibbler0002.locaweb.com.br"
     alias repz="curl http://repdoxinho.no-ip.info -sI | egrep -o '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'"
     alias vps="ssh renan@\$(repz) -p 5022"
     alias cloudz="ssh renan@cpro26266.publiccloud.com.br"
