@@ -1,7 +1,7 @@
 tilda_config_version = "0.9.6"
 # image = ""
 command = "tmux"
-font = "Droid Sans Mono 11"
+font = "Droid Sans Mono 13"
 key = "Pause"
 title = "Tilda"
 background_color = "white"
