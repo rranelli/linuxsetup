@@ -125,8 +125,6 @@ PACKAGES = \
 	xdg-utils			\
 	xrdp
 
-.PHONY: install clean
-
 ###
 # It all begins here
 install: $(REQUIRED_MODULES)
