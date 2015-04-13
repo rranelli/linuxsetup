@@ -109,7 +109,6 @@ PACKAGES = \
 	ruby2.1-dev			\
 	samba				\
 	silversearcher-ag		\
-	spotify-client			\
 	ssh				\
 	surfraw				\
 	telnet				\
@@ -145,7 +144,7 @@ $(MODULE_DIR)/add-repo-package:
 ###
 # Add external repositories for packages
 repositories: $(MODULE_DIR)/repositories
-$(MODULE_DIR)/repositories: | add-repo-package mongodb-repo spotify-repo
+$(MODULE_DIR)/repositories: | add-repo-package mongodb-repo
 	$(add-repositories)
 	$(touch-module)
 
@@ -308,12 +307,13 @@ $(MODULE_DIR)/desktop: PACKAGES = \
 		elementary-wallpaper-collection	\
 		firefox				\
 		indicator-synapse		\
+		spotify-client			\
 		super-wingpanel			\
 		wingpanel-slim
 $(MODULE_DIR)/desktop: REPOSITORIES = \
 		ppa:versable/elementary-update \
 		ppa:heathbar/wingpanel-slim
-$(MODULE_DIR)/desktop: | install google-chrome
+$(MODULE_DIR)/desktop: | install google-chrome spotify-repo
 	cd $(CODE_DIR)/emacs-dotfiles && $(SUDO) ./setup_shortcut
 
 	$(add-repositories)
