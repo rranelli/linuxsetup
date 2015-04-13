@@ -74,7 +74,6 @@ PACKAGES = \
 	copy 				\
 	curl				\
 	dnsutils			\
-	firefox				\
 	ftp				\
 	g++-multilib			\
 	gcc-multilib			\
@@ -298,18 +297,19 @@ $(MODULE_DIR)/langtool:
 # Install desktop stuff
 desktop: $(MODULE_DIR)/desktop
 $(MODULE_DIR)/desktop: PACKAGES = \
+		calibre				\
+		dconf-tools			\
+		deluge				\
+		deluge-console			\
+		deluged				\
 		elementary-.*-icons		\
 		elementary-.*-theme		\
 		elementary-tweaks		\
 		elementary-wallpaper-collection	\
-		dconf-tools			\
+		firefox				\
 		indicator-synapse		\
 		super-wingpanel			\
-		wingpanel-slim			\
-		deluge				\
-		deluge-console			\
-		deluged				\
-		calibre
+		wingpanel-slim
 $(MODULE_DIR)/desktop: REPOSITORIES = \
 		ppa:versable/elementary-update \
 		ppa:heathbar/wingpanel-slim
