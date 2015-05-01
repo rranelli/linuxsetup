@@ -124,9 +124,7 @@ PACKAGES = \
 ###
 # It all begins here
 install: $(REQUIRED_MODULES)
-
 optional: $(OPTIONAL_MODULES)
-
 all: install optional
 
 clean:
@@ -253,7 +251,7 @@ $(MODULE_DIR)/emacs: | packages code
 
 	$(SUDO) apt-get build-dep emacs24 -y
 
-	cd $(EMACS) && ./configure
+	cd $(EMACS) && ./configure --with-x-toolkit=lucid
 	make -C $(EMACS)/
 	$(SUDO) make -C $(EMACS)/ install
 
