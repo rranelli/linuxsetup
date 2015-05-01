@@ -283,18 +283,16 @@ $(MODULE_DIR)/desktop: PACKAGES = \
 		deluge				\
 		deluge-console			\
 		deluged				\
-		elementary-.*-icons		\
 		elementary-.*-theme		\
 		elementary-tweaks		\
-		elementary-wallpaper-collection	\
+		elementary-wallpapers-extra	\
 		firefox				\
 		indicator-synapse		\
-		spotify-client			\
-		super-wingpanel			\
-		wingpanel-slim
+		spotify-client
 $(MODULE_DIR)/desktop: REPOSITORIES = \
-		ppa:versable/elementary-update \
-		ppa:heathbar/wingpanel-slim
+		ppa:mpstark/elementary-tweaks-daily 	\
+		ppa:heathbar/super-wingpanel		\
+		ppa:elementary-os/unstable-upstream
 $(MODULE_DIR)/desktop: | install google-chrome spotify-repo
 	cd $(CODE_DIR)/emacs-dotfiles && $(SUDO) ./setup_shortcut
 
@@ -309,6 +307,10 @@ $(MODULE_DIR)/google-chrome:
 	$(SUDO) dpkg -i google-chrome*
 	rm google-chrome*
 	$(touch-module)
+
+keysnail:
+	wget https://github.com/mooz/keysnail/raw/master/keysnail.xpi
+	firefox keysnail.xpi
 
 docker: $(MODULE_DIR)/docker
 $(MODULE_DIR)/docker: | packages
