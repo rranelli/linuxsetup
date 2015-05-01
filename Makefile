@@ -112,7 +112,6 @@ PACKAGES = \
 	surfraw				\
 	telnet				\
 	texlive				\
-	tilda				\
 	tmate				\
 	tmux				\
 	w3m				\
