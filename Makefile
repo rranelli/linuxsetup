@@ -43,7 +43,6 @@ OPTIONAL_MODULES = \
 	google-chrome	\
 	haskell		\
 	octave		\
-	remote-desktop	\
 	smlnj		\
 	vagrant
 
@@ -57,7 +56,6 @@ REPOSITORIES = \
 	ppa:cassou/emacs		\
 	ppa:chris-lea/node.js		\
 	ppa:git-core/ppa		\
-	ppa:lvillani/silversearcher	\
 	ppa:nviennot/tmate		\
 	ppa:paolorotolo/copy		\
 	ppa:webupd8team/java		\
@@ -92,6 +90,7 @@ PACKAGES = \
 	libssl-dev			\
 	libwebkit-dev			\
 	libxapian-dev			\
+	esl-erlang			\
 	libxss1				\
 	lxde				\
 	markdown			\
@@ -120,8 +119,7 @@ PACKAGES = \
 	wget				\
 	wl				\
 	wordnet				\
-	xdg-utils			\
-	xrdp
+	xdg-utils
 
 ###
 # It all begins here
@@ -162,7 +160,7 @@ $(MODULE_DIR)/spotify-repo:
 
 ###
 # Install packages
-packages: $(MODULE_DIR)/packages repositories
+packages: repositories $(MODULE_DIR)/packages
 $(MODULE_DIR)/packages:
 	$(install-packages)
 	$(touch-module)
@@ -170,8 +168,8 @@ $(MODULE_DIR)/packages:
 ###
 # Install programming stuff
 dotfiles: $(MODULE_DIR)/dotfiles
-$(MODULE_DIR)/dotfiles: | code
-	$(CODE_DIR)/linuxsetup/scripts/setup_dotfiles
+$(MODULE_DIR)/dotfiles:
+	$(CURDIR)/scripts/setup_dotfiles
 	$(touch-module)
 
 git: $(MODULE_DIR)/git
@@ -191,8 +189,8 @@ $(MODULE_DIR)/ruby: | packages
 	$(touch-module)
 
 code: $(MODULE_DIR)/code git
-$(MODULE_DIR)/code: | packages ruby
-	$(SUDO) gem install git_multicast
+$(MODULE_DIR)/code: | packages ruby dotfiles
+	gem install git_multicast
 	$(MKDIR) $(CODE_DIR)
 	cd $(CODE_DIR) && git_multicast clone rranelli
 	$(touch-module)
@@ -216,15 +214,8 @@ $(MODULE_DIR)/smlnj: | packages
 	$(touch-module)
 
 elixir: $(MODULE_DIR)/elixir
-$(MODULE_DIR)/elixir: DEBFILE := esl-erlang_17.4-2~ubuntu~precise_amd64.deb
-$(MODULE_DIR)/elixir: ERL_URL := http://packages.erlang-solutions.com/site/esl/esl-erlang/FLAVOUR_1_esl/$(DEBFILE)
 $(MODULE_DIR)/elixir: | code
-	wget $(ERL_URL)
-	$(SUDO) dpkg -i $(DEBFILE)
-
 	cd $(HOME)/code/elixir && make clean test
-
-	rm $(DEBFILE)
 	$(touch-module)
 
 haskell: $(MODULE_DIR)/haskell
@@ -252,12 +243,6 @@ bash-completion: $(MODULE_DIR)/bash-completion
 $(MODULE_DIR)/bash-completion: | packages
 	$(SUDO) su -c "echo 'set completion-ignore-case on' >> /etc/inputrc"
 	$(SUDO) cp -f bash_completion.d/* /etc/bash_completion.d/
-	$(touch-module)
-
-remote-desktop: $(MODULE_DIR)/remote-desktop
-$(MODULE_DIR)/remote-desktop: | packages
-	echo lxsession -s LXDE -e LXDE > ~/.xsession
-	$(SUDO) service xrdp restart
 	$(touch-module)
 
 editor: emacs
