@@ -72,6 +72,7 @@ PACKAGES = \
 	copy 				\
 	curl				\
 	dnsutils			\
+	esl-erlang			\
 	ftp				\
 	g++-multilib			\
 	gcc-multilib			\
@@ -90,7 +91,6 @@ PACKAGES = \
 	libssl-dev			\
 	libwebkit-dev			\
 	libxapian-dev			\
-	esl-erlang			\
 	libxss1				\
 	lxde				\
 	markdown			\
@@ -287,6 +287,7 @@ $(MODULE_DIR)/desktop: PACKAGES = \
 		elementary-tweaks		\
 		elementary-wallpapers-extra	\
 		firefox				\
+		flashplugin-installer		\
 		indicator-synapse		\
 		spotify-client
 $(MODULE_DIR)/desktop: REPOSITORIES = \
