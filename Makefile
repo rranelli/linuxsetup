@@ -286,6 +286,7 @@ $(MODULE_DIR)/desktop: PACKAGES = \
 		elementary-.*-theme		\
 		elementary-tweaks		\
 		elementary-wallpapers-extra	\
+		empathy				\
 		firefox				\
 		flashplugin-installer		\
 		indicator-synapse		\
