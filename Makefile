@@ -56,7 +56,6 @@ REPOSITORIES = \
 	ppa:cassou/emacs		\
 	ppa:chris-lea/node.js		\
 	ppa:git-core/ppa		\
-	ppa:nviennot/tmate		\
 	ppa:paolorotolo/copy		\
 	ppa:webupd8team/java		\
 	ppa:pi-rho/dev
@@ -79,7 +78,6 @@ PACKAGES = \
 	git				\
 	guile-2.0-dev			\
 	html2text			\
-	icedtea-7-plugin		\
 	libcurl3			\
 	libcurl4-openssl-dev		\
 	libgmime-2.6-dev		\
@@ -101,9 +99,7 @@ PACKAGES = \
 	openssh-server			\
 	oracle-java8-installer		\
 	python-software-properties	\
-	rdesktop			\
 	redis-server 			\
-	remmina				\
 	ruby2.1				\
 	ruby2.1-dev			\
 	samba				\
@@ -112,7 +108,6 @@ PACKAGES = \
 	surfraw				\
 	telnet				\
 	texlive				\
-	tmate				\
 	tmux				\
 	w3m				\
 	wget				\
@@ -289,7 +284,9 @@ $(MODULE_DIR)/desktop: PACKAGES = \
 		empathy				\
 		firefox				\
 		flashplugin-installer		\
+		icedtea-7-plugin		\
 		indicator-synapse		\
+		remmina				\
 		spotify-client
 $(MODULE_DIR)/desktop: REPOSITORIES = \
 		ppa:mpstark/elementary-tweaks-daily 	\
