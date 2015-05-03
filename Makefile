@@ -205,6 +205,18 @@ $(MODULE_DIR)/smlnj: | packages
 		rm -rf config.tgz config/
 	$(touch-module)
 
+scala: $(MODULE_DIR)/scala
+$(MODULE_DIR)/scala: PACKAGES = sbt
+$(MODULE_DIR)/scala: | packages
+	echo "deb http://dl.bintray.com/sbt/debian /" | $(SUDO) tee -a /etc/apt/sources.list.d/sbt.list
+	$(UPDATE_REPO_CACHE)
+	$(install-packages)
+
+	$(MKDIR) $(HOME)/.sbt/0.13/plugins
+	echo 'addSbtPlugin ("org.ensime" % "ensime-sbt" % "0.1.6")' > $(HOME)/.sbt/0.13/plugins/plugins.sbt
+
+	$(touch-module)
+
 elixir: $(MODULE_DIR)/elixir
 $(MODULE_DIR)/elixir: | code
 	cd $(HOME)/code/elixir && make clean test
