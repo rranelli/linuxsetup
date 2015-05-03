@@ -6,13 +6,13 @@ TOUCH			:= touch
 
 CODE_DIR		:= $(HOME)/code
 MODULE_DIR		:= $(HOME)/.modules
-INSTALL_PACKAGE_FLAGS	:= -y
+INSTALL_PACKAGE_FLAGS	:= --yes --force-yes
 INSTALL_PACKAGE		:= apt-get install $(INSTALL_PACKAGE_FLAGS)
 
-ADD_REPO_FLAGS		:= -y
-ADD_REPO		:= apt-add-repository $(ADD_REPO_FLAGS)
+ADD_REPO_FLAGS		:= --yes
+ADD_REPO		:= $(SUDO) apt-add-repository $(ADD_REPO_FLAGS)
 ADD_REPO_PACKAGE	:= python-software-properties
-UPDATE_REPO_CACHE	:= apt-get update -qq
+UPDATE_REPO_CACHE	:= $(SUDO) apt-get update -qq
 
 RUBY_VERSION		:= 2.1.5
 EMACS_VERSION		:= 24.4
@@ -47,8 +47,8 @@ OPTIONAL_MODULES = \
 	vagrant
 
 define add-repositories
-	echo $(REPOSITORIES) | xargs -n 1 $(SUDO) $(ADD_REPO)
-	$(SUDO) $(UPDATE_REPO_CACHE)
+	echo $(REPOSITORIES) | xargs -n 1 $(ADD_REPO)
+	$(UPDATE_REPO_CACHE)
 endef
 
 REPOSITORIES = \
@@ -305,6 +305,7 @@ $(MODULE_DIR)/google-chrome:
 	wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 	$(SUDO) dpkg -i google-chrome*
 	rm google-chrome*
+
 	$(touch-module)
 
 keysnail:
@@ -312,16 +313,16 @@ keysnail:
 	firefox keysnail.xpi
 
 docker: $(MODULE_DIR)/docker
+$(MODULE_DIR)/docker: PACKAGES = lxc-docker
 $(MODULE_DIR)/docker: | packages
 	$(SUDO) apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys
 	$(SUDO) sh -c "echo deb https://get.docker.com/ubuntu docker main > /etc/apt/sources.list.d/docker.list"
-	$(SUDO) apt-get update -qq
-	$(SUDO) apt-get install --yes --force-yes lxc-docker
+	$(UPDATE_REPO_CACHE)
+	$(install-packages)
 
-	# adding current user to docker group
-	$(SUDO) usermod -a -G docker $(USER)
-
+	$(SUDO) usermod -a -G docker $(USER) # adding current user to docker group
 	$(SUDO) service docker restart
+
 	$(touch-module)
 
 vagrant: $(MODULE_DIR)/vagrant
@@ -329,6 +330,7 @@ $(MODULE_DIR)/vagrant: | packages virtualbox
 	wget https://dl.bintray.com/mitchellh/vagrant/vagrant_1.7.2_x86_64.deb
 	$(SUDO) dpkg -i vagrant_1.7.2_x86_64.deb
 	rm vagrant_*.deb
+
 	$(touch-module)
 
 virtualbox: $(MODULE_DIR)/virtualbox
@@ -336,4 +338,5 @@ $(MODULE_DIR)/virtualbox:
 	wget http://download.virtualbox.org/virtualbox/4.3.24/virtualbox-4.3_4.3.24-98716~Ubuntu~precise_amd64.deb
 	$(SUDO) dpkg -i virtualbox-4.3_4.3.24-98716~Ubuntu~precise_amd64.deb
 	rm virtualbox-*.deb
+
 	$(touch-module)
