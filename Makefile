@@ -299,11 +299,13 @@ $(MODULE_DIR)/desktop: PACKAGES = \
 		icedtea-7-plugin		\
 		indicator-synapse		\
 		remmina				\
-		spotify-client
+		spotify-client			\
+		telegram
 $(MODULE_DIR)/desktop: REPOSITORIES = \
-		ppa:mpstark/elementary-tweaks-daily 	\
+		ppa:atareao/telegram			\
+		ppa:elementary-os/unstable-upstream	\
 		ppa:heathbar/super-wingpanel		\
-		ppa:elementary-os/unstable-upstream
+		ppa:mpstark/elementary-tweaks-daily
 $(MODULE_DIR)/desktop: | install google-chrome spotify-repo
 	cd $(CODE_DIR)/emacs-dotfiles && $(SUDO) ./setup_shortcut
 
