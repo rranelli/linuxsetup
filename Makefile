@@ -96,6 +96,7 @@ PACKAGES = \
 	mongodb-org			\
 	network-manager-openvpn		\
 	nodejs				\
+	openjdk-7-jdk			\
 	openssh-server			\
 	oracle-java8-installer		\
 	python-software-properties	\
