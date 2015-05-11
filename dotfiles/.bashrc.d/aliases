@@ -64,12 +64,18 @@ function __alias_commands {
 }
 
 function __alias_servers {
-    alias nibz="ssh _rranelli@nibbler0001.locaweb.com.br"
-    alias nibz2="ssh _rranelli@nibbler0002.locaweb.com.br"
+    alias nibz="__ensure_private_key_is_added && ssh _rranelli@nibbler0001.locaweb.com.br"
+    alias nibz2="__ensure_private_key_is_added && ssh _rranelli@nibbler0002.locaweb.com.br"
     alias repz="curl http://repdoxinho.no-ip.info -sI | egrep -o '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'"
     alias vps="ssh renan@\$(repz) -p 5022"
     alias cloudz="ssh renan@cpro26266.publiccloud.com.br"
     alias vps_tunel="ssh -R 2222:localhost:22 renan@\$(repz) -p 5022 -N -f"
+}
+
+function __ensure_private_key_is_added {
+    if [[ `ssh-add -l` != *nibbler_rsa* ]]; then
+        ssh-add ~/.ssh/nibbler_rsa
+    fi
 }
 
 function setup_aliases {
