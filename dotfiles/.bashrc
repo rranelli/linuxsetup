@@ -40,6 +40,10 @@ function __setup {
 
     setup_env_vars
     setup_rbenv
+
+    if [ -f ~/Copy/.bashrc.extras ]; then
+        source ~/Copy/.bashrc.extras
+    fi
 }
 
 __setup
