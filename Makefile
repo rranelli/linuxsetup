@@ -146,7 +146,7 @@ $(MODULE_DIR)/spotify-repo:
 
 ###
 # Install packages
-$(MODULE_DIR)/packages:
+$(MODULE_DIR)/packages: | repositories
 	$(install-packages)
 
 ###
