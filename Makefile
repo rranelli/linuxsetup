@@ -70,7 +70,6 @@ PACKAGES = \
 	copy 				\
 	curl				\
 	dnsutils			\
-	esl-erlang			\
 	ftp				\
 	g++-multilib			\
 	gcc-multilib			\
@@ -142,7 +141,7 @@ $(MODULE_DIR)/mongodb-repo:
 
 $(MODULE_DIR)/spotify-repo:
 	$(SUDO) apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 94558F59
-	$(SUDO) su -c "echo 'deb http://repository.spotify.com stable non-free' >> /etc/apt/sources.list"
+	$(SUDO) su -c "echo 'deb http://repository.spotify.com stable non-free' > /etc/apt/sources.list.d/spotify.list"
 
 ###
 # Install packages
@@ -198,6 +197,12 @@ $(MODULE_DIR)/scala: | packages
 	echo 'addSbtPlugin ("org.ensime" % "ensime-sbt" % "0.1.6")' > $(HOME)/.sbt/0.13/plugins/plugins.sbt
 
 $(MODULE_DIR)/elixir: | code
+	$(SUDO) su -c "echo 'deb http://packages.erlang-solutions.com/ubuntu trusty contrib' > /etc/apt/sources.list.d/esl-erlang.list"
+	wget http://packages.erlang-solutions.com/ubuntu/erlang_solutions.asc
+	$(SUDO) apt-key add erlang_solutions.asc
+	$(SUDO) apt-get update -qq
+	$(SUDO) apt-get install erlang --yes
+
 	cd $(HOME)/code/elixir && make clean test
 
 $(MODULE_DIR)/haskell: TARFILE := haskell-platform-2014.2.0.0-unknown-linux-x86_64.tar.gz
