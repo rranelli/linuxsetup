@@ -19,7 +19,7 @@ EMACS_VERSION		:= 24.4
 EMACS			:= emacs-$(EMACS_VERSION)
 
 define touch-module
-	@$(MKDIR) $(MODULE_DIR) && @$(TOUCH) $(MODULE_DIR)/$@
+	$(MKDIR) $(MODULE_DIR) && $(TOUCH) $(MODULE_DIR)/$@
 endef
 
 # the 'desktop' target is not a required module anymore
