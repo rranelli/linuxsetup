@@ -39,7 +39,6 @@ OPTIONAL_MODULES = \
 	cask 		\
 	desktop		\
 	docker		\
-	google-chrome	\
 	haskell		\
 	octave		\
 	smlnj		\
@@ -275,16 +274,11 @@ $(MODULE_DIR)/desktop: REPOSITORIES = \
 		ppa:heathbar/super-wingpanel		\
 		ppa:mpstark/elementary-tweaks-daily	\
 		ppa:teejee2008/ppa
-$(MODULE_DIR)/desktop: | install google-chrome spotify-repo
+$(MODULE_DIR)/desktop: | install spotify-repo
 	cd $(CODE_DIR)/emacs-dotfiles && $(SUDO) ./setup_shortcut
 
 	$(add-repositories)
 	$(install-packages)
-
-$(MODULE_DIR)/google-chrome:
-	wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-	$(SUDO) dpkg -i google-chrome*
-	rm google-chrome*
 
 keysnail:
 	wget https://github.com/mooz/keysnail/raw/master/keysnail.xpi
