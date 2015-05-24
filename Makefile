@@ -281,6 +281,7 @@ $(MODULE_DIR)/desktop: | install spotify-repo
 keysnail:
 	wget https://github.com/mooz/keysnail/raw/master/keysnail.xpi
 	firefox keysnail.xpi
+	rm keysnail.xpi
 
 $(MODULE_DIR)/docker: PACKAGES = lxc-docker
 $(MODULE_DIR)/docker: | packages
