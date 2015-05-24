@@ -213,9 +213,7 @@ $(MODULE_DIR)/haskell: | packages
 	rm $(TARPATH)
 
 $(MODULE_DIR)/octave: PACKAGES = octave
-$(MODULE_DIR)/octave: REPOSITORIES = ppa:octave/stable
 $(MODULE_DIR)/octave:
-	$(add-repositories)
 	$(install-packages)
 
 $(MODULE_DIR)/bash-completion: | packages
