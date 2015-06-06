@@ -15,7 +15,7 @@ ADD_REPO_PACKAGE	:= python-software-properties
 UPDATE_REPO_CACHE	:= $(SUDO) apt-get update -qq
 
 RUBY_VERSION		:= 2.1.5
-EMACS_VERSION		:= 24.4
+EMACS_VERSION		:= 24.5
 EMACS			:= emacs-$(EMACS_VERSION)
 
 define touch-module
