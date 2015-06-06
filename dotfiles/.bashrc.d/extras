@@ -1,11 +1,14 @@
 #!/usr/bin/env bash
 
 function setup_extras {
-    alias rstor="rsync ~/Downloads/*.torrent renan@lightning.rep:/home/renan/Downloads/AutoAdd"
-
     # adds cool compiler to the path
     COOL_PATH=$HOME/code/rrcompilersedx/cs143/cool/bin
     if [[ -d $COOL_PATH ]]; then
 	PATH=$PATH:$COOL_PATH
     fi
+}
+
+function 8inf {
+    until [[ $? != 0 ]]; do eval "$1"; done
+    zenity --info --text="Finished the infinite loop of $1"
 }
