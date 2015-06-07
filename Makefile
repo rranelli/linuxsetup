@@ -91,6 +91,7 @@ PACKAGES = \
 	markdown			\
 	maven				\
 	mongodb-org			\
+	ncftp				\
 	network-manager-openvpn		\
 	nodejs				\
 	openjdk-7-jdk			\
