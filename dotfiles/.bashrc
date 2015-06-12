@@ -32,12 +32,11 @@ function __setup {
 
     if [ __is_interactive ]; then
 	setup_ps1
-	setup_aliases
 	setup_bash_completion
-
-	setup_extras
     fi
 
+    setup_aliases
+    setup_extras
     setup_env_vars
     setup_rbenv
 
