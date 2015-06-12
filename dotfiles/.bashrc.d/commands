@@ -1,0 +1,83 @@
+#!/usr/bin/env bash
+
+# Emacs aliasing
+
+# Project switching
+function 8pc {
+    cd ~/code/$1
+}
+function 8pl {
+    cd ~/locaweb/$1
+}
+
+# Bundle exec aliasing
+function 8bes {
+    bundle exec rspec
+}
+function 8be {
+    bundle exec
+}
+function 8bejs {
+    bundle exec jekyll serve --watch --drafts
+}
+
+# Rake db migrates
+function 8rdbm {
+    echo "Migrating $RAILS_ENV..."
+    bundle exec rake db:migrate
+    echo "---"
+    echo "Rollbacking $RAILS_ENV..."
+    bundle exec rake db:rollback
+    echo "---"
+    echo "Migrating $RAILS_ENV..."
+    bundle exec rake db:migrate
+    echo "---"
+    echo "Finished"
+}
+function 8frdbm {
+    RAILS_ENV=test 8rdbm && 8rdbm
+}
+function 8frdbr {
+    RAILS_ENV=test 8be rake db:reset && 8be rake db:reset
+}
+
+# clone and update everything using my personal script
+function 8pcp {
+    8pc && git_multicast pull
+}
+function 8pcs {
+    8pc && git_multicast status
+}
+function 8plp {
+    8pl && git_multicast pull
+}
+function 8pls {
+    8pl && git_multicast status
+}
+
+function lrpl {
+    lein repl
+}
+
+function mt {
+    mvn test
+}
+function mct {
+    mvn clean test
+}
+function mci {
+    mvn clean install
+}
+function mnew {
+    mvn archetype:generate -DarchetypeArtifactId=maven-archetype-quickstart
+}
+
+function ls {
+    ls --color=tty
+}
+function ll {
+    ls -l
+}
+function dfgb {
+    df -BG
+}
