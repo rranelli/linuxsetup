@@ -276,6 +276,10 @@ $(MODULE_DIR)/desktop: REPOSITORIES = \
 $(MODULE_DIR)/desktop: | install spotify-repo
 	cd $(CODE_DIR)/emacs-dotfiles && $(SUDO) ./setup_shortcut
 
+# fixes pantheon terminal C-d issue.
+# see https://bugs.launchpad.net/pantheon-terminal/+bug/1364704
+        gsettings set org.pantheon.terminal.settings save-exited-tabs false
+
 	$(add-repositories)
 	$(install-packages)
 
