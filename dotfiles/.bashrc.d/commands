@@ -72,9 +72,8 @@ function mnew {
     mvn archetype:generate -DarchetypeArtifactId=maven-archetype-quickstart
 }
 
-function ls {
-    ls --color=tty
-}
+alias ls="ls --color=tty"
+
 function ll {
     ls -l
 }
