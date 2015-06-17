@@ -1,6 +1,6 @@
 #!/bin/bash -ev
 
-# Install git of course
+sudo apt-get update -qq
 sudo apt-get install -y git
 
 # Prompt user to add ssh-key to github account. This is needed for code-base cloning
