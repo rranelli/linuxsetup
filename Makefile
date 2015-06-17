@@ -277,7 +277,7 @@ $(MODULE_DIR)/desktop: | install spotify-repo
 
 # fixes pantheon terminal C-d issue.
 # see https://bugs.launchpad.net/pantheon-terminal/+bug/1364704
-        gsettings set org.pantheon.terminal.settings save-exited-tabs false
+	gsettings set org.pantheon.terminal.settings save-exited-tabs false
 
 	$(add-repositories)
 	$(install-packages)
