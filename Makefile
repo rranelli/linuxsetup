@@ -41,6 +41,7 @@ OPTIONAL_MODULES = \
 	docker		\
 	haskell		\
 	octave		\
+	postgresql	\
 	smlnj		\
 	vagrant
 
@@ -286,6 +287,12 @@ keysnail:
 	wget https://github.com/mooz/keysnail/raw/master/keysnail.xpi
 	firefox keysnail.xpi
 	rm keysnail.xpi
+
+$(MODULE_DIR)/postgresql: PACKAGES = postgresql libpq-dev
+$(MODULE_DIR)/postgresql:
+	$(install-packages)
+	$(SUDO) $(LINK) $(CURDIR)/scripts/pg_hba.conf /etc/postgresql/9.3/main/pg_hba.conf
+	$(SUDO) service postgresql restart
 
 $(MODULE_DIR)/docker: PACKAGES = lxc-docker
 $(MODULE_DIR)/docker: | packages
