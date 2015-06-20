@@ -197,12 +197,13 @@ $(MODULE_DIR)/scala: | packages
 	$(MKDIR) $(HOME)/.sbt/0.13/plugins
 	echo 'addSbtPlugin ("org.ensime" % "ensime-sbt" % "0.1.6")' > $(HOME)/.sbt/0.13/plugins/plugins.sbt
 
+$(MODULE_DIR)/elixir: PACKAGES = erlang
 $(MODULE_DIR)/elixir: | code
 	$(SUDO) su -c "echo 'deb http://packages.erlang-solutions.com/ubuntu trusty contrib' > /etc/apt/sources.list.d/esl-erlang.list"
 	wget http://packages.erlang-solutions.com/ubuntu/erlang_solutions.asc
 	$(SUDO) apt-key add erlang_solutions.asc
-	$(SUDO) apt-get update -qq
-	$(SUDO) apt-get install erlang --yes
+	$(UPDATE_REPO_CACHE)
+	$(install-packages)
 
 	cd $(HOME)/code/elixir && make clean test
 
