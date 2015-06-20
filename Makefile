@@ -252,7 +252,6 @@ $(MODULE_DIR)/langtool: | packages
 # Install desktop stuff
 $(MODULE_DIR)/desktop: PACKAGES = \
 		calibre				\
-		conky-manager			\
 		dconf-tools			\
 		deluge				\
 		deluge-console			\
