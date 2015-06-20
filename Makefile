@@ -264,6 +264,7 @@ $(MODULE_DIR)/desktop: PACKAGES = \
 		flashplugin-installer		\
 		icedtea-7-plugin		\
 		indicator-synapse		\
+		pidgin				\
 		remmina				\
 		spotify-client			\
 		telegram
@@ -272,6 +273,7 @@ $(MODULE_DIR)/desktop: REPOSITORIES = \
 		ppa:elementary-os/unstable-upstream	\
 		ppa:heathbar/super-wingpanel		\
 		ppa:mpstark/elementary-tweaks-daily	\
+		ppa:pidgin-developers/ppa		\
 		ppa:teejee2008/ppa
 $(MODULE_DIR)/desktop: | install spotify-repo
 	cd $(CODE_DIR)/emacs-dotfiles && $(SUDO) ./setup_shortcut
