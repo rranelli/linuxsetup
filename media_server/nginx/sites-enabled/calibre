@@ -9,6 +9,6 @@ server {
     location / {
         include /etc/nginx/proxy_params;
 
-        proxy_pass http://calibre/;
+        proxy_pass http://calibre;
     }
 }

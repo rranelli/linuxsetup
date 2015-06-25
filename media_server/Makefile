@@ -151,11 +151,11 @@ $(MODULE_DIR)/plex: | packages
 	$(touch-module)
 
 nginx: $(MODULE_DIR)/nginx
-$(MODULE_DIR)/nginx: NGINX_FILES_PATH:=$(CURDIR)/media_server/nginx
+$(MODULE_DIR)/nginx: NGINX_FILES_PATH:=$(CURDIR)/nginx
 $(MODULE_DIR)/nginx: | packages plex
 	$(SUDO) $(LINK) $(NGINX_FILES_PATH)/.htpasswd /etc/nginx/.htpasswd
-	$(SUDO) $(LINK) $(NGINX_FILES_PATH)/root /etc/nginx/sites-enabled/root
-	$(SUDO) $(LINK) $(NGINX_FILES_PATH)/plex /etc/nginx/sites-enabled/plex
-	$(SUDO) $(LINK) $(NGINX_FILES_PATH)/calibre /etc/nginx/sites-enabled/calibre
-	$(SUDO) $(LINK) $(NGINX_FILES_PATH)/torrent /etc/nginx/sites-enabled/torrent
+	$(SUDO) $(LINK) $(NGINX_FILES_PATH)/sites-enabled/root /etc/nginx/sites-enabled/root
+	$(SUDO) $(LINK) $(NGINX_FILES_PATH)/sites-enabled/plex /etc/nginx/sites-enabled/plex
+	$(SUDO) $(LINK) $(NGINX_FILES_PATH)/sites-enabled/calibre /etc/nginx/sites-enabled/calibre
+	$(SUDO) $(LINK) $(NGINX_FILES_PATH)/sites-enabled/torrent /etc/nginx/sites-enabled/torrent
 	$(touch-module)
