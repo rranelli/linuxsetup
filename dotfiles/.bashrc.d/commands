@@ -13,7 +13,7 @@ function 8pl { cd ~/locaweb/$1; }
 
 # Bundle exec aliasing
 function 8bes { bundle exec rspec; }
-function 8be { bundle exec $1; }
+function 8be { bundle exec $*; }
 function 8bejs { bundle exec jekyll serve --watch --drafts; }
 
 # Rake db migrates
