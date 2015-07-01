@@ -22,7 +22,7 @@ function 8rdbm {
     bundle exec rake db:migrate
     echo "---"
     echo "Rollbacking $RAILS_ENV..."
-    bundle exec rake db:rollback
+    bundle exec rake db:migrate VERSION=0
     echo "---"
     echo "Migrating $RAILS_ENV..."
     bundle exec rake db:migrate
@@ -31,7 +31,7 @@ function 8rdbm {
 }
 function 8frdbm { RAILS_ENV=test 8rdbm && 8rdbm; }
 
-function 8rdbr { 8be rake db:reset; }
+function 8rdbr { 8be rake db:drop db:create db:migrate db:seed; }
 function 8frdbr { RAILS_ENV=test 8rdbr && 8rdbr; }
 
 # clone and update everything using my personal script
