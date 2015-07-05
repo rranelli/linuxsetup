@@ -98,7 +98,7 @@ function setup_ps1 {
  sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')"
 
 	if [ -n "$branch" ]; then
-	    printf "𝛽($branch)"
+	    printf "β($branch)"
 	fi
     }
 
@@ -108,14 +108,14 @@ function setup_ps1 {
 	version="${BASH_REMATCH[1]}"
 
 	if [ -n "$version" ]; then
-	    printf "𝛅($version) "
+	    printf "δ($version) "
 	fi
     }
 
-    local curtime="$hicyn𝛴($time24h)$clroff"
+    local curtime="$hicynΣ($time24h)$clroff"
     local user_at_host="$hibluξ($user$txtred@$hiblu$host)$clroff"
     local status="$hired\$(parse_status)"
-    local path="$txtcyn𝛹 ($path)"
+    local path="$txtcynψ($path)"
     local git_branch="$txtgrn\$(format_git_branch)"
     local login_shell_indicator="$hired\$(parse_login_shell)"
     local ruby_version="$txtred\$(format_ruby_version)"

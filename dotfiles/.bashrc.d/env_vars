@@ -5,6 +5,4 @@ function setup_env_vars {
     export PATH="$PATH:$HOME/.cask/bin"
 
     export EDITOR="emacsclient -a '' -t"
-
-    export TERM="xterm-256color"
 }
