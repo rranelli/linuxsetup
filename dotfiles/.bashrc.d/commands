@@ -53,3 +53,8 @@ function mnew {
 }
 
 function dfgb { df -BG; }
+
+function 8inf {
+    until [[ $? != 0 ]]; do eval "$*"; done
+    zenity --info --text="Finished the infinite loop of $1"
+}
