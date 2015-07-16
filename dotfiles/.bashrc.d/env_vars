@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 function setup_env_vars {
     export PATH="$PATH:$HOME/.lein"
+    export PATH="$PATH:$HOME/.sml/bin"
     export PATH="$PATH:$HOME/code/elixir/bin"
     export PATH="$PATH:$HOME/.cask/bin"
 
