@@ -315,3 +315,8 @@ $(MODULE_DIR)/virtualbox:
 	wget http://download.virtualbox.org/virtualbox/4.3.24/virtualbox-4.3_4.3.24-98716~Ubuntu~precise_amd64.deb
 	$(SUDO) dpkg -i virtualbox-4.3_4.3.24-98716~Ubuntu~precise_amd64.deb
 	rm virtualbox-*.deb
+
+$(MODULE_DIR)/slack:
+	wget https://slack-ssb-updates.global.ssl.fastly.net/linux_releases/slack-1.1.5-amd64.deb
+	$(SUDO) dpkg -i slack-1.1.5-amd64.deb
+	rm slack*.deb
