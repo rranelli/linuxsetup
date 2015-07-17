@@ -140,8 +140,8 @@ function setup_ps1 {
     	PS1+="> "
     fi
 
-    if [[ "$TERM" == "eterm-color" ]]; then
-	# This is the ps1 for Emacs' term
-    	PS1="\u@\W > "
-    fi
+    # if [[ "$TERM" == "eterm-color" ]]; then
+    #     # This is the ps1 for Emacs' term
+    # 	PS1="\u@\W > "
+    # fi
 }
