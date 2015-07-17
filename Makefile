@@ -320,3 +320,11 @@ $(MODULE_DIR)/slack:
 	wget https://slack-ssb-updates.global.ssl.fastly.net/linux_releases/slack-1.1.5-amd64.deb
 	$(SUDO) dpkg -i slack-1.1.5-amd64.deb
 	rm slack*.deb
+
+$(MODULE_DIR)/source-code-pro:
+	wget https://github.com/adobe-fonts/source-code-pro/archive/1.017R.zip
+	unzip 1.017R.zip
+	$(MKDIR) -p ~/.fonts
+	cp source-code-pro-1.017R/OTF/*.otf ~/.fonts/
+	fc-cache -f -v
+	rm -rf source-code-pro-1.017R/ 1.017R.zip
