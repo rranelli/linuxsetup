@@ -23,6 +23,7 @@ done
 
 # declaring where the backup mapping must occur
 declare -A map
+map[/home/renan]=$destination/home
 map[/media/1tb]=$destination/1tb
 map[/media/320gb]=$destination/320gb
 map[/media/750gb]=$destination/750gb
@@ -34,6 +35,6 @@ for origin in "${!map[@]}"; do
     mkdir -p $dest
 
     echo "Start: [time=$(date -R)] $origin -> $dest" >> $backup_log_file
-    rsync -r $origin $dest
+    rsync -r $origin/* $dest
     echo "Done!: [time=$(date -R)] $origin -> $dest" >> $backup_log_file
 done
