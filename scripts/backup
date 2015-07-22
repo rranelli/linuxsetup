@@ -35,6 +35,6 @@ for origin in "${!map[@]}"; do
     mkdir -p $dest
 
     echo "Start: [time=$(date -R)] $origin -> $dest" >> $backup_log_file
-    rsync -r $origin/* $dest
+    rsync -r $origin/* $dest --delete-excluded
     echo "Done!: [time=$(date -R)] $origin -> $dest" >> $backup_log_file
 done
