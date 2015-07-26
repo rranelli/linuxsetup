@@ -328,3 +328,7 @@ $(MODULE_DIR)/source-code-pro:
 	cp source-code-pro-1.017R/OTF/*.otf ~/.fonts/
 	fc-cache -f -v
 	rm -rf source-code-pro-1.017R/ 1.017R.zip
+
+$(MODULE_DIR)/cedilla:
+	$(SUDO) su -c "echo 'GTK_IM_MODULE=cedilla' >> /etc/environment"
+	$(SUDO) su -c "echo 'QT_IM_MODULE=cedilla' >> /etc/environment"
