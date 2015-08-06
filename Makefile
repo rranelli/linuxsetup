@@ -21,7 +21,6 @@ define touch-module
 	$(MKDIR) $(MODULE_DIR) && $(TOUCH) $(MODULE_DIR)/$@
 endef
 
-# the 'desktop' target is not a required module anymore
 REQUIRED_MODULES = \
 	bash-completion	\
 	code		\
@@ -29,22 +28,25 @@ REQUIRED_MODULES = \
 	emacs		\
 	git		\
 	langtool 	\
+	postgresql	\
 	repositories	\
 	ruby
 
 OPTIONAL_MODULES = \
 	cask 		\
+	cedilla		\
 	desktop		\
 	docker		\
-	postgresql	\
-	smlnj		\
-	vagrant
+	slack		\
+	source-code-pro
+
 LANGUAGES = \
-	elixir		\
 	clojure		\
+	elixir		\
 	haskell		\
 	octave		\
 	scala		\
+	smlnj
 
 define add-repositories
 	echo $(REPOSITORIES) | xargs -n 1 $(ADD_REPO)
@@ -119,8 +121,8 @@ PACKAGES = \
 # It all begins here
 install: $(REQUIRED_MODULES)
 optional: $(OPTIONAL_MODULES)
-optional: $(LANGUAGES)
-all: install optional
+languages: $(LANGUAGES)
+all: install optional languages
 
 clean:
 	rm -rf $(MODULE_DIR)
