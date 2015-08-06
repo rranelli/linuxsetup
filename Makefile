@@ -24,10 +24,8 @@ endef
 # the 'desktop' target is not a required module anymore
 REQUIRED_MODULES = \
 	bash-completion	\
-	clojure		\
 	code		\
 	dotfiles	\
-	elixir		\
 	emacs		\
 	git		\
 	langtool 	\
@@ -38,11 +36,15 @@ OPTIONAL_MODULES = \
 	cask 		\
 	desktop		\
 	docker		\
-	haskell		\
-	octave		\
 	postgresql	\
 	smlnj		\
 	vagrant
+LANGUAGES = \
+	elixir		\
+	clojure		\
+	haskell		\
+	octave		\
+	scala		\
 
 define add-repositories
 	echo $(REPOSITORIES) | xargs -n 1 $(ADD_REPO)
@@ -117,6 +119,7 @@ PACKAGES = \
 # It all begins here
 install: $(REQUIRED_MODULES)
 optional: $(OPTIONAL_MODULES)
+optional: $(LANGUAGES)
 all: install optional
 
 clean:
