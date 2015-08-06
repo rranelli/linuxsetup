@@ -11,7 +11,6 @@ INSTALL_PACKAGE		:= apt-get install $(INSTALL_PACKAGE_FLAGS)
 
 ADD_REPO_FLAGS		:= --yes
 ADD_REPO		:= $(SUDO) apt-add-repository $(ADD_REPO_FLAGS)
-ADD_REPO_PACKAGE	:= python-software-properties
 UPDATE_REPO_CACHE	:= $(SUDO) apt-get update -qq
 
 RUBY_VERSION		:= 2.2.2
@@ -127,13 +126,8 @@ clean:
 	if [ ! -f $(MODULE_DIR)/$@ ]; then $(touch-module); fi
 
 ###
-# Install package that allows to add more repositories
-$(MODULE_DIR)/add-repo-package:
-	$(SUDO) $(INSTALL_PACKAGE) $(ADD_REPO_PACKAGE)
-
-###
 # Add external repositories for packages
-$(MODULE_DIR)/repositories: | add-repo-package mongodb-repo
+$(MODULE_DIR)/repositories: | mongodb-repo
 	$(add-repositories)
 
 $(MODULE_DIR)/mongodb-repo:
