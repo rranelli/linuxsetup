@@ -58,3 +58,5 @@ function 8inf {
     until [[ $? != 0 ]]; do eval "$*"; done
     zenity --info --text="Finished the infinite loop of $1"
 }
+
+function 8gr { cd $(git rev-parse --show-toplevel); }
