@@ -111,6 +111,7 @@ PACKAGES = \
 	telnet				\
 	texlive				\
 	tmux				\
+	tree				\
 	w3m				\
 	wget				\
 	wl				\
