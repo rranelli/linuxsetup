@@ -116,6 +116,7 @@ PACKAGES = \
 	wget				\
 	wl				\
 	wordnet				\
+	xclip				\
 	xdg-utils
 
 ###
