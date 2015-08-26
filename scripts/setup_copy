@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+
+## this is the headless copy config
 if [[ ! -d /opt/copy/ ]]; then
     wget https://copy.com/install/linux/Copy.tgz
     tar xvzf Copy.tgz

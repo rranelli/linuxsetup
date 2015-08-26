@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+copy_conf=/etc/sysctl.d/60-copy.conf
+[ -f $copy_conf ] && sudo touch $copy_conf
+sudo su -c "sudo echo 'fs.inotify.max_user_watches = 20000' >> $copy_conf"
+sudo su -c "echo 'fs.file-max = 800000' >> $copy_conf"
+
+sudo sysctl -p $copy_conf
