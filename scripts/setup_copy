@@ -1,19 +1,23 @@
 #!/usr/bin/env bash
 
-## this is the headless copy config
-if [[ ! -d /opt/copy/ ]]; then
-    wget https://copy.com/install/linux/Copy.tgz
-    tar xvzf Copy.tgz
+# download copy
+curl -O https://copy.com/install/linux/Copy.tgz
 
-    sudo cp -r copy /opt
+# extract it
+tar zxvf Copy.tgz -C $HOME
 
-    # this line assumes you're on a x86_64 box
-    sudo ln -s /opt/copy/x86_64/CopyAgent /usr/bin/copy-agent
-    sudo ln -s /opt/copy/x86_64/CopyConsole /usr/bin/copy-console
+# create dirs
+mkdir $HOME/.copy $HOME/Copy
 
-    rm Copy.tgz
-    rm -rf copy/
+# configure stuff
+$HOME/copy/x86_64/CopyConsole -r=$HOME/Copy -u=renanranelli@gmail.com –data=$HOME/.copy -debug
 
-    echo "Now you can run"
-    echo "./CopyConsole -u=the_mail_you_signed_up_with -r=/home/your_linux_username/copy -p=the_password_you_signed_up_with"
-fi
+# copy init script
+sudo cp init.d.copy /etc/init.d/copy
+chmod +x /etc/init.d/copy
+
+# start copy service
+sudo service copy start
+
+# make it run at boot
+sudo update-rc.d copy defaults
