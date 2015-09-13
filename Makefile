@@ -330,3 +330,5 @@ $(MODULE_DIR)/source-code-pro:
 $(MODULE_DIR)/cedilla:
 	$(SUDO) su -c "echo 'GTK_IM_MODULE=cedilla' >> /etc/environment"
 	$(SUDO) su -c "echo 'QT_IM_MODULE=cedilla' >> /etc/environment"
+	$(SUDO) cp /usr/share/X11/locale/en_US.UTF-8/Compose /usr/share/X11/locale/en_US.UTF-8/Compose.bak
+	$(SUDO) sed -e 's/ć/ç/g' -e 's/Ć/Ç/g' -i /usr/share/X11/locale/en_US.UTF-8/Compose
