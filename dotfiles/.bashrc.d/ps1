@@ -102,6 +102,13 @@ function setup_ps1 {
 	fi
     }
 
+    function format_git_tag {
+        local tag=$(git describe --tags --abbrev=0 2>/dev/null)
+        if [ -n "$tag" ]; then
+            printf "φ($tag)"
+        fi
+    }
+
     function format_ruby_version {
 	regexp="([0-9]\.[0-9](\.[0-9])?)"
 	[[ `ruby --version` =~ $regexp ]]
@@ -110,13 +117,6 @@ function setup_ps1 {
 	if [ -n "$version" ]; then
 	    printf "δ($version) "
 	fi
-    }
-
-    function format_git_tag {
-        local tag=$(git describe --tags --abbrev=0)
-        if [ -n "$tag" ]; then
-            printf "φ($tag)"
-        fi
     }
 
     local curtime="$hicynΣ($time24h)$clroff"
