@@ -54,7 +54,7 @@ function mnew {
 
 function dfgb { df -BG; }
 
-function txc { xclip -i -selection clipboard; }
+function 8txc { xclip -i -selection clipboard; }
 
 function 8inf {
     until [[ $? != 0 ]]; do eval "$*"; done
@@ -62,3 +62,11 @@ function 8inf {
 }
 
 function 8gr { cd $(git rev-parse --show-toplevel); }
+
+function 8changelog {
+    ref=$1
+    [ -z "$ref" ] && ref=$(git describe --tags --abbrev=0)
+    git log --no-merges --oneline "$ref"..HEAD | awk '{ gsub(/.*/, "", $1); print $0 }'
+}
+
+function 8mkch { 8changelog $1 | 8txc ;}
