@@ -137,6 +137,7 @@ function setup_ps1 {
     PS1+=$git_branch
     PS1+=$git_tag
     PS1+=$ruby_version
+    PS1+=$newline
     PS1+=$path
     PS1+=$newline
     PS1+=$login_shell_indicator
