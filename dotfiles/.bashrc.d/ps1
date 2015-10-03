@@ -89,7 +89,7 @@ function setup_ps1 {
     }
     function parse_status {
 	if [[ $? != 0 ]]; then
-	    echo "$bldred(x)$clroff"
+	    echo '(x.x)'
 	fi
     }
 
@@ -98,14 +98,14 @@ function setup_ps1 {
  sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')"
 
 	if [ -n "$branch" ]; then
-	    printf "β($branch)"
+	    echo "β($branch)"
 	fi
     }
 
     function format_git_tag {
         local tag=$(git describe --tags --abbrev=0 2>/dev/null)
         if [ -n "$tag" ]; then
-            printf "φ($tag)"
+            echo "φ($tag)"
         fi
     }
 
@@ -115,13 +115,13 @@ function setup_ps1 {
 	version="${BASH_REMATCH[1]}"
 
 	if [ -n "$version" ]; then
-	    printf "δ($version) "
+	    echo "δ($version) "
 	fi
     }
 
     local curtime="$hicynΣ($time24h)$clroff"
     local user_at_host="$hibluξ($user$txtred@$hiblu$host)$clroff"
-    local status="$hired\$(parse_status)"
+    local status="$bldred\$(parse_status)$clroff"
     local path="$txtcynψ($path)"
     local git_branch="$txtgrn\$(format_git_branch)"
     local login_shell_indicator="$hired\$(parse_login_shell)"
@@ -131,14 +131,14 @@ function setup_ps1 {
 
     PS1=""
 
-    PS1+=$curtime
     PS1+=$status
+    PS1+=$path
+    PS1+=$newline
+    PS1+=$curtime
     PS1+=$user_at_host
     PS1+=$git_branch
     PS1+=$git_tag
     PS1+=$ruby_version
-    PS1+=$newline
-    PS1+=$path
     PS1+=$newline
     PS1+=$login_shell_indicator
     PS1+=$final
