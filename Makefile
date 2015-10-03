@@ -35,6 +35,7 @@ REQUIRED_MODULES = \
 OPTIONAL_MODULES = \
 	cask 		\
 	cedilla		\
+	dconf		\
 	desktop		\
 	docker		\
 	slack		\
@@ -332,3 +333,8 @@ $(MODULE_DIR)/cedilla:
 	$(SUDO) su -c "echo 'QT_IM_MODULE=cedilla' >> /etc/environment"
 	$(SUDO) cp /usr/share/X11/locale/en_US.UTF-8/Compose /usr/share/X11/locale/en_US.UTF-8/Compose.bak
 	$(SUDO) sed -e 's/ć/ç/g' -e 's/Ć/Ç/g' -i /usr/share/X11/locale/en_US.UTF-8/Compose
+
+$(MODULE_DIR)/dconf:
+	dconf write /org/gnome/mutter/workspaces-only-on-primary false
+	dconf write /org/pantheon/terminal/settings/alt-changes-tab false
+	dconf write /org/pantheon/terminal/settings/tab-bar-behavior 'Hide When Single Tab'
