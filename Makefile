@@ -70,6 +70,7 @@ endef
 PACKAGES = \
 	aspell-pt-br			\
 	bash-completion			\
+	bitlbee				\
 	build-essential			\
 	copy 				\
 	curl				\
