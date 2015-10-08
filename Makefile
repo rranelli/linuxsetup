@@ -114,6 +114,7 @@ PACKAGES = \
 	texlive				\
 	tmux				\
 	tree				\
+	ttf-ancient-fonts		\
 	w3m				\
 	wget				\
 	wl				\
