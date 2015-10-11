@@ -96,7 +96,7 @@ function setup_ps1 {
     local status="$bldred\$(parse_status)$clroff"
     local path="$hipurψ($path)$clroff"
     local login_shell_indicator="$hired\$(parse_login_shell)"
-    local final="$bldbluλx ➝  "
+    local final="λx ➝  "
 
     PS1=""
 
@@ -106,12 +106,12 @@ function setup_ps1 {
     PS1+=$newline
     PS1+=$status
     PS1+=$login_shell_indicator
-    PS1+=$final
+    PS1+=$bldblu$final
 
     PS1+=$clroff
 
     if [[ "$TERM" == "vt100" || "$TERM" == "dumb"  || "$TERM" == "eterm-color" ]]; then
 	# This had to be added in order for emacs' TRAMP to work seamlessly
-    	PS1+="$ "
+    	PS1=${PS1/$final/}"\$ "
     fi
 }
