@@ -79,6 +79,8 @@ PACKAGES = \
 	g++-multilib			\
 	gcc-multilib			\
 	git				\
+	gnupg				\
+	gnupg-agent			\
 	guile-2.0-dev			\
 	html2text			\
 	libcurl3			\
