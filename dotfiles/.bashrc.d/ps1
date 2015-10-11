@@ -88,58 +88,23 @@ function setup_ps1 {
 	shopt -q login_shell && echo '(login) '
     }
     function parse_status {
-	if [[ $? != 0 ]]; then
-	    echo '(x.x)'
-	fi
+	[ $? != 0 ] && echo '(err)'
     }
 
-    function format_git_branch {
-	local branch="$(git branch --no-color 2> /dev/null | \
- sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')"
-
-	if [ -n "$branch" ]; then
-	    echo "β($branch)"
-	fi
-    }
-
-    function format_git_tag {
-        local tag=$(git describe --tags --abbrev=0 2>/dev/null)
-        if [ -n "$tag" ]; then
-            echo "φ($tag)"
-        fi
-    }
-
-    function format_ruby_version {
-	regexp="([0-9]\.[0-9](\.[0-9])?)"
-	[[ `ruby --version` =~ $regexp ]]
-	version="${BASH_REMATCH[1]}"
-
-	if [ -n "$version" ]; then
-	    echo "δ($version) "
-	fi
-    }
-
-    local curtime="$hicynΣ($time24h)$clroff"
-    local user_at_host="$hibluξ($user$txtred@$hiblu$host)$clroff"
+    local curtime="$hicynξ[$time24h]$clroff"
+    local user_at_host="$hiblu𝞵($user$txtred@$hiblu$host)$clroff"
     local status="$bldred\$(parse_status)$clroff"
-    local path="$txtcynψ($path)"
-    local git_branch="$txtgrn\$(format_git_branch)"
+    local path="$hipurψ($path)$clroff"
     local login_shell_indicator="$hired\$(parse_login_shell)"
-    local git_tag="$bldylw\$(format_git_tag)"
-    local ruby_version="$txtred\$(format_ruby_version)"
     local final="$bldbluλx ➝  "
 
     PS1=""
 
-    PS1+=$status
-    PS1+=$path
-    PS1+=$newline
     PS1+=$curtime
     PS1+=$user_at_host
-    PS1+=$git_branch
-    PS1+=$git_tag
-    PS1+=$ruby_version
+    PS1+=$path
     PS1+=$newline
+    PS1+=$status
     PS1+=$login_shell_indicator
     PS1+=$final
 
@@ -147,11 +112,6 @@ function setup_ps1 {
 
     if [[ "$TERM" == "vt100" || "$TERM" == "dumb"  || "$TERM" == "eterm-color" ]]; then
 	# This had to be added in order for emacs' TRAMP to work seamlessly
-    	PS1+="> "
+    	PS1+="$ "
     fi
-
-    # if [[ "$TERM" == "eterm-color" ]]; then
-    #     # This is the ps1 for Emacs' term
-    # 	PS1="\u@\W > "
-    # fi
 }
