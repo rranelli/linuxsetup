@@ -38,6 +38,7 @@ OPTIONAL_MODULES = \
 	dconf		\
 	desktop		\
 	docker		\
+	mimipass	\
 	slack		\
 	source-code-pro
 
@@ -342,3 +343,6 @@ $(MODULE_DIR)/dconf:
 	dconf write /org/gnome/mutter/workspaces-only-on-primary false
 	dconf write /org/pantheon/terminal/settings/alt-changes-tab false
 	dconf write /org/pantheon/terminal/settings/tab-bar-behavior 'Hide When Single Tab'
+
+$(MODULE_DIR)/mimipass: code
+	$(CODE_DIR)/mimipass/link-mimipass
