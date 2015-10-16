@@ -1,3 +1,5 @@
 check process noip2
+  matching "/usr/local/bin/noip2"
   start program = "/etc/init.d/noip2 start"
   stop program  = "/etc/init.d/noip2 stop"
+  group root

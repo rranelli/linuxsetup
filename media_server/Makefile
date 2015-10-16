@@ -161,6 +161,7 @@ $(MODULE_DIR)/nginx: | packages plex
 	$(touch-module)
 
 monit: $(MODULE_DIR)/monit
+$(MODULE_DIR)/monit: MONIT_FILES_PATH:=$(CURDIR)/media_server/monit
 $(MODULE_DIR)/monit:
 	$(SUDO) $(LINK) $(MONIT_FILES_PATH)/calibre-server.monit /etc/monit/conf.d/calibre-server
 	$(SUDO) $(LINK) $(MONIT_FILES_PATH)/noip2.monit /etc/monit/conf.d/noip2
