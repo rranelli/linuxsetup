@@ -1,0 +1,48 @@
+#!/bin/sh
+sudo apt-get install apache2-utils openssl libssl-dev libpcre3-dev make gcc --yes
+
+#
+## compile nginx
+#
+cd /tmp
+curl http://nginx.org/download/nginx-1.9.5.tar.gz | tar xz
+cd nginx*
+./configure --with-http_ssl_module --with-http_dav_module \
+            --prefix=$HOME/nginx
+make && make install
+
+# generate an htpasswd file
+htpasswd -c ~/.htpasswd $(whoami)
+
+openssl genrsa 1024 > ~/nginx/conf/server.key
+openssl req -new -x509 -nodes -sha1 -days 365 \
+        -key ~/nginx/conf/server.key > ~/nginx/conf/server.crt
+
+# configure
+cat <<EOF > ~/nginx/conf/nginx.conf
+events {
+  worker_connections 1024;
+}
+http {
+  include mime.types;
+  default_type application/octet-stream;
+  ssl_certificate server.crt;
+  ssl_certificate_key server.key;
+  auth_basic "Restricted";
+  auth_basic_user_file /home/renan/.htpasswd;
+  dav_methods put delete mkcol copy move;
+  dav_access user:rw;
+  create_full_put_path on;
+
+  server {
+    listen 1080;
+    listen 1443 ssl;
+    location ~ ^/org(/.*)?$ {
+      alias /home/renan/mobileorg$1;
+    }
+  }
+}
+EOF
+
+# start nginx
+~/nginx/sbin/nginx
