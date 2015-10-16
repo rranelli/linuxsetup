@@ -1,5 +1,14 @@
 #!/usr/bin/env bash
 
+# better ls
+ls() {
+    if [ "$#" = 0 ]; then
+        /bin/ls --block-size=M --color -l
+    else
+        /bin/ls "$@"
+    fi
+}
+
 # Emacs aliasing
 function em { emacsclient -a '' -c -n $1; }
 function et { emacsclient -a '' -t $1; }
@@ -39,18 +48,6 @@ function 8frdbr { 8rdbr; RAILS_ENV=test 8rdbr; }
 
 # clone and update everything using my personal script
 function 8pcp { 8pc && git_multicast pull; }
-function 8pcs { 8pc && git_multicast status; }
-function 8plp { 8pl && git_multicast pull; }
-function 8pls { 8pl && git_multicast status; }
-
-function lrpl { lein repl; }
-
-function mt { mvn test; }
-function mct { mvn clean test; }
-function mci { mvn clean install; }
-function mnew {
-    mvn archetype:generate -DarchetypeArtifactId=maven-archetype-quickstart
-}
 
 function dfgb { df -BG; }
 
@@ -68,5 +65,4 @@ function 8changelog {
     [ -z "$ref" ] && ref=$(git describe --tags --abbrev=0)
     git log --no-merges --oneline "$ref"..HEAD
 }
-
 function 8mkch { 8changelog $1 | 8txc ;}
