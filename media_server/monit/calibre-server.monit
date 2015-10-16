@@ -1,0 +1,3 @@
+check process calibre-server with pidfile "/tmp/calibre-server.pid"
+  start program = "/etc/init.d/calibre-server start"
+  stop program  = "/etc/init.d/calibre-server stop"

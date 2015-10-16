@@ -159,3 +159,9 @@ $(MODULE_DIR)/nginx: | packages plex
 	$(SUDO) $(LINK) $(NGINX_FILES_PATH)/sites-enabled/calibre /etc/nginx/sites-enabled/calibre
 	$(SUDO) $(LINK) $(NGINX_FILES_PATH)/sites-enabled/torrent /etc/nginx/sites-enabled/torrent
 	$(touch-module)
+
+monit: $(MODULE_DIR)/monit
+$(MODULE_DIR)/monit:
+	$(SUDO) $(LINK) $(MONIT_FILES_PATH)/calibre-server.monit /etc/monit/monitrc.d/calibre-server
+	$(SUDO) $(LINK) $(MONIT_FILES_PATH)/noip2.monit /etc/monit/monitrc.d/noip2
+	$(SUDO) $(LINK) $(MONIT_FILES_PATH)/deluge-web.monit /etc/monit/monitrc.d/deluge-web

@@ -1,0 +1,3 @@
+check process deluge-web with pidfile "/var/run/deluge-web.pid"
+  start program = "/etc/init.d/deluge-web start"
+  stop program  = "/etc/init.d/deluge-web stop"
