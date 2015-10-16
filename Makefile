@@ -340,9 +340,11 @@ $(MODULE_DIR)/cedilla:
 	$(SUDO) sed -e 's/ć/ç/g' -e 's/Ć/Ç/g' -i /usr/share/X11/locale/en_US.UTF-8/Compose
 
 $(MODULE_DIR)/dconf:
-	dconf write /org/gnome/mutter/workspaces-only-on-primary false
-	dconf write /org/pantheon/terminal/settings/alt-changes-tab false
-	dconf write /org/pantheon/terminal/settings/tab-bar-behavior 'Hide When Single Tab'
+	gsettings set org.gnome.mutter workspaces-only-on-primary false
+	gsettings set org.pantheon.terminal.settings alt-changes-tab false
+	gsettings set org.pantheon.terminal.settings tab-bar-behavior 'Hide When Single Tab'
+	gsettings set org.gnome.crypto.cache gpg-cache-method 'timeout'
+	gsettings set org.gnome.crypto.cache gpg-cache-ttl 3600
 
 $(MODULE_DIR)/mimipass: code
 	$(CODE_DIR)/mimipass/link-mimipass
