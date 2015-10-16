@@ -1,64 +1,60 @@
-#!/usr/bin/env bash
+#!/bin/sh
 # deluge-web
 # chkconfig: 345 20 80
 # description: deluge-web daemon
 # Web interface for torrent loading
 # processname: deluge-web
 
-DAEMON_PATH="/usr/bin/"
-DAEMON=deluge-web
-DAEMONOPTS=""
+RUN_AS='renan'
+PIDFILE='/var/run/deluge-web.pid'
+EXECUTABLE='/usr/bin/deluge-web'
+OPTS="-f"
 
-NAME=deluge-web
-DESC="deluge web user interface"
-PIDFILE=/tmp/$NAME.pid
-SCRIPTNAME=/etc/init.d/$NAME
+start() {
+    # matching interpreted daemons is so frikin tricky...
+    echo 'Starting deluge-web ...'
+    /sbin/start-stop-daemon --start --chuid $RUN_AS \
+                            --user $RUN_AS \
+                            --pidfile ${PIDFILE} \
+                            --exec $EXECUTABLE -- $OPTS
+    echo 'done.'
+}
+
+stop() {
+    if [ -f $PIDFILE ]; then
+        echo 'Stopping deluge-web ...'
+        /bin/kill $(cat $PIDFILE) && rm $PIDFILE && echo 'done.'
+    else
+        echo 'Nothing to be done.'
+    fi
+}
+
+status() {
+    dbpid=$(pgrep -fu $RUN_AS 'deluge-web')
+    if [ -z "$dbpid" ]; then
+        echo "deluge-web for user $RUN_AS: not running."
+    else
+        echo "deluge-web for user $RUN_AS: running (pid $dbpid)"
+    fi
+}
 
 case "$1" in
     start)
-	printf "%-50s" "Starting $NAME..."
-	cd $DAEMON_PATH
-	PID=`sudo -u renan $DAEMON $DAEMONOPTS > /dev/null 2>&1 & echo $!`
-	#echo "Saving PID" $PID " to " $PIDFILE
-        if [ -z $PID ]; then
-            printf "%s\n" "Fail"
-        else
-            echo $PID > $PIDFILE
-            printf "%s\n" "Ok"
-        fi
-	;;
-    status)
-        printf "%-50s" "Checking $NAME..."
-        if [ -f $PIDFILE ]; then
-            PID=`cat $PIDFILE`
-            if [ -z "`ps axf | grep ${PID} | grep -v grep`" ]; then
-                printf "%s\n" "Process dead but pidfile exists"
-            else
-                echo "Running"
-            fi
-        else
-            printf "%s\n" "Service not running"
-        fi
-	;;
+        start
+        ;;
     stop)
-        printf "%-50s" "Stopping $NAME"
-        PID=`cat $PIDFILE`
-        cd $DAEMON_PATH
-        if [ -f $PIDFILE ]; then
-            kill -HUP $PID
-            printf "%s\n" "Ok"
-            rm -f $PIDFILE
-        else
-            printf "%s\n" "pidfile not found"
-        fi
-	;;
-
-    restart)
-  	$0 stop
-  	$0 start
-	;;
-
+        stop
+        ;;
+    restart|reload|force-reload)
+        stop
+        start
+        ;;
+    status)
+        status
+        ;;
     *)
-        echo "Usage: $0 {status|start|stop|restart}"
+        echo "Usage: /etc/init.d/calibre-server {start|stop|reload|force-reload|restart|status}"
         exit 1
 esac
+
+exit 0
