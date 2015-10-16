@@ -5,8 +5,8 @@ function setup_env_vars {
     export PATH="$PATH:$HOME/code/elixir/bin"
     export PATH="$PATH:$HOME/.cask/bin"
 
-    export MIMIPASS_HOME=~/Copy/.secrets
-    export MIMIPASS_RECIPIENT=renanranelli@gmail.com
+    export MIMIPASS_HOME="$HOME/Copy/.secrets/mimipass"
+    export MIMIPASS_RECIPIENT="renanranelli@gmail.com"
 
     export EDITOR="emacsclient -a '' -t"
 }
