@@ -113,6 +113,7 @@ $(MODULE_DIR)/init-files: | packages noip2 calibre deluge
 	sudo update-rc.d noip2 defaults
 	sudo update-rc.d calibre-server defaults
 	sudo update-rc.d deluge-web defaults
+	sudo update-rc.d deluged defaults
 	$(touch-module)
 
 copy: $(MODULE_DIR)/copy
@@ -166,3 +167,4 @@ $(MODULE_DIR)/monit:
 	$(SUDO) $(LINK) $(MONIT_FILES_PATH)/calibre-server.monit /etc/monit/conf.d/calibre-server
 	$(SUDO) $(LINK) $(MONIT_FILES_PATH)/noip2.monit /etc/monit/conf.d/noip2
 	$(SUDO) $(LINK) $(MONIT_FILES_PATH)/deluge-web.monit /etc/monit/conf.d/deluge-web
+	$(SUDO) $(LINK) $(MONIT_FILES_PATH)/deluged.monit /etc/monit/conf.d/deluged

@@ -1,0 +1,5 @@
+check process deluged
+  matching "/usr/bin/deluged"
+  start program = "/etc/init.d/deluged start"
+  stop program  = "/etc/init.d/deluged stop"
+  group renan
