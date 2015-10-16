@@ -3,7 +3,5 @@ function setup_rbenv {
     if [ -d ~/.rbenv/ ]; then
         export PATH="$HOME/.rbenv/bin:$PATH"
         eval "$(rbenv init -)"
-    else
-        echo "skipping rbenv setup -- $HOME/.rbenv directory does not exist."
     fi
 }
