@@ -68,7 +68,11 @@ function 8changelog {
 function 8mkch { 8changelog $1 | 8txc ;}
 
 function bry {
-    read -ep "(B)ry err:${?}> " && echo $(eval "$REPLY") >$(tty)
-    bry $@
+    read -ep "(B)ry err:${?}> "
+
+    if [ "$REPLY" != exit ]; then
+        echo $(eval "$REPLY") >$(tty)
+        bry $@
+    fi
 }
 export -f bry
