@@ -5,36 +5,36 @@
 # Web interface for torrent loading
 # processname: deluge-web
 
+NAME="deluge-web"
 RUN_AS='renan'
-PIDFILE='/var/run/deluge-web.pid'
-EXECUTABLE='/usr/bin/deluge-web'
-OPTS="-f"
+PIDFILE='/tmp/deluge-web.pid'
+DAEMON='/usr/bin/deluge-web'
+OPTS=""
 
 start() {
-    # matching interpreted daemons is so frikin tricky...
-    echo 'Starting deluge-web ...'
-    /sbin/start-stop-daemon --start --chuid $RUN_AS \
-                            --user $RUN_AS \
-                            --pidfile ${PIDFILE} \
-                            --exec $EXECUTABLE -- $OPTS
-    echo 'done.'
+    echo -n "Starting daemon: $NAME"
+    /sbin/start-stop-daemon --start --quiet \
+                            --chuid $RUN_AS --user $RUN_AS \
+                            --pidfile ${PIDFILE} --make-pidfile --background \
+                            --startas $DAEMON -- $OPTS
+    echo '.'
 }
 
 stop() {
-    if [ -f $PIDFILE ]; then
-        echo 'Stopping deluge-web ...'
-        /bin/kill $(cat $PIDFILE) && rm $PIDFILE && echo 'done.'
-    else
-        echo 'Nothing to be done.'
-    fi
+    echo -n "Stopping daemon: $NAME"
+    /sbin/start-stop-daemon --stop --quiet --oknodo \
+                            --user $RUN_AS \
+                            --pidfile ${PIDFILE} \
+                            --startas $DAEMON -- $OPTS
+    echo '.'
 }
 
 status() {
-    dbpid=$(pgrep -fu $RUN_AS 'deluge-web')
+    dbpid=$(pgrep -fu $RUN_AS "/usr/bin/python /usr/bin/deluge-web")
     if [ -z "$dbpid" ]; then
-        echo "deluge-web for user $RUN_AS: not running."
+        echo "$NAME for user $RUN_AS: not running."
     else
-        echo "deluge-web for user $RUN_AS: running (pid $dbpid)"
+        echo "$NAME for user $RUN_AS: running (pid $dbpid)"
     fi
 }
 
