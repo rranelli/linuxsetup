@@ -23,7 +23,7 @@
 DAEMON=/usr/local/bin/noip2
 NAME=noip2
 
-test -x $DAEMON || exit 0
+test -x $DAEMON || exit 1
 
 case "$1" in
     start)
