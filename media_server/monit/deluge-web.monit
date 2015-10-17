@@ -1,4 +1,4 @@
-check process deluge-web with pidfile "/var/run/deluge-web.pid"
+check process deluge-web with pidfile "/tmp/deluge-web.pid"
   start program = "/etc/init.d/deluge-web start"
   stop program  = "/etc/init.d/deluge-web stop"
   group renan
