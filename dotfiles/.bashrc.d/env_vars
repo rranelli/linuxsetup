@@ -9,4 +9,7 @@ function setup_env_vars {
     export MIMIPASS_RECIPIENT="renanranelli@gmail.com"
 
     export EDITOR="emacsclient -a '' -t"
+
+    export PS4='(${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]} - [${SHLVL},${BASH_SUBSHELL}, $?]
+'
 }

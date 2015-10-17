@@ -71,6 +71,7 @@ endef
 PACKAGES = \
 	aspell-pt-br			\
 	bash-completion			\
+	bashdb				\
 	bitlbee				\
 	build-essential			\
 	copy 				\
