@@ -165,6 +165,15 @@ $(MODULE_DIR)/dotfiles:
 $(MODULE_DIR)/git: | packages
 	$(CODE_DIR)/linuxsetup/scripts/setup_git
 
+$(MODULE_DIR)/mimipass: git
+	$(MKDIR) $(CODE_DIR)
+        cd $(CODE_DIR) && git clone 'git@github.com:rranelli/mimipass.git'
+	$(CODE_DIR)/mimipass/link-mimipass
+
+$(MODULE_DIR)/code: | packages
+	$(MKDIR) $(CODE_DIR)
+	$(CODE_DIR)/linuxsetup/scripts/gitmulticast.sh
+
 $(MODULE_DIR)/ruby: | packages
 	git clone https://github.com/sstephenson/rbenv.git $(HOME)/.rbenv --depth=1
 	git clone https://github.com/sstephenson/ruby-build.git $(HOME)/.rbenv/plugins/ruby-build --depth=1
@@ -172,11 +181,6 @@ $(MODULE_DIR)/ruby: | packages
 	$(HOME)/.rbenv/bin/rbenv install $(RUBY_VERSION)
 	$(HOME)/.rbenv/bin/rbenv global $(RUBY_VERSION)
 	$(HOME)/.rbenv/bin/rbenv rehash
-
-$(MODULE_DIR)/code: | packages ruby dotfiles
-	gem install git_multicast
-	$(MKDIR) $(CODE_DIR)
-	cd $(CODE_DIR) && git_multicast clone rranelli
 
 $(MODULE_DIR)/clojure: | packages
 	$(MKDIR) $(HOME)/.lein
@@ -346,6 +350,3 @@ $(MODULE_DIR)/dconf:
 	gsettings set org.pantheon.terminal.settings tab-bar-behavior 'Hide When Single Tab'
 	gsettings set org.gnome.crypto.cache gpg-cache-method 'timeout'
 	gsettings set org.gnome.crypto.cache gpg-cache-ttl 3600
-
-$(MODULE_DIR)/mimipass: code
-	$(CODE_DIR)/mimipass/link-mimipass
