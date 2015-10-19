@@ -46,9 +46,6 @@ function 8rdbr {
 }
 function 8frdbr { 8rdbr; RAILS_ENV=test 8rdbr; }
 
-# clone and update everything using my personal script
-function 8pcp { 8pc && git_multicast pull; }
-
 function dfgb { df -BG; }
 
 function 8txc { xclip -i -selection clipboard; }
@@ -76,3 +73,7 @@ function bry {
     fi
 }
 export -f bry
+
+gitmulticast() { $CODE_DIR/linuxsetup/scripts/gitmulticast.sh $@ ;}
+8pcp() { gitmulticast pull ;}
+8plp() { CODE_DIR=$HOME/locaweb gitmulticast pull ;}

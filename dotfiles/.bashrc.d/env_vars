@@ -5,10 +5,11 @@ function setup_env_vars {
     export PATH="$PATH:$HOME/code/elixir/bin"
     export PATH="$PATH:$HOME/.cask/bin"
 
+    export CODE_DIR="$HOME/code"
+    export EDITOR="emacsclient -a '' -t"
+
     export MIMIPASS_HOME="$HOME/Copy/.secrets/mimipass"
     export MIMIPASS_RECIPIENT="renanranelli@gmail.com"
-
-    export EDITOR="emacsclient -a '' -t"
 
     export PS4='(${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]} - [${SHLVL},${BASH_SUBSHELL}, $?]
 '

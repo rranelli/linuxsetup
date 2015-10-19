@@ -6,6 +6,7 @@ set -euo pipefail # these don't play well with bashdb;
 #
 : ${GITHUB_USER:=rranelli}
 : ${GITHUB_API_TOKEN:=$(mimipass get github-api-token)}
+: ${CODE_DIR:=$HOME/code}
 
 auth_header="Authorization: token $GITHUB_API_TOKEN"
 repos_url="https://api.github.com/users/$GITHUB_USER/repos"
@@ -54,31 +55,48 @@ fetch-repos() {
 : ${POOL_SIZE:=20}
 parallel() {
     declare -a jobs=()
+    declare -A outputs=()
 
-    # Record the number of jobs to run
-    total_jobs=$#
+    function async {
+        out=$(mktemp)
 
-    for n in $(eval echo {0..$POOL_SIZE}); do            # Start the first batch:
-        [ $# = 0 ] && break                              # - check if there are still jobs to run
-        $1 &                                             # - dequeue the next job and run it in the background:
+        grn-echo "Results of calling: $@" > $out
+        if $@; then
+            grn-echo "Success!"; echo
+        else
+            red-echo "Failure!"; echo
+        fi >>$out 2>&1 &
 
-        jobs[$n]=$!; shift                               # - record the n-th job PID in the `jobs` array:
+        outputs[$!]=$out
+    }
+
+    function is-alive { kill -0 $1 2>/dev/null ;}
+    function read-output {
+        if [ ${outputs[$1]} ]; then
+            cat ${outputs[$1]} && unset outputs[$1]
+        fi
+    }
+
+    for n in $(eval echo {0..$POOL_SIZE}); do # Start the first batch:
+        [ $# = 0 ] && break                   # - check if there are still jobs to run
+        async $1                              # - run the next job in the background
+
+        jobs[$n]=$!; shift                    # - record the n-th job PID & dequeue it
     done
 
-    while :; do                                          # While the jobs are not done:
-        done=0
-        for i in ${!jobs[@]}; do                         # - For each running process
-            kill -0 ${jobs[$i]} 2>/dev/null && continue  # --- Check if process is still alive
-            (( ++done ))                                 # --- If it is not, it means its done
+    while true; do                               # While the jobs are not done:
+        for i in ${!jobs[@]}; do              # - For each running process
+            local pid=${jobs[$i]}
+            is-alive $pid && continue         # -- Check if process is still alive. If it is, continue
 
-            [ $# = 0 ] && continue                       # --- Check if there are still jobs to run
-            $1 &                                         # --- If there are, dequeue the next and run it
-            jobs[$i]=$!; shift
+            read-output $pid                  # -- if the process is just finished, read its output
+            [ $# = 0 ] && break               # -- Check if there are still jobs to run
+
+            async $1; shift;                  # -- If there are, dequeue the next and run it
+            jobs[$i]=$!
         done
 
-        if [ $# = 0 ] && [ $done = ${#jobs[@]} ]; then   # - If all jobs were fetched, and all jobs are done
-            break                                        # --- Break out of the infinite loop
-        fi
+        [ $# = 0 ] && { wait; break; }        # - If all jobs were fetched, wait for them to finish and break
     done
 }
 
@@ -88,7 +106,7 @@ clone() {
 
     grn-echo "Cloning $repo_name ..."
     (
-        cd ~/code
+        cd $CODE_DIR
         git clone "$url" \
             && grn-echo "Done cloning $repo_name"
     )
@@ -102,30 +120,51 @@ set-upstream() {
     grn-echo "Setting upstream for $repo_name ..."
     parent_url=$(curl -sS -H "$auth_header" $url | jq -r '.parent.git_url')
     (
-        cd ~/code/$repo_name
+        cd  $CODE_DIR/$repo_name
         git remote add upstream "$parent_url" --fetch \
             && grn-echo "Upstream set for $repo_name"
     )
 }
 
-#
-## Actual work
-#
-repos=$(fetch-repos $repos_url)                                       # fetch all the repos for the user
-git_urls=$(echo "$repos" | jq '.[] | .git_url')                       # grab all the git url for his/her repos
-forked_repo_urls=$(echo "$repos" | jq '.[] | select(.fork) | .url')   # get the urls of the repos which are forks
+gitmulticast-() { gitmulticast-clone ;}
+gitmulticast-clone() {
+    repos=$(fetch-repos $repos_url)                                       # fetch all the repos for the user
+    git_urls=$(echo "$repos" | jq '.[] | .git_url')                       # grab all the git url for his/her repos
+    forked_repo_urls=$(echo "$repos" | jq '.[] | select(.fork) | .url')   # get the urls of the repos which are forks
 
-# This is needed because we want each entry of the clone_commands array to
-# correspond to one line of the `jq -r ...` command.
-declare -a clone_commands set_upstream_commands
-OLDIFS=$IFS; IFS=$'\n'
-clone_commands=(
-    $(echo $git_urls | jq -r '"clone \(.)"')
-)
-set_upstream_commands=(
-    $(echo $forked_repo_urls | jq -r '"set-upstream \(.)"')
-)
-IFS=$OLDIFS
+    # This is needed because we want each entry of the clone_commands array to
+    # correspond to one line of the `jq -r ...` command.
+    OLDIFS=$IFS; IFS=$'\n'
+    declare -a clone_commands=(
+        $(echo $git_urls | jq -r '"clone \(.)"')
+    )
+    declare -a set_upstream_commands=(
+        $(echo $forked_repo_urls | jq -r '"set-upstream \(.)"')
+    )
+    IFS=$OLDIFS
 
-parallel "${clone_commands[@]}"          # clone all of the repos in parallel
-parallel "${set_upstream_commands[@]}"   # set upstreams for repos which are forked
+    parallel "${clone_commands[@]}"          # clone all of the repos in parallel
+    parallel "${set_upstream_commands[@]}"   # set upstreams for repos which are forked
+}
+
+gitmulticast-pull() {
+    OLDIFS=$IFS; IFS=$'\n'
+    declare -a pull_commands=(
+        $(ls $CODE_DIR -1 | xargs -n1 -I{} echo "git -C $CODE_DIR/{} pull --rebase")
+    )
+    IFS=$OLDIFS
+
+    parallel "${pull_commands[@]}"
+}
+
+gitmulticast-status() {
+    OLDIFS=$IFS; IFS=$'\n'
+    declare -a status_commands=(
+        $(ls $CODE_DIR -1 | xargs -n1 -I{} echo "git -C $CODE_DIR/{} status")
+    )
+    IFS=$OLDIFS
+
+    parallel "${status_commands[@]}"
+}
+
+gitmulticast-${1:-}
