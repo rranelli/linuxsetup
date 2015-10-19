@@ -25,11 +25,8 @@ check-command() {
     (command -v $1 >/dev/null) || { red-echo "$1 is not available"; exit 1 ;}
     shift && check-command $@
 }
-check-command jq mimipass
+check-command jq mimipass curl mktemp git
 
-#
-## Functions
-#
 fetch-repos() {
     function get-next-page {
         if [[ "$@" =~ \<(.*)\>\;\ rel\=\"next\" ]]; then
@@ -60,7 +57,7 @@ parallel() {
     function async {
         out=$(mktemp)
 
-        grn-echo "Results of calling: $@" > $out
+        grn-echo "Result of: ${clroff}$@" > $out
         if $@; then
             grn-echo "Success!"; echo
         else
@@ -126,7 +123,6 @@ set-upstream() {
     )
 }
 
-gitmulticast-() { gitmulticast-clone ;}
 gitmulticast-clone() {
     repos=$(fetch-repos $repos_url)                                       # fetch all the repos for the user
     git_urls=$(echo "$repos" | jq '.[] | .git_url')                       # grab all the git url for his/her repos
@@ -167,4 +163,4 @@ gitmulticast-status() {
     parallel "${status_commands[@]}"
 }
 
-gitmulticast-${1:-}
+gitmulticast-${1-clone}
