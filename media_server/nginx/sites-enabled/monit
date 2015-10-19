@@ -1,0 +1,20 @@
+upstream monit {
+    server 127.0.0.1:2812;
+}
+
+server {
+    listen 80;
+    server_name monit.lightning.rep;
+
+    location /monit/ {
+        include /etc/nginx/proxy_params;
+
+        proxy_pass http://monit;
+    }
+
+    location / {
+        include /etc/nginx/proxy_params;
+
+        proxy_pass http://monit;
+    }
+}
