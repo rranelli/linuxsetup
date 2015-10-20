@@ -119,6 +119,7 @@ PACKAGES = \
 	tmux				\
 	tree				\
 	ttf-ancient-fonts		\
+	units				\
 	w3m				\
 	wget				\
 	wl				\
