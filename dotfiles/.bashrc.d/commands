@@ -77,3 +77,10 @@ export -f bry
 gitmulticast() { $CODE_DIR/linuxsetup/scripts/gitmulticast.sh $@ ;}
 8plp() { CODE_DIR=$HOME/locaweb $CODE_DIR/linuxsetup/scripts/gitmulticast.sh pull ;}
 8pcp() { gitmulticast pull ;}
+
+8set-brightness () {
+    xrandr -q \
+        | awk '/ connected/ {print $1}' \
+        | tee \
+        | xargs -n1 -I{} xrandr --output {} --brightness $1
+}
