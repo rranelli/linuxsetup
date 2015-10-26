@@ -9,7 +9,7 @@ if [ ! $# = 0 ]; then
         -P 5021 \
         -h motomaxx.rep \
         -d /storage/emulated/0/Music \
-        "$@"
+        "$@" 2>/dev/null
     exit 0
 fi
 
@@ -23,7 +23,7 @@ IFS=$OLDIFS
 
 # remove old files
 echo -e "\e[0;32mDeleting the random selection directory...\e[0m"
-ncftp -u renan -p renanftp -P 5021 motomaxx.rep <<EOF || true
+ncftp -u renan -p renanftp -P 5021 motomaxx.rep <<EOF 2>/dev/null || true
   rm -r /storage/emulated/0/Music/Random
   rmdir /storage/emulated/0/Music/Random
   mkdir /storage/emulated/0/Music/Random
@@ -37,4 +37,4 @@ $script_dir/ftp-upload.sh \
     -P 5021 \
     -h motomaxx.rep \
     -d /storage/emulated/0/Music/Random \
-    "${albums[@]}"
+    "${albums[@]}" 2>/dev/null
