@@ -166,3 +166,7 @@ $(MODULE_DIR)/monit: | init-files
 	$(SUDO) $(LINK) $(MONIT_FILES_PATH)/noip2.monit /etc/monit/conf.d/noip2
 	$(SUDO) $(LINK) $(MONIT_FILES_PATH)/deluge-web.monit /etc/monit/conf.d/deluge-web
 	$(SUDO) $(LINK) $(MONIT_FILES_PATH)/deluged.monit /etc/monit/conf.d/deluged
+
+beets: $(MODULE_DIR)/beets
+$(MODULE_DIR)/beets: | packages
+	$(SUDO) pip install beets
