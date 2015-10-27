@@ -12,6 +12,10 @@ server {
         proxy_pass http://plex/manage;
     }
 
+    location = / {
+        rewrite "^(/)$" http://plex.lightning.rep/plex permanent;
+    }
+
     location / {
         include /etc/nginx/proxy_params;
 
