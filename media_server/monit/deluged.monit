@@ -1,4 +1,0 @@
-check process deluged with pidfile "/var/run/deluged.pid"
-  start program = "/etc/init.d/deluged start"
-  stop program  = "/etc/init.d/deluged stop"
-  group root
