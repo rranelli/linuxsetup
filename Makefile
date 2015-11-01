@@ -166,9 +166,9 @@ $(MODULE_DIR)/dotfiles:
 $(MODULE_DIR)/git: | packages
 	$(CODE_DIR)/linuxsetup/scripts/setup_git
 
-$(MODULE_DIR)/mimipass: git
+$(MODULE_DIR)/mimipass: | git
 	$(MKDIR) $(CODE_DIR)
-        cd $(CODE_DIR) && git clone 'git@github.com:rranelli/mimipass.git'
+	git -C $(CODE_DIR) clone 'git@github.com:rranelli/mimipass.git'
 	$(CODE_DIR)/mimipass/link-mimipass
 
 $(MODULE_DIR)/code: | packages
