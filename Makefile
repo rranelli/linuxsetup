@@ -39,6 +39,7 @@ OPTIONAL_MODULES = \
 	desktop		\
 	docker		\
 	mimipass	\
+	reditr		\
 	slack		\
 	source-code-pro
 
@@ -354,7 +355,7 @@ $(MODULE_DIR)/dconf:
 
 $(MODULE_DIR)/reditr:
 	wget https://launchpad.net/ubuntu/+source/udev/175-0ubuntu19/+build/4325788/+files/libudev0_175-0ubuntu19_amd64.deb
-	$(SUDO) dpkg -i libudev0_175-0ubuntu19_amd64.deb --yes
+	$(SUDO) dpkg -i libudev0_175-0ubuntu19_amd64.deb
 	rm libudev0_175-0ubuntu19_amd64.deb
 
 	wget http://reditr.com/downloads/linux/reditr_amd64.deb
