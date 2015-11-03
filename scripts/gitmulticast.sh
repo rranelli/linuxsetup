@@ -69,8 +69,9 @@ parallel() {
 
     function is-alive { kill -0 $1 2>/dev/null ;}
     function read-output {
-        if [ ${outputs[$1]} ]; then
-            cat ${outputs[$1]} && unset outputs[$1]
+        pid=$1
+        if [ ${outputs[$pid]} ]; then
+            cat ${outputs[$pid]} && unset outputs[$pid]
         fi
     }
 
@@ -95,6 +96,9 @@ parallel() {
 
         [ $# = 0 ] && { wait; break; }        # - If all jobs were fetched, wait for them to finish and break
     done
+
+    # - read the remaining files
+    for f in ${outputs[@]}; do cat $f; done
 }
 
 clone() {
