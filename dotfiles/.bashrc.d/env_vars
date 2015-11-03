@@ -11,6 +11,10 @@ function setup_env_vars {
     export MIMIPASS_HOME="$HOME/Copy/.secrets/mimipass"
     export MIMIPASS_RECIPIENT="renanranelli@gmail.com"
 
+    # This enables bash eternal history
+    export HISTFILESIZE=
+    export HISTSIZE=
+
     export PS4='(${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]} - [${SHLVL},${BASH_SUBSHELL}, $?]
 '
 }
