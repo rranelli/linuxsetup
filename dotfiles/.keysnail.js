@@ -50,6 +50,7 @@ hook.setHook('KeyBoardQuit', function (aEvent) {
 });
 
 
+
 // ============================== Black list =============================== //
 
 hook.addToHook("LocationChange", function (aNsURI) {
@@ -482,3 +483,7 @@ key.setCaretKey('M-p', function (ev) {
 key.setCaretKey('M-n', function (ev) {
     command.walkInputElement(command.elementsRetrieverButton, false, true);
 }, 'Focus to the previous button');
+
+key.setGlobalKey('C-R', function (ev) {
+    BrowserReloadSkipCache();
+}, 'Reload (Skip cache)');
