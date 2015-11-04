@@ -1,0 +1,11 @@
+check file rubytapasdl with path /home/renan/.cronjobs
+   if timestamp > 2 days then alert
+
+check file courseradl with path /home/renan/.cronjobs
+   if timestamp > 2 days then alert
+
+check file ftpmusic with path /home/renan/.cronjobs
+   if timestamp > 10 days then alert
+
+check file ftporgzly with path /home/renan/.cronjobs
+   if timestamp > 1 days then alert
