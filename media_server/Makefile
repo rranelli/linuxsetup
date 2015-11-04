@@ -44,6 +44,7 @@ endef
 PACKAGES = \
 	bash-completion			\
 	build-essential			\
+	calibre				\
 	curl				\
 	deluge-console			\
 	deluge-web			\
@@ -106,7 +107,7 @@ $(MODULE_DIR)/bash-completion: | packages
 ###
 # copying init-files
 init-files: $(MODULE_DIR)/init-files
-$(MODULE_DIR)/init-files: | packages noip2 calibre deluge
+$(MODULE_DIR)/init-files: | packages noip2
 	$(SUDO) $(LINK) $(CURDIR)/media_server/init-scripts/noip2.init.d /etc/init.d/noip2
 	$(SUDO) $(LINK) $(CURDIR)/media_server/init-scripts/calibre-server.init.d /etc/init.d/calibre-server
 	$(SUDO) $(LINK) $(CURDIR)/media_server/init-scripts/deluge-web.init.d /etc/init.d/deluge-web
