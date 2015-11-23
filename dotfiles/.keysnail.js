@@ -168,6 +168,17 @@ key.setGlobalKey([['C-M-h'], ['M-O']], function (ev) {
     getBrowser().mTabContainer.advanceSelectedTab(-1, true);
 }, 'Select previous tab');
 
+//
+// This fixes the issue where `C-k` does not work with slack out of global mode
+//
+key.setGlobalKey('C-k', function (ev) {
+    content
+        .window
+        .document
+        .getElementById("quick_switcher_btn")
+        .click();
+});
+
 key.setViewKey('[', function (ev) {
     BrowserBack();
 }, 'Back');
