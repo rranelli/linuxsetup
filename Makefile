@@ -361,3 +361,13 @@ $(MODULE_DIR)/reditr:
 	wget http://reditr.com/downloads/linux/reditr_amd64.deb
 	$(SUDO) dpkg -i reditr_amd64.deb
 	rm reditr_amd64.deb
+
+$(MODULE_DIR)/conkeror:
+$(MODULE_DIR)/conkeror: | packages
+	echo 'deb http://noone.org/conkeror-nightly-debs jessie main' \
+	  | $(SUDO) tee /etc/apt/sources.list.d/conkeror.list
+	echo 'deb-src http://noone.org/conkeror-nightly-debs jessie main' \
+	  | $(SUDO) tee -a /etc/apt/sources.list.d/conkeror.list
+
+	$(UPDATE_REPO_CACHE)
+	$(install-packages)
