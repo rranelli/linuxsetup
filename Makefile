@@ -301,10 +301,17 @@ keysnail:
 	firefox keysnail.xpi
 	rm keysnail.xpi
 
-$(MODULE_DIR)/postgresql: PACKAGES = postgresql libpq-dev
+$(MODULE_DIR)/postgresql: PACKAGES = postgresql-9.4 libpq-dev
 $(MODULE_DIR)/postgresql:
+	echo 'deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main' \
+	  | $(SUDO) tee /etc/apt/sources.list.d/postgresql.list
+	wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc \
+	  | $(SUDO) apt-key add -
+
+	$(UPDATE_REPO_CACHE)
 	$(install-packages)
-	$(SUDO) $(LINK) $(CURDIR)/scripts/pg_hba.conf /etc/postgresql/9.3/main/pg_hba.conf
+
+	$(SUDO) $(LINK) $(CURDIR)/scripts/pg_hba.conf /etc/postgresql/9.4/main/pg_hba.conf
 	$(SUDO) service postgresql restart
 
 $(MODULE_DIR)/docker: PACKAGES = lxc-docker
