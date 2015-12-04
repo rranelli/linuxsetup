@@ -25,7 +25,9 @@ function 8bes { bundle exec rspec; }
 function 8be { bundle exec $*; }
 function 8bejs { bundle exec jekyll serve --watch --drafts; }
 
-# Rake db migrates
+#
+## Rake db migrates
+#
 function 8rdbm {
     echo "Migrating $RAILS_ENV..."
     bundle exec rake db:migrate
@@ -45,6 +47,25 @@ function 8rdbr {
     bundle exec rake db:drop db:create db:migrate
 }
 function 8frdbr { 8rdbr; RAILS_ENV=test 8rdbr; }
+
+#
+## Ecto migrations
+#
+function 8edbm {
+    echo "Migration $MIX_ENV..."
+    mix ecto.migrate
+    echo "Rollbacking $MIX_ENV..."
+    mix ecto.rollback -n 0
+    echo "---"
+    echo "Migrating $MIX_ENV..."
+    mix ecto.migrate
+    echo "---"
+    echo "Finished"
+}
+
+function 8fedbm {
+    8edbm; MIX_ENV=test 8edbm;
+}
 
 function dfgb { df -BG; }
 
