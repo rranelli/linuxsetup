@@ -67,6 +67,13 @@ function 8fedbm {
     8edbm; MIX_ENV=test 8edbm;
 }
 
+function 8edbr {
+    mix ecto.drop \
+        && mix ecto.create \
+        && mix ecto.migrate \
+        && [ -f ${seeds:=priv/repo/seeds.exs} ] && mix run $seeds
+}
+
 function dfgb { df -BG; }
 
 function 8txc { xclip -i -selection clipboard; }
