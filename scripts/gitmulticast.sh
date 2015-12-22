@@ -129,7 +129,7 @@ set-upstream() {
 
 gitmulticast-clone() {
     repos=$(fetch-repos $repos_url)                                       # fetch all the repos for the user
-    git_urls=$(echo "$repos" | jq '.[] | .git_url')                       # grab all the git url for his/her repos
+    git_urls=$(echo "$repos" | jq '.[] | .ssh_url')                       # grab all the remote urls for his/her repos
     forked_repo_urls=$(echo "$repos" | jq '.[] | select(.fork) | .url')   # get the urls of the repos which are forks
 
     # This is needed because we want each entry of the clone_commands array to
