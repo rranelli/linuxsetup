@@ -296,10 +296,9 @@ $(MODULE_DIR)/desktop: | install spotify-repo
 	$(add-repositories)
 	$(install-packages)
 
-keysnail:
+$(MODULE_DIR)/keysnail:
 	wget https://github.com/mooz/keysnail/raw/master/keysnail.xpi
 	firefox keysnail.xpi
-	rm keysnail.xpi
 
 $(MODULE_DIR)/postgresql: PACKAGES = postgresql-9.4 libpq-dev
 $(MODULE_DIR)/postgresql:
