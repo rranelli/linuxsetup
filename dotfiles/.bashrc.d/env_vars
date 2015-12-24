@@ -9,7 +9,7 @@ function setup_env_vars {
     export CODE_DIR="$HOME/code"
     export EDITOR="emacs -nw -q"
 
-    export CDPATH=$CODE_DIR:$HOME/locaweb
+    export CDPATH=$CODE_DIR:$HOME/xerpa
 
     export MIMIPASS_HOME="$HOME/Copy/.secrets/mimipass"
     export MIMIPASS_RECIPIENT="renanranelli@gmail.com"

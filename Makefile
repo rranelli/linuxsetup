@@ -38,6 +38,7 @@ OPTIONAL_MODULES = \
 	dconf		\
 	desktop		\
 	docker		\
+	firacode	\
 	mimipass	\
 	reditr		\
 	slack		\
