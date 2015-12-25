@@ -1,0 +1,4 @@
+#!/bin/bash
+echo $1
+cd $(git rev-parse --show-toplevel)
+mix compile
