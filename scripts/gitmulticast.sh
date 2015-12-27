@@ -5,11 +5,12 @@ set -euo pipefail # these don't play well with bashdb;
 ## Setup environment
 #
 : ${GITHUB_USER:=rranelli}
+: ${GITHUB_USER_TYPE:=users}
 : ${GITHUB_API_TOKEN:=$(mimipass get github-api-token)}
 : ${CODE_DIR:=$HOME/code}
 
 auth_header="Authorization: token $GITHUB_API_TOKEN"
-repos_url="https://api.github.com/users/$GITHUB_USER/repos"
+repos_url="https://api.github.com/${GITHUB_USER_TYPE}/${GITHUB_USER}/repos"
 
 ## Helpers
 txtgrn="\e[0;32m"

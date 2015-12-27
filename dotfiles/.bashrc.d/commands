@@ -102,8 +102,8 @@ function bry {
 }
 export -f bry
 
-gitmulticast() { $CODE_DIR/linuxsetup/scripts/gitmulticast.sh $@ ;}
-8plp() { CODE_DIR=$HOME/locaweb $CODE_DIR/linuxsetup/scripts/gitmulticast.sh pull ;}
+gitmulticast() { ~/code/linuxsetup/scripts/gitmulticast.sh $@ ;}
+8plp() { CODE_DIR=$HOME/locaweb ~/code/linuxsetup/scripts/gitmulticast.sh pull ;}
 8pcp() { gitmulticast pull ;}
 
 8set-brightness () {
