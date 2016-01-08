@@ -105,7 +105,6 @@ PACKAGES = \
 	mongodb-org			\
 	ncftp				\
 	network-manager-openvpn		\
-	nodejs				\
 	openjdk-7-jdk			\
 	openssh-server			\
 	python-software-properties	\
@@ -202,6 +201,11 @@ $(MODULE_DIR)/smlnj: | packages
 		tar -xvf config.tgz && \
 		config/install.sh && \
 		rm -rf config.tgz config/
+
+$(MODULE_DIR)/nodejs: PACKAGES = nodejs
+$(MODULE_DIR)/nodejs:
+	curl -sL https://deb.nodesource.com/setup_5.x | sudo -E bash -
+	$(install-packages)
 
 $(MODULE_DIR)/scala: PACKAGES = sbt
 $(MODULE_DIR)/scala: | packages
