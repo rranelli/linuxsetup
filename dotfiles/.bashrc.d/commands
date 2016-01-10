@@ -10,25 +10,25 @@ ls() {
 }
 
 # Emacs aliasing
-function em { emacsclient -a '' -c -n $1; }
-function et { emacsclient -a '' -t $1; }
+em() { emacsclient -a '' -c -n $1; }
+et() { emacsclient -a '' -t $1; }
 
-function edk { emacsclient -e "(kill-emacs)"; }
-function ekr { edk && em && exit; }
+edk() { emacsclient -e "(kill-emacs)"; }
+ekr() { edk && em && exit; }
 
 # Project switching
-function 8pc { cd ~/code/$1; }
-function 8pl { cd ~/locaweb/$1; }
+8pc() { cd ~/code/$1; }
+8pl() { cd ~/locaweb/$1; }
 
 # Bundle exec aliasing
-function 8bes { bundle exec rspec; }
-function 8be { bundle exec $*; }
-function 8bejs { bundle exec jekyll serve --watch --drafts; }
+8bes() { bundle exec rspec; }
+8be() { bundle exec $*; }
+8bejs() { bundle exec jekyll serve --watch --drafts; }
 
 #
 ## Rake db migrates
 #
-function 8rdbm {
+8rdbm() {
     echo "Migrating $RAILS_ENV..."
     bundle exec rake db:migrate
     echo "---"
@@ -40,18 +40,18 @@ function 8rdbm {
     echo "---"
     echo "Finished"
 }
-function 8frdbm { 8rdbm; RAILS_ENV=test 8rdbm; }
+8frdbm() { 8rdbm; RAILS_ENV=test 8rdbm; }
 
-function 8rdbr {
+8rdbr() {
     echo "Reseting $RAILS_ENV..."
     bundle exec rake db:drop db:create db:migrate
 }
-function 8frdbr { 8rdbr; RAILS_ENV=test 8rdbr; }
+8frdbr() { 8rdbr; RAILS_ENV=test 8rdbr; }
 
 #
 ## Ecto migrations
 #
-function 8edbm {
+8edbm() {
     echo "Migration $MIX_ENV..."
     mix ecto.migrate
     echo "Rollbacking $MIX_ENV..."
@@ -63,36 +63,36 @@ function 8edbm {
     echo "Finished"
 }
 
-function 8fedbm {
+8fedbm() {
     8edbm; MIX_ENV=test 8edbm;
 }
 
-function 8edbr {
+8edbr() {
     mix ecto.drop \
         && mix ecto.create \
         && mix ecto.migrate \
         && [ -f ${seeds:=priv/repo/seeds.exs} ] && mix run $seeds
 }
 
-function dfgb { df -BG; }
+dfgb() { df -BG; }
 
-function 8txc { xclip -i -selection clipboard; }
+8txc() { xclip -i -selection clipboard; }
 
-function 8inf {
+8inf() {
     until [[ $? != 0 ]]; do eval "$*"; done
     zenity --info --text="Finished the infinite loop of $1"
 }
 
-function 8gr { cd $(git rev-parse --show-toplevel); }
+8gr() { cd $(git rev-parse --show-toplevel); }
 
-function 8changelog {
+8changelog() {
     ref=$1
     [ -z "$ref" ] && ref=$(git describe --tags --abbrev=0)
     git log --no-merges --oneline "$ref"..HEAD
 }
-function 8mkch { 8changelog $1 | 8txc ;}
+8mkch() { 8changelog $1 | 8txc ;}
 
-function bry {
+bry() {
     read -ep "(B)ry err:${?}> "
 
     if [ "$REPLY" != exit ]; then
@@ -101,6 +101,8 @@ function bry {
     fi
 }
 export -f bry
+
+unmake() { [[ $# -ge 1 ]] && rm ~/.modules/$1 ;}
 
 gitmulticast() { ~/code/linuxsetup/scripts/gitmulticast.sh $@ ;}
 alias 8gm='gitmulticast'

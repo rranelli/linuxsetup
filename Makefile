@@ -7,11 +7,11 @@ TOUCH			:= touch
 CODE_DIR		:= $(HOME)/code
 MODULE_DIR		:= $(HOME)/.modules
 INSTALL_PACKAGE_FLAGS	:= --yes --force-yes
-INSTALL_PACKAGE		:= apt-get install $(INSTALL_PACKAGE_FLAGS)
+INSTALL_PACKAGE_CMD	:= apt-get install $(INSTALL_PACKAGE_FLAGS)
 
 ADD_REPO_FLAGS		:= --yes
-ADD_REPO		:= $(SUDO) apt-add-repository $(ADD_REPO_FLAGS)
-UPDATE_REPO_CACHE	:= $(SUDO) apt-get update -qq
+ADD_REPO_CMD		:= $(SUDO) apt-add-repository $(ADD_REPO_FLAGS)
+UPDATE_REPO_CACHE_CMD	:= $(SUDO) apt-get update -qq
 
 RUBY_VERSION		:= 2.2.2
 EMACS_VERSION		:= 24.5
@@ -53,8 +53,8 @@ LANGUAGES = \
 	smlnj
 
 define add-repositories
-	echo $(REPOSITORIES) | xargs -n 1 $(ADD_REPO)
-	$(UPDATE_REPO_CACHE)
+	echo $(REPOSITORIES) | xargs -n 1 $(ADD_REPO_CMD)
+	$(UPDATE_REPO_CACHE_CMD)
 endef
 
 REPOSITORIES = \
@@ -67,7 +67,7 @@ REPOSITORIES = \
 	ppa:pi-rho/dev
 
 define install-packages
-	$(SUDO) $(INSTALL_PACKAGE) $(PACKAGES)
+	$(SUDO) $(INSTALL_PACKAGE_CMD) $(PACKAGES)
 endef
 
 PACKAGES = \
@@ -210,7 +210,7 @@ $(MODULE_DIR)/nodejs:
 $(MODULE_DIR)/scala: PACKAGES = sbt
 $(MODULE_DIR)/scala: | packages
 	echo "deb http://dl.bintray.com/sbt/debian /" | $(SUDO) tee -a /etc/apt/sources.list.d/sbt.list
-	$(UPDATE_REPO_CACHE)
+	$(UPDATE_REPO_CACHE_CMD)
 	$(install-packages)
 
 	$(MKDIR) $(HOME)/.sbt/0.13/plugins
@@ -221,7 +221,7 @@ $(MODULE_DIR)/elixir: | code
 	$(SUDO) su -c "echo 'deb http://packages.erlang-solutions.com/ubuntu trusty contrib' > /etc/apt/sources.list.d/esl-erlang.list"
 	wget http://packages.erlang-solutions.com/ubuntu/erlang_solutions.asc
 	$(SUDO) apt-key add erlang_solutions.asc
-	$(UPDATE_REPO_CACHE)
+	$(UPDATE_REPO_CACHE_CMD)
 	$(install-packages)
 
 	cd $(HOME)/code/elixir && make clean test
@@ -301,18 +301,18 @@ $(MODULE_DIR)/desktop: | install spotify-repo
 	$(add-repositories)
 	$(install-packages)
 
-$(MODULE_DIR)/keysnail:
+$(MODULE_DIR)/keysnail: | desktop
 	wget https://github.com/mooz/keysnail/raw/master/keysnail.xpi
 	firefox keysnail.xpi
 
 $(MODULE_DIR)/postgresql: PACKAGES = postgresql-9.4 libpq-dev
-$(MODULE_DIR)/postgresql:
+$(MODULE_DIR)/postgresql: | packages
 	echo 'deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main' \
 	  | $(SUDO) tee /etc/apt/sources.list.d/postgresql.list
 	wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc \
 	  | $(SUDO) apt-key add -
 
-	$(UPDATE_REPO_CACHE)
+	$(UPDATE_REPO_CACHE_CMD)
 	$(install-packages)
 
 	$(SUDO) $(LINK) $(CURDIR)/scripts/pg_hba.conf /etc/postgresql/9.4/main/pg_hba.conf
@@ -322,7 +322,7 @@ $(MODULE_DIR)/docker: PACKAGES = lxc-docker
 $(MODULE_DIR)/docker: | packages
 	$(SUDO) apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys
 	$(SUDO) sh -c "echo deb https://get.docker.com/ubuntu docker main > /etc/apt/sources.list.d/docker.list"
-	$(UPDATE_REPO_CACHE)
+	$(UPDATE_REPO_CACHE_CMD)
 	$(install-packages)
 
 	$(SUDO) usermod -a -G docker $(USER) # adding current user to docker group
@@ -333,14 +333,14 @@ $(MODULE_DIR)/vagrant: | packages virtualbox
 	$(SUDO) dpkg -i vagrant_1.7.2_x86_64.deb
 	rm vagrant_*.deb
 
-$(MODULE_DIR)/virtualbox:
+$(MODULE_DIR)/virtualbox: | packages
 	wget http://download.virtualbox.org/virtualbox/4.3.24/virtualbox-4.3_4.3.24-98716~Ubuntu~precise_amd64.deb
 	$(SUDO) dpkg -i virtualbox-4.3_4.3.24-98716~Ubuntu~precise_amd64.deb
 	rm virtualbox-*.deb
 
-$(MODULE_DIR)/slack:
-	wget https://slack-ssb-updates.global.ssl.fastly.net/linux_releases/slack-1.1.5-amd64.deb
-	$(SUDO) dpkg -i slack-1.1.5-amd64.deb
+$(MODULE_DIR)/slack: | packages
+	wget https://slack-ssb-updates.global.ssl.fastly.net/linux_releases/slack-desktop-1.2.6-amd64.deb
+	$(SUDO) dpkg -i slack*.deb
 	rm slack*.deb
 
 $(MODULE_DIR)/source-code-pro:
@@ -388,5 +388,5 @@ $(MODULE_DIR)/conkeror: | packages
 	echo 'deb-src http://noone.org/conkeror-nightly-debs jessie main' \
 	  | $(SUDO) tee -a /etc/apt/sources.list.d/conkeror.list
 
-	$(UPDATE_REPO_CACHE)
+	$(UPDATE_REPO_CACHE_CMD)
 	$(install-packages)
