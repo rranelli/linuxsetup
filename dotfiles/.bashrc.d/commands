@@ -103,6 +103,13 @@ function bry {
 export -f bry
 
 gitmulticast() { ~/code/linuxsetup/scripts/gitmulticast.sh $@ ;}
+alias 8gm='gitmulticast'
+
+gitmulticast-xerpa() {
+    GITHUB_USER_TYPE=orgs GITHUB_USER=xerpa CODE_DIR="$HOME/xerpa" gitmulticast "$@"
+}
+alias 8gmx='gitmulticast-xerpa'
+
 8plp() { CODE_DIR=$HOME/locaweb ~/code/linuxsetup/scripts/gitmulticast.sh pull ;}
 8pcp() { gitmulticast pull ;}
 
