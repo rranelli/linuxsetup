@@ -113,5 +113,6 @@ function setup_ps1 {
     if [[ "$TERM" == "vt100" || "$TERM" == "dumb"  || "$TERM" == "eterm-color" ]]; then
 	# This had to be added in order for emacs' TRAMP to work seamlessly
     	PS1=${PS1/$final/}"\$ "
+        PAGER=less # terrible hack
     fi
 }
