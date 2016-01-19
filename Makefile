@@ -113,6 +113,7 @@ PACKAGES = \
 	ruby2.1-dev			\
 	samba				\
 	silversearcher-ag		\
+	socat				\
 	ssh				\
 	surfraw				\
 	telnet				\
