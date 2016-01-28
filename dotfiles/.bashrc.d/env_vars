@@ -18,6 +18,9 @@ function setup_env_vars {
     export HISTFILESIZE=
     export HISTSIZE=
 
+    # used to avoid repeated logins
+    export secret_key=0000000000000000000000000000000000000000000000000000000000000000
+
     export PS4='(${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]} - [${SHLVL},${BASH_SUBSHELL}, $?]
 '
 }
