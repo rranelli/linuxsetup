@@ -68,10 +68,8 @@ ekr() { edk && em && exit; }
 }
 
 8edbr() {
-    mix ecto.drop \
-        && mix ecto.create \
-        && mix ecto.migrate \
-        && [ -f ${seeds:=priv/repo/seeds.exs} ] && mix run $seeds
+    mix do ecto.drop, ecto.create, ecto.migrate
+    [ -f ${seeds:=priv/repo/seeds.exs} ] && mix run $seeds
 }
 
 dfgb() { df -BG; }
