@@ -498,3 +498,10 @@ key.setCaretKey('M-n', function (ev) {
 key.setGlobalKey('C-R', function (ev) {
     BrowserReloadSkipCache();
 }, 'Reload (Skip cache)');
+
+//////// Edit text with emacs
+key.setEditKey ('M-i', function (ev, arg) {
+    ext.exec ( "edit_text", arg, ev);
+}, "Edit in external editor", true);
+
+plugins.options [ "K2Emacs.editor"  ] = "/home/renan/.bashrc.d/bin/raw-editor";
