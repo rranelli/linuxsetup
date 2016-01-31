@@ -103,7 +103,6 @@ PACKAGES = \
 	lxde				\
 	markdown			\
 	maven				\
-	mongodb-org			\
 	ncftp				\
 	network-manager-openvpn		\
 	openjdk-7-jdk			\
@@ -145,12 +144,8 @@ clean:
 
 ###
 # Add external repositories for packages
-$(MODULE_DIR)/repositories: | mongodb-repo
+$(MODULE_DIR)/repositories:
 	$(add-repositories)
-
-$(MODULE_DIR)/mongodb-repo:
-	echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' | $(SUDO) tee /etc/apt/sources.list.d/mongodb.list
-	$(SUDO) apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
 
 $(MODULE_DIR)/spotify-repo:
 	$(SUDO) apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 94558F59
