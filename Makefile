@@ -115,16 +115,13 @@ PACKAGES = \
 	silversearcher-ag		\
 	socat				\
 	ssh				\
-	surfraw				\
 	telnet				\
 	texlive				\
 	tmux				\
 	tree				\
 	ttf-ancient-fonts		\
 	units				\
-	w3m				\
 	wget				\
-	wl				\
 	wordnet				\
 	xclip				\
 	xdg-utils
@@ -269,7 +266,6 @@ $(MODULE_DIR)/langtool: | packages
 # Install desktop stuff
 $(MODULE_DIR)/desktop: PACKAGES = \
 		calibre				\
-		dconf-tools			\
 		deluge				\
 		deluge-console			\
 		deluged				\
@@ -278,9 +274,6 @@ $(MODULE_DIR)/desktop: PACKAGES = \
 		elementary-wallpapers-extra	\
 		firefox				\
 		flashplugin-installer		\
-		icedtea-7-plugin		\
-		pidgin				\
-		remmina				\
 		spotify-client			\
 		telegram
 $(MODULE_DIR)/desktop: REPOSITORIES = \
