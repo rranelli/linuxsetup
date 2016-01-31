@@ -166,7 +166,7 @@ $(MODULE_DIR)/mimipass: | git
 	git -C $(CODE_DIR) clone 'git@github.com:rranelli/mimipass.git'
 	$(CODE_DIR)/mimipass/link-mimipass
 
-$(MODULE_DIR)/code: | packages
+$(MODULE_DIR)/code: | packages mimipass
 	$(MKDIR) $(CODE_DIR)
 	$(CODE_DIR)/linuxsetup/scripts/gitmulticast.sh
 
