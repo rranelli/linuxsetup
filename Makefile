@@ -35,7 +35,7 @@ REQUIRED_MODULES = \
 OPTIONAL_MODULES = \
 	cask 		\
 	cedilla		\
-	dconf		\
+	gsettings	\
 	desktop		\
 	docker		\
 	firacode	\
@@ -355,7 +355,7 @@ $(MODULE_DIR)/cedilla:
 	$(SUDO) cp /usr/share/X11/locale/en_US.UTF-8/Compose /usr/share/X11/locale/en_US.UTF-8/Compose.bak
 	$(SUDO) sed -e 's/ć/ç/g' -e 's/Ć/Ç/g' -i /usr/share/X11/locale/en_US.UTF-8/Compose
 
-$(MODULE_DIR)/dconf:
+$(MODULE_DIR)/gsettings:
 	gsettings set org.gnome.mutter workspaces-only-on-primary false
 
 	gsettings set org.pantheon.terminal.settings alt-changes-tab false
