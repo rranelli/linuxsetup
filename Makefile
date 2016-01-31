@@ -284,10 +284,6 @@ $(MODULE_DIR)/desktop: REPOSITORIES = \
 $(MODULE_DIR)/desktop: | install spotify-repo
 	cd $(CODE_DIR)/emacs-dotfiles && $(SUDO) ./setup_shortcut
 
-# fixes pantheon terminal C-d issue.
-# see https://bugs.launchpad.net/pantheon-terminal/+bug/1364704
-	gsettings set org.pantheon.terminal.settings save-exited-tabs false
-
 	$(add-repositories)
 	$(install-packages)
 
@@ -358,6 +354,8 @@ $(MODULE_DIR)/cedilla:
 $(MODULE_DIR)/gsettings:
 	gsettings set org.gnome.mutter workspaces-only-on-primary false
 
+	gsettings set org.pantheon.desktop.wingpanel show-launcher 'false'
+	gsettings set org.pantheon.terminal.settings save-exited-tabs false # see https://bugs.launchpad.net/pantheon-terminal/+bug/1364704
 	gsettings set org.pantheon.terminal.settings alt-changes-tab false
 	gsettings set org.pantheon.terminal.settings tab-bar-behavior 'Hide When Single Tab'
 
@@ -366,6 +364,9 @@ $(MODULE_DIR)/gsettings:
 
 	gsettings set org.gnome.settings-daemon.peripherals.keyboard repeat-interval 'uint32 17'
 	gsettings set org.gnome.settings-daemon.peripherals.keyboard delay 'uint32 200'
+
+	gsettings set org.gnome.desktop.wm.keybindings toggle-maximized "['<Super>Up']"
+	gsettings set org.gnome.desktop.wm.keybindings toggle-fullscreen "@as ['<Super><Alt>Up']"
 
 $(MODULE_DIR)/reditr:
 	wget https://launchpad.net/ubuntu/+source/udev/175-0ubuntu19/+build/4325788/+files/libudev0_175-0ubuntu19_amd64.deb
