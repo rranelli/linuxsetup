@@ -48,6 +48,7 @@ LANGUAGES = \
 	clojure		\
 	elixir		\
 	haskell		\
+	nodejs		\
 	octave		\
 	scala		\
 	smlnj
