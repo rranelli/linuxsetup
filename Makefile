@@ -369,10 +369,15 @@ $(MODULE_DIR)/cedilla:
 
 $(MODULE_DIR)/dconf:
 	gsettings set org.gnome.mutter workspaces-only-on-primary false
+
 	gsettings set org.pantheon.terminal.settings alt-changes-tab false
 	gsettings set org.pantheon.terminal.settings tab-bar-behavior 'Hide When Single Tab'
+
 	gsettings set org.gnome.crypto.cache gpg-cache-method 'timeout'
 	gsettings set org.gnome.crypto.cache gpg-cache-ttl 3600
+
+	gsettings set org.gnome.settings-daemon.peripherals.keyboard repeat-interval 'uint32 17'
+	gsettings set org.gnome.settings-daemon.peripherals.keyboard delay 'uint32 200'
 
 $(MODULE_DIR)/reditr:
 	wget https://launchpad.net/ubuntu/+source/udev/175-0ubuntu19/+build/4325788/+files/libudev0_175-0ubuntu19_amd64.deb
