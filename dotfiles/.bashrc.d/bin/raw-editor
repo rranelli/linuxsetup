@@ -1,2 +1,2 @@
 #!/bin/bash
-exec emacs -q $@
+emacsclient -a '' -c $@
