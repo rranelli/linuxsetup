@@ -1,6 +1,6 @@
 #!/bin/bash
 # configuring usernames
-git config --global user.name "renan-ranelli"
+git config --global user.name "Milhouse"
 git config --global user.email "renanranelli@gmail.com"
 
 # use the new behavior for push
