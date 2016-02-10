@@ -386,3 +386,10 @@ $(MODULE_DIR)/conkeror: | packages
 
 	$(UPDATE_REPO_CACHE_CMD)
 	$(install-packages)
+
+# https://forums.hubic.com/showthread.php?272-hubiC-for-Linux-beta-is-out-!
+$(MODULE_DIR)/hubic:
+$(MODULE_DIR)/hubic: | packages
+	wget http://mir7.ovh.net/ovh-applications/hubic/hubiC-Linux/2.1.0/hubiC-Linux-2.1.0.53-linux.deb
+	$(SUDO) dpkg -i hubiC*.deb
+	rm hubiC*.deb
