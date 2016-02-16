@@ -95,7 +95,8 @@ bry() {
     read -ep "(B)ry err:${?}> "
 
     if [ "$REPLY" != exit ]; then
-        echo $(eval "$REPLY") >$(tty)
+        local evald=$(eval "$REPLY")
+        echo "${evald}" >$(tty)
         bry $@
     fi
 }
