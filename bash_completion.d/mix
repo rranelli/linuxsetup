@@ -18,7 +18,7 @@
 # ! /usr/bin/env bash
 
 __mix_completion_task_cache_file__="$HOME/.mix-completion-task-list"
-
+__mix_invalidate_cache() { rm "${__mix_completion_task_cache_file__}" ;}
 __mix()
 {
     local cwd current previous more_previous exs tasks separator task_list superoption i j
