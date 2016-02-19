@@ -390,7 +390,3 @@ $(MODULE_DIR)/spideroak: | packages
 	wget https://spideroak.com/getbuild?platform=ubuntu&arch=x86_64
 	$(SUDO) dpkg -i spideroakone*
 	rm spideroakone
-
-$(MODULE_DIR)/lidswitch:
-	$(SUDO) cp $(CURDIR)/scripts/logind.conf /etc/systemd/logind.conf
-	$(SUDO) restart systemd-logind
