@@ -74,7 +74,6 @@ PACKAGES = \
 	aspell-pt-br			\
 	bash-completion			\
 	bashdb				\
-	bitlbee				\
 	build-essential			\
 	curl				\
 	dnsutils			\
@@ -86,6 +85,7 @@ PACKAGES = \
 	gnupg-agent			\
 	guile-2.0-dev			\
 	html2text			\
+	inotify-tools			\
 	libcurl3			\
 	libcurl4-openssl-dev		\
 	libgmime-2.6-dev		\
@@ -109,13 +109,11 @@ PACKAGES = \
 	redis-server 			\
 	ruby2.1				\
 	ruby2.1-dev			\
-	samba				\
 	silversearcher-ag		\
 	socat				\
 	ssh				\
 	telnet				\
 	texlive				\
-	tmux				\
 	tree				\
 	ttf-ancient-fonts		\
 	units				\
