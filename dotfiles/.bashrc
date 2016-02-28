@@ -13,24 +13,23 @@ modules=(
     github
 )
 
-function __require {
-    path=$HOME/.bashrc.d/$1
-    if [[ -e $path ]]; then source $path; fi
+__require() {
+    path="${HOME}/.bashrc.d/$1"
+    if [ -e "${path}" ]; then source "${path}"; fi
 }
 
-function __require_modules {
-    for module in "${modules[@]}"
-    do __require $module; done
+__require_modules() {
+  for module in "${modules[@]}"; do
+    __require $module
+  done
 }
 
-function __is_interactive {
-    if [[ $- == *i* ]]; then 1; else 0; fi
-}
+__is_interactive() { [[ $- == *i* ]]; }
 
-function __setup {
+__setup() {
     __require_modules
 
-    if [ __is_interactive ]; then
+    if __is_interactive; then
 	setup_ps1
 	setup_bash_completion
     fi
@@ -40,8 +39,9 @@ function __setup {
     setup_env_vars
     setup_rbenv
 
-    if [ -f ~/Copy/.bashrc.extras ]; then
-        source ~/Copy/.bashrc.extras
+    secret_extras="/home/renan/SpiderOak Hive/.bashrc.extras"
+    if [ -f "${secret_extras}" ]; then
+        source "${secret_extras}"
     fi
 }
 

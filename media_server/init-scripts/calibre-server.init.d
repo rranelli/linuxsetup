@@ -12,7 +12,7 @@ NAME="calibre-server"
 RUN_AS='renan'
 PIDFILE='/tmp/calibre-server.pid'
 DAEMON='/opt/calibre/calibre-server'
-OPTS="--with-library /home/renan/Copy/Library/Computing \
+OPTS="--with-library /home/renan/SpiderOak Hive/Library/Computing \
       --url-prefix /books \
       --port=4366
       --pidfile=$PIDFILE

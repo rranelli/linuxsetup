@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
 cd $HOME &&
-    rsync -r Copy/* lightning.rep:/home/renan/Copy/
+    rsync -r "SpiderOak Hive/*" lightning.rep:/home/renan/Copy/
