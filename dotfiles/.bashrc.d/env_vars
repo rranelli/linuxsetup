@@ -4,7 +4,7 @@ function setup_env_vars {
     export PATH="$PATH:$HOME/.sml/bin"
     export PATH="$PATH:$HOME/code/elixir/bin"
     export PATH="$PATH:$HOME/.cask/bin"
-    export PATH="/usr/local/heroku/bin:$PATH" # heroku toolbelt
+    export PATH="/opt/terraform:$PATH" # heroku toolbelt
 
     export CODE_DIR="$HOME/code"
     export EDITOR="emacs -nw -q"
