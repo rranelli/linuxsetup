@@ -126,6 +126,10 @@ alias 8gmx='gitmulticast-xerpa'
     export AWS_ANSIBLE_PW=$(mimipass get xerpa-ansible-vault)
     export AWS_ACCESS_KEY=$(mimipass get xerpa-aws-access-key)
     export AWS_SECRET_KEY=$(mimipass get xerpa-aws-secret-key)
+
     export AWS_SMTP_USER=$(mimipass get xerpa-aws-smtp-user)
     export AWS_SMTP_PASS=$(mimipass get xerpa-aws-smtp-passwd)
+
+    export TF_VAR_secret_key=$(mimipass get xerpa-aws-secret-key)
+    export TF_VAR_access_key=$(mimipass get xerpa-aws-access-key)
 }
