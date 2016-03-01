@@ -129,7 +129,10 @@ alias 8gmx='gitmulticast-xerpa'
 
     export AWS_SMTP_USER=$(mimipass get xerpa-aws-smtp-user)
     export AWS_SMTP_PASS=$(mimipass get xerpa-aws-smtp-passwd)
+}
 
+8trfconf() {
     export TF_VAR_secret_key=$(mimipass get xerpa-aws-secret-key)
     export TF_VAR_access_key=$(mimipass get xerpa-aws-access-key)
+    export TF_VAR_lukladb_password=$(mimipass get xerpa-aws-lukla-db-passwd)
 }
