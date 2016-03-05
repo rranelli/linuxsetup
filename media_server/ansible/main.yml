@@ -24,13 +24,15 @@
         - vim
         - wget
 
+    ## TODO: no sleep, ever. http://askubuntu.com/questions/47311/how-do-i-disable-my-system-from-going-to-sleep
     ## TODO: generate locale. /etc/locale.conf, /usr/sbin/locale-gen as root
     ## TODO: noip2 installation & configuration
+    ## TODO: beets
     ## TODO: nginx files
     ## TODO: monit files
-    ## TODO: beets
     ## TODO: calibre server
     ## TODO: configure deluge daemon, enable and username/password
+    ## TODO: configure deluge-web, enable it and username/password
     ## TODO: configure podnapsi subtitles
 
     - name: "fetch plex"
