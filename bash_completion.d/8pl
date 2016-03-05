@@ -1,9 +1,0 @@
-#!/bin/bash
-
-_8pl()
-{
-    local cur=${COMP_WORDS[COMP_CWORD]}
-    COMPREPLY=( $(compgen -W "$(8pl && \ls)" -- $cur) )
-}
-
-complete -F _8pl 8pl

@@ -24,18 +24,20 @@
         - vim
         - wget
 
-    ## TODO: generate locale
+    ## TODO: generate locale. /etc/locale.conf, /usr/sbin/locale-gen as root
     ## TODO: noip2 installation & configuration
     ## TODO: nginx files
     ## TODO: monit files
     ## TODO: beets
     ## TODO: calibre server
+    ## TODO: configure deluge daemon, enable and username/password
+    ## TODO: configure podnapsi subtitles
 
     - name: "fetch plex"
       get_url:
         url=https://downloads.plex.tv/plex-media-server/0.9.15.6.1714-7be11e1/plexmediaserver_0.9.15.6.1714-7be11e1_i386.deb
         dest=/var/cache/apt/archives/plex.deb
-        sha256sum=
+        sha256sum=ac5f7daaf6054fd71efe6d48a1ecc65b4a5ecce60e5a6d51de0b430cec3fdadb
 
     - name: "install plex"
       apt:
