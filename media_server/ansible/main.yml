@@ -1,0 +1,51 @@
+---
+
+- hosts: media
+  become: yes
+  tasks:
+    - name: install packages
+      apt:
+        pkg={{ item }}
+        state=installed
+        update_cache=true
+      with_items:
+        - bash-completion
+        - build-essential
+        - calibre
+        - curl
+        - deluge-console
+        - deluge-web
+        - deluged
+        - dnsutils
+        - ftp
+        - git
+        - monit
+        - nginx
+        - vim
+        - wget
+
+    ## TODO: generate locale
+    ## TODO: noip2 installation & configuration
+    ## TODO: nginx files
+    ## TODO: monit files
+    ## TODO: beets
+    ## TODO: calibre server
+
+    - name: "fetch plex"
+      get_url:
+        url=https://downloads.plex.tv/plex-media-server/0.9.15.6.1714-7be11e1/plexmediaserver_0.9.15.6.1714-7be11e1_i386.deb
+        dest=/var/cache/apt/archives/plex.deb
+        sha256sum=
+
+    - name: "install plex"
+      apt:
+        deb=/var/cache/apt/archives/plex.deb
+        state=present
+      notify:
+        - start plex
+
+  handlers:
+    - name: start plex
+      service:
+        name=plexmediaserver
+        state=started

@@ -59,11 +59,12 @@ define add-repositories
 endef
 
 REPOSITORIES = \
-	ppa:brightbox/ruby-ng		\
-	ppa:cassou/emacs		\
-	ppa:chris-lea/node.js		\
-	ppa:git-core/ppa		\
-	ppa:webupd8team/java		\
+	ppa:ansible/ansible	\
+	ppa:brightbox/ruby-ng	\
+	ppa:cassou/emacs	\
+	ppa:chris-lea/node.js	\
+	ppa:git-core/ppa	\
+	ppa:webupd8team/java	\
 	ppa:pi-rho/dev
 
 define install-packages
@@ -71,6 +72,7 @@ define install-packages
 endef
 
 PACKAGES = \
+	ansible				\
 	aspell-pt-br			\
 	bash-completion			\
 	bashdb				\

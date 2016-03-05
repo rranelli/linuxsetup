@@ -25,8 +25,7 @@ REQUIRED_MODULES = \
 	noip2		\
 	nginx 		\
 	init-files	\
-	monit		\
-	copy
+	monit
 
 define add-repositories
 	echo $(REPOSITORIES) | xargs -n 1 $(SUDO) $(ADD_REPO)
