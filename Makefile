@@ -354,6 +354,7 @@ $(MODULE_DIR)/gsettings:
 	gsettings set org.pantheon.terminal.settings save-exited-tabs false # see https://bugs.launchpad.net/pantheon-terminal/+bug/1364704
 	gsettings set org.pantheon.terminal.settings alt-changes-tab true
 	gsettings set org.pantheon.terminal.settings tab-bar-behavior 'Hide When Single Tab'
+	gsettings set org.pantheon.terminal.settings font "Droid Sans Mono 16"
 
 	gsettings set org.gnome.crypto.cache gpg-cache-method 'timeout'
 	gsettings set org.gnome.crypto.cache gpg-cache-ttl 3600
