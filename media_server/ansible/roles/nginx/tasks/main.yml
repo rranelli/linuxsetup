@@ -19,5 +19,6 @@
     - sites-enabled/plex
     - sites-enabled/root
     - sites-enabled/torrent
+    - sites-enabled/znc
   notify:
     - restart nginx
