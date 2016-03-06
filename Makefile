@@ -391,3 +391,6 @@ $(MODULE_DIR)/spideroak: | packages
 	wget https://spideroak.com/getbuild?platform=ubuntu&arch=x86_64
 	$(SUDO) dpkg -i spideroakone*
 	rm spideroakone
+
+media_server:
+	ansible-playbook media_server/ansible/media_server.yml --ask-vault-pass --ask-become-pass -i media_server/ansible/hosts
