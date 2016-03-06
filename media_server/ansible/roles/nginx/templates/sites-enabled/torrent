@@ -1,10 +1,11 @@
+# -*- mode: nginx -*-
 upstream torrent {
     server 127.0.0.1:8112;
 }
 
 server {
     listen 80;
-    server_name torrent.lightning.rep;
+    server_name torrent.{{ inventory_hostname }};
 
     location / {
         include /etc/nginx/proxy_params;

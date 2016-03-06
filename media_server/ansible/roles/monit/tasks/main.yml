@@ -1,0 +1,17 @@
+- name: "install monit"
+  apt:
+    pkg=monit
+    state=installed
+    update_cache=true
+    cache_valid_time=86400
+  notify:
+    - restart monit
+
+- name: "sets monit files"
+  copy:
+    src={{ item }}
+    dest=/{{ item }}
+  with_items:
+    - etc/monit/conf.d/noip2
+    - etc/monit/conf.d/deluge-web
+    - etc/monit/conf.d/calibre-server

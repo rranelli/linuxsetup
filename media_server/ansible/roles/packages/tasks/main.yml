@@ -1,0 +1,16 @@
+- name: install packages
+  apt:
+    pkg={{ item }}
+    state=installed
+    update_cache=true
+    cache_valid_time=86400
+  with_items:
+    - bash-completion
+    - build-essential
+    - calibre
+    - curl
+    - dnsutils
+    - ftp
+    - git
+    - vim
+    - wget

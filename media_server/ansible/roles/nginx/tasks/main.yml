@@ -1,0 +1,22 @@
+---
+
+- name: "install nginx"
+  apt:
+    pkg=nginx
+    state=installed
+    update_cache=true
+    cache_valid_time=86400
+
+- name: "copy vhosts"
+  template:
+    src="sites-enabled/{{ item }}"
+    dest="/etc/nginx/sites-enabled/{{ item }}"
+    mode=0644
+  with_items:
+    - calibre
+    - monit
+    - plex
+    - root
+    - torrent
+  notify:
+    - restart nginx

@@ -1,3 +1,4 @@
+# -*- mode: nginx -*-
 server {
     listen 80;
     listen 4365 default_server;

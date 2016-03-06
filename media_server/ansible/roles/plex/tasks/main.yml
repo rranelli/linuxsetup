@@ -1,0 +1,15 @@
+---
+
+- name: "fetch plex"
+  get_url:
+    url={{ plex_url_i386 }}
+    sha256sum={{ plex_sha256_i386 }}
+    dest=/var/cache/apt/archives/plex.deb
+
+- name: "install plex"
+  apt:
+    deb=/var/cache/apt/archives/plexmediaserver.deb
+    update_cache=false
+    state=present
+  notify:
+    - restart plex

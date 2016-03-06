@@ -1,10 +1,11 @@
+# -*- mode: nginx -*-
 upstream monit {
     server 127.0.0.1:2812;
 }
 
 server {
     listen 80;
-    server_name monit.lightning.rep;
+    server_name monit.{{ inventory_hostname }};
 
     location /monit/ {
         include /etc/nginx/proxy_params;

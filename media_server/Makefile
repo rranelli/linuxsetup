@@ -113,23 +113,6 @@ $(MODULE_DIR)/init-files: | packages noip2
 
 	$(touch-module)
 
-copy: $(MODULE_DIR)/copy
-$(MODULE_DIR)/copy: | packages
-	wget https://copy.com/install/linux/Copy.tgz
-	tar xvzf Copy.tgz
-
-	$(SUDO) cp -r copy /opt
-
-	$(SUDO) $(LINK) /opt/copy/x86_64/CopyAgent /usr/bin/copy-agent
-	$(SUDO) $(LINK) /opt/copy/x86_64/CopyConsole /usr/bin/copy-console
-
-	rm Copy.tgz
-	rm -rf copy/
-
-	echo "Now you can run"
-	echo "./CopyConsole -u=the_mail_you_signed_up_with -r=/home/your_linux_username/copy -p=the_password_you_signed_up_with"
-	$(touch-module)
-
 noip2: $(MODULE_DIR)/noip2
 $(MODULE_DIR)/noip2: | packages
 	wget http://www.no-ip.com/client/linux/noip-duc-linux.tar.gz

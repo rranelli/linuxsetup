@@ -18,4 +18,4 @@ $script_dir/ftp-upload.sh \
     -P 5021 \
     -h motomaxx.rep \
     -d /storage/emulated/0/Documents/org \
-    $HOME/Copy/org/*.org 2>/dev/null
+    "$HOME/SpiderOak Hive/org/"*.org 2>/dev/null

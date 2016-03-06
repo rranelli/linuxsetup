@@ -1,0 +1,41 @@
+---
+
+- name: "set init files"
+  copy:
+    src={{ item }}
+    dest=/{{ item }}
+  with_items:
+    - etc/init.d/calibre-server
+    - etc/init.d/deluge-web
+    - etc/init.d/noip2
+
+- name: "set /etc/locale.gen"
+  copy:
+    src=etc/locale.gen
+    dest=/etc/locale.gen
+    mode=0644
+  notify:
+    - generate locales
+
+- name: "set /etc/network/interfaces"
+  copy:
+    src=etc/network/interfaces
+    dest=/etc/network/interfaces
+  notify:
+    - restart networking
+
+- name: "set /etc/grub.conf"
+  copy:
+    src=etc/default/grub
+    dest=/etc/default/grub
+  notify:
+    - update grub
+
+- name: "check completion case"
+  command: grep -q 'set completion-ignore-case on' /etc/inputrc
+  register: completion_case_ignore_on
+  ignore_errors: true
+
+- name: "set completion case"
+  shell: echo 'set completion-ignore-case on' >> /etc/inputrc
+  when: completion_case_ignore_on.rc != 0

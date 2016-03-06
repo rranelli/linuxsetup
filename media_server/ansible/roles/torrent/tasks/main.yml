@@ -1,0 +1,19 @@
+- name: "installs deluge & deluge-web"
+  apt:
+    pkg={{ item }}
+    state=installed
+    update_cache=true
+    cache_valid_time=86400
+  with_items:
+    - deluge-console
+    - deluge-web
+    - deluged
+  notify:
+    - restart deluge-web
+    - restart deluged
+
+- name: "set deluge auth config file"
+  copy:
+    src=auth
+    dest=/home/renan/.config/deluge/auth
+    mode=0600

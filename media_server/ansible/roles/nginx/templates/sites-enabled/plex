@@ -1,10 +1,11 @@
+# -*- mode: nginx -*-
 upstream plex {
     server 127.0.0.1:32400;
 }
 
 server {
     listen 80;
-    server_name plex.lightning.rep;
+    server_name plex.{{ inventory_hostname }};
 
     location /plex/ {
         include /etc/nginx/proxy_params;
@@ -13,7 +14,7 @@ server {
     }
 
     location = / {
-        rewrite "^(/)$" http://plex.lightning.rep/plex permanent;
+        rewrite "^(/)$" http://plex.{{ inventory_hostname }}/plex permanent;
     }
 
     location / {
