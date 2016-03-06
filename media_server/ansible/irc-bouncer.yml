@@ -1,0 +1,7 @@
+---
+
+- hosts: irc-bouncers
+  become: yes
+
+  roles:
+    - irc-bouncer

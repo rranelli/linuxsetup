@@ -1,0 +1,20 @@
+---
+
+- name: "ensure jessie-backports repository is available"
+  apt_repository:
+    repo="deb http://http.debian.net/debian jessie-backports main"
+    state=present
+    update_cache=yes
+
+- name: "install znc from jessie-backports"
+  apt:
+    name=znc
+    state=present
+    default_release=jessie-backports
+    update_cache=yes
+    cache_valid_time=86400
+
+- name: "configure znc"
+  command: cat "you have to run `znc --makeconf` manually!"
+  args:
+    creates: /home/renan/.znc/configs/znc.conf
