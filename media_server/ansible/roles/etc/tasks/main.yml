@@ -4,10 +4,10 @@
   copy:
     src={{ item }}
     dest=/{{ item }}
+    mode=755
   with_items:
     - etc/init.d/calibre-server
     - etc/init.d/deluge-web
-    - etc/init.d/noip2
 
 - name: "set /etc/locale.gen"
   copy:

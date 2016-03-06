@@ -9,14 +9,15 @@
 
 - name: "copy vhosts"
   template:
-    src="sites-enabled/{{ item }}"
-    dest="/etc/nginx/sites-enabled/{{ item }}"
+    src="{{ item }}"
+    dest="/etc/nginx/{{ item }}"
     mode=0644
   with_items:
-    - calibre
-    - monit
-    - plex
-    - root
-    - torrent
+    - .htpasswd
+    - sites-enabled/calibre
+    - sites-enabled/monit
+    - sites-enabled/plex
+    - sites-enabled/root
+    - sites-enabled/torrent
   notify:
     - restart nginx
