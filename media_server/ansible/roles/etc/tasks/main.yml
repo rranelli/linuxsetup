@@ -17,6 +17,14 @@
   notify:
     - generate locales
 
+- name: "check current timezone"
+  command: timedatectl status
+  register: timedatectlStatus
+
+- name: "adjust clock timezone"
+  command: timedatectl set-timezone America/Sao_Paulo
+  when: 'not "America/Sao_Paulo" in timedatectlStatus.stdout'
+
 - name: "set /etc/network/interfaces"
   copy:
     src=etc/network/interfaces
