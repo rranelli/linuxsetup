@@ -1,9 +1,12 @@
 #!/usr/bin/env bash
 
 function setup_extras {
-    # adds cool compiler to the path
-    COOL_PATH=$HOME/code/rrcompilersedx/cs143/cool/bin
-    if [[ -d $COOL_PATH ]]; then
-	PATH=$PATH:$COOL_PATH
-    fi
+  # adds cool compiler to the path
+  COOL_PATH=$HOME/code/rrcompilersedx/cs143/cool/bin
+  if [[ -d $COOL_PATH ]]; then
+      PATH=$PATH:$COOL_PATH
+  fi
+
+  bind '"\ep":"\C-p"'
+  bind '"\en":"\C-n"'
 }
