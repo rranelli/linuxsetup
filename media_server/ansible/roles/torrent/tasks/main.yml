@@ -15,6 +15,20 @@
 - file: path=/home/renan/.config/deluge state=directory owner=renan
 - name: "set deluge auth config file"
   copy:
-    src=auth
+    content="{{ deluge_auth }}"
     dest=/home/renan/.config/deluge/auth
     mode=0600
+    owner=renan
+  notify:
+    - restart deluge-web
+    - restart deluged
+
+- name: "set deluge core.conf file"
+  template:
+    src=core.conf
+    dest=/home/renan/.config/deluge/core.conf
+    mode=0600
+    owner=renan
+  notify:
+    - restart deluge-web
+    - restart deluged
