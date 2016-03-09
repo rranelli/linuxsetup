@@ -68,9 +68,12 @@ ekr() { edk && em && exit; }
 }
 
 8edbr() {
+  (
+    set -e
     mix do ecto.drop, ecto.create, ecto.migrate
     [ -f ${seeds:=priv/repo/seeds.exs} ] && mix run $seeds
     [ -d ${seeds_dir:=priv/repo/seeds} ] && { for f in $seeds_dir/*.exs; do mix run $f; done ;}
+  )
 }
 
 dfgb() { df -BG; }
