@@ -8,7 +8,7 @@
 
 - name: "install plex"
   apt:
-    deb=/var/cache/apt/archives/plexmediaserver.deb
+    deb=/var/cache/apt/archives/plex.deb
     update_cache=false
     state=present
   notify:

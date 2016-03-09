@@ -52,6 +52,7 @@
   command: 'grep -q "set completion-ignore-case on" /etc/inputrc'
   register: completion_case_ignore_on
   changed_when: completion_case_ignore_on.rc != 0
+  ignore_errors: true
 
 - name: "set completion case"
   shell: echo 'set completion-ignore-case on' >> /etc/inputrc
