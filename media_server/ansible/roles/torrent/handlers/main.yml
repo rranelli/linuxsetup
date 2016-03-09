@@ -1,9 +1,9 @@
 - name: "restart deluged"
   service:
     name=deluged
-    status=restarted
+    state=restarted
 
 - name: "restart deluge-web"
   service:
     name=deluge-web
-    status=restarted
+    state=restarted

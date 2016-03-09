@@ -1,3 +1,5 @@
+---
+
 - name: "install monit"
   apt:
     pkg=monit
@@ -12,6 +14,6 @@
     src={{ item }}
     dest=/{{ item }}
   with_items:
-    - etc/monit/conf.d/noip2
+    - etc/monit/monitrc
     - etc/monit/conf.d/deluge-web
     - etc/monit/conf.d/calibre-server

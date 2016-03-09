@@ -5,13 +5,14 @@
     update_cache=true
     cache_valid_time=86400
   with_items:
-    - deluge-console
-    - deluge-web
     - deluged
+    - deluge-web
+    - deluge-console
   notify:
     - restart deluge-web
     - restart deluged
 
+- file: path=/home/renan/.config/deluge state=directory owner=renan
 - name: "set deluge auth config file"
   copy:
     src=auth

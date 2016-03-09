@@ -1,7 +1,7 @@
 ---
 
 - name: "generate locales"
-  command: /usr/local/sbin/locale-gen
+  command: /usr/sbin/locale-gen
 
 - name: "restart networking"
   service:

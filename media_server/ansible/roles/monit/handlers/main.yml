@@ -1,4 +1,4 @@
 - name: "restart monit"
   service:
     name=monit
-    status=restarted
+    state=restarted
