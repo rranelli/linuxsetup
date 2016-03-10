@@ -6,10 +6,25 @@
     sha256sum={{ plex_sha256_i386 }}
     dest=/var/cache/apt/archives/plex.deb
 
+####################################################################
+# workaround for #2430                                             #
+# see: https://github.com/ansible/ansible-modules-core/issues/2430 #
+- name: "check installed plex version"                             #
+  shell: dpkg-query --show plexmediaserver | awk '{print $2}'      #
+  register: plex_installed_version                                 #
+  changed_when: false                                              #
+                                                                   #
+- name: "fetch deb file version"                                   #
+  command: dpkg -f /var/cache/apt/archives/plex.deb VERSION        #
+  register: plex_deb_version                                       #
+  changed_when: false                                              #
+####################################################################
+
 - name: "install plex"
   apt:
     deb=/var/cache/apt/archives/plex.deb
     update_cache=false
     state=present
+  when: plex_deb_version.stdout != plex_installed_version.stdout
   notify:
     - restart plex

@@ -1,0 +1,28 @@
+templates:
+  torrentday:
+    rss: "{{ flexget_rss_feed_url }}"
+    download: "{{ deluge_autoadd_path }}"
+  kickass_got:
+    rss: "http://kat.cr/usearch/Game%20of%20Thrones/?rss=1"
+tasks:
+  torrentday_default:
+    template:
+      - torrentday
+    series:
+      720p:
+        - The Walking Dead:
+            begin: s06e08
+        - The Americans:
+            begin: s03e01
+        - Homeland:
+            begin: s04e05
+        - Orphan Black:
+            begin: s03e05
+        - Game of Thrones:
+            begin: s05e01
+  kickass_got:
+    template:
+      - kickass_got
+    series:
+      720p:
+        - Game of Thrones
