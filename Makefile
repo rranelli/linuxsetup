@@ -361,7 +361,7 @@ $(MODULE_DIR)/gsettings:
 	gsettings set org.gnome.crypto.cache gpg-cache-method 'timeout'
 	gsettings set org.gnome.crypto.cache gpg-cache-ttl 10800
 
-	gsettings set org.gnome.settings-daemon.peripherals.keyboard repeat-interval 'uint32 21'
+	gsettings set org.gnome.settings-daemon.peripherals.keyboard repeat-interval 'uint32 17'
 	gsettings set org.gnome.settings-daemon.peripherals.keyboard delay 'uint32 200'
 
 	gsettings set org.gnome.desktop.wm.keybindings toggle-maximized "['<Super>Up']"
