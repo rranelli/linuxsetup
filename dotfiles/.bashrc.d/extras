@@ -7,6 +7,9 @@ function setup_extras {
       PATH=$PATH:$COOL_PATH
   fi
 
-  bind '"\ep":"\C-p"'
-  bind '"\en":"\C-n"'
+  [[ $- == *i* ]] && {
+    bind '"\ep":"\C-p"'
+    bind '"\en":"\C-n"'
+    bind '"\ek":"exit"'
+  }
 }
