@@ -14,7 +14,7 @@ ADD_REPO_CMD		:= $(SUDO) apt-add-repository $(ADD_REPO_FLAGS)
 UPDATE_REPO_CACHE_CMD	:= $(SUDO) apt-get update -qq
 
 RUBY_VERSION		:= 2.2.2
-EMACS_VERSION		:= 24.5
+EMACS_VERSION		:= 25.0.92
 EMACS			:= emacs-$(EMACS_VERSION)
 
 define touch-module
@@ -234,14 +234,13 @@ $(MODULE_DIR)/bash-completion: | packages
 	$(SUDO) su -c "echo 'set completion-ignore-case on' >> /etc/inputrc"
 	$(SUDO) cp -f bash_completion.d/* /etc/bash_completion.d/
 
-editor: emacs
 $(MODULE_DIR)/emacs: | packages code
-	wget http://ftpmirror.gnu.org/emacs/$(EMACS).tar.xz
+        wget http://alpha.gnu.org/gnu/emacs/pretest/emacs-25.0.92.tar.xz
 	tar -xvf $(EMACS).tar.xz
 
 	$(SUDO) apt-get build-dep emacs24 -y
 
-	cd $(EMACS) && ./configure --with-x-toolkit=lucid
+	cd $(EMACS) && ./configure 
 	make -C $(EMACS)/
 	$(SUDO) make -C $(EMACS)/ install
 
