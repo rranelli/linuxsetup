@@ -20,9 +20,9 @@ tasks:
             begin: s03e05
         - Game of Thrones:
             begin: s05e01
-  kickass_got:
-    template:
-      - kickass_got
-    series:
-      720p:
-        - Game of Thrones
+  # kickass_got:
+  #   template:
+  #     - kickass_got
+  #   series:
+  #     720p:
+  #       - Game of Thrones
