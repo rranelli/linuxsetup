@@ -504,4 +504,4 @@ key.setEditKey ('M-i', function (ev, arg) {
     ext.exec ( "edit_text", arg, ev);
 }, "Edit in external editor", true);
 
-plugins.options [ "K2Emacs.editor"  ] = "/home/renan/.bashrc.d/bin/editor";
+plugins.options [ "K2Emacs.editor"  ] = "/home/renan/bin/editor";

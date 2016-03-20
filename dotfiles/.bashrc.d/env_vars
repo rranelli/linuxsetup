@@ -1,26 +1,27 @@
 #!/usr/bin/env bash
 function setup_env_vars {
-    export PATH="$PATH:$HOME/.lein"
-    export PATH="$PATH:$HOME/.sml/bin"
-    export PATH="$PATH:$HOME/code/elixir/bin"
-    export PATH="$PATH:$HOME/.cask/bin"
-    export PATH="/opt/terraform:$PATH" # heroku toolbelt
+  export PATH="$HOME/bin:$PATH"
+  export PATH="$PATH:$HOME/.lein"
+  export PATH="$PATH:$HOME/.sml/bin"
+  export PATH="$PATH:$HOME/code/elixir/bin"
+  export PATH="$PATH:$HOME/.cask/bin"
+  export PATH="/opt/terraform:$PATH" # heroku toolbelt
 
-    export CODE_DIR="$HOME/code"
-    export EDITOR="emacs -nw -q"
+  export CODE_DIR="$HOME/code"
+  export EDITOR="emacs -nw -q"
 
-    export CDPATH=".:$CODE_DIR:$HOME/xerpa"
+  export CDPATH=".:$CODE_DIR:$HOME/xerpa"
 
-    export MIMIPASS_HOME="$HOME/SpiderOak Hive/.secrets/mimipass"
-    export MIMIPASS_RECIPIENT="renanranelli@gmail.com"
+  export MIMIPASS_HOME="$HOME/SpiderOak Hive/.secrets/mimipass"
+  export MIMIPASS_RECIPIENT="renanranelli@gmail.com"
 
-    # This enables bash eternal history
-    export HISTFILESIZE=
-    export HISTSIZE=
+  # This enables bash eternal history
+  export HISTFILESIZE=
+  export HISTSIZE=
 
-    # used to avoid repeated logins
-    export secret_key=0000000000000000000000000000000000000000000000000000000000000000
+  # used to avoid repeated logins
+  export secret_key=0000000000000000000000000000000000000000000000000000000000000000
 
-    export PS4='(${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]} - [${SHLVL},${BASH_SUBSHELL}, $?]
+  export PS4='(${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]} - [${SHLVL},${BASH_SUBSHELL}, $?]
 '
 }
