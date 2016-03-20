@@ -1,2 +1,3 @@
 #!/bin/bash
-exec env XLIB_SKIP_ARGB_VISUALS=1 emacsclient -c -a '' "$@"
+export XLIB_SKIP_ARGB_VISUALS=1
+emacsclient -c "$@" || emacs -e "server-start" "$@"
