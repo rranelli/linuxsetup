@@ -1,2 +1,2 @@
 #!/bin/bash
-exec env XLIB_SKIP_ARGB_VISUALS=1 emacsclient -a '' "$@"
+exec env XLIB_SKIP_ARGB_VISUALS=1 emacsclient -c -a '' "$@"
