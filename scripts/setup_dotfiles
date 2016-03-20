@@ -1,22 +1,16 @@
-#!/usr/bin/env python
-import os, getpass
+#!/usr/bin/env bash
+set -euo pipefail
 
-def remove_any(path):
-    if os.path.islink(path): print "removiong!" + path; os.unlink(path)
-    if os.path.isfile(path): print "removiong!" + path; os.remove(path)
-    if os.path.isdir(path): print "removiong!" + path; shutil.rmtree(path)
+__DIR__=$(cd $(dirname ${BASH_SOURCE[0]}) && pwd)
+__GIT_ROOT__=$(git rev-parse --show-toplevel)
 
-def make_path(*args):
-    return '/'.join(args)
+cd "${__GIT_ROOT__}/dotfiles"
 
-homedir  = os.path.expanduser("~")
-scriptpath = os.path.dirname(os.path.realpath(__file__))
-dirname  = make_path(scriptpath, '..', 'dotfiles')
+for f in $(find . -type f); do
+  mkdir -p "${HOME}/$(dirname "${f}")"
 
-for name in os.listdir(dirname):
-    head = make_path(dirname, name)
-    tail = make_path(homedir, name)
+  rm "${HOME}/${f}" || true
+  ln -sf "$(pwd)/${f}" "${HOME}/${f}"
+done
 
-    if os.path.islink(tail): os.unlink(tail)
-    if os.path.isfile(tail): os.remove(tail)
-    os.symlink(head, tail)
+echo -e "\e[0;32mDone!\e[0m"
