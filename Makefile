@@ -240,7 +240,7 @@ $(MODULE_DIR)/emacs: | packages code
 
 	$(SUDO) apt-get build-dep emacs24 -y
 
-	cd $(EMACS) && ./configure 
+	cd $(EMACS) && ./configure
 	make -C $(EMACS)/
 	$(SUDO) make -C $(EMACS)/ install
 
@@ -392,4 +392,4 @@ $(MODULE_DIR)/spideroak: | packages
 	rm spideroakone
 
 media_server:
-	ansible-playbook media_server/ansible/media_server.yml --ask-vault-pass --ask-become-pass -i media_server/ansible/hosts
+	ansible-playbook media_server/ansible/media_server.yml --ask-become-pass --vault-password-file="~/.emacs.d/.ansible-vault" -i media_server/ansible/hosts
