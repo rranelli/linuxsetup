@@ -17,6 +17,14 @@
   notify:
     - generate locales
 
+- name: "configure sshd"
+  copy:
+    src=etc/ssh/sshd_config
+    dest=/etc/ssh/sshd_config
+    mode=0644
+  notify:
+    - restart sshd
+
 - name: "check current timezone"
   command: timedatectl status
   register: timedatectlStatus

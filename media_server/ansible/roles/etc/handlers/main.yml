@@ -10,3 +10,8 @@
 
 - name: "update grub"
   command: update-grub
+
+- name: "restart sshd"
+  service:
+    name=sshd
+    state=restarted
