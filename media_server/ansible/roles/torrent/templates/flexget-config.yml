@@ -13,13 +13,13 @@ tasks:
         - The Walking Dead:
             begin: s06e08
         - The Americans:
-            begin: s03e01
+            begin: s04e01
         - Homeland:
-            begin: s04e05
-        - Orphan Black:
-            begin: s03e05
-        - Game of Thrones:
             begin: s05e01
+        - Orphan Black:
+            begin: s04e01
+        - Game of Thrones:
+            begin: s06e01
   # kickass_got:
   #   template:
   #     - kickass_got

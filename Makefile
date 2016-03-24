@@ -356,6 +356,7 @@ $(MODULE_DIR)/gsettings:
 	gsettings set org.pantheon.terminal.settings alt-changes-tab true
 	gsettings set org.pantheon.terminal.settings tab-bar-behavior 'Hide When Single Tab'
 	gsettings set org.pantheon.terminal.settings font "Source Code Pro Bold 17"
+	gsettings set org.pantheon.terminal.settings unsafe-paste-alert false
 
 	gsettings set org.gnome.crypto.cache gpg-cache-method 'timeout'
 	gsettings set org.gnome.crypto.cache gpg-cache-ttl 10800
