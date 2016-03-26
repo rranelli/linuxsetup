@@ -1,0 +1,16 @@
+[Unit]
+Description=ZNC IRC bouncer
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/znc -f
+Type=simple
+User=renan
+Group=renan
+Restart=on-failure
+RestartSec=5
+StartLimitBurst=3
+StartLimitInterval=60s
+
+[Install]
+WantedBy=multi-user.target

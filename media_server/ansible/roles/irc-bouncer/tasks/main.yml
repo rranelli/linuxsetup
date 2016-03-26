@@ -14,6 +14,18 @@
     update_cache=yes
     cache_valid_time=86400
 
+- name: "add znc system file"
+  copy:
+    src=znc.service
+    dest=/etc/systemd/system/znc.service
+
+- name: "enable znc service"
+  service:
+    name=znc
+    enabled=true
+  notify:
+    - systemd reload
+
 - name: "configure znc"
   command: cat "you have to run `znc --makeconf` manually!"
   args:

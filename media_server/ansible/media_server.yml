@@ -13,3 +13,4 @@
     - nginx
     - torrent
     - monit
+    - irc-bouncer
