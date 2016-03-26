@@ -28,3 +28,30 @@
   when: plex_deb_version.stdout != plex_installed_version.stdout
   notify:
     - restart plex
+
+- name: "fetch subliminal plugin"
+  get_url:
+    url={{ plex_subliminal_plugin_url }}
+    dest=/var/cache/apt/archives/Subliminal.bundle-master.zip
+    sha256sum={{ plex_subliminal_plugin_sha256 }}
+
+- name: "check if subliminal is installed"
+  failed_when: false
+  changed_when: subliminal_installed.rc != 0
+  command: stat "{{ plex_plugin_path }}/Subliminal.bundle"
+  register: subliminal_installed
+
+- name: "install subliminal"
+  when: subliminal_installed.rc != 0
+  unarchive:
+    copy=no
+    src=/var/cache/apt/archives/Subliminal.bundle-master.zip
+    dest="{{ plex_plugin_path }}"
+
+- name: "fix subliminal plugin path"
+  when: subliminal_installed.rc != 0
+  command: |
+    mv "{{ plex_plugin_path }}/Subliminal.bundle-master"
+       "{{ plex_plugin_path }}/Subliminal.bundle"
+  notify:
+    - restart plex
