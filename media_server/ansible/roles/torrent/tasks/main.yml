@@ -63,3 +63,17 @@
     minute="*/12"
     user="renan"
     state="present"
+
+- name: "copy torrent rar extract script"
+  template:
+    src=rar-torrent-extract
+    dest=/usr/local/bin/rar-torrent-extract
+    mode=755
+
+- name: "setup a cronjob for file extract"
+  cron:
+    job="/usr/local/bin/rar-torrent-extract"
+    name="extract rar torrents"
+    minute="*/12"
+    user="renan"
+    state="present"
