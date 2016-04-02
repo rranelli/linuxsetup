@@ -91,7 +91,6 @@ function setup_ps1 {
 	[ $? != 0 ] && echo '(err)'
     }
 
-    local curtime="$hicynξ[$time24h]$clroff"
     local user_at_host="$hiblu𝞵($user$txtred@$hiblu$host)$clroff"
     local status="$bldred\$(parse_status)$clroff"
     local path="$hipurψ($path)$clroff"
@@ -100,7 +99,6 @@ function setup_ps1 {
 
     PS1=""
 
-    PS1+=$curtime
     PS1+=$user_at_host
     PS1+=$path
     PS1+=$newline
