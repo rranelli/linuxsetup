@@ -1,13 +1,9 @@
 #!/bin/bash
-shopt -s globstar
-
-if [ -f /home/renan/Downloads/**/*.rar ]; then
-    for file in $(ls /home/renan/Downloads/**/*.rar); do
-      (
-        cd $(dirname "${file}")
-        7z e "${file}" && rm "${file}"
-      )
-    done
-fi
+for file in $(find /home/renan/Downloads -name *.rar); do
+  (
+    cd $(dirname "${file}")
+    7z e "${file}" -y && rm "${file}"
+  )
+done
 
 true
