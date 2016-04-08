@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+silently() { "$@" >/dev/null 2>&1 ;}
+
 # better ls
 ls() {
     if [ "$#" = 0 ]; then
@@ -106,6 +108,11 @@ bry() {
 export -f bry
 
 unmake() { [[ $# -ge 1 ]] && rm ~/.modules/$1 ;}
+
+xopen() {
+  silently xdg-open "$@" &
+  disown $!
+}
 
 gitmulticast() { ~/code/linuxsetup/scripts/gitmulticast.sh $@ ;}
 alias 8gm='gitmulticast'
