@@ -85,32 +85,36 @@ function setup_ps1 {
     local host="\h"
 
     function parse_login_shell {
-	shopt -q login_shell && echo '(login) '
+        ret=$?; shopt -q login_shell && echo '(login) '
+        return $ret
     }
-    function parse_status {
-	[ $? != 0 ] && echo '(err)'
+    function success_prompt {
+      ret=$?; [ $ret = 0 ] && echo "λx ➝  "
+      return $ret
+    }
+    function failure_prompt {
+      ret=$?; [ $ret != 0 ] && echo "(✘) ➝  "
+      return $ret
     }
 
     local user_at_host="$hiblu𝞵($user$txtred@$hiblu$host)$clroff"
-    local status="$bldred\$(parse_status)$clroff"
+    local success="${bldblu}\$(success_prompt)${clroff}"
+    local failure="${bldred}\$(failure_prompt)${clroff}"
     local path="$hipurψ($path)$clroff"
     local login_shell_indicator="$hired\$(parse_login_shell)"
-    local final="λx ➝  "
 
     PS1=""
-
-    PS1+=$user_at_host
-    PS1+=$path
-    PS1+=$newline
-    PS1+=$status
-    PS1+=$login_shell_indicator
-    PS1+=$bldblu$final
-
+    PS1+="$user_at_host"
+    PS1+="$path"
+    PS1+="$newline"
+    PS1+="$login_shell_indicator"
+    PS1+="$success"
+    PS1+="$failure"
     PS1+=$clroff
 
     if [[ "$TERM" == "vt100" || "$TERM" == "dumb"  || "$TERM" == "eterm-color" ]]; then
 	# This had to be added in order for emacs' TRAMP to work seamlessly
-    	PS1=${PS1/$final/}"\$ "
+    	PS1=${PS1/"$success"/}"\$ "
         PAGER=less # terrible hack
     fi
 }
