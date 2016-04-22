@@ -146,3 +146,5 @@ alias 8gmx='gitmulticast-xerpa'
     export TF_VAR_access_key=$(mimipass get xerpa/aws/access-key)
     export TF_VAR_lukladb_password=$(mimipass get xerpa/aws/lukla-db-passwd)
 }
+
+alias nuget="mono ${CODE_DIR}/NuGet2/src/CommandLine/bin/Release/NuGet.exe"
