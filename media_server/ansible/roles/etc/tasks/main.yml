@@ -25,6 +25,10 @@
   notify:
     - restart sshd
 
+- name: "configures the hostname"
+  hostname:
+    name={{ inventory_hostname }}
+
 - name: "check current timezone"
   command: timedatectl status
   register: timedatectlStatus
