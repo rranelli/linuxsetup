@@ -25,7 +25,7 @@ ekr() { edk && em && exit; }
 # Bundle exec aliasing
 8bes() { bundle exec rspec; }
 8be() { bundle exec $*; }
-8bejs() { bundle exec jekyll serve --watch --drafts; }
+8bejs() { bundle exec jekyll serve -wD; }
 
 #
 ## Rake db migrates
