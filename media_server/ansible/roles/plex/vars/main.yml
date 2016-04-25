@@ -8,3 +8,5 @@ plex_plugin_path: '/var/lib/plexmediaserver/Library/Application Support/Plex Med
 
 plex_subliminal_plugin_url: https://github.com/bramwalet/Subliminal.bundle/archive/master.zip
 plex_subliminal_plugin_sha256: 1574506a7ed98b1a62fab31afde5044583bd08dcfd16731f8fc8418630731382
+
+plex_tv_show_section: 2

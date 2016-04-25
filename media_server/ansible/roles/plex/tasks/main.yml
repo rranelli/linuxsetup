@@ -55,3 +55,11 @@
        "{{ plex_plugin_path }}/Subliminal.bundle"
   notify:
     - restart plex
+
+- name: "set up auto-refresh with cron"
+  cron:
+    job="curl http://localhost:32400/library/sections/{{ plex_tv_show_section }}/refresh?force=1"
+    name="auto-refresh with cron"
+    hour="*/2"
+    user="renan"
+    state="present"
