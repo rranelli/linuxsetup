@@ -1,9 +1,9 @@
 - name: install packages
   apt:
-    pkg={{ item }}
-    state=installed
-    update_cache=true
-    cache_valid_time=86400
+    name="{{ item }}"
+    state="present"
+    update_cache="yes"
+    cache_valid_time="7200"
   with_items:
     - bash-completion
     - build-essential

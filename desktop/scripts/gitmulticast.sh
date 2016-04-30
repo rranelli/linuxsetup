@@ -6,7 +6,7 @@ set -euo pipefail # these don't play well with bashdb;
 #
 : ${GITHUB_USER:=rranelli}
 : ${GITHUB_USER_TYPE:=users}
-: ${GITHUB_API_TOKEN:=$(mimipass get github/api-token)}
+: ${GITHUB_API_TOKEN:=$(mimipass get github/api-token 2>/dev/null || git config --global github.token)}
 : ${CODE_DIR:=$HOME/code}
 
 auth_header="Authorization: token $GITHUB_API_TOKEN"

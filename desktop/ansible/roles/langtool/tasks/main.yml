@@ -1,0 +1,23 @@
+- name: "check if langtool is installed"
+  become: false
+  stat: path="~/.langtool"
+  register: langtool
+  changed_when: langtool.stat.exists == False
+
+- name: "install langtool"
+  become: false
+  when: langtool.changed
+  unarchive:
+    copy=no
+    src="https://languagetool.org/download/LanguageTool-2.8.zip"
+    dest="~/"
+
+- name: "rename langtool home"
+  become: false
+  when: langtool.changed
+  copy:
+    src="~/LanguageTool-2.8/"
+    dest="~/.langtool/"
+
+- file: path="~/LanguageTool-2.8" state="absent"
+  become: false

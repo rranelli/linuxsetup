@@ -1,0 +1,15 @@
+- name: "check if nodejs is installed"
+  stat: path="/usr/bin/nodejs"
+  register: nodejs
+  changed_when: nodejs.stat.exists == False
+
+- name: "setup nodejs 5.x source"
+  shell: "curl -sL https://deb.nodesource.com/setup_5.x | sudo -E bash -"
+  when: nodejs.changed
+
+- name: "install nodejs and npm"
+  apt:
+    name=nodejs
+    state="present"
+    update_cache="yes"
+    cache_valid_time="7200"

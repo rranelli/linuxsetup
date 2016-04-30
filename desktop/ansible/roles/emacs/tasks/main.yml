@@ -1,0 +1,72 @@
+- name: "(inputrc) ignore casing for bash completion"
+  template:
+    src=etc/inputrc
+    dest=/etc/inputrc
+
+- name: "Check absence of the ONE TRUE EDITOR"
+  stat: path="/usr/local/bin/emacs-{{ emacs_version }}"
+  register: emacs
+  changed_when: emacs.stat.exists == False
+
+- name: "install emacs's build deps"
+  when: emacs.changed
+  apt:
+    name="emacs24"
+    state="build-dep"
+    update_cache="yes"
+    cache_valid_time="7200"
+
+- name: "download the ONE TRUE EDITOR"
+  when: emacs.changed
+  get_url:
+    url="http://alpha.gnu.org/gnu/emacs/pretest/emacs-{{ emacs_version }}.tar.xz"
+    dest="/tmp/emacs-{{emacs_version}}.tar.xz"
+    sha256sum="{{ emacs_tarball_sha256sum }}"
+
+- name: "untar the ONE TRUE EDITOR"
+  when: emacs.changed
+  unarchive:
+    src="/tmp/emacs-{{ emacs_version }}.tar.xz"
+    dest="/tmp/"
+    copy=no
+
+- name: "compile the ONE TRUE EDITOR"
+  when: emacs.changed
+  shell: |
+    # apt-get build-dep emacs24 -y
+    cd /tmp/emacs-{{ emacs_version }} && {
+      ./configure && make && make install
+    }
+
+- name: "remove the ONE TRUE EDITOR sources"
+  when: emacs.changed
+  file:
+    path="{{ item }}"
+    state="absent"
+  with_items:
+    - "/tmp/emacs-{{ emacs_version }}"
+    - "/tmp/emacs-{{ emacs_version }}.tar.xz"
+
+- file: path=/usr/share/icons/hicolor/1024x1024/apps state=directory mode=0644
+- name: "copy source Emacs icon"
+  copy:
+    src="emacs.png"
+    dest="/usr/share/icons/hicolor/1024x1024/apps/emacs25.png"
+    mode=0644
+  register: emacs_icon
+
+- name: "setup emacs icons"
+  when: emacs_icon.changed
+  shell: |
+    for s in 512 128 20 256 36 48 64 16 22 32 40 72 192 24 32 96; do
+      size="${s}x${s}"
+      convert "/usr/share/icons/hicolor/1024x1024/apps/emacs25.png" \
+              -resize "${size}" \
+              "/usr/share/icons/hicolor/${size}/apps/emacs25.png"
+    done
+
+- name: "setup Emacs shortcut"
+  copy:
+    src=emacs.desktop
+    dest=/usr/local/share/applications/emacs.desktop
+    mode=0644

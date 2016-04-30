@@ -1,0 +1,134 @@
+- name: "desktop application packages"
+  apt:
+    name="{{ item }}"
+    state="present"
+    update_cache="yes"
+    cache_valid_time="7200"
+  with_items:
+    - deluge
+    - calibre
+    - elementary-tweaks
+    - elementary-wallpapers-extra
+    - firefox
+    - flashplugin-installer
+    - spotify-client
+    - telegram
+
+- name: "get keysnail"
+  become: false
+  get_url:
+    url="{{ keysnail_url }}"
+    sha256sum="{{ keysnail_sha256sum }}"
+    dest="~/.config/keysnail.xpi"
+  register: keysnail
+
+- name: "install keysnail @ firefox"
+  become: false
+  command: "firefox ~/.config/keysnail.xpi"
+  when: keysnail.changed
+
+- name: "check if slack is installed"
+  stat: path="/usr/bin/slack"
+  register: slack
+  changed_when: slack.stat.exists == False
+
+- name: "download slack"
+  when: slack.changed
+  get_url:
+    url="{{ slack_deb_url }}"
+    dest="/tmp/slack.deb"
+  register: slack_download
+
+- name: "install slack"
+  when: slack_download.changed
+  apt:
+    deb="/tmp/slack.deb"
+    state="present"
+
+- name: "check if SpiderOak is installed"
+  command: dpkg-query --show spideroakone
+  register: spideroak
+  changed_when: spideroak.rc != 0
+  failed_when: false
+
+- name: "download SpiderOak's deb file"
+  when: spideroak.changed
+  get_url:
+    url="https://spideroak.com/getbuild?platform=ubuntu&arch=x86_64"
+    dest="/tmp/spideroak.deb"
+
+- name: "install spideroak"
+  when: spideroak.changed
+  apt:
+    deb="/tmp/spideroak.deb"
+    state="present"
+
+- file: path="~/.fonts" state="directory"
+  become: false
+
+- name: "install fira code"
+  become: false
+  shell: |
+    wget https://github.com/tonsky/FiraCode/releases/download/1.101/FiraCode_1.101.zip
+    unzip FiraCode*.zip
+    cp FiraCode*/*.otf ~/.fonts
+    fc-cache -f -v
+    rm -rf FiraCode*/ FiraCode*.zip
+  args:
+    creates: "~/.fonts/FiraCode-Retina.otf"
+
+- name: "install source-code-pro"
+  become: false
+  shell: |
+    wget https://github.com/adobe-fonts/source-code-pro/archive/1.017R.zip
+    unzip 1.017R.zip
+    cp source-code-pro-1.017R/OTF/*.otf ~/.fonts/
+    fc-cache -f -v
+    rm -rf source-code-pro-1.017R/ 1.017R.zip
+  args:
+    creates: "~/.fonts/SourceCodePro-Bold.otf"
+
+- name: "setup gsettings"
+  become: false
+  shell: |
+    diff <(gsettings get {{item.setting}}) \
+         <(gsettings set {{item.setting}} {{ item.value }}; \
+           gsettings get {{item.setting}})
+  args:
+    executable: /bin/bash
+  register: gsetting
+  changed_when: gsetting.rc != 0
+  failed_when: false
+  with_items:
+    - setting: "org.gnome.mutter workspaces-only-on-primary"
+      value: "false"
+    - setting: "org.pantheon.desktop.wingpanel show-launcher"
+      value: "false"
+    - setting: "org.pantheon.terminal.settings save-exited-tabs"
+      value: "false"
+    - setting: "org.pantheon.terminal.settings alt-changes-tab"
+      value: "true"
+    - setting: "org.pantheon.terminal.settings tab-bar-behavior"
+      value: "'Hide When Single Tab'"
+    - setting: "org.pantheon.terminal.settings opacity"
+      value: "80"
+    - setting: "org.pantheon.terminal.settings font"
+      value: "'Source Code Pro Bold 17'"
+    - setting: "org.pantheon.terminal.settings unsafe-paste-alert"
+      value: "false"
+    - setting: "org.gnome.crypto.cache gpg-cache-method"
+      value: "'timeout'"
+    - setting: "org.gnome.crypto.cache gpg-cache-ttl"
+      value: "10800"
+    - setting: "org.gnome.settings-daemon.peripherals.keyboard repeat-interval"
+      value: "'17'"
+    - setting: "org.gnome.settings-daemon.peripherals.keyboard delay"
+      value: "202"
+    - setting: "org.gnome.desktop.input-sources xkb-options"
+      value: "\"['ctrl:nocaps', 'compose:rctrl']\""
+    - setting: "org.gnome.desktop.wm.keybindings maximize"
+      value: "\"[]\""
+    - setting: "org.gnome.desktop.wm.keybindings toggle-maximized"
+      value: "\"['<Super>Up']\""
+    - setting: "org.gnome.desktop.wm.keybindings toggle-fullscreen"
+      value: "\"@as ['<Super><Alt>Up']\""

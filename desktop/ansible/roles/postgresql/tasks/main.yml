@@ -1,0 +1,33 @@
+- name: "install postgresql apt-key"
+  apt_key:
+    state="present"
+    data="{{ lookup('file', 'postgresql.asc') }}"
+
+- name: "set up postgresql repository"
+  apt_repository:
+    repo="deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main"
+    state="present"
+    update_cache="yes"
+    mode="644"
+
+- name: "install postgresql & libpq-dev"
+  apt:
+    name="{{ item }}"
+    state="present"
+    update_cache="yes"
+    cache_valid_time="7200"
+  with_items:
+    - postgresql
+    - libpq-dev
+
+- name: "enable postgresql"
+  service:
+    name="postgresql"
+    enabled="yes"
+
+- name: "pg_hba.conf"
+  copy:
+    src=pg_hba.conf
+    dest=/etc/postgresql/9.5/main/pg_hba.conf
+  notify:
+    - restart postgresql

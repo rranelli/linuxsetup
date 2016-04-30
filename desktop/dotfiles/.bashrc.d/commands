@@ -114,7 +114,7 @@ xopen() {
   disown $!
 }
 
-gitmulticast() { ~/code/linuxsetup/scripts/gitmulticast.sh $@ ;}
+gitmulticast() { ~/code/linuxsetup/desktop/scripts/gitmulticast.sh $@ ;}
 alias 8gm='gitmulticast'
 
 gitmulticast-xerpa() {
@@ -122,7 +122,6 @@ gitmulticast-xerpa() {
 }
 alias 8gmx='gitmulticast-xerpa'
 
-8plp() { CODE_DIR=$HOME/locaweb ~/code/linuxsetup/scripts/gitmulticast.sh pull ;}
 8pcp() { gitmulticast pull ;}
 
 8set-brightness () {

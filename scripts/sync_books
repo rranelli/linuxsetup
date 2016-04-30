@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-
-cd $HOME &&
-    rsync -r "SpiderOak Hive/Library" vengerberg.rep:/home/renan/Library

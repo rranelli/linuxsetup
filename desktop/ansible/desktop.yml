@@ -1,0 +1,19 @@
+- name: "Desktop setup"
+  hosts: 127.0.0.1
+  connection: local
+  become: yes
+  roles:
+    - packages
+    - apps
+    - mimipass
+    - code
+    - emacs
+    - postgresql
+    - java8
+    - clojure
+    - elixir
+    - ruby
+    - nodejs
+    - docker
+    - langtool
+    - csharp

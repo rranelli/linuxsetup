@@ -1,0 +1,32 @@
+- name: "link dotfiles"
+  command: "bash {{ code_dir }}/linuxsetup/desktop/scripts/setup_dotfiles"
+  changed_when: false
+
+- name: "check if git is configured"
+  become: false
+  command: git config --global github.token
+  register: gitconfig
+  changed_when: gitconfig.rc != 0
+  failed_when: false
+
+- name: "configure git globals"
+  become: false
+  when: gitconfig.changed
+  shell: |
+    source "~/.bashrc"
+    git config --global user.name "Milhouse"
+    git config --global user.email "renanranelli@gmail.com"
+    git config --global push.default simple
+    git config --global commit.template ~/.gitcommittemplate
+    git config --global github.token "{{ github_oauth_token }}"
+    git config --global github.oauth-token "{{ github_oauth_token }}"
+
+- name: "download all of your github code"
+  become: false
+  shell: |
+    env CODE_DIR={{ code_dir }} \
+        {{ code_dir }}/linuxsetup/desktop/scripts/gitmulticast.sh clone && \
+          touch "{{ code_dir }}/.fetched"
+  args:
+    chdir: "{{ code_dir }}"
+    creates: "{{ code_dir }}/.fetched"

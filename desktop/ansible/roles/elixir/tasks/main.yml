@@ -1,0 +1,39 @@
+- name: "set up erlang_solutions apt-key"
+  apt_key:
+    state="present"
+    data="{{ lookup('file', 'erlang_solutions.asc') }}"
+
+- name: "set up required repositories"
+  apt_repository:
+    repo="deb http://packages.erlang-solutions.com/ubuntu trusty contrib"
+    state="present"
+    update_cache="yes"
+    mode="644"
+
+- name: "install erlang"
+  apt:
+    name="erlang"
+    state="present"
+    update_cache="yes"
+    cache_valid_time="7200"
+
+- name: "get elixir"
+  git:
+    repo="https://github.com/elixir-lang/elixir.git"
+    dest="{{ code_dir }}/elixir"
+    clone="yes"
+    version="v1.2.1"
+    depth=1
+  register: elixir
+
+- name: "build elixir"
+  command: "make clean test"
+  args:
+    chdir: "{{ code_dir }}/elixir"
+  when: elixir.changed
+
+- name: "set up mix completion"
+  copy:
+    src=mix-completion
+    dest=/etc/bash_completion.d/mix
+    mode=755

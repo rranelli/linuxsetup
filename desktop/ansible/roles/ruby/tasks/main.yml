@@ -1,0 +1,26 @@
+- name: "install libreadline-dev, which is a ruby-build dependency"
+  apt: name=libreadline-dev state="present" update_cache="yes" cache_valid_time="7200"
+
+- name: "clone rbenv"
+  become: false
+  git:
+    repo="https://github.com/sstephenson/rbenv.git"
+    dest="{{ rbenv_home }}"
+    depth=1
+    clone=yes
+
+- name: "clone ruby-build"
+  become: false
+  git:
+    repo="https://github.com/sstephenson/ruby-build.git"
+    dest="{{ rbenv_home }}/plugins/ruby-build"
+    depth=1
+    clone=yes
+
+- name: "build ruby"
+  become: false
+  shell: |
+    {{rbenv_home}}/bin/rbenv install "{{ ruby_version }}"
+    {{rbenv_home}}/bin/rbenv global  "{{ ruby_version }}"
+  args:
+    creates: "{{ rbenv_home }}/versions/{{ ruby_version }}/bin/ruby"

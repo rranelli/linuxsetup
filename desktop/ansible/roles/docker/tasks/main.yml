@@ -1,0 +1,24 @@
+- name: "set up docker apt-key"
+  apt_key:
+    id="58118E89F3A912897C070ADBF76221572C52609D"
+    keyserver="p80.pool.sks-keyservers.net"
+    state="present"
+
+- name: "set up docker repository"
+  apt_repository:
+    repo="deb https://apt.dockerproject.org/repo ubuntu-trusty main"
+    state="present"
+    update_cache="yes"
+    mode="0644"
+
+- name: "install docker"
+  apt:
+    name="docker-engine"
+    state="present"
+    update_cache="yes"
+    cache_valid_time="7200"
+
+- name: "add local user to docker group"
+  user:
+    name={{ local_user }}
+    groups=sudo,docker

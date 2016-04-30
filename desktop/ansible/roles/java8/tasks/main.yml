@@ -1,0 +1,20 @@
+- name: "accept the oracle license"
+  debconf:
+    name="oracle-java8-installer"
+    question="shared/accepted-oracle-license-v1-1"
+    value="true"
+    vtype="select"
+
+- name: "set up oracle java repo"
+  apt_repository:
+    repo="ppa:webupd8team/java"
+    state="present"
+    update_cache="yes"
+    mode="0644"
+
+- name: "install oracle's java8"
+  apt:
+    name="oracle-java8-installer"
+    update_cache="yes"
+    cache_valid_time="7200"
+    state="present"

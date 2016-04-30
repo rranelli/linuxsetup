@@ -1,0 +1,24 @@
+- name: "check if mimipass is available"
+  stat: path="/usr/local/bin/mimipass"
+  register: mimipass
+
+- name: "clone mimipass from github"
+  become: false
+  when: mimipass.stat.exists == False
+  git:
+    repo="git@github.com:rranelli/mimipass.git"
+    dest="{{ code_dir }}/mimipass"
+    clone="true"
+
+- name: "links mimipass to /usr/local/bin/"
+  file:
+    path="/usr/local/bin/mimipass"
+    state="link"
+    src="{{ code_dir }}/mimipass/mimipass"
+    owner="root"
+    group="root"
+
+- name: "install mimipass bash completion"
+  copy:
+    src="{{ code_dir }}/mimipass/bash_completion.d/mimipass"
+    dest="/etc/bash_completion.d/mimipass"

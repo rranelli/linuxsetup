@@ -1,0 +1,22 @@
+- name: "create lein dir"
+  become: false
+  file:
+    path="~/.lein"
+    state="directory"
+
+- name: "check whether lein is installed"
+  stat: path="~/.lein/lein"
+  register: lein
+
+- name: "install leinningen"
+  when: lein.stat.exists == False
+  become: false
+  get_url:
+    url=https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
+    dest="~/.lein/lein"
+
+- name: "make lein executable"
+  become: false
+  file:
+    path="~/.lein/lein"
+    mode="0755"

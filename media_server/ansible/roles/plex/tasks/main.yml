@@ -24,7 +24,7 @@
   apt:
     deb=/var/cache/apt/archives/plex.deb
     update_cache=false
-    state=present
+    state="present"
   when: plex_deb_version.stdout != plex_installed_version.stdout
   notify:
     - restart plex
