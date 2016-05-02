@@ -91,9 +91,9 @@
 - name: "setup gsettings"
   become: false
   shell: |
-    diff <(gsettings get {{item.setting}}) \
-         <(gsettings set {{item.setting}} {{ item.value }}; \
-           gsettings get {{item.setting}})
+    diff <(gsettings get "{{item.setting}}") \
+         <(gsettings set "{{item.setting}}" "{{ item.value }}"; \
+           gsettings get "{{item.setting}}")
   args:
     executable: /bin/bash
   register: gsetting
@@ -104,31 +104,38 @@
       value: "false"
     - setting: "org.pantheon.desktop.wingpanel show-launcher"
       value: "false"
+
     - setting: "org.pantheon.terminal.settings save-exited-tabs"
       value: "false"
     - setting: "org.pantheon.terminal.settings alt-changes-tab"
       value: "true"
     - setting: "org.pantheon.terminal.settings tab-bar-behavior"
-      value: "'Hide When Single Tab'"
+      value: "Hide When Single Tab"
     - setting: "org.pantheon.terminal.settings opacity"
       value: "80"
     - setting: "org.pantheon.terminal.settings font"
-      value: "'Source Code Pro Bold 17'"
+      value: "Source Code Pro Bold 17"
     - setting: "org.pantheon.terminal.settings unsafe-paste-alert"
       value: "false"
+
     - setting: "org.gnome.crypto.cache gpg-cache-method"
       value: "'timeout'"
     - setting: "org.gnome.crypto.cache gpg-cache-ttl"
       value: "10800"
+
+    - setting: "org.gnome.settings-daemon.plugins.xsettings overrides"
+      value: "{'Gtk/DecorationLayout': <'close,minimize:maximize'>}"
     - setting: "org.gnome.settings-daemon.peripherals.keyboard repeat-interval"
-      value: "'17'"
+      value: "17"
     - setting: "org.gnome.settings-daemon.peripherals.keyboard delay"
       value: "202"
     - setting: "org.gnome.desktop.input-sources xkb-options"
-      value: "\"['ctrl:nocaps', 'compose:rctrl']\""
+      value: "['ctrl:nocaps', 'compose:rctrl']"
     - setting: "org.gnome.desktop.wm.keybindings maximize"
-      value: "\"[]\""
+      value: "[]"
     - setting: "org.gnome.desktop.wm.keybindings toggle-maximized"
-      value: "\"['<Super>Up']\""
+      value: "['<Super>Up']"
     - setting: "org.gnome.desktop.wm.keybindings toggle-fullscreen"
-      value: "\"@as ['<Super><Alt>Up']\""
+      value: "@as ['<Super><Alt>Up']"
+    - setting: "org.gnome.desktop.wm.keybindings close"
+      value: "['<Super>q']"
