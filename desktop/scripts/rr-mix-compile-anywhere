@@ -1,3 +1,3 @@
 #!/bin/bash
 cd $(git rev-parse --show-toplevel)
-exec env MIX_ENV=test mix compile
+exec env mix compile
