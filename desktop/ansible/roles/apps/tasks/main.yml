@@ -13,6 +13,7 @@
     - flashplugin-installer
     - spotify-client
     - telegram
+    - libreoffice
     - ttf-ancient-fonts # adds fonts needed by emacs
 
 - name: "get keysnail"
@@ -124,6 +125,8 @@
     - setting: "org.gnome.crypto.cache gpg-cache-ttl"
       value: "10800"
 
+    - setting: "gsettings set com.canonical.indicator.datetime show-clock"
+      value: "true"
     - setting: "org.gnome.settings-daemon.plugins.xsettings overrides"
       value: "{'Gtk/DecorationLayout': <'close,minimize:maximize'>}"
     - setting: "org.gnome.settings-daemon.peripherals.keyboard repeat-interval"
