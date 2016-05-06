@@ -17,7 +17,7 @@
     update_cache="yes"
     cache_valid_time="7200"
   with_items:
-    - postgresql
+    - postgresql=9.5*
     - libpq-dev
 
 - name: "enable postgresql"
@@ -31,3 +31,18 @@
     dest=/etc/postgresql/9.5/main/pg_hba.conf
   notify:
     - restart postgresql
+
+- name: "ensure python-dev is installed"
+  apt:
+    name="python-dev"
+    state="present"
+    update_cache="yes"
+    cache_valid_time="7200"
+
+- name: "install pg-cli"
+  pip:
+    name="{{ item }}"
+    state="latest"
+  with_items:
+    - pgcli
+    - wcwidth

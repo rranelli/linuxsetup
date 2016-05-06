@@ -41,17 +41,18 @@
     - dnsutils
     - g++-multilib
     - gcc-multilib
-    - gnupg
     - git
+    - gnupg
     - gnupg-agent
     - inotify-tools
+    - jq
     - libcurl3
     - libreadline6
     - libsqlite3-dev
     - libssl-dev
-    - jq
     - ncftp
     - openssh-server
+    - python-pip
     - redis-server
     - silversearcher-ag
     - socat
