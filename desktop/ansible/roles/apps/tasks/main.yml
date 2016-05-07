@@ -93,9 +93,9 @@
 - name: "setup gsettings"
   become: false
   shell: |
-    diff <(gsettings get "{{item.setting}}") \
-         <(gsettings set "{{item.setting}}" "{{ item.value }}"; \
-           gsettings get "{{item.setting}}")
+    diff <(gsettings get {{item.setting}}) \
+         <(gsettings set {{item.setting}} "{{ item.value }}"; \
+           gsettings get {{item.setting}})
   args:
     executable: /bin/bash
   register: gsetting
@@ -143,3 +143,5 @@
       value: "@as ['<Super><Alt>Up']"
     - setting: "org.gnome.desktop.wm.keybindings close"
       value: "['<Super>q']"
+
+- debug: msg={{ gsetting }}
