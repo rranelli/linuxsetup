@@ -1,4 +1,5 @@
 - name: "link dotfiles"
+  become: false
   command: "bash {{ code_dir }}/linuxsetup/desktop/scripts/setup_dotfiles"
   changed_when: false
 
