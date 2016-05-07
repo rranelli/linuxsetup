@@ -106,6 +106,8 @@
       value: "false"
     - setting: "org.pantheon.desktop.wingpanel show-launcher"
       value: "false"
+    - setting: "org.pantheon.desktop.gala.animations workspace-switch-duration"
+      value: "100"
 
     - setting: "org.pantheon.terminal.settings save-exited-tabs"
       value: "false"
@@ -143,5 +145,3 @@
       value: "@as ['<Super><Alt>Up']"
     - setting: "org.gnome.desktop.wm.keybindings close"
       value: "['<Super>q']"
-
-- debug: msg={{ gsetting }}
