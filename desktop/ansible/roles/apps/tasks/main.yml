@@ -107,7 +107,7 @@
     - setting: "org.pantheon.desktop.wingpanel show-launcher"
       value: "false"
     - setting: "org.pantheon.desktop.gala.animations workspace-switch-duration"
-      value: "100"
+      value: "90"
 
     - setting: "org.pantheon.terminal.settings save-exited-tabs"
       value: "false"
