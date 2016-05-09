@@ -70,3 +70,10 @@
     src=emacs.desktop
     dest=/usr/local/share/applications/emacs.desktop
     mode=0644
+
+- name: "setup Emacs dotfiles"
+  become: false
+  command: "./setup_dotfiles"
+  args:
+    chdir: "{{ code_dir }}/emacs-dotfiles"
+    creates: "~/.emacs.d/init.el"
