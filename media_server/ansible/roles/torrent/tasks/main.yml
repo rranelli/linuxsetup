@@ -19,7 +19,7 @@
 - file: path=/home/renan/.config/deluge state=directory owner=renan group=renan
 - name: "set deluge auth config file"
   copy:
-    content="{{ deluge_auth }}"
+    content="{{ deluge_auth }}\n"
     dest=/home/renan/.config/deluge/auth
     mode=0600
     owner=renan
