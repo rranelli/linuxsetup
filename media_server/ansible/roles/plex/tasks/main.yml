@@ -60,6 +60,6 @@
   cron:
     job="curl -s http://localhost:32400/library/sections/{{ plex_tv_show_section }}/refresh?force=1"
     name="auto-refresh with cron"
-    hour="*/2"
+    hour="*/4"
     user="renan"
     state="present"
