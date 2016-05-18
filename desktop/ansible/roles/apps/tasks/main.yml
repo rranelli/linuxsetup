@@ -27,6 +27,8 @@
 - name: "install keysnail @ firefox"
   become: false
   command: "firefox ~/.config/keysnail.xpi"
+  async: 4500 # this will "fire and forget" the task
+  poll: 0
   when: keysnail.changed
 
 - name: "check if slack is installed"
