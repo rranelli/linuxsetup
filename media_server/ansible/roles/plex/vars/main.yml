@@ -1,8 +1,8 @@
 ---
 
-plex_version: 0.9.16.4.1911-ee6e505
+plex_version: 0.9.16.6.1993-5089475
 plex_url_i386: https://downloads.plex.tv/plex-media-server/{{ plex_version }}/plexmediaserver_{{ plex_version }}_i386.deb
-plex_sha256_i386: d94dc983e1e98a9dc615865a02ecb545fc00b60a9c6304794381daaf5cff5b64
+plex_sha256_i386: 3a8ee3aefe0e482e0960c7dca32ae3d6047da3b9b046d7cf85195383cfc818a2
 
 plex_plugin_path: '/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Plug-ins'
 
