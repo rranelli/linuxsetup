@@ -31,3 +31,8 @@
   args:
     chdir: "{{ code_dir }}"
     creates: "{{ code_dir }}/.fetched"
+
+- name: "configure resolvconf to search for hosts @ Xerpa"
+  copy:
+    src=resolvconf-base
+    dest=/etc/resolvconf/resolv.conf.d/base
