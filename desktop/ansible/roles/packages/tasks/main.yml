@@ -22,8 +22,8 @@
     - ppa:git-core/ppa
     - ppa:ansible/ansible
     - ppa:atareao/telegram
-    - ppa:elementary-os/unstable-upstream
-    - ppa:mpstark/elementary-tweaks-daily
+#    - ppa:elementary-os/unstable-upstream
+#    - ppa:mpstark/elementary-tweaks-daily
 
 - name: "install essential"
   apt:

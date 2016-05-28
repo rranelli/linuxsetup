@@ -7,8 +7,8 @@
   with_items:
     - deluge
     - calibre
-    - elementary-tweaks
-    - elementary-wallpapers-extra
+#    - elementary-tweaks
+#    - elementary-wallpapers-extra
     - firefox
     - flashplugin-installer
     - spotify-client
