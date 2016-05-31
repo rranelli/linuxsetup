@@ -97,11 +97,13 @@ function setup_ps1 {
       return $ret
     }
 
-    local user_at_host="$hiblu𝞵($user$txtred@$hiblu$host)$clroff"
-    local success="${bldblu}\$(success_prompt)${clroff}"
-    local failure="${bldred}\$(failure_prompt)${clroff}"
-    local path="$hipurψ($path)$clroff"
-    local login_shell_indicator="$hired\$(parse_login_shell)"
+    function clr { echo -e "${1}${2}\[\e[0m\]"; }
+
+    local user_at_host="$(clr $hiblu 𝞵)($(clr $hiblu $user)$(clr $txtred @)$(clr $bldgrn $host))"
+    local success="$(clr $bldblu '$(success_prompt)')"
+    local failure="$(clr $bldred '$(failure_prompt)')"
+    local path="$(clr $hipur ψ)($(clr $hipur $path))"
+    local login_shell_indicator="$(clr $hired '$(parse_login_shell)')"
 
     PS1=""
     PS1+="$user_at_host"
@@ -110,7 +112,6 @@ function setup_ps1 {
     PS1+="$login_shell_indicator"
     PS1+="$success"
     PS1+="$failure"
-    PS1+=$clroff
 
     if [[ "$TERM" == "vt100" || "$TERM" == "dumb"  || "$TERM" == "eterm-color" ]]; then
 	# This had to be added in order for emacs' TRAMP to work seamlessly
