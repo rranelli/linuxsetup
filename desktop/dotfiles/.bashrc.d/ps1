@@ -89,20 +89,21 @@ function setup_ps1 {
         return $ret
     }
     function success_prompt {
-      ret=$?; [ $ret = 0 ] && echo "λx ➝  "
+      ret=$?; [ $ret = 0 ] && echo "λx"
       return $ret
     }
     function failure_prompt {
-      ret=$?; [ $ret != 0 ] && echo "(✘) ➝  "
+      ret=$?; [ $ret != 0 ] && echo "✘)"
       return $ret
     }
 
     function clr { echo -e "${1}${2}\[\e[0m\]"; }
 
-    local user_at_host="$(clr $hiblu 𝞵)($(clr $hiblu $user)$(clr $txtred @)$(clr $bldgrn $host))"
-    local success="$(clr $bldblu '$(success_prompt)')"
-    local failure="$(clr $bldred '$(failure_prompt)')"
-    local path="$(clr $hipur ψ)($(clr $hipur $path))"
+    local user_at_host="$(clr $hicyn 𝞵)[$(clr $hiwht $user)$(clr $txtred @)$(clr $bldblu $host)]"
+    local success='$(success_prompt)'
+    local failure='$(failure_prompt)'
+    local arrow=' ➝  '
+    local path="$(clr $hipur ψ)[$(clr $hipur $path)]"
     local login_shell_indicator="$(clr $hired '$(parse_login_shell)')"
 
     PS1=""
@@ -110,8 +111,9 @@ function setup_ps1 {
     PS1+="$path"
     PS1+="$newline"
     PS1+="$login_shell_indicator"
-    PS1+="$success"
-    PS1+="$failure"
+    PS1+="$(clr $hicyn $success)"
+    PS1+="$(clr $bldred $failure)"
+    PS1+="$arrow"
 
     if [[ "$TERM" == "vt100" || "$TERM" == "dumb"  || "$TERM" == "eterm-color" ]]; then
 	# This had to be added in order for emacs' TRAMP to work seamlessly
