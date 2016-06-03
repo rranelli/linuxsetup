@@ -9,7 +9,6 @@
   changed_when: emacs.stat.exists == False
 
 - name: "install emacs's build deps"
-  when: false
   apt:
     name="emacs24"
     state="build-dep"
@@ -33,7 +32,6 @@
 - name: "compile the ONE TRUE EDITOR"
   when: emacs.changed
   shell: |
-    # apt-get build-dep emacs24 -y
     cd /tmp/emacs-{{ emacs_version }} && {
       ./configure && make && make install
     }
