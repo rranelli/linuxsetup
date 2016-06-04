@@ -151,6 +151,8 @@
       value: "@as ['<Super><Alt>Up']"
     - setting: "org.gnome.desktop.wm.keybindings close"
       value: "['<Super>q']"
+    - setting: "org.gnome.desktop.wm.keybindings panel-main-menu"
+      value: "['<Super>space']"
     - setting: "org.gnome.settings-daemon.plugins.media-keys search"
       value: "'<Super>space'"
     - setting: "org.gnome.shell.keybindings toggle-overview"
