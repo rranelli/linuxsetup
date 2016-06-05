@@ -85,29 +85,31 @@ function setup_ps1 {
     local host="\h"
 
     function parse_login_shell {
-        ret=$?; shopt -q login_shell && echo '(login) '
+        ret=$?; shopt -q login_shell && echo 'ξ[login]'
         return $ret
     }
     function success_prompt {
-      ret=$?; [ $ret = 0 ] && echo "λx"
+      ret=$?; [ $ret = 0 ] && echo "𝛌.x"
       return $ret
     }
     function failure_prompt {
-      ret=$?; [ $ret != 0 ] && echo "✘)"
+      ret=$?; [ $ret != 0 ] && echo "✘._"
       return $ret
     }
 
     function clr { echo -e "${1}${2}\[\e[0m\]"; }
 
-    local user_at_host="$(clr $hicyn 𝞵)[$(clr $hiwht $user)$(clr $txtred @)$(clr $bldblu $host)]"
+    local time="$(clr $higrn θ)[$(clr $higrn $time24h)]"
+    local user_at_host="$(clr $hicyn υ)[$(clr $hicyn $user)]$(clr $hiwht ρ)[$(clr $hiwht $host)]"
+    local path="$(clr $hipur δ)[$(clr $hipur $path)]"
     local success='$(success_prompt)'
     local failure='$(failure_prompt)'
-    local arrow=' ➝  '
-    local path="$(clr $hipur ψ)[$(clr $hipur $path)]"
+    local arrow='⟶  '
     local login_shell_indicator="$(clr $hired '$(parse_login_shell)')"
 
     PS1=""
     PS1+="$user_at_host"
+    PS1+="$time"
     PS1+="$path"
     PS1+="$newline"
     PS1+="$login_shell_indicator"
