@@ -9,6 +9,7 @@
   changed_when: emacs.stat.exists == False
 
 - name: "install emacs's build deps"
+  when: emacs.changed
   apt:
     name="emacs24"
     state="build-dep"
