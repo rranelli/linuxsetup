@@ -18,6 +18,15 @@
     update_cache="yes"
     cache_valid_time="7200"
 
-- name: "actually get sbt"
-  command: sbt help
-  changed_when: false
+- name: "ensime plugin directory"
+  become: false
+  file:
+    path="~/.sbt/0.13/plugins"
+    state="directory"
+
+- name: "ensime plugin"
+  become: false
+  copy:
+    src="plugins.sbt"
+    dest="~/.sbt/0.13/plugins/plugins.sbt"
+    mode="0600"
