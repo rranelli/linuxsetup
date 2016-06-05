@@ -6,7 +6,7 @@
 
 - name: "set up docker repository"
   apt_repository:
-    repo="deb https://apt.dockerproject.org/repo ubuntu-trusty main"
+    repo="deb https://apt.dockerproject.org/repo ubuntu-xenial main"
     state="present"
     update_cache="yes"
     mode="0644"
