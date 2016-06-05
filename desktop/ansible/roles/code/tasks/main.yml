@@ -19,6 +19,7 @@
     git config --global user.email "renanranelli@gmail.com"
     git config --global push.default simple
     git config --global commit.template ~/.gitcommittemplate
+    git config --global github.user rranelli
     git config --global github.token "{{ github_oauth_token }}"
     git config --global github.oauth-token "{{ github_oauth_token }}"
 
