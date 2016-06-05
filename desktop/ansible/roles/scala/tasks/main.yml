@@ -1,0 +1,23 @@
+- name: "set up sbt apt-key"
+  apt_key:
+    id="642AC823"
+    keyserver="keyserver.ubuntu.com"
+    state="present"
+
+- name: "add sbt repository"
+  apt_repository:
+    repo="deb https://dl.bintray.com/sbt/debian /"
+    update_cache="yes"
+    state="present"
+    mode="0644"
+
+- name: "install sbt"
+  apt:
+    name="sbt"
+    state="present"
+    update_cache="yes"
+    cache_valid_time="7200"
+
+- name: "actually get sbt"
+  command: sbt help
+  changed_when: false
