@@ -23,6 +23,7 @@
 - name: "enable postgresql"
   service:
     name="postgresql"
+    state="started"
     enabled="yes"
 
 - name: "pg_hba.conf"
