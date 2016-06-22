@@ -134,6 +134,9 @@
 
     - setting: "org.gnome.mutter workspaces-only-on-primary"
       value: "false"
+    - setting: "org.gnome.shell.overrides workspaces-only-on-primary"
+      value: "false"
+
     - setting: "org.gnome.mutter dynamic-workspaces"
       value: "true"
     - setting: "org.gnome.shell.overrides dynamic-workspaces"
