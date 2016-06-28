@@ -4,11 +4,10 @@ silently() { "$@" >/dev/null 2>&1 ;}
 
 # better ls
 ls() {
-    if [ "$#" = 0 ]; then
-        /bin/ls --block-size=M --color -l
-    else
-        /bin/ls "$@"
-    fi
+  if [ "$#" = 0 ]
+  then /bin/ls --block-size=M --color -l
+  else /bin/ls "$@"
+  fi
 }
 
 # Emacs aliasing
@@ -17,10 +16,6 @@ et() { emacsclient -a '' -t $1; }
 
 edk() { emacsclient -e "(kill-emacs)"; }
 ekr() { edk && em && exit; }
-
-# Project switching
-8pc() { cd ~/code/$1; }
-8pl() { cd ~/locaweb/$1; }
 
 # Bundle exec aliasing
 8bes() { bundle exec rspec; }
@@ -31,22 +26,21 @@ ekr() { edk && em && exit; }
 ## Rake db migrates
 #
 8rdbm() {
-    echo "Migrating $RAILS_ENV..."
-    bundle exec rake db:migrate
-    echo "---"
-    echo "Rollbacking $RAILS_ENV..."
-    bundle exec rake db:migrate VERSION=0
-    echo "---"
-    echo "Migrating $RAILS_ENV..."
-    bundle exec rake db:migrate
-    echo "---"
-    echo "Finished"
+  echo "Migrating $RAILS_ENV..."
+  bundle exec rake db:migrate
+  echo "---"
+  echo "Rollbacking $RAILS_ENV..."
+  bundle exec rake db:migrate VERSION=0
+  echo "---"
+  echo "Migrating $RAILS_ENV..."
+  bundle exec rake db:migrate
+  echo "---"
+  echo "Finished"
 }
 8frdbm() { 8rdbm; RAILS_ENV=test 8rdbm; }
-
 8rdbr() {
-    echo "Reseting $RAILS_ENV..."
-    bundle exec rake db:drop db:create db:migrate
+  echo "Reseting $RAILS_ENV..."
+  bundle exec rake db:drop db:create db:migrate
 }
 8frdbr() { 8rdbr; RAILS_ENV=test 8rdbr; }
 
@@ -54,56 +48,54 @@ ekr() { edk && em && exit; }
 ## Ecto migrations
 #
 8edbm() {
-    echo "Migration $MIX_ENV..."
-    mix ecto.migrate
-    echo "Rollbacking $MIX_ENV..."
-    mix ecto.rollback -n 0
-    echo "---"
-    echo "Migrating $MIX_ENV..."
-    mix ecto.migrate
-    echo "---"
-    echo "Finished"
+  echo "Migration $MIX_ENV..."
+  mix ecto.migrate
+  echo "Rollbacking $MIX_ENV..."
+  mix ecto.rollback -n 0
+  echo "---"
+  echo "Migrating $MIX_ENV..."
+  mix ecto.migrate
+  echo "---"
+  echo "Finished"
 }
 
 8fedbm() {
-    8edbm; MIX_ENV=test 8edbm;
+  8edbm; MIX_ENV=test 8edbm;
 }
 
 8edbr() {
   (
     set -e
-    mix do ecto.{drop,create,migrate},
+    mix do ecto.{drop\,,create\,,migrate}
     [ -f ${seeds:=priv/repo/seeds.exs} ] && mix run $seeds
     [ -d ${seeds_dir:=priv/repo/seeds} ] && { for f in $seeds_dir/*.exs; do mix run $f; done ;}
   )
 }
 
-dfgb() { df -BG; }
-
 8txc() { xclip -i -selection clipboard; }
 
 8inf() {
-    until [[ $? != 0 ]]; do eval "$*"; done
-    zenity --info --text="Finished the infinite loop of $1"
+  until [[ $? != 0 ]]; do eval "$*"; done
+  zenity --info --text="Finished the infinite loop of $1"
 }
 
 8gr() { cd $(git rev-parse --show-toplevel); }
 
 8changelog() {
-    ref=$1
-    [ -z "$ref" ] && ref=$(git describe --tags --abbrev=0)
-    git log --no-merges --oneline "$ref"..HEAD
+  ref=$1
+  [ -z "$ref" ] && ref=$(git describe --tags --abbrev=0)
+  git log --no-merges --oneline "$ref"..HEAD
 }
 8mkch() { 8changelog $1 | 8txc ;}
 
 bry() {
-    read -ep "(B)ry err:${?}> "
+  read -ep "(B)ry err:${?}> "
 
-    if [ "$REPLY" != exit ]; then
-        local evald=$(eval "$REPLY")
-        echo "${evald}" >$(tty)
-        bry $@
-    fi
+  if [ "$REPLY" != exit ]; then
+      local evald=$(eval "$REPLY")
+      echo "${evald}" >$(tty)
+      bry $@
+  fi
 }
 export -f bry
 
@@ -118,27 +110,26 @@ gitmulticast() { ~/code/linuxsetup/desktop/scripts/gitmulticast.sh $@ ;}
 alias 8gm='gitmulticast'
 
 gitmulticast-xerpa() {
-    GITHUB_USER_TYPE=orgs GITHUB_USER=xerpa CODE_DIR="$HOME/xerpa" gitmulticast "$@"
+  GITHUB_USER_TYPE=orgs GITHUB_USER=xerpa CODE_DIR="$HOME/xerpa" gitmulticast "$@"
 }
 alias 8gmx='gitmulticast-xerpa'
 
 8pcp() { gitmulticast pull ;}
 
 8set-brightness () {
-    xrandr -q \
-        | awk '/ connected/ {print $1}' \
-        | tee \
-        | xargs -n1 -I{} xrandr --output {} --brightness $1
+  xrandr -q \
+      | awk '/ connected/ {print $1}' \
+      | tee \
+      | xargs -n1 -I{} xrandr --output {} --brightness $1
 }
 
 8awsconf() {
-    export AWS_ANSIBLE_PW=$(mimipass get xerpa/ansible-vault)
-    export AWS_ACCESS_KEY=$(mimipass get xerpa/aws/access-key)
-    export AWS_SECRET_KEY=$(mimipass get xerpa/aws/secret-key)
-}
+  export AWS_ANSIBLE_PW=$(mimipass get xerpa/ansible-vault)
+  export AWS_ACCESS_KEY=$(mimipass get xerpa/aws/access-key)
+  export AWS_SECRET_KEY=$(mimipass get xerpa/aws/secret-key)
+  export AWS_REGION="sa-east-1"
 
-8trfconf() {
-    export TF_VAR_secret_key=$(mimipass get xerpa/aws/secret-key)
-    export TF_VAR_access_key=$(mimipass get xerpa/aws/access-key)
-    export TF_VAR_lukladb_password=$(mimipass get xerpa/aws/lukla-db-passwd)
+  export TF_VAR_secret_key=$(mimipass get xerpa/aws/secret-key)
+  export TF_VAR_access_key=$(mimipass get xerpa/aws/access-key)
+  export TF_VAR_lukladb_password=$(mimipass get xerpa/aws/lukla-db-passwd)
 }
