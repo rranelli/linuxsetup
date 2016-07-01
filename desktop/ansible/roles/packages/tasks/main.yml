@@ -50,6 +50,7 @@
     - libreadline6
     - libsqlite3-dev
     - libssl-dev
+    - libxml2-utils # needed to pretty print xml @ Emacs
     - ncftp
     - openssh-server
     - python-pip
