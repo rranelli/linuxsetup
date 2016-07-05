@@ -12,7 +12,7 @@
 
 - name: "install erlang"
   apt:
-    name="esl-erlang"
+    name="esl-erlang=1:18.3"
     state="present"
     update_cache="yes"
     cache_valid_time="7200"
