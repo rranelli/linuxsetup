@@ -83,7 +83,7 @@ parallel() {
         jobs[$n]=$!; shift                    # - record the n-th job PID & dequeue it
     done
 
-    while true; do                               # While the jobs are not done:
+    while true; do                            # While the jobs are not done:
         for i in ${!jobs[@]}; do              # - For each running process
             local pid=${jobs[$i]}
             is-alive $pid && continue         # -- Check if process is still alive. If it is, continue
