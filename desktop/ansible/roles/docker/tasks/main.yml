@@ -22,3 +22,8 @@
   user:
     name={{ local_user }}
     groups=sudo,docker
+
+- name: "install docker compose"
+  pip:
+    name="docker-compose"
+    state="present"
