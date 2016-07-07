@@ -16,6 +16,13 @@
     state="present"
     update_cache="yes"
     cache_valid_time="7200"
+  register: erlang
+
+- name: "hold on to esl-erlang 18.3 until we fix lukla out"
+  dpkg_selections:
+    name="esl-erlang"
+    selection="hold"
+  when: erlang.changed
 
 - name: "get elixir"
   git:
