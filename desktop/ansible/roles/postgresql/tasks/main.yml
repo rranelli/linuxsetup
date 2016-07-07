@@ -43,7 +43,7 @@
 - name: "install pg-cli"
   pip:
     name="{{ item }}"
-    state="latest"
+    state="present"
   with_items:
     - pgcli
     - wcwidth
