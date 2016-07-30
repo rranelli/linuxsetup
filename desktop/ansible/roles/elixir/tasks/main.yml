@@ -29,7 +29,7 @@
     repo="https://github.com/elixir-lang/elixir.git"
     dest="{{ code_dir }}/elixir"
     clone="yes"
-    version="v1.2.6"
+    version="v1.3.2"
     depth=1
   register: elixir
 
