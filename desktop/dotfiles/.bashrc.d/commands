@@ -125,6 +125,8 @@ alias 8gmx='gitmulticast-xerpa'
 
 8awsconf() {
   export AWS_ANSIBLE_PW=$(mimipass get xerpa/ansible-vault)
+  export AWS_CASSANDRA_CQL_PW=$(mimipass get xerpa/aws/cassandra/password)
+  export AWS_CASSANDRA_JMX_PW=$(mimipass get xerpa/aws/cassandra/jmx_password)
   export AWS_ACCESS_KEY=$(mimipass get xerpa/aws/access-key)
   export AWS_SECRET_KEY=$(mimipass get xerpa/aws/secret-key)
   export AWS_REGION="sa-east-1"
