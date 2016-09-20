@@ -19,7 +19,7 @@
 - name: "download the ONE TRUE EDITOR"
   when: emacs.changed
   get_url:
-    url="http://alpha.gnu.org/gnu/emacs/pretest/emacs-{{ emacs_version }}.tar.xz"
+    url="http://ftp.gnu.org/gnu/emacs/emacs-{{ emacs_version }}.tar.xz"
     dest="/tmp/emacs-{{emacs_version}}.tar.xz"
     sha256sum="{{ emacs_tarball_sha256sum }}"
 
