@@ -3,19 +3,19 @@
   connection: local
   become: yes
   roles:
-    # - packages
-    # - apps
-    # - mimipass
-    # - code
+    - packages
+    - apps
+    - mimipass
+    - code
     - emacs
-    # - postgresql
-    # - java8
-    # - clojure
-    # - elixir
-    # - ruby
-    # - nodejs
-    # - docker
-    # - langtool
-    # - csharp
-    # - scala
-    # - cassandra
+    - postgresql
+    - java8
+    - clojure
+    - elixir
+    - ruby
+    - nodejs
+    - docker
+    - langtool
+    - csharp
+    - scala
+    - cassandra
