@@ -187,19 +187,19 @@ key.setViewKey(']', function (ev) {
     BrowserForward();
 }, 'Forward');
 
-key.setViewKey([['C-n'], ['n']], function (ev) {
+key.setViewKey('C-n', function (ev) {
     key.generateKey(ev.originalTarget, KeyEvent.DOM_VK_DOWN, true);
 }, 'Scroll line down');
 
-key.setViewKey([['C-p'], ['p']], function (ev) {
+key.setViewKey('C-p', function (ev) {
     key.generateKey(ev.originalTarget, KeyEvent.DOM_VK_UP, true);
 }, 'Scroll line up');
 
-key.setViewKey([['C-f'], ['.']], function (ev) {
+key.setViewKey('C-f', function (ev) {
     key.generateKey(ev.originalTarget, KeyEvent.DOM_VK_RIGHT, true);
 }, 'Scroll right');
 
-key.setViewKey([['C-b'], [',']], function (ev) {
+key.setViewKey('C-b', function (ev) {
     key.generateKey(ev.originalTarget, KeyEvent.DOM_VK_LEFT, true);
 }, 'Scroll left');
 
@@ -425,7 +425,7 @@ key.setCaretKey([['C-b'], ['h'], ['C-h']], function (ev) {
     ev.target.ksMarked ? goDoCommand("cmd_selectCharPrevious") : goDoCommand("cmd_scrollLeft");
 }, 'Move caret to the left');
 
-key.setCaretKey([['M-f'], ['w']], function (ev) {
+key.setCaretKey([['M-f']], function (ev) {
     ev.target.ksMarked ? goDoCommand("cmd_selectWordNext") : goDoCommand("cmd_wordNext");
 }, 'Move caret to the right by word');
 
@@ -437,7 +437,7 @@ key.setCaretKey([['C-v'], ['SPC']], function (ev) {
     ev.target.ksMarked ? goDoCommand("cmd_selectPageNext") : goDoCommand("cmd_movePageDown");
 }, 'Move caret down by page');
 
-key.setCaretKey([['M-v'], ['b']], function (ev) {
+key.setCaretKey([['M-v']], function (ev) {
     ev.target.ksMarked ? goDoCommand("cmd_selectPagePrevious") : goDoCommand("cmd_movePageUp");
 }, 'Move caret up by page');
 
@@ -471,21 +471,9 @@ key.setCaretKey('R', function (ev) {
     BrowserReload();
 }, 'Reload the page', true);
 
-key.setCaretKey('B', function (ev) {
-    BrowserBack();
-}, 'Back');
-
-key.setCaretKey('F', function (ev) {
-    BrowserForward();
-}, 'Forward');
-
 key.setCaretKey(['C-x', 'h'], function (ev) {
     goDoCommand("cmd_selectAll");
 }, 'Select all', true);
-
-key.setCaretKey('f', function (ev) {
-    command.focusElement(command.elementsRetrieverTextarea, 0);
-}, 'Focus to the first textarea', true);
 
 key.setCaretKey('M-p', function (ev) {
     command.walkInputElement(command.elementsRetrieverButton, true, true);
