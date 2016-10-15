@@ -223,10 +223,6 @@ key.setViewKey(':', function (ev, arg) {
     shell.input(null, arg);
 }, 'List and execute commands', true);
 
-key.setViewKey('R', function (ev) {
-    BrowserReload();
-}, 'Reload the page', true);
-
 key.setViewKey(['C-x', 'h'], function (ev) {
     goDoCommand("cmd_selectAll");
 }, 'Select all', true);
@@ -466,10 +462,6 @@ key.setCaretKey([['C-SPC'], ['C-@']], function (ev) {
 key.setCaretKey(':', function (ev, arg) {
     shell.input(null, arg);
 }, 'List and execute commands', true);
-
-key.setCaretKey('R', function (ev) {
-    BrowserReload();
-}, 'Reload the page', true);
 
 key.setCaretKey(['C-x', 'h'], function (ev) {
     goDoCommand("cmd_selectAll");
