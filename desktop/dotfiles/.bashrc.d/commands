@@ -68,7 +68,7 @@ ekr() { edk && em && exit; }
     set -e
     mix do ecto.{drop\,,create\,,migrate}
     [ -f ${seeds:=priv/repo/seeds.exs} ] && mix run $seeds
-    [ -d ${seeds_dir:=priv/repo/seeds} ] && { for f in $seeds_dir/*.exs; do mix run $f; done ;}
+    [ -d ${seeds_dir:=priv/repo/seeds} ] && { for f in $seeds_dir/*.exs; do echo '>>>>>>>'$f; mix run $f; done ;}
   )
 }
 
