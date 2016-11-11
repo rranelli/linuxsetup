@@ -203,7 +203,7 @@ key.setViewKey('C-b', function (ev) {
     key.generateKey(ev.originalTarget, KeyEvent.DOM_VK_LEFT, true);
 }, 'Scroll left');
 
-key.setViewKey([['M-v'], ['b']], function (ev) {
+key.setViewKey([['M-v']], function (ev) {
     goDoCommand("cmd_scrollPageUp");
 }, 'Scroll page up');
 
