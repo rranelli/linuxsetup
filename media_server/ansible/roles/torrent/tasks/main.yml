@@ -1,4 +1,4 @@
-- include_vars: "secret.vault"
+- include_vars: "secret.yml"
 
 - name: "installs deluge && python-pip"
   apt:
@@ -60,7 +60,7 @@
   cron:
     job="/usr/local/bin/flexget --cron execute"
     name="flexget download torrents"
-    minute="*/12"
+    minute="*/30"
     user="renan"
     state="present"
 
@@ -74,6 +74,6 @@
   cron:
     job="/usr/local/bin/rar-torrent-extract"
     name="extract rar torrents"
-    minute="*/12"
+    minute="*/30"
     user="renan"
     state="present"

@@ -29,32 +29,69 @@
   notify:
     - restart plex
 
-- name: "fetch subliminal plugin"
-  get_url:
-    url={{ plex_subliminal_plugin_url }}
-    dest=/var/cache/apt/archives/Subliminal.bundle-master.zip
-    sha256sum={{ plex_subliminal_plugin_sha256 }}
-
 - name: "check if subliminal is installed"
-  failed_when: false
-  changed_when: subliminal_installed.rc != 0
   command: stat "{{ plex_plugin_path }}/Subliminal.bundle"
   register: subliminal_installed
+  failed_when: false
+  changed_when: subliminal_installed.rc != 0
+
+- name: "fetch subliminal plugin"
+  when: subliminal_installed.changed
+  get_url:
+    url={{ plex_subliminal_plugin_url }}
+    dest=/var/cache/apt/archives/Subliminal.bundle.zip
+    sha256sum={{ plex_subliminal_plugin_sha256 }}
 
 - name: "install subliminal"
-  when: subliminal_installed.rc != 0
+  when: subliminal_installed.changed
   unarchive:
     copy=no
     src=/var/cache/apt/archives/Subliminal.bundle-master.zip
     dest="{{ plex_plugin_path }}"
+  notify:
+    - restart plex
 
 - name: "fix subliminal plugin path"
   when: subliminal_installed.rc != 0
   command: |
     mv "{{ plex_plugin_path }}/Subliminal.bundle-master"
        "{{ plex_plugin_path }}/Subliminal.bundle"
+
+- name: "check if trakttv is installed"
+  command: stat "{{ plex_plugin_path }}/WebTools.bundle"
+  register: trakttv_installed
+  failed_when: false
+  changed_when: trakttv_installed.rc != 0
+
+# see the following link for more information
+# https://github.com/trakt/Plex-Trakt-Scrobbler/wiki/Installation%20-%20Debian%20%28Terminal%29
+- name: "fetch trakttv plugin"
+  when: trakttv_installed.changed
+  get_url:
+    url={{ plex_trakttv_plugin_url }}
+    dest=/var/cache/apt/archives/WebTools.bundle.zip
+
+- name: "install trakttv"
+  when: trakttv_installed.changed
+  unarchive:
+    copy=no
+    src=/var/cache/apt/archives/WebTools.bundle.zip
+    dest="{{ plex_plugin_path }}"
   notify:
     - restart plex
+
+- name: "fix traktv plugin path"
+  when: subliminal_installed.rc != 0
+  command: |
+    mv "{{ plex_plugin_path }}/WebTools.bundle-master"
+       "{{ plex_plugin_path }}/WebTools.bundle"
+
+- file:
+    state=directory
+    owner=plex
+    group=plex
+    recurse=yes
+    path={{ plex_plugin_path }}/WebTools.bundle
 
 - name: "set up auto-refresh with cron"
   cron:
