@@ -7,7 +7,7 @@ tasks:
     template:
       - torrentday
     series:
-      720p:
+      720p+ h265:
         - The Walking Dead:
             begin: s07e01
         - The Americans:
@@ -21,6 +21,8 @@ tasks:
         - The 100:
             begin: s04e01
         - Luke Cage:
-            begin: s01e01
+            begin: s02e01
         - Westworld:
-            begin: s01e01
+            begin: s02e01
+        - Vikings:
+            begin: s05e01
