@@ -45,6 +45,7 @@
     - gnupg
     - gnupg-agent
     - inotify-tools
+    - jid
     - jq
     - libcurl3
     - libreadline6
