@@ -1,5 +1,5 @@
 #!/bin/bash -ev
-
+sudo apt-get install -y software-properties-common
 sudo apt-add-repository ppa:ansible/ansible --yes
 sudo apt-get update -qq
 
