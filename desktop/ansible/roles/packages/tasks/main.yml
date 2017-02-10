@@ -1,3 +1,16 @@
+- name: "set up required repositories"
+  apt_repository:
+    repo="{{ item }}"
+    state="present"
+    update_cache="yes"
+    mode="644"
+  with_items:
+    # We will use debian testing
+    - deb http://ftp.br.debian.org/debian testing main non-free contrib
+    - deb http://repository.spotify.com stable non-free
+    - deb http://ppa.launchpad.net/git-core/ppa/ubuntu trusty main
+    - deb http://ppa.launchpad.net/noobslab/apps/ubuntu trusty main
+
 - name: "set up required apt-keys"
   apt_key:
     id="{{ item.id }}"
@@ -10,20 +23,15 @@
     - description: "spideroak"
       keyserver: "keyserver.ubuntu.com"
       id: "573E3D1C51AE1B3D"
+    - description: "git core"
+      keyserver: "keyserver.ubuntu.com"
+      id: "E1DD270288B4E6030699E45FA1715D88E1DF1F24"
+    - description: "telegram"
+      keyserver: "keyserver.ubuntu.com"
+      id: "F59EAE4D"
 
-- name: "set up required repositories"
-  apt_repository:
-    repo="{{ item }}"
-    state="present"
-    update_cache="yes"
-    mode="644"
-  with_items:
-    - deb http://repository.spotify.com stable non-free
-    - ppa:git-core/ppa
-    - ppa:ansible/ansible
-    - ppa:atareao/telegram
-#    - ppa:elementary-os/unstable-upstream
-#    - ppa:mpstark/elementary-tweaks-daily
+- name: "upgrade packages"
+  apt: upgrade="full"
 
 - name: "install essential"
   apt:
@@ -45,12 +53,13 @@
     - gnupg
     - gnupg-agent
     - inotify-tools
-    - jid
     - jq
     - libcurl3
+    - libgraphicsmagick1-dev
     - libreadline6
     - libsqlite3-dev
     - libssl-dev
+    - libtool-bin
     - libxml2-utils # needed to pretty print xml @ Emacs
     - ncftp
     - openssh-server

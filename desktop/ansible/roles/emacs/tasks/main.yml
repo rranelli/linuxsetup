@@ -34,7 +34,7 @@
   when: emacs.changed
   shell: |
     cd /tmp/emacs-{{ emacs_version }} && {
-      ./configure && make && make install
+      ./configure CFLAGS=-no-pie && make && make install
     }
 
 - name: "remove the ONE TRUE EDITOR sources"

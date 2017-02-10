@@ -7,28 +7,10 @@
   with_items:
     - calibre
     - deluge
-    - firefox
-    - flashplugin-installer
     - libreoffice
-    - plank
     - spotify-client
-    - telegram
+    - telegram-desktop
     - ttf-ancient-fonts # adds fonts needed by emacs
-
-- name: "get keysnail"
-  become: false
-  get_url:
-    url="{{ keysnail_url }}"
-    sha256sum="{{ keysnail_sha256sum }}"
-    dest="~/.config/keysnail.xpi"
-  register: keysnail
-
-- name: "install keysnail @ firefox"
-  become: false
-  command: "firefox ~/.config/keysnail.xpi"
-  async: 4500 # this will "fire and forget" the task
-  poll: 0
-  when: keysnail.changed
 
 - name: "check if slack is installed"
   stat: path="/usr/bin/slack"
@@ -93,7 +75,7 @@
 
 - name: "remove unnecessary dirs @ home"
   file:
-    path="~/{{ item }}"
+    path="/home/renan/{{ item }}"
     state="absent"
   with_items:
     - Documents

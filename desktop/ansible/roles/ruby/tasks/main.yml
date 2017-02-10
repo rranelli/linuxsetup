@@ -1,5 +1,21 @@
-- name: "install libreadline-dev, which is a ruby-build dependency"
-  apt: name=libreadline-dev state="present" update_cache="yes" cache_valid_time="7200"
+- name: "install ruby-build dependencies"
+  apt:
+    name="{{ item }}"
+    state="present"
+    update_cache="yes"
+    cache_valid_time="7200"
+  with_items:
+    - autoconf
+    - bison
+    - build-essential
+    - libssl-dev
+    - libyaml-dev
+    - libreadline6-dev
+    - zlib1g-dev
+    - libncurses5-dev
+    - libffi-dev
+    - libgdbm3
+    - libgdbm-dev
 
 - name: "clone rbenv"
   become: false
