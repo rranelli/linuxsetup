@@ -10,6 +10,7 @@
     - libreoffice
     - spotify-client
     - telegram-desktop
+    - libappindicator3-1
     - ttf-ancient-fonts # adds fonts needed by emacs
 
 - name: "check if slack is installed"
