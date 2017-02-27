@@ -1,5 +1,0 @@
-@daily /home/renan/coursera/coursera-dl -u renanranelli@gmail.com -p res2lia6 --path /home/renan/Courses `ls /home/renan/Courses` && find /home/renan/Courses/ -name *.srt -type f -delete && touch /home/renan/.cronjobs/courseradl
-@daily /home/renan/download-ruby-tapas && touch /home/renan/.cronjobs/rubytapasdl
-@daily beet import /home/renan/Downloads/Complete
-@hourly /home/renan/code/linuxsetup/media_server/ftp-uploader/ftp-upload-orgzly.sh && touch /home/renan/.cronjobs/ftporgzly
-@weekly /home/renan/code/linuxsetup/media_server/ftp-uploader/ftp-upload-music.sh && touch /home/renan/.cronjobs/ftpmusic
