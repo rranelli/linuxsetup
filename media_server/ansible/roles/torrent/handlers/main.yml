@@ -1,9 +1,10 @@
-- name: "restart deluged"
+- name: "restart deluge"
   service:
-    name=deluged
-    state=restarted
+    name="{{ item }}"
+    state="restarted"
+  with_items:
+    - deluged
+    - deluge-web
 
-- name: "restart deluge-web"
-  service:
-    name=deluge-web
-    state=restarted
+- name: "systemd reload"
+  command: systemctl daemon-reload

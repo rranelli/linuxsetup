@@ -1,0 +1,13 @@
+[Unit]
+Description=Deluge Bittorrent Web Daemon
+After=network-online.target
+
+[Service]
+User=renan
+Group=renan
+Type=simple
+ExecStart=/usr/bin/deluge-web
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

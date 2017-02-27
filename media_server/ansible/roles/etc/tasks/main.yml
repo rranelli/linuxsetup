@@ -1,13 +1,8 @@
----
-
 - name: "set init files"
   copy:
-    src={{ item }}
-    dest=/{{ item }}
+    src=etc/init.d/calibre-server
+    dest=/etc/init.d/calibre-server
     mode=755
-  with_items:
-    - etc/init.d/calibre-server
-    - etc/init.d/deluge-web
 
 - name: "set /etc/locale.gen"
   copy:
@@ -69,3 +64,9 @@
 - name: "set completion case"
   shell: echo 'set completion-ignore-case on' >> /etc/inputrc
   when: completion_case_ignore_on.rc != 0
+
+- name: "set default editor"
+  copy:
+    content="#!/bin/bash\nemacs -nw -Q \"$@\""
+    dest=/usr/bin/editor
+    mode=0644

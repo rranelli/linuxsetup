@@ -13,29 +13,39 @@
     - deluge-web
     - deluge-console
   notify:
-    - restart deluge-web
-    - restart deluged
+    - restart deluge
 
 - file: path=/home/renan/.config/deluge state=directory owner=renan group=renan
 - name: "set deluge auth config file"
   copy:
     content="{{ deluge_auth }}\n"
-    dest=/home/renan/.config/deluge/auth
+    dest=/var/lib/deluged/config/auth
     mode=0600
-    owner=renan
+    owner=debian-deluged
+    group=debian-deluged
   notify:
-    - restart deluge-web
-    - restart deluged
+    - restart deluge
 
 - name: "set deluge core.conf file"
   template:
     src=core.conf
-    dest=/home/renan/.config/deluge/core.conf
+    dest=/var/lib/deluged/config/authcore.conf
     mode=0600
-    owner=renan
+    owner=debian-deluged
+    group=debian-deluged
   notify:
-    - restart deluge-web
-    - restart deluged
+    - restart deluge
+
+- name: "add deluge{-web,d}.service"
+  copy:
+    src=lib/systemd/system/{{ item }}
+    dest=/lib/systemd/system/{{ item }}
+  with_items:
+    - deluge-web.service
+    - deluged.service
+  notify:
+    - systemd reload
+    - restart deluge
 
 - name: "check if flexget is installed"
   shell: pip list | grep -i FlexGet
@@ -77,3 +87,14 @@
     minute="*/30"
     user="renan"
     state="present"
+
+- name: "enable deluged & deluge-web"
+  service:
+    name="{{ item }}"
+    enabled="yes"
+    state="started"
+  with_items:
+    - deluged
+    - deluge-web
+  notify:
+    - systemd reload
