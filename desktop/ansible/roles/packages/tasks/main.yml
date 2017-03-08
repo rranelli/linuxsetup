@@ -1,16 +1,3 @@
-- name: "set up required repositories"
-  apt_repository:
-    repo="{{ item }}"
-    state="present"
-    update_cache="yes"
-    mode="644"
-  with_items:
-    # We will use debian testing
-    - deb http://ftp.br.debian.org/debian testing main non-free contrib
-    - deb http://repository.spotify.com stable non-free
-    - deb http://ppa.launchpad.net/git-core/ppa/ubuntu trusty main
-    - deb http://ppa.launchpad.net/noobslab/apps/ubuntu trusty main
-
 - name: "set up required apt-keys"
   apt_key:
     id="{{ item.id }}"
@@ -28,7 +15,20 @@
       id: "E1DD270288B4E6030699E45FA1715D88E1DF1F24"
     - description: "telegram"
       keyserver: "keyserver.ubuntu.com"
-      id: "F59EAE4D"
+      id: "A3D8A366869FE2DC5FFD79C36A9653F936FD5529"
+
+- name: "set up required repositories"
+  apt_repository:
+    repo="{{ item }}"
+    state="present"
+    update_cache="yes"
+    mode="644"
+  with_items:
+    # We will use debian testing
+    - deb http://ftp.br.debian.org/debian testing main non-free contrib
+    - deb http://repository.spotify.com stable non-free
+    - deb http://ppa.launchpad.net/git-core/ppa/ubuntu trusty main
+    - deb http://ppa.launchpad.net/atareao/telegram/ubuntu xenial main
 
 - name: "upgrade packages"
   apt: upgrade="full"

@@ -9,7 +9,7 @@
     - deluge
     - libreoffice
     - spotify-client
-    - telegram-desktop
+    - telegram
     - libappindicator3-1
     - ttf-ancient-fonts # adds fonts needed by emacs
 
