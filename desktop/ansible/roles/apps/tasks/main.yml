@@ -14,21 +14,14 @@
     - ttf-ancient-fonts # adds fonts needed by emacs
 
 - name: "check if slack is installed"
-  stat: path="/usr/bin/slack"
+  command: dpkg-query --show slack-desktop
   register: slack
-  changed_when: slack.stat.exists == False
-
-- name: "download slack"
-  when: slack.changed
-  get_url:
-    url="{{ slack_deb_url }}"
-    dest="/tmp/slack.deb"
-  register: slack_download
+  changed_when: slack.rc != 0
 
 - name: "install slack"
-  when: slack_download.changed
+  when: slack.changed
   apt:
-    deb="/tmp/slack.deb"
+    deb="{{ slack_deb_url }}"
     state="present"
 
 - name: "check if SpiderOak is installed"
