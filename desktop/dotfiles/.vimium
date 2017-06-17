@@ -1,0 +1,32 @@
+unmap d
+unmap u
+unmap h
+unmap l
+unmap r
+unmap yy
+unmap p
+unmap P
+unmap gf
+unmap gF
+unmap b
+unmap B
+unmap T
+unmap O
+map O Vomnibar.activateInNewTab
+# unmap /
+# unmap n
+# unmap N
+map p performBackwardsFind
+unmap H
+unmap L
+unmap t
+unmap J
+unmap gT
+unmap K
+unmap gt
+unmap ^
+unmap g0
+unmap g$
+unmap yt
+unmap x
+unmap X
