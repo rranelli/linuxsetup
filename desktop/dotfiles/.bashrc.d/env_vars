@@ -8,7 +8,7 @@ function setup_env_vars {
   export PATH="/opt/terraform:$PATH" # heroku toolbelt
 
   export CODE_DIR="$HOME/code"
-  export EDITOR="emacs -nw -q"
+  export EDITOR="editor"
 
   export CDPATH=".:$CODE_DIR:$HOME/xerpa"
 

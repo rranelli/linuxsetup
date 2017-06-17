@@ -24,22 +24,22 @@
     deb="{{ slack_deb_url }}"
     state="present"
 
-- name: "check if SpiderOak is installed"
-  command: dpkg-query --show spideroakone
-  register: spideroak
-  changed_when: spideroak.rc != 0
+- name: "check if Dropbox is installed"
+  command: dpkg-query --show dropbox
+  register: dropbox
+  changed_when: dropbox.rc != 0
   failed_when: false
 
-- name: "download SpiderOak's deb file"
-  when: spideroak.changed
+- name: "download Dropbox's deb file"
+  when: dropbox.changed
   get_url:
-    url="https://spideroak.com/getbuild?platform=ubuntu&arch=x86_64"
-    dest="/tmp/spideroak.deb"
+    url="https://www.dropbox.com/download?dl=packages/debian/dropbox_2015.10.28_amd64.deb"
+    dest="/tmp/dropbox.deb"
 
-- name: "install spideroak"
-  when: spideroak.changed
+- name: "install dropbox"
+  when: dropbox.changed
   apt:
-    deb="/tmp/spideroak.deb"
+    deb="/tmp/dropbox.deb"
     state="present"
 
 - file: path="~/.fonts" state="directory"
