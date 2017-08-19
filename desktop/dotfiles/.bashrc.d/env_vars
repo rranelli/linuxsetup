@@ -12,7 +12,7 @@ function setup_env_vars {
 
   export CDPATH=".:$CODE_DIR:$HOME/xerpa"
 
-  export MIMIPASS_HOME="$HOME/SpiderOak Hive/.secrets/mimipass"
+  export MIMIPASS_HOME="$HOME/Dropbox/.secrets/mimipass"
   export MIMIPASS_RECIPIENT="renanranelli@gmail.com"
 
   # This enables bash eternal history
