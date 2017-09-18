@@ -5,9 +5,15 @@
     value="true"
     vtype="select"
 
+- name: "set up apt-keys"
+  apt_key:
+    id="EEA14886"
+    keyserver="keyserver.ubuntu.com"
+    state="present"
+
 - name: "set up oracle java repo"
   apt_repository:
-    repo="ppa:webupd8team/java"
+    repo="deb http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main"
     state="present"
     update_cache="yes"
     mode="0644"

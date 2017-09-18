@@ -23,12 +23,12 @@
     repo="https://github.com/elixir-lang/elixir.git"
     dest="{{ code_dir }}/elixir"
     clone="yes"
-    version="v1.3.2"
+    version="v1.3.4"
     depth=1
   register: elixir
 
 - name: "build elixir"
-  command: "make clean test install"
+  command: "make clean install"
   args:
     chdir: "{{ code_dir }}/elixir"
   when: elixir.changed

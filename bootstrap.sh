@@ -1,8 +1,8 @@
 #!/bin/bash -ev
-
-sudo apt-add-repository ppa:ansible/ansible --yes
+echo 'deb http://ppa.launchpad.net/ansible/ansible/ubuntu trusty main' \
+  | sudo tee /etc/apt/sources.list.d/ansible-trusty.list
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 93C4A3FD7BB9C367
 sudo apt-get update -qq
-
 sudo apt-get install -y git ansible
 
 if [ ! -f ~/.ssh/id_rsa.pub ]; then

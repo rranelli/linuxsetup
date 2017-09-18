@@ -7,63 +7,39 @@
   with_items:
     - calibre
     - deluge
-    - firefox
-    - flashplugin-installer
     - libreoffice
-    - plank
     - spotify-client
     - telegram
+    - libappindicator3-1
     - ttf-ancient-fonts # adds fonts needed by emacs
 
-- name: "get keysnail"
-  become: false
-  get_url:
-    url="{{ keysnail_url }}"
-    sha256sum="{{ keysnail_sha256sum }}"
-    dest="~/.config/keysnail.xpi"
-  register: keysnail
-
-- name: "install keysnail @ firefox"
-  become: false
-  command: "firefox ~/.config/keysnail.xpi"
-  async: 4500 # this will "fire and forget" the task
-  poll: 0
-  when: keysnail.changed
-
 - name: "check if slack is installed"
-  stat: path="/usr/bin/slack"
+  command: dpkg-query --show slack-desktop
   register: slack
-  changed_when: slack.stat.exists == False
-
-- name: "download slack"
-  when: slack.changed
-  get_url:
-    url="{{ slack_deb_url }}"
-    dest="/tmp/slack.deb"
-  register: slack_download
+  changed_when: slack.rc != 0
 
 - name: "install slack"
-  when: slack_download.changed
+  when: slack.changed
   apt:
-    deb="/tmp/slack.deb"
+    deb="{{ slack_deb_url }}"
     state="present"
 
-- name: "check if SpiderOak is installed"
-  command: dpkg-query --show spideroakone
-  register: spideroak
-  changed_when: spideroak.rc != 0
+- name: "check if Dropbox is installed"
+  command: dpkg-query --show dropbox
+  register: dropbox
+  changed_when: dropbox.rc != 0
   failed_when: false
 
-- name: "download SpiderOak's deb file"
-  when: spideroak.changed
+- name: "download Dropbox's deb file"
+  when: dropbox.changed
   get_url:
-    url="https://spideroak.com/getbuild?platform=ubuntu&arch=x86_64"
-    dest="/tmp/spideroak.deb"
+    url="https://www.dropbox.com/download?dl=packages/debian/dropbox_2015.10.28_amd64.deb"
+    dest="/tmp/dropbox.deb"
 
-- name: "install spideroak"
-  when: spideroak.changed
+- name: "install dropbox"
+  when: dropbox.changed
   apt:
-    deb="/tmp/spideroak.deb"
+    deb="/tmp/dropbox.deb"
     state="present"
 
 - file: path="~/.fonts" state="directory"
@@ -93,7 +69,7 @@
 
 - name: "remove unnecessary dirs @ home"
   file:
-    path="~/{{ item }}"
+    path="/home/renan/{{ item }}"
     state="absent"
   with_items:
     - Documents
