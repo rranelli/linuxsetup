@@ -56,7 +56,7 @@
     - jq
     - libcurl3
     - libgraphicsmagick1-dev
-    - libreadline6
+    - libreadline7
     - libsqlite3-dev
     - libssl-dev
     - libtool-bin
@@ -64,6 +64,7 @@
     - ncftp
     - openssh-server
     - python-pip
+    - python3-pip
     - redis-server
     - silversearcher-ag
     - socat
