@@ -24,3 +24,10 @@
     update_cache="yes"
     cache_valid_time="7200"
     state="present"
+
+- name: "install maven"
+  apt:
+    name="maven"
+    update_cache="yes"
+    cache_valid_time="7200"
+    state="present"
