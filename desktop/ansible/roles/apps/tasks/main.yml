@@ -17,6 +17,7 @@
   command: dpkg-query --show slack-desktop
   register: slack
   changed_when: slack.rc != 0
+  failed_when: false
 
 - name: "install slack"
   when: slack.changed
@@ -112,11 +113,19 @@
       value: "false"
     - setting: "org.gnome.shell.overrides workspaces-only-on-primary"
       value: "false"
-
     - setting: "org.gnome.mutter dynamic-workspaces"
       value: "true"
     - setting: "org.gnome.shell.overrides dynamic-workspaces"
       value: "true"
+    - setting: "org.gnome.desktop.wm.keybindings switch-to-workspace-up"
+      value: "['<Super>Left']"
+    - setting: "org.gnome.desktop.wm.keybindings switch-to-workspace-down"
+      value: "['<Super>Right']"
+    - setting: "org.gnome.desktop.wm.keybindings move-to-workspace-up"
+      value: "['<Super><Alt>Left']"
+    - setting: "org.gnome.desktop.wm.keybindings move-to-workspace-down"
+      value: "['<Super><Alt>Right']"
+
     - setting: "org.gnome.desktop.interface clock-show-date"
       value: "true"
 
