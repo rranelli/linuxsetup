@@ -63,8 +63,6 @@
     - libxml2-utils # needed to pretty print xml @ Emacs
     - ncftp
     - openssh-server
-    - python-pip
-    - python3-pip
     - redis-server
     - silversearcher-ag
     - socat
