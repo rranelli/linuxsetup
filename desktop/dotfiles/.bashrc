@@ -7,6 +7,7 @@ modules=(
     ps1
     aliases
     bash_completion
+    pyenv
     rbenv
     env_vars
     extras
@@ -38,6 +39,7 @@ __setup() {
     setup_extras
     setup_env_vars
     setup_rbenv
+    setup_pyenv
 
     secret_extras="/home/renan/SpiderOak Hive/.bashrc.extras"
     if [ -f "${secret_extras}" ]; then

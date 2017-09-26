@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+function setup_pyenv {
+    if [ -d ~/.pyenv/ ]; then
+        export PATH="$HOME/.pyenv/bin:$PATH"
+        eval "$(pyenv init -)"
+        eval "$(pyenv virtualenv-init -)"
+    fi
+}
