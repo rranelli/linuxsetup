@@ -2,15 +2,9 @@
 set -euo pipefail
 
 __DIR__=$(cd $(dirname ${BASH_SOURCE[0]}) && pwd)
-__GIT_ROOT__=$(git rev-parse --show-toplevel)
+__GIT_ROOT__=$(cd "${__DIR__}" && git rev-parse --show-toplevel)
 
-cd "${__GIT_ROOT__}/desktop/dotfiles"
-
-for f in $(find . -type f); do
-  mkdir -p "${HOME}/$(dirname "${f}")"
-
-  rm "${HOME}/${f}" || true
-  ln -sf "$(pwd)/${f}" "${HOME}/${f}"
-done
+ln -sf "${__GIT_ROOT__}/desktop/dotfiles/.bashrc.d" "${HOME}"
+ln -sf "${__GIT_ROOT__}/desktop/dotfiles/.bashrc" "${HOME}/.bashrc"
 
 echo -e "\e[0;32mDone!\e[0m"
