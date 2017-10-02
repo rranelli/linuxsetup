@@ -17,23 +17,14 @@
     - libgdbm3
     - libgdbm-dev
 
-- name: "clone rbenv"
+- name: "install rbenv & friends"
   become: false
-  git:
-    repo="https://github.com/sstephenson/rbenv.git"
-    dest="{{ rbenv_home }}"
-    depth=1
-    clone=yes
+  shell: |
+    curl https://raw.githubusercontent.com/fesplugas/rbenv-installer/master/bin/rbenv-installer | bash
+  args:
+    creates: "{{ rbenv_home }}"
 
-- name: "clone ruby-build"
-  become: false
-  git:
-    repo="https://github.com/sstephenson/ruby-build.git"
-    dest="{{ rbenv_home }}/plugins/ruby-build"
-    depth=1
-    clone=yes
-
-- name: "build ruby"
+- name: "install ruby {{ ruby_version }}"
   become: false
   shell: |
     {{rbenv_home}}/bin/rbenv install "{{ ruby_version }}"
