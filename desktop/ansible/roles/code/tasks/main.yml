@@ -1,29 +1,24 @@
 - name: "link dotfiles"
   become: false
-  command: "bash {{ code_dir }}/linuxsetup/desktop/scripts/setup_dotfiles"
+  command: "{{ code_dir }}/linuxsetup/desktop/scripts/setup_dotfiles"
   changed_when: false
 
-- name: "check if git is configured"
+- name: "configure git"
   become: false
-  command: git config --global github.token
-  register: gitconfig
-  changed_when: gitconfig.rc != 0
-  failed_when: false
-
-- name: "configure git globals"
-  become: false
-  when: gitconfig.changed
-  shell: |
-    source "~/.bashrc"
-    git config --global user.name "Milhouse"
-    git config --global user.email "renanranelli@gmail.com"
-    git config --global user.signingkey "BDD12B22"
-    git config --global push.default simple
-    git config --global commit.template ~/.gitcommittemplate
-    git config --global commit.gpgsign true
-    git config --global github.user rranelli
-    git config --global github.token "{{ github_oauth_token }}"
-    git config --global github.oauth-token "{{ github_oauth_token }}"
+  git_config:
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+    scope: global
+  with_items:
+    - { name: "user.name", value: "Milhouse" }
+    - { name: "user.email", value: "renanranelli@gmail.com" }
+    - { name: "user.signingkey", value: "BDD12B22" }
+    - { name: "push.default", value: "simple" }
+    - { name: "commit.template", value: "/home/{{ local_user }}/.gitcommittemplate" }
+    - { name: "commit.gpgsign", value: "true" }
+    - { name: "github.user", value: "rranelli" }
+    - { name: "github.token", value: "{{ github_oauth_token }}" }
+    - { name: "github.oauth-token", value: "{{ github_oauth_token }}" }
 
 - name: "download all of your github code"
   become: false
