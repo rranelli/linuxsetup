@@ -9,11 +9,17 @@
     - python3
     - python3-pip
 
-- name: "install pyenv & pyenv-virtualenv"
+- name: "install pyenv & friends"
+  become: false
   shell: |
-    pip3 install --egg pyenv
-    export PATH="$HOME/.pyenv/bin:$PATH"
-    eval "$(pyenv init -)"
-    eval "$(pyenv virtualenv-init -)"
+    curl -L https://raw.githubusercontent.com/pyenv/pyenv-installer/master/bin/pyenv-installer | bash
+  args:
+    creates: "{{ pyenv_home }}"
 
-    pyenv install 3.6.2
+- name: "install python {{ python_version }}"
+  become: false
+  shell: |
+    {{pyenv_home}}/bin/pyenv install "{{ python_version }}"
+    {{pyenv_home}}/bin/pyenv global  "{{ python_version }}"
+  args:
+    creates: "{{ pyenv_home }}/versions/{{ python_version }}/bin/python"
