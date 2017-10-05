@@ -10,13 +10,6 @@ ls() {
   fi
 }
 
-# Emacs aliasing
-em() { emacsclient -a '' -c -n $1; }
-et() { emacsclient -a '' -t $1; }
-
-edk() { emacsclient -e "(kill-emacs)"; }
-ekr() { edk && em && exit; }
-
 # Bundle exec aliasing
 8bes() { bundle exec rspec; }
 8be() { bundle exec $*; }
@@ -99,8 +92,6 @@ bry() {
 }
 export -f bry
 
-unmake() { [[ $# -ge 1 ]] && rm ~/.modules/$1 ;}
-
 xopen() {
   silently xdg-open "$@" &
   disown $!
@@ -109,10 +100,10 @@ xopen() {
 gitmulticast() { ~/code/linuxsetup/desktop/scripts/gitmulticast.sh $@ ;}
 alias 8gm='gitmulticast'
 
-gitmulticast-xerpa() {
-  GITHUB_USER_TYPE=orgs GITHUB_USER=xerpa CODE_DIR="$HOME/xerpa" gitmulticast "$@"
+gitmulticast-5a() {
+  GITHUB_USER_TYPE=orgs GITHUB_USER=quintoandar CODE_DIR="$HOME/5a" gitmulticast "$@"
 }
-alias 8gmx='gitmulticast-xerpa'
+alias 8g5a='gitmulticast-5a'
 
 8pcp() { gitmulticast pull ;}
 
@@ -125,16 +116,4 @@ alias 8gmx='gitmulticast-xerpa'
 
 8browser-debug() { google-chrome --remote-debugging-port=9222 ;}
 
-8awsconf() {
-  export AWS_ANSIBLE_PW=$(mimipass get xerpa/ansible-vault)
-  export AWS_GITHUBAPI=$(mimipass get github/api-token)
-  export AWS_CASSANDRA_CQL_PW=$(mimipass get xerpa/aws/cassandra/password)
-  export AWS_CASSANDRA_JMX_PW=$(mimipass get xerpa/aws/cassandra/jmx_password)
-  export AWS_ACCESS_KEY=$(mimipass get xerpa/aws/access-key)
-  export AWS_SECRET_KEY=$(mimipass get xerpa/aws/secret-key)
-  export AWS_REGION="sa-east-1"
-
-  export TF_VAR_secret_key=$(mimipass get xerpa/aws/secret-key)
-  export TF_VAR_access_key=$(mimipass get xerpa/aws/access-key)
-  export TF_VAR_lukladb_password=$(mimipass get xerpa/aws/lukla-db-passwd)
-}
+8awsconf() { echo 'ja passo mimi, ja passo' ;}
