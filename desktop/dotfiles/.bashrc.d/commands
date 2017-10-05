@@ -123,6 +123,8 @@ alias 8gmx='gitmulticast-xerpa'
       | xargs -n1 -I{} xrandr --output {} --brightness $1
 }
 
+8browser-debug() { google-chrome --remote-debugging-port=9222 ;}
+
 8awsconf() {
   export AWS_ANSIBLE_PW=$(mimipass get xerpa/ansible-vault)
   export AWS_GITHUBAPI=$(mimipass get github/api-token)
