@@ -1,15 +1,38 @@
-- name: "check if nodejs is installed"
-  stat: path="/usr/bin/nodejs"
-  register: nodejs
-  changed_when: nodejs.stat.exists == False
-
-- name: "setup nodejs 5.x source"
-  shell: "curl -sL https://deb.nodesource.com/setup_5.x | sudo -E bash -"
-  when: nodejs.changed
+- name: "setup nodejs 8.x source"
+  shell: "curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -"
+  args:
+    creates: "/usr/bin/nodejs"
 
 - name: "install nodejs and npm"
   apt:
-    name=nodejs
+    name="{{ item }}"
     state="present"
     update_cache="yes"
     cache_valid_time="7200"
+  with_items:
+    - nodejs
+    - npm
+
+- name: "install ndenv"
+  become: false
+  git:
+    repo="https://github.com/riywo/ndenv"
+    dest="{{ ndenv_home }}"
+    depth="1"
+    clone="yes"
+
+- name: "install ndenv-build"
+  become: false
+  git:
+    repo="https://github.com/riywo/node-build.git"
+    dest="{{ ndenv_home }}/plugins/node-build"
+    depth="1"
+    clone="yes"
+
+- name: "install nodejs {{ nodejs_version }}"
+  become: false
+  shell: |
+    {{ ndenv_home }}/bin/ndenv install {{ nodejs_version }}
+    {{ ndenv_home }}/bin/ndenv global  {{ nodejs_version }}
+  args:
+    creates: "{{ ndenv_home }}/versions/{{ nodejs_version }}/bin/node"

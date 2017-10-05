@@ -19,7 +19,7 @@
 - name: "install python {{ python_version }}"
   become: false
   shell: |
-    {{pyenv_home}}/bin/pyenv install "{{ python_version }}"
-    {{pyenv_home}}/bin/pyenv global  "{{ python_version }}"
+    {{pyenv_home}}/bin/pyenv install {{ python_version }}
+    {{pyenv_home}}/bin/pyenv global  {{ python_version }}
   args:
     creates: "{{ pyenv_home }}/versions/{{ python_version }}/bin/python"
