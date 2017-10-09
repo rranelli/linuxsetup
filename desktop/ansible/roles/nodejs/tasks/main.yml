@@ -29,6 +29,14 @@
     depth="1"
     clone="yes"
 
+- name: "install ndenv-install-yarn"
+  become: false
+  git:
+    repo="https://github.com/pine/ndenv-yarn-install.git"
+    dest="{{ ndenv_home }}/plugins/ndenv-yarn-install"
+    depth="1"
+    clone="yes"
+
 - name: "install nodejs {{ nodejs_version }}"
   become: false
   shell: |
