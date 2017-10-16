@@ -7,7 +7,7 @@ tasks:
     template:
       - torrentday
     series:
-      720p+ h265:
+      1080p+ h265:
         - The Walking Dead:
             begin: s07e01
         - The Americans:
