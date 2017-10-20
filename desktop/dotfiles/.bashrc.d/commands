@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-silently() { "$@" >/dev/null 2>&1 ;}
-
-# better ls
+#
+## Life quality
+#
 ls() {
   if [ "$#" = 0 ]
   then /bin/ls --block-size=M --color -l
@@ -10,69 +10,14 @@ ls() {
   fi
 }
 
-# Bundle exec aliasing
-8bes() { bundle exec rspec; }
-8be() { bundle exec $*; }
-8bejs() { bundle exec jekyll serve -wD; }
-
-#
-## Rake db migrates
-#
-8rdbm() {
-  echo "Migrating $RAILS_ENV..."
-  bundle exec rake db:migrate
-  echo "---"
-  echo "Rollbacking $RAILS_ENV..."
-  bundle exec rake db:migrate VERSION=0
-  echo "---"
-  echo "Migrating $RAILS_ENV..."
-  bundle exec rake db:migrate
-  echo "---"
-  echo "Finished"
-}
-8frdbm() { 8rdbm; RAILS_ENV=test 8rdbm; }
-8rdbr() {
-  echo "Reseting $RAILS_ENV..."
-  bundle exec rake db:drop db:create db:migrate
-}
-8frdbr() { 8rdbr; RAILS_ENV=test 8rdbr; }
-
-#
-## Ecto migrations
-#
-8edbm() {
-  echo "Migration $MIX_ENV..."
-  mix ecto.migrate
-  echo "Rollbacking $MIX_ENV..."
-  mix ecto.rollback -n 0
-  echo "---"
-  echo "Migrating $MIX_ENV..."
-  mix ecto.migrate
-  echo "---"
-  echo "Finished"
-}
-
-8fedbm() {
-  8edbm; MIX_ENV=test 8edbm;
-}
-
-8edbr() {
-  (
-    set -e
-    mix do ecto.{drop\,,create\,,migrate}
-    [ -f ${seeds:=priv/repo/seeds.exs} ] && mix run $seeds
-    [ -d ${seeds_dir:=priv/repo/seeds} ] && { for f in $seeds_dir/*.exs; do echo '>>>>>>>'$f; mix run $f; done ;}
-  )
-}
-
 8txc() { xclip -i -selection clipboard; }
+
+8gr() { cd $(git rev-parse --show-toplevel); }
 
 8inf() {
   until [[ $? != 0 ]]; do eval "$*"; done
   zenity --info --text="Finished the infinite loop of $1"
 }
-
-8gr() { cd $(git rev-parse --show-toplevel); }
 
 8changelog() {
   ref=$1
@@ -81,31 +26,18 @@ ls() {
 }
 8mkch() { 8changelog $1 | 8txc ;}
 
-bry() {
-  read -ep "(B)ry err:${?}> "
-
-  if [ "$REPLY" != exit ]; then
-      local evald=$(eval "$REPLY")
-      echo "${evald}" >$(tty)
-      bry $@
-  fi
-}
-export -f bry
-
 xopen() {
   silently xdg-open "$@" &
   disown $!
 }
 
 gitmulticast() { ~/code/linuxsetup/desktop/scripts/gitmulticast.sh $@ ;}
-alias 8gm='gitmulticast'
-
 gitmulticast-5a() {
   GITHUB_USER_TYPE=orgs GITHUB_USER=quintoandar CODE_DIR="$HOME/5a" gitmulticast "$@"
 }
-alias 8g5a='gitmulticast-5a'
-
-8pcp() { gitmulticast pull ;}
+alias 8gm5a='gitmulticast-5a'
+alias 8gm='gitmulticast'
+alias 8pcp='gitmulticast pull'
 
 8set-brightness () {
   xrandr -q \
@@ -114,6 +46,20 @@ alias 8g5a='gitmulticast-5a'
       | xargs -n1 -I{} xrandr --output {} --brightness $1
 }
 
-8browser-debug() { google-chrome --remote-debugging-port=9222 ;}
+#
+## Programming
+#
+silently() { "$@" >/dev/null 2>&1 ;}
 
-8awsconf() { echo 'ja passo mimi, ja passo' ;}
+8bry() {
+  read -ep "(B)ry err:${?}> "
+
+  if [ "$REPLY" != exit ]; then
+      local evald=$(eval "$REPLY")
+      echo "${evald}" >$(tty)
+      bry $@
+  fi
+}
+export -f 8bry
+
+alias '8browser-debug'='google-chrome --remote-debugging-port=9222'

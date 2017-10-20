@@ -20,6 +20,12 @@
     - { name: "github.token", value: "{{ github_oauth_token }}" }
     - { name: "github.oauth-token", value: "{{ github_oauth_token }}" }
 
+
+- name: "move .authinfo.gpg file for magithub"
+  copy:
+    src=".authinfo.gpg"
+    dest="~/.authinfo.gpg"
+
 - name: "download all of your github code"
   become: false
   shell: |
