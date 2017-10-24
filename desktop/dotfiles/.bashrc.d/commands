@@ -51,6 +51,19 @@ alias 8pcp='gitmulticast pull'
 #
 silently() { "$@" >/dev/null 2>&1 ;}
 
+8iwatch() {
+  sigint_handler() { kill -9 $PID ;}
+  trap sigint_handler SIGINT
+
+  file=$1; shift
+  while :; do
+     "$@" &
+     PID=$!
+     inotifywait -e modify -e move -e create -e delete -e attrib "$file"
+     kill -9 $PID
+  done
+}
+
 8bry() {
   read -ep "(B)ry err:${?}> "
 
