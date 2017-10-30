@@ -109,7 +109,7 @@ clone() {
     grn-echo "Cloning $repo_name ..."
     (
         cd $CODE_DIR
-        git clone "$url" \
+        git clone "$url" --recurse-submodules \
             && grn-echo "Done cloning $repo_name"
     )
 }
