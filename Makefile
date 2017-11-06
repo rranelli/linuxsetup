@@ -5,6 +5,7 @@ desktop:
 		-i desktop/ansible/hosts \
 		--ask-become-pass \
 		--vault-password-file ~/.emacs.d/.ansible-vault \
+                ${OPTS} \
 		desktop/ansible/desktop.yml
 
 media_server:
@@ -12,4 +13,5 @@ media_server:
 		-i media_server/ansible/hosts \
 		--ask-become-pass \
 		--vault-password-file ~/.emacs.d/.ansible-vault \
+                ${OPTS} \
 		media_server/ansible/media_server.yml
