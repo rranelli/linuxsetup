@@ -27,3 +27,11 @@
   pip:
     name="docker-compose"
     state="present"
+
+- name: "enable docker @ systemd"
+  service:
+    name="docker"
+    state="started"
+    enabled="yes"
+  notify:
+    - systemd-reload

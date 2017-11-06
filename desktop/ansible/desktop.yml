@@ -20,4 +20,4 @@
     - scala
     - cassandra
     - python
-    # - mongodb
+    - mongodb
