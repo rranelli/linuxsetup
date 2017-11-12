@@ -15,7 +15,9 @@ ls() {
 8gr() { cd $(git rev-parse --show-toplevel); }
 
 8inf() {
-  until [[ $? != 0 ]]; do eval "$*"; done
+  local rc=${RC:-0}
+  (exit $rc)
+  until [[ $? != $rc ]]; do "$@"; done
   zenity --info --text="Finished the infinite loop of $1"
 }
 
