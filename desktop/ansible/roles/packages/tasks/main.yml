@@ -59,6 +59,7 @@
     - libsqlite3-dev
     - libssl-dev
     - libtool-bin
+    - libcursesw5-dev
     - libxml2-utils # needed to pretty print xml @ Emacs
     - ncftp
     - openssh-server

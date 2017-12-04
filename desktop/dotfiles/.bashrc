@@ -10,6 +10,7 @@ modules=(
   env_vars
   extras
   github
+  hh
 )
 
 __is_interactive() { [[ $- == *i* ]]; }
@@ -29,6 +30,7 @@ __run_setup() {
   setup_rbenv
   setup_pyenv
   setup_ndenv
+  setup_hh
 
   secret_extras="/home/renan/SpiderOak Hive/.bashrc.extras"
   if [ -f "${secret_extras}" ]; then

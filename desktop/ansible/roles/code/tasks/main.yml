@@ -1,3 +1,23 @@
+- name: "download hstr"
+  get_url:
+    url='https://github.com/dvorka/hstr/releases/download/1.23/hh-1.23-src.tgz'
+    dest='/tmp/hh.tgz'
+  register: hstr
+
+- name: "untar hh"
+  when: hstr.changed
+  unarchive:
+    src='/tmp/hh.tgz'
+    dest='/tmp/'
+    copy=no
+
+- name: "complie & install hh"
+  shell: './configure && make && make install'
+  args:
+    chdir: '/tmp/hstr'
+    creates: '/usr/local/bin/hh'
+
+
 - name: "link dotfiles"
   become: false
   command: "{{ code_dir }}/linuxsetup/desktop/scripts/setup_dotfiles"
