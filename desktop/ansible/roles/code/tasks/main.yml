@@ -32,7 +32,7 @@
   with_items:
     - { name: "user.name", value: "Milhouse" }
     - { name: "user.email", value: "renanranelli@gmail.com" }
-    - { name: "user.signingkey", value: "BDD12B22" }
+    - { name: "user.signingKey", value: "BDD12B22" }
     - { name: "push.default", value: "simple" }
     - { name: "commit.template", value: "/home/{{ local_user }}/.gitcommittemplate" }
     - { name: "commit.gpgsign", value: "true" }
