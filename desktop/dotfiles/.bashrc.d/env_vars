@@ -7,6 +7,8 @@ function setup_env_vars {
   export PATH="$PATH:$HOME/.cask/bin"
   export PATH="/opt/terraform:$PATH" # heroku toolbelt
 
+  export PYTHONDONTWRITEBYTECODE="true"
+
   export CODE_DIR="$HOME/code"
   export EDITOR="editor"
 
