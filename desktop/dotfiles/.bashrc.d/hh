@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 function setup_hh() {
     if [ -f /usr/local/bin/hh ]; then
-        shopt -s histappend
         export HH_CONFIG=hicolor
         export PROMPT_COMMAND="history -a; history -n; ${PROMPT_COMMAND}"
 
