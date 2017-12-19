@@ -2,8 +2,6 @@
 function setup_hh() {
     if [ -f /usr/local/bin/hh ]; then
         export HH_CONFIG=hicolor
-        export PROMPT_COMMAND="history -a; history -n; ${PROMPT_COMMAND}"
-
         if [[ $- =~ .*i.* ]]; then bind '"\C-r": "\C-a hh -- \C-j"'; fi
     fi
 }
