@@ -2,8 +2,9 @@
 function setup_hh() {
     if [ -f /usr/local/bin/hh ]; then
         shopt -s histappend
-        export HH_CONFIG=hicolor
+        export HH_CONFIG=hicolor,keywords
         export PROMPT_COMMAND="history -a; history -n; ${PROMPT_COMMAND}"
+        export HISTCONTROL=ignorespace
 
         if [[ $- =~ .*i.* ]]; then bind '"\C-r": "\C-a hh -- \C-j"'; fi
     fi
