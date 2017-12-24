@@ -46,4 +46,5 @@
     state="present"
   with_items:
     - pgcli
+    - mycli
     - wcwidth

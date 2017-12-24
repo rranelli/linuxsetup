@@ -39,6 +39,7 @@
     - { name: "github.user", value: "rranelli" }
     - { name: "github.token", value: "{{ github_oauth_token }}" }
     - { name: "github.oauth-token", value: "{{ github_oauth_token }}" }
+    - { name: "core.excludesfile", value: "~/.gitignore_global"}
 
 
 - name: "copy .authinfo.gpg file for magithub"
