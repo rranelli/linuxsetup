@@ -27,8 +27,8 @@ __run_setup() {
   setup_aliases
   setup_extras
   setup_env_vars
-  setup_rbenv
   setup_pyenv
+  setup_rbenv
   setup_ndenv
   setup_hh
 
