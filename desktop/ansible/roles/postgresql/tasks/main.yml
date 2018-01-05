@@ -1,15 +1,3 @@
-# - name: "install postgresql apt-key"
-#   apt_key:
-#     state="present"
-#     data="{{ lookup('file', 'postgresql.asc') }}"
-
-# - name: "set up postgresql repository"
-#   apt_repository:
-#     repo="deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main"
-#     state="present"
-#     update_cache="yes"
-#     mode="644"
-
 - name: "install postgresql & libpq-dev"
   apt:
     name="{{ item }}"
@@ -17,8 +5,9 @@
     update_cache="yes"
     cache_valid_time="7200"
   with_items:
-    - postgresql-9.6=9.6.5-1
+    - postgresql
     - libpq-dev
+    - python-pip
 
 - name: "enable postgresql"
   service:

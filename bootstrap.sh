@@ -9,8 +9,9 @@ if [ ! -f ~/.ssh/id_rsa.pub ]; then
     echo "Press [Enter] to continue..." && read
 fi
 
-mkdir -p ~/code/linuxsetup && cd ~/code/linuxsetup
-[ -d ~/code/linuxsetup ] || git clone git@github.com:rranelli/linuxsetup.git .
+mkdir -p ~/code
+[ -d ~/code/linuxsetup ] || git clone git@github.com:rranelli/linuxsetup.git
+cd ~/code/linuxsetup
 
 ansible-playbook --ask-become-pass \
                  --ask-vault-pass \

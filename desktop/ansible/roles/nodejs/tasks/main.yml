@@ -11,7 +11,6 @@
     cache_valid_time="7200"
   with_items:
     - nodejs
-    - npm
 
 - name: "install ndenv"
   become: false

@@ -47,25 +47,30 @@
     - bash-completion
     - build-essential
     - curl
+    - curl
     - dnsutils
     - g++-multilib
     - gcc-multilib
     - git
     - gnupg
     - gnupg-agent
+    - gnutls-bin
     - inotify-tools
     - jq
+    - libcrypto++6
     - libcurl3
     - libgraphicsmagick1-dev
+    - libncursesw5-dev
+    - libreadline-dev
     - libreadline7
     - libsqlite3-dev
     - libssl-dev
     - libtool-bin
-    - libncursesw5-dev
     - libxml2-utils # needed to pretty print xml @ Emacs
     - mysql-server
     - ncftp
     - openssh-server
+    - pkg-config
     - redis-server
     - silversearcher-ag
     - socat
