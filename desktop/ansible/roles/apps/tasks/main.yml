@@ -99,6 +99,11 @@
 
     - setting: "org.gnome.Terminal.Legacy.Settings default-show-menubar"
       value: "false"
+    - setting: "org.gnome.Terminal.Legacy.Keybindings:/org/gnome/terminal/legacy/keybindings/ next-tab"
+      value: "'<Control><Shift>Right'"
+    - setting: "org.gnome.Terminal.Legacy.Keybindings:/org/gnome/terminal/legacy/keybindings/ prev-tab"
+      value: "'<Control><Shift>Left'"
+
 
     - setting: "org.gnome.desktop.peripherals.touchpad tap-to-click"
       value: "true"
