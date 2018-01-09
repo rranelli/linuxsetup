@@ -13,11 +13,20 @@
 
 - name: "install older libssl"
   apt:
-    deb="http://ftp.br.debian.org/debian/pool/main/o/openssl/libssl1.0.0_1.0.1t-1+deb8u6_amd64.deb"
+    deb="http://ftp.br.debian.org/debian/pool/main/o/openssl/libssl1.0.0_1.0.1t-1+deb8u7_amd64.deb"
 
 - name: "install mongodb"
+  register: mongodb
   apt:
     name="mongodb-org"
     state="present"
     update_cache="yes"
     cache_valid_time="7200"
+
+- name: "enable mongo service"
+  service:
+    name="mongod"
+    enabled="yes"
+    state="restarted"
+  when:
+    mongodb.changed
