@@ -79,3 +79,20 @@
   copy:
     src=resolvconf-base
     dest=/etc/resolvconf/resolv.conf.d/base
+
+- name: "install source-code-pro fira{\\,,code\\,,mono}"
+  become: false
+  shell: |
+    mkdir -p temp-fonts && cd temp-fonts
+
+    wget https://github.com/tonsky/FiraCode/releases/download/1.101/FiraCode_1.101.zip
+    wget https://www.fontsquirrel.com/fonts/download/fira-mono
+    wget https://github.com/adobe-fonts/source-code-pro/archive/1.017R.zip
+
+    for f in fira* Fira* 1.017R.zip; do unzip $f; done
+    cp *.otf FiraCode*/*.otf source-code-pro-1.017R/OTF/*.otf ~/.fonts
+    fc-cache -f -v
+
+    cd .. && rm -rf temp-fonts
+  args:
+    creates: "~/.fonts/FiraMono-Bold.otf"
