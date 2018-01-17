@@ -1,0 +1,11 @@
+- name: "check if slack is installed"
+  command: dpkg-query --show slack-desktop
+  register: slack
+  changed_when: slack.rc != 0
+  failed_when: false
+
+- name: "install slack"
+  when: slack.changed
+  apt:
+    deb="{{ slack_deb_url }}"
+    state="present"

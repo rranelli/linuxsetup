@@ -1,0 +1,17 @@
+- name: "check if Dropbox is installed"
+  command: dpkg-query --show dropbox
+  register: dropbox
+  changed_when: dropbox.rc != 0
+  failed_when: false
+
+- name: "download Dropbox's deb file"
+  when: dropbox.changed
+  get_url:
+    url="https://www.dropbox.com/download?dl=packages/debian/dropbox_2015.10.28_amd64.deb"
+    dest="/tmp/dropbox.deb"
+
+- name: "install dropbox"
+  when: dropbox.changed
+  apt:
+    deb="/tmp/dropbox.deb"
+    state="present"

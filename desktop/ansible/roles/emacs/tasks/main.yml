@@ -67,9 +67,10 @@
     done
 
 - name: "setup Emacs shortcut"
+  become: false
   copy:
     src=emacs.desktop
-    dest=/usr/local/share/applications/emacs.desktop
+    dest=~/.local/share/applications/emacs.desktop
     mode=0644
 
 - name: "setup Emacs dotfiles"

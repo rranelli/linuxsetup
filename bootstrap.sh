@@ -1,5 +1,8 @@
-#!/bin/bash -ev
-sudo apt install -y git ansible dirmngr aptitude --allow-downgrades
+#!/bin/bash
+set -euo pipefail
+
+sudo apt install -y git python-pip dirmngr aptitude --allow-downgrades
+pip install ansible
 
 if [ ! -f ~/.ssh/id_rsa.pub ]; then
     cat /dev/zero | ssh-keygen -q -N ""

@@ -13,38 +13,17 @@
     - libappindicator3-1
     - ttf-ancient-fonts # adds fonts needed by emacs
 
-- name: "check if slack is installed"
-  command: dpkg-query --show slack-desktop
-  register: slack
-  changed_when: slack.rc != 0
-  failed_when: false
+- name: "firefox"
+  include_tasks: 'firefox.yml'
 
-- name: "install slack"
-  when: slack.changed
-  apt:
-    deb="{{ slack_deb_url }}"
-    state="present"
+- name: "dropbox"
+  include_tasks: 'dropbox.yml'
 
-- name: "check if Dropbox is installed"
-  command: dpkg-query --show dropbox
-  register: dropbox
-  changed_when: dropbox.rc != 0
-  failed_when: false
+- name: "slack"
+  include_tasks: 'slack.yml'
 
-- name: "download Dropbox's deb file"
-  when: dropbox.changed
-  get_url:
-    url="https://www.dropbox.com/download?dl=packages/debian/dropbox_2015.10.28_amd64.deb"
-    dest="/tmp/dropbox.deb"
-
-- name: "install dropbox"
-  when: dropbox.changed
-  apt:
-    deb="/tmp/dropbox.deb"
-    state="present"
-
-- file: path="~/.fonts" state="directory"
-  become: false
+- name: "gsettings"
+  include_tasks: 'gsettings.yml'
 
 - name: "remove unnecessary dirs @ home"
   file:
@@ -57,80 +36,3 @@
     - Templates
     - Public
     - Desktop
-
-- name: "setup gsettings"
-  become: false
-  shell: |
-    diff <(gsettings get {{item.setting}}) \
-         <(gsettings set {{item.setting}} "{{ item.value }}"; \
-           gsettings get {{item.setting}})
-  args:
-    executable: /bin/bash
-  register: gsetting
-  changed_when: gsetting.rc != 0
-  failed_when: false
-  with_items:
-    - setting: "org.gnome.crypto.cache gpg-cache-method"
-      value: "'timeout'"
-    - setting: "org.gnome.crypto.cache gpg-cache-ttl"
-      value: "10800"
-
-    - setting: "org.gnome.Terminal.Legacy.Settings default-show-menubar"
-      value: "false"
-    - setting: "org.gnome.Terminal.Legacy.Keybindings:/org/gnome/terminal/legacy/keybindings/ next-tab"
-      value: "'<Control><Shift>Right'"
-    - setting: "org.gnome.Terminal.Legacy.Keybindings:/org/gnome/terminal/legacy/keybindings/ prev-tab"
-      value: "'<Control><Shift>Left'"
-
-
-    - setting: "org.gnome.desktop.peripherals.touchpad tap-to-click"
-      value: "true"
-    - setting: "org.gnome.desktop.peripherals.keyboard repeat-interval"
-      value: "17"
-    - setting: "org.gnome.desktop.peripherals.keyboard delay"
-      value: "202"
-    - setting: "org.gnome.desktop.input-sources xkb-options"
-      value: "['ctrl:nocaps', 'compose:rctrl']"
-
-    - setting: "org.gnome.mutter workspaces-only-on-primary"
-      value: "false"
-    - setting: "org.gnome.shell.overrides workspaces-only-on-primary"
-      value: "false"
-    - setting: "org.gnome.mutter dynamic-workspaces"
-      value: "true"
-    - setting: "org.gnome.shell.overrides dynamic-workspaces"
-      value: "true"
-    - setting: "org.gnome.desktop.wm.keybindings switch-to-workspace-up"
-      value: "['<Super>Left']"
-    - setting: "org.gnome.desktop.wm.keybindings switch-to-workspace-down"
-      value: "['<Super>Right']"
-    - setting: "org.gnome.desktop.wm.keybindings move-to-workspace-up"
-      value: "['<Super><Alt>Left']"
-    - setting: "org.gnome.desktop.wm.keybindings move-to-workspace-down"
-      value: "['<Super><Alt>Right']"
-
-    - setting: "org.gnome.desktop.interface clock-show-date"
-      value: "true"
-
-    - setting: "org.gnome.desktop.wm.keybindings minimize"
-      value: "['<Super>h']"
-    - setting: "org.gnome.desktop.wm.keybindings maximize"
-      value: "[]"
-    - setting: "org.gnome.desktop.wm.keybindings toggle-maximized"
-      value: "['<Super>Up']"
-    - setting: "org.gnome.desktop.wm.keybindings toggle-fullscreen"
-      value: "@as ['<Super><Alt>Up']"
-    - setting: "org.gnome.desktop.wm.keybindings close"
-      value: "['<Super>q']"
-    - setting: "org.gnome.desktop.wm.keybindings panel-main-menu"
-      value: "['<Super>space']"
-    - setting: "org.gnome.settings-daemon.plugins.media-keys search"
-      value: "'<Super>space'"
-    - setting: "org.gnome.shell.keybindings toggle-overview"
-      value: "['<Super>space']"
-    - setting: "org.gnome.shell.keybindings toggle-application-view"
-      value: "['<Super>a']"
-    - setting: "org.gnome.mutter.keybindings toggle-tiled-left"
-      value: "['<Control><Super>Left']"
-    - setting: "org.gnome.mutter.keybindings toggle-tiled-right"
-      value: "['<Control><Super>Right']"

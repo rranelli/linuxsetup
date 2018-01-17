@@ -1,0 +1,34 @@
+- stat: path='/opt/firefox/firefox-bin'
+  register: firefox
+
+- name: "download firefox"
+  get_url:
+    url='https://download.mozilla.org/?product=firefox-nightly-latest-ssl&os=linux64&lang=en-US'
+    dest='/tmp/firefox.tar.gz'
+  when: not firefox.stat.exists
+
+- unarchive:
+    src='/tmp/firefox.tar.gz'
+    dest='/opt'
+  when: not firefox.stat.exists
+
+- file:
+    src='/opt/firefox/firefox-bin'
+    dest='/usr/local/bin/firefox-nightly'
+    state=link
+
+- copy:
+    src='firefox-nightly.desktop'
+    dest='~/.local/share/applications/firefox-nightly.desktop'
+  become: false
+
+- copy:
+    src='firefox-nightly.ico'
+    dest='~/.local/share/icons/firefox-nightly.ico'
+  become: false
+
+- name: "remove stock firefox"
+  apt:
+    name='firefox-esr'
+    state='absent'
+  when: firefox.stat.exists

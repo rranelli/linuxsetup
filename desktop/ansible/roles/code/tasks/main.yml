@@ -80,6 +80,9 @@
     src=resolvconf-base
     dest=/etc/resolvconf/resolv.conf.d/base
 
+- file: path="~/.fonts" state="directory"
+  become: false
+
 - name: "install source-code-pro fira{\\,,code\\,,mono}"
   become: false
   shell: |

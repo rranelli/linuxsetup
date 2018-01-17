@@ -1,0 +1,14 @@
+[Desktop Entry]
+Name=Firefox Nightly
+Comment=Web Browser
+GenericName=Web Browser
+X-GNOME-FullName=Firefox Nightly Web Browser
+Exec=/usr/local/bin/firefox-nightly %u
+Terminal=false
+X-MultipleArgs=false
+Type=Application
+Icon=/home/milhouse/.local/share/icons/firefox-nightly.ico
+Categories=Network;WebBrowser;
+MimeType=text/html;text/xml;application/xhtml+xml;application/xml;application/vnd.mozilla.xul+xml;application/rss+xml;application/rdf+xml;image/gif;image/jpeg;image/png;x-scheme-handler/http;x-scheme-handler/https;
+StartupWMClass=Firefox
+StartupNotify=true
