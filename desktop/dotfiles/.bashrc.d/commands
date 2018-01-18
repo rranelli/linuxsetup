@@ -87,6 +87,12 @@ export -f 8bry
   sudo find . -name __pycache__ -exec rm -rf {} \;
 }
 
+8clean-branches() {
+   branches='(master|develop|staging|forno)'
+   git branch --merged | egrep -v "^* ${branches}$" | egrep -v "^  ${branches}$" | xargs echo git branch -d
+   git branch -r --merged | grep origin | grep -v '>' | egrep -v $branches | xargs -L1 | awk '{split($0,a,"/"); print a[2]}' | xargs echo git push origin --delete
+}
+
 5a() {
   5a-fix-kafka
   env AWS_ACCESS_KEY_ID=$(mimipass get 5a/aws/access_key_id) \
@@ -97,5 +103,4 @@ export -f 8bry
 }
 
 alias '8browser-debug'='google-chrome --remote-debugging-port=9222'
-
 alias 'docker-compose'='5a docker-compose'
