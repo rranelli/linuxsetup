@@ -1,22 +1,5 @@
-- name: "download hstr"
-  get_url:
-    url='https://github.com/dvorka/hstr/releases/download/1.23/hh-1.23-src.tgz'
-    dest='/tmp/hh.tgz'
-  register: hstr
-
-- name: "untar hh"
-  when: hstr.changed
-  unarchive:
-    src='/tmp/hh.tgz'
-    dest='/tmp/'
-    copy=no
-
-- name: "compile & install hh"
-  shell: './configure && make && make install'
-  args:
-    chdir: '/tmp/hstr'
-    creates: '/usr/local/bin/hh'
-
+- name: "hh"
+  include_tasks: 'hh.yml'
 
 - name: "link dotfiles"
   become: false
@@ -73,12 +56,6 @@
   args:
     chdir: "{{ code_dir }}"
     creates: "{{ code_dir }}/.fetched"
-
-- file: path=/etc/resolvconf/resolv.conf.d state=directory
-- name: "configure resolvconf to search for hosts @ Xerpa"
-  copy:
-    src=resolvconf-base
-    dest=/etc/resolvconf/resolv.conf.d/base
 
 - file: path="~/.fonts" state="directory"
   become: false

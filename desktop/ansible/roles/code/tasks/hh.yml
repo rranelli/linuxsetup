@@ -1,0 +1,27 @@
+- name: "check if hh is installed"
+  command: which hh
+  register: hstr
+  changed_when: hstr.rc != 0
+  failed_when: false
+
+- name: "download hstr"
+  get_url:
+    url='https://github.com/dvorka/hstr/releases/download/1.23/hh-1.23-src.tgz'
+    dest=/tmp/hh.tgz
+
+- name: "untar hh"
+  when: hstr.changed
+  unarchive:
+    src=/tmp/hh.tgz
+    dest=/tmp/
+    copy=no
+
+- name: "compile & install hh"
+  shell: './configure && make && make install'
+  args:
+    chdir: '/tmp/hstr'
+    creates: '/usr/local/bin/hh'
+
+- file:
+    path=/tmp/hstr
+    state=absent
