@@ -1,0 +1,50 @@
+- apt:
+    name={{ item }}
+    state=present
+    update_cache=yes
+    cache_valid_time=7200
+  with_items:
+    - cmake
+    - valac
+    - libgtk-3-dev
+    - libkeybinder-3.0-dev
+    - libxml2-utils
+    - gettext
+    - txt2man
+
+- command: dpkg-query --show --showformat='${db:Status-Status}\n' peek
+  register: peek_absent
+  failed_when: false
+  changed_when: peek_absent.rc != 0
+
+- git:
+    repo=https://github.com/phw/peek.git
+    dest=/tmp/peek
+  when: peek_absent.changed
+
+- file:
+    path=/tmp/peek/build
+    state=directory
+  when: peek_absent.changed
+
+- command: '{{ item }}'
+  args:
+    chdir: /tmp/peek/build
+  with_items:
+    - cmake -DCMAKE_INSTALL_PREFIX=/usr -DGSETTINGS_COMPILE=OFF ..
+    - make package
+  when: peek_absent.changed
+
+- apt:
+    deb=/tmp/peek/peek-1.2.1-Linux.deb
+  when: peek_absent.changed
+
+- command: dpkg-query --show --showformat='${db:Status-Status}\n' peek
+  register: peek_installed
+  failed_when: false
+  changed_when: false
+
+- file:
+    path=/tmp/peek
+    state=absent
+  when: peek_installed.rc == 0

@@ -13,26 +13,23 @@
     - libappindicator3-1
     - ttf-ancient-fonts # adds fonts needed by emacs
 
-- name: "firefox"
-  include_tasks: 'firefox.yml'
-
-- name: "dropbox"
-  include_tasks: 'dropbox.yml'
-
-- name: "slack"
-  include_tasks: 'slack.yml'
-
-- name: "gsettings"
-  include_tasks: 'gsettings.yml'
-
 - name: "remove unnecessary dirs @ home"
   file:
     path="/home/renan/{{ item }}"
     state="absent"
-  with_items:
-    - Documents
-    - Music
-    - Videos
-    - Templates
-    - Public
-    - Desktop
+  with_items: ["Documents","Music","Videos","Templates","Public","Desktop"]
+
+- name: "firefox"
+  include_tasks: "firefox.yml"
+
+- name: "dropbox"
+  include_tasks: "dropbox.yml"
+
+- name: "slack"
+  include_tasks: "slack.yml"
+
+- name: "gsettings"
+  include_tasks: "gsettings.yml"
+
+- name: "peek"
+  include_tasks: 'peek.yml'

@@ -30,10 +30,11 @@
     update_cache="yes"
     mode="644"
   with_items:
-    # We will use debian testing
     - deb http://repository.spotify.com stable non-free
-    - deb http://ftp.br.debian.org/debian testing main non-free contrib
     - deb http://ppa.launchpad.net/atareao/telegram/ubuntu xenial main
+    - deb http://ftp.br.debian.org/debian stable  main non-free contrib
+    # We will use debian testing
+    - deb http://ftp.br.debian.org/debian testing main non-free contrib
 
 - name: "install essential"
   apt:
