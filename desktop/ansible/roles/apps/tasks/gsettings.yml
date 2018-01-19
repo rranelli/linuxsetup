@@ -22,7 +22,6 @@
     - setting: "org.gnome.Terminal.Legacy.Keybindings:/org/gnome/terminal/legacy/keybindings/ prev-tab"
       value: "'<Control><Shift>Left'"
 
-
     - setting: "org.gnome.desktop.peripherals.touchpad tap-to-click"
       value: "true"
     - setting: "org.gnome.desktop.peripherals.keyboard repeat-interval"
@@ -63,10 +62,6 @@
     - setting: "org.gnome.desktop.wm.keybindings close"
       value: "['<Super>q']"
     - setting: "org.gnome.desktop.wm.keybindings panel-main-menu"
-      value: "['<Super>space']"
-    - setting: "org.gnome.settings-daemon.plugins.media-keys search"
-      value: "'<Super>space'"
-    - setting: "org.gnome.shell.keybindings toggle-overview"
       value: "['<Super>space']"
     - setting: "org.gnome.shell.keybindings toggle-application-view"
       value: "['<Super>a']"
