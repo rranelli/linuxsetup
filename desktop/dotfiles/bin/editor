@@ -1,5 +1,4 @@
 #!/bin/bash
-# export XLIB_SKIP_ARGB_VISUALS=1
-
 export WORKON_HOME="$HOME/.pyenv/versions"
+source ~/.bashrc
 emacsclient -c "$@" || emacs -e "server-start" "$@"
