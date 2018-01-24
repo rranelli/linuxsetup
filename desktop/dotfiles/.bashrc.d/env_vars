@@ -12,7 +12,7 @@ function setup_env_vars {
   export CODE_DIR="$HOME/code"
   export EDITOR="editor"
 
-  export CDPATH=".:$CODE_DIR:$HOME/5a"
+  export CDPATH=".:$CODE_DIR:$HOME/5a:$HOME/tamingchaos"
 
   export MIMIPASS_HOME="$HOME/Dropbox/.secrets/mimipass"
   export MIMIPASS_RECIPIENT="renanranelli@gmail.com"
