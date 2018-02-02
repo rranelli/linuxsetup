@@ -39,6 +39,8 @@
       value: "true"
     - setting: "org.gnome.shell.overrides dynamic-workspaces"
       value: "true"
+    - setting: "org.gnome.shell.app-switcher current-workspace-only"
+      value: "true"
     - setting: "org.gnome.desktop.wm.keybindings switch-to-workspace-up"
       value: "['<Super>Left']"
     - setting: "org.gnome.desktop.wm.keybindings switch-to-workspace-down"
