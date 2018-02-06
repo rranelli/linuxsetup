@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
-function setup_bash_completion {
-    if [ -f /etc/bash_completion ]; then
-        . /etc/bash_completion
-    fi
+__is_interactive() { [[ $- == *i* ]]; }
+
+__is_interactive && {
+  if [ -f /etc/bash_completion ]; then
+      . /etc/bash_completion
+  fi
 }

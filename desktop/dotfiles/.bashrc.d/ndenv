@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
-function setup_ndenv {
-    if [ -d ~/.ndenv/ ]; then
-        export PATH="$HOME/.ndenv/bin:$PATH"
-        eval "$(ndenv init -)"
-    fi
-}
+if [ -d ~/.ndenv/ ]; then
+    export PATH="$HOME/.ndenv/bin:$PATH"
+    eval "$(ndenv init -)"
+fi

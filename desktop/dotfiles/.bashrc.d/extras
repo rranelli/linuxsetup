@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
+__is_interactive() { [[ $- == *i* ]]; }
 
-function setup_extras {
-  [[ $- == *i* ]] && {
-    bind '"\ep":"\C-p"'
-    bind '"\en":"\C-n"'
-    bind '"\ek":"exit"'
-  }
+__is_interactive && {
+  bind '"\ep":"\C-p"'
+  bind '"\en":"\C-n"'
+  bind '"\ek":"exit"'
 }

@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
-function setup_ps1 {
+__is_interactive() { [[ $- == *i* ]]; }
+
+setup_ps1() {
     # Colors
     local txtblk='\[\e[0;30m\]' # Black - Regular
     local txtred='\[\e[0;31m\]' # Red
@@ -123,3 +125,5 @@ function setup_ps1 {
         PAGER=less # terrible hack
     fi
 }
+
+__is_interactive && setup_ps1

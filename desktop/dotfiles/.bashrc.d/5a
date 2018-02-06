@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+gitmulticast-5a() {
+  GITHUB_USER_TYPE=orgs GITHUB_USER=quintoandar CODE_DIR="$HOME/5a" gitmulticast "$@"
+}
+8clear-pycache() {
+  sudo find . -name __pycache__ -exec rm -rf {} \;
+}
+
+8clean-branches() {
+   branches='(master|develop|staging|forno)'
+   git branch --merged | egrep -v "^* ${branches}$" | egrep -v "^  ${branches}$" | xargs echo git branch -d
+   git branch -r --merged | grep origin | grep -v '>' | egrep -v $branches | xargs -L1 | awk '{split($0,a,"/"); print a[2]}' | xargs echo git push origin --delete
+}
+
+5a-fix-kafka() {
+  compose=$(which docker-compose)
+  diff <(sed -e s/.*kafka/$(docker inspect $($compose ps -q kafka) | jq -r .[].NetworkSettings.Networks[].IPAddress)$'\t'kafka/g /etc/hosts) /etc/hosts \
+      || (sudo sed -ie s/.*kafka/$(docker inspect $($compose ps -q kafka) | jq -r .[].NetworkSettings.Networks[].IPAddress)$'\t'kafka/g /etc/hosts)
+}
+
+5a() {
+  5a-fix-kafka
+  env AWS_ACCESS_KEY_ID=$(mimipass get 5a/aws/access_key_id) \
+      AWS_SECRET_ACCESS_KEY=$(mimipass get 5a/aws/secret_access_key) \
+      MCA_RSA_PUBLICKEY_MODULUS=$(mimipass get 5a/mca/mca_publickey_modulus) \
+      MCA_RSA_PUBLICKEY_EXPONENT=$(mimipass get 5a/mca/mca_publickey_exponent) \
+      "$@"
+}
+alias 'docker-compose'='5a docker-compose'
+alias 8gm5a='gitmulticast-5a'
