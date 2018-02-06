@@ -9,6 +9,29 @@
     - python3
     - python3-pip
 
+- name: "install required packages"
+  apt:
+    name="{{ item }}"
+    state="present"
+    update_cache="yes"
+    cache_valid_time="7200"
+    state=latest
+  with_items:
+    - make
+    - build-essential
+    - libssl-dev
+    - zlib1g-dev
+    - libbz2-dev
+    - libreadline-dev
+    - libsqlite3-dev
+    - wget
+    - curl
+    - llvm
+    - libncurses5-dev
+    - libncursesw5-dev
+    - xz-utils
+    - tk-dev
+
 - name: "install pyenv & friends"
   become: false
   shell: |
