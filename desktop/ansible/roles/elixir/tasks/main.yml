@@ -1,37 +1,49 @@
-- name: "set up erlang_solutions apt-key"
-  apt_key:
-    state="present"
-    data="{{ lookup('file', 'erlang_solutions.asc') }}"
-
-- name: "set up required repositories"
-  apt_repository:
-    repo="deb http://packages.erlang-solutions.com/ubuntu trusty contrib"
-    state="present"
-    update_cache="yes"
-    mode="644"
-
-- name: "install erlang"
-  apt:
-    name="esl-erlang"
-    state="latest"
-    update_cache="yes"
-    cache_valid_time="7200"
-  register: erlang
-
-- name: "get elixir"
+- name: "install asdf"
+  become: false
   git:
-    repo="https://github.com/elixir-lang/elixir.git"
-    dest="{{ code_dir }}/elixir"
-    clone="yes"
-    version="v1.6.0-rc.0"
-    depth=1
-  register: elixir
+    repo="https://github.com/asdf-vm/asdf.git"
+    dest="~/.asdf"
+    version="v0.4.1"
 
-- name: "build elixir"
-  command: "make clean install"
+#
+## Erlang
+
+- name: "install asdf's Erlang plugin"
+  become: false
+  command: "~/.asdf/bin/asdf plugin-add erlang"
   args:
-    chdir: "{{ code_dir }}/elixir"
-  when: elixir.changed
+    creates: "~/.asdf/plugins/erlang/LICENSE"
+
+- name: "install Erlang {{ erlang_version }}"
+  become: false
+  command: "~/.asdf/bin/asdf install erlang {{ erlang_version }}"
+  args:
+    creates: "~/.asdf/installs/erlang/{{ erlang_version }}/bin/erl"
+
+- name: "use global Erlang {{ erlang_version }}"
+  become: false
+  command: "~/.asdf/bin/asdf global erlang {{ erlang_version }}"
+  changed_when: false
+
+#
+## Elixir
+
+- name: "install asdf's Elixir plugin"
+  become: false
+  command: "~/.asdf/bin/asdf plugin-add elixir"
+  args:
+    creates: "~/.asdf/plugins/elixir/LICENSE"
+
+- name: "install Elixir {{ elixir_version }}"
+  become: false
+  command: "~/.asdf/bin/asdf install elixir {{ elixir_version }}"
+  args:
+    creates: "~/.asdf/installs/elixir/{{ elixir_version }}/bin/elixir"
+
+- name: "use global Elixir {{ elixir_version }}"
+  become: false
+  command: "~/.asdf/bin/asdf global elixir {{ elixir_version }}"
+  changed_when: false
 
 - name: "set up mix completion"
   copy:
