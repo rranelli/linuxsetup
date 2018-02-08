@@ -1,3 +1,19 @@
+- name: "install required packages to build erlang"
+  apt:
+    name={{ item }}
+    state="present"
+    cache_valid_time=7200
+    update_cache="true"
+  items:
+    - libwxgtk3.0-dev
+    - libgl1-mesa-dev
+    - libglu1-mesa-dev
+    - libpng-dev
+    - libncurses5-dev
+    - m4
+    - autoconf
+    - build-essential
+
 - name: "install asdf"
   become: false
   git:
