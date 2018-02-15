@@ -17,17 +17,17 @@
 
 - file:
     src='/opt/firefox/firefox-bin'
-    dest='/usr/local/bin/firefox-nightly'
+    dest='/usr/local/bin/nightly'
     state=link
 
 - copy:
-    src='firefox-nightly.desktop'
-    dest='~/.local/share/applications/firefox-nightly.desktop'
+    src='nightly.desktop'
+    dest='~/.local/share/applications/nightly.desktop'
   become: false
 
 - copy:
-    src='firefox-nightly.ico'
-    dest='~/.local/share/icons/firefox-nightly.ico'
+    src='nightly.ico'
+    dest='~/.local/share/icons/nightly.ico'
   become: false
 
 - name: "remove stock firefox"
