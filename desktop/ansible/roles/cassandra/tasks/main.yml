@@ -16,9 +16,12 @@
     state="present"
     update_cache="yes"
     cache_valid_time="7200"
+  register: cassandra
 
 - name: "enable cassandra service"
   service:
     name="cassandra"
     state="restarted"
     enabled="true"
+  when:
+    cassandra.changed
