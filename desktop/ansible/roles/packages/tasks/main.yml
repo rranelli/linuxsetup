@@ -74,10 +74,12 @@
     - pkg-config
     - redis-server
     - silversearcher-ag
-    - strace
     - socat
     - ssh
+    - strace
+    - tshark
     - wget
+    - wireshark
     - wordnet
     - xclip
     - xdg-utils
