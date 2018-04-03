@@ -1,0 +1,11 @@
+- name: "install vpn required packages"
+  apt:
+    name="vpnc"
+    state="present"
+    update_cache="yes"
+    cache_valid_time="7200"
+
+- name: "vnpc default conf file"
+  copy:
+    src="etc/vpnc/default.conf"
+    dest="/etc/vpnc/default.conf"

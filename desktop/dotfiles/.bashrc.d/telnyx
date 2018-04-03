@@ -1,4 +1,32 @@
+#!/bin/bash
 gitmulticast-telnyx() {
   GITHUB_USER_TYPE=orgs GITHUB_USER=team-telnyx CODE_DIR="$HOME/telnyx" gitmulticast "$@"
 }
 alias 8gmt='gitmulticast-telnyx'
+
+grn-echo() { echo -e "\e[0;32m${@}\e[0m"; }
+
+8vpn-connect() {
+  mimipass get telnyx.okta.com/password | sudo vpnc \
+      && grn-echo "Connected!"
+}
+
+8get-vpn-pid() { pgrep vpnc ;}
+
+8vpn-ps1() {
+  local pid=$(8get-vpn-pid)
+  [ -n "${pid}" ] && echo "(vpn)"
+}
+
+8vpn-disconnect() {
+  local pid=$(8get-vpn-pid)
+  if [ -n "${pid}" ]; then
+      sudo kill "${pid}"
+      sleep 0.2
+      grn-echo "Disconnected from ${pid}"
+  else
+    grn-echo "Not connected"
+  fi
+}
+
+PS1="\$(8vpn-ps1)$PS1"

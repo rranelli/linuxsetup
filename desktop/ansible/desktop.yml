@@ -8,16 +8,16 @@
     - mimipass
     - code
     - emacs
-    - postgresql
-    - java
-    - clojure
     - elixir
     - ruby
     - nodejs
+    - python
     - docker
-    - langtool
     - csharp
     - scala
     - cassandra
-    - python
     - mongodb
+    - langtool
+    - postgresql
+    - java
+    - clojure
