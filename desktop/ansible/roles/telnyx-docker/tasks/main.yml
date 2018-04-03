@@ -1,0 +1,28 @@
+- file:
+    path="/etc/systemd/system/docker.service.d/"
+    state="directory"
+
+- name: "put telnyx-specific docker hackery"
+  copy:
+    dest: "/etc/systemd/system/docker.service.d/docker.conf"
+    content: |
+      [Service]
+      EnvironmentFile=-/etc/sysconfig/docker
+      EnvironmentFile=-/etc/sysconfig/docker-storage
+      EnvironmentFile=-/etc/sysconfig/docker-network
+      ExecStart=
+      ExecStart=/usr/bin/dockerd -H fd:// --storage-driver overlay2 \
+                -g /home/docker \
+                --insecure-registry registry:5000
+  register: dockerconfig
+
+- name: "enable docker @ systemd"
+  service:
+    name="docker"
+    state="restarted"
+    enabled="yes"
+  when: dockerconfig.changed
+
+- name: "systemd-reload"
+  command: systemctl daemon-reload
+  when: dockerconfig.changed
