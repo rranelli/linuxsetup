@@ -42,6 +42,7 @@
     state=latest
 
 - name: "wakatime config"
+  become: false
   copy:
     src=".wakatime.cfg"
     dest="~/.wakatime.cfg"

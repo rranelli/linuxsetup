@@ -5,5 +5,7 @@ if [ -f /usr/local/bin/hh ]; then
     export PROMPT_COMMAND="history -a; history -n; ${PROMPT_COMMAND}"
     export HISTCONTROL=ignorespace
 
-    if [[ $- =~ .*i.* ]]; then bind '"\C-r": "\C-a hh -- \C-j"'; fi
+    if [[ "$TERM" == "vt100" || "$TERM" == "dumb"  || "$TERM" == "eterm-color" ]]; then
+        [[ $- =~ .*i.* ]] && bind '"\C-r": "\C-a hh -- \C-j"'
+    fi
 fi
