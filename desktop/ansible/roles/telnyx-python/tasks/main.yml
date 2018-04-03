@@ -1,0 +1,13 @@
+- become: false
+  file:
+    path="~/.config/pip"
+    state="directory"
+
+- name: "config pip to give priority to telnyx's pypi repo"
+  become: false
+  copy:
+    dest: "~/.config/pip/pip.conf"
+    content: |
+      [global]
+      index-url = https://artifactory.telnyx.com/api/pypi/pypi-telnyx/simple
+      extra-index-url = https://pypi.python.org/simple
