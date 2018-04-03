@@ -42,6 +42,27 @@
   changed_when: false
 
 #
+## Rebar
+
+- name: "install asdf's Rebar plugin"
+  become: false
+  command: "~/.asdf/bin/asdf plugin-add rebar"
+  args:
+    creates: "~/.asdf/plugins/rebar/LICENSE"
+
+- name: "install Rebar {{ rebar_version }}"
+  become: false
+  command: "~/.asdf/bin/asdf install rebar {{ rebar_version }}"
+  args:
+    creates: "~/.asdf/installs/rebar/{{ rebar_version }}/bin/rebar"
+
+- name: "use global Rebar {{ rebar_version }}"
+  become: false
+  command: "~/.asdf/bin/asdf global rebar {{ rebar_version }}"
+  changed_when: false
+
+
+#
 ## Elixir
 
 - name: "install asdf's Elixir plugin"
