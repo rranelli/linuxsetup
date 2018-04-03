@@ -41,6 +41,11 @@
     name=wakatime
     state=latest
 
+- name: "wakatime config"
+  copy:
+    src=".wakatime.cfg"
+    dest="~/.wakatime.cfg"
+
 - name: "copy .authinfo.gpg file for magithub"
   become: false
   copy:
