@@ -1,17 +1,13 @@
 #!/usr/bin/env bash
 export PATH="$HOME/bin:$PATH"
 export PATH="$PATH:$HOME/.lein"
-export PATH="$PATH:$HOME/.sml/bin"
-export PATH="$PATH:$HOME/code/elixir/bin"
 export PATH="$PATH:$HOME/.cask/bin"
-export PATH="/opt/terraform:$PATH" # heroku toolbelt
+export PATH="$PATH:$HOME/code/elixir/bin"
 
-export PYTHONDONTWRITEBYTECODE="true"
+export CDPATH=".:$CODE_DIR:$HOME/telnyx:$HOME/tamingchaos:$HOME/5a:$HOME/xerpa"
 
 export CODE_DIR="$HOME/code"
 export EDITOR="editor"
-
-export CDPATH=".:$CODE_DIR:$HOME/5a:$HOME/tamingchaos"
 
 export MIMIPASS_HOME="$HOME/Dropbox/.secrets/mimipass"
 export MIMIPASS_RECIPIENT="renanranelli@gmail.com"
@@ -19,9 +15,6 @@ export MIMIPASS_RECIPIENT="renanranelli@gmail.com"
 # This enables bash eternal history
 export HISTFILESIZE=
 export HISTSIZE=
-
-# used to avoid repeated logins
-export secret_key=0000000000000000000000000000000000000000000000000000000000000000
 
 export PS4='(${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]} - [${SHLVL},${BASH_SUBSHELL}, $?]
 '

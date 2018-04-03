@@ -1,0 +1,4 @@
+gitmulticast-telnyx() {
+  GITHUB_USER_TYPE=orgs GITHUB_USER=team-telnyx CODE_DIR="$HOME/telnyx" gitmulticast "$@"
+}
+alias 8gmt='gitmulticast-telnyx'
