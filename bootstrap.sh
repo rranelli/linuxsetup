@@ -2,7 +2,7 @@
 set -euo pipefail
 
 sudo apt install -y git python-pip dirmngr aptitude --allow-downgrades
-pip install ansible
+sudo pip install ansible
 
 if [ ! -f ~/.ssh/id_rsa.pub ]; then
     cat /dev/zero | ssh-keygen -q -N ""
@@ -13,7 +13,7 @@ if [ ! -f ~/.ssh/id_rsa.pub ]; then
 fi
 
 mkdir -p ~/code
-[ -d ~/code/linuxsetup ] || git clone git@github.com:rranelli/linuxsetup.git
+[ -d ~/code/linuxsetup ] || (cd ~/code && git clone git@github.com:rranelli/linuxsetup.git)
 cd ~/code/linuxsetup
 
 ansible-playbook --ask-become-pass \

@@ -27,16 +27,17 @@
     state=directory
   when: peek_absent.changed
 
-- command: '{{ item }}'
+- shell: '{{ item }}'
   args:
     chdir: /tmp/peek/build
   with_items:
     - cmake -DCMAKE_INSTALL_PREFIX=/usr -DGSETTINGS_COMPILE=OFF ..
     - make package
+    - mv peek*.deb peek.deb
   when: peek_absent.changed
 
 - apt:
-    deb=/tmp/peek/peek-1.2.1-Linux.deb
+    deb=/tmp/peek/build/peek.deb
   when: peek_absent.changed
 
 - file:

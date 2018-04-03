@@ -20,9 +20,19 @@
     dest='/usr/local/bin/nightly'
     state=link
 
+- file:
+    path='~/.local/share/applications'
+    state=directory
+  become: false
+
 - copy:
     src='nightly.desktop'
     dest='~/.local/share/applications/nightly.desktop'
+  become: false
+
+- file:
+    path='~/.local/share/icons'
+    state=directory
   become: false
 
 - copy:

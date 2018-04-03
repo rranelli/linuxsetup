@@ -30,7 +30,7 @@ check-command jq mimipass curl mktemp git
 
 fetch-repos() {
     function get-next-page {
-        if [[ "$@" =~ \<(.*)\>\;\ rel\=\"next\" ]]; then
+        if [[ "$@" =~ \<([^\<]+)\>\;\ rel\=\"next\" ]]; then
             echo "${BASH_REMATCH[1]}"
         fi
         return 0

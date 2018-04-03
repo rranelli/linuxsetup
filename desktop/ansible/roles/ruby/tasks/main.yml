@@ -27,6 +27,9 @@
 - name: "install ruby {{ ruby_version }}"
   become: false
   shell: |
+    export PATH="{{rbenv_home}}/bin:$PATH"
+    eval "$({{rbenv_home}}/bin/rbenv init -)"
+
     {{rbenv_home}}/bin/rbenv install "{{ ruby_version }}"
     {{rbenv_home}}/bin/rbenv global  "{{ ruby_version }}"
   args:
