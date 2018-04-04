@@ -70,6 +70,7 @@
     - libxml2-utils # needed to pretty print xml @ Emacs
     - mysql-server
     - ncftp
+    - netcat
     - openssh-server
     - pkg-config
     - redis-server
