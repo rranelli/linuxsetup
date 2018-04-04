@@ -1,0 +1,27 @@
+- name: "install packages I wouldn't be using were not for telnyx work"
+  apt:
+    name="{{ item }}"
+    state="present"
+    update_cache="yes"
+    cache_valid_time="7200"
+  with_items:
+    - meld
+
+- name: "check if zoiper is installed"
+  command: dpkg-query --show zoiper5
+  register: zoiper
+  changed_when: zoiper.rc != 0
+  failed_when: false
+
+- name: "download zoiper"
+  # weirdly this is not downloading the actual deb package....
+  get_url:
+    dest="/var/cache/apt/archives/zoiper.deb"
+    url="https://www.zoiper.com/en/voip-softphone/download/zoiper5/for/linux-deb"
+  when: zoiper.changed
+
+- name: "install zoiper"
+  apt:
+    deb="/var/cache/apt/archives/zoiper.deb"
+    force="yes"
+  when: zoiper.changed
