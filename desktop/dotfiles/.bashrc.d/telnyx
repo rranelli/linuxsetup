@@ -29,4 +29,4 @@ grn-echo() { echo -e "\e[0;32m${@}\e[0m"; }
   fi
 }
 
-PS1="\$(8vpn-ps1) $PS1"
+PS1="\$(8vpn-ps1)$PS1"
