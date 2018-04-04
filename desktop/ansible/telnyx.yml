@@ -7,3 +7,4 @@
     - telnyx-docker
     - telnyx-python
     - telnyx-tools
+    - telnyx-libphonenumber
