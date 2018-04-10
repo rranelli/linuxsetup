@@ -25,7 +25,7 @@
     - setting: "org.gnome.desktop.peripherals.touchpad tap-to-click"
       value: "true"
     - setting: "org.gnome.desktop.peripherals.keyboard repeat-interval"
-      value: "17"
+      value: "20"
     - setting: "org.gnome.desktop.peripherals.keyboard delay"
       value: "202"
     - setting: "org.gnome.desktop.input-sources xkb-options"
