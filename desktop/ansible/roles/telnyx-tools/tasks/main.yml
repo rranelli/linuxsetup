@@ -25,3 +25,12 @@
     deb="/var/cache/apt/archives/zoiper.deb"
     force="yes"
   when: zoiper.changed
+
+# - name: "install zoom"
+
+- name: "install git-hooks"
+  become: false
+  get_url:
+    url="https://raw.githubusercontent.com/icefox/git-hooks/master/git-hooks"
+    dest="~/bin/git-hooks"
+    mode="+x"
