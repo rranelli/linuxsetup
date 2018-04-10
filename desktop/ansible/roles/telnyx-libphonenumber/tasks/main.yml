@@ -30,3 +30,5 @@
       cp *.a /usr/lib/
       cp *.so* /usr/lib
       cp -R ../cpp/src/phonenumbers /usr/include/
+  args:
+    creates: "/usr/lib/libphonenumber.so.8.8"
