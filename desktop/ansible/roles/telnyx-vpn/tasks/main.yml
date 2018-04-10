@@ -9,3 +9,9 @@
   copy:
     src="etc/vpnc/default.conf"
     dest="/etc/vpnc/default.conf"
+
+- file: path="/etc/resolvconf/resolv.conf.d/" state="directory"
+- name: "add resolv.conf to search ipa.corp.telnyx.com"
+  copy:
+    src="etc/resolvconf/resolv.conf.d/telnyx"
+    dest="/etc/resolvconf/resolv.conf.d/telnyx"
