@@ -14,8 +14,11 @@ grn-echo() { echo -e "\e[0;32m${@}\e[0m"; }
 8get-vpn-pid() { pgrep vpnc ;}
 
 8vpn-ps1() {
+  local ret=$?
   local pid=$(8get-vpn-pid)
   [ -n "${pid}" ] && echo "(vpn)"
+
+  return $ret
 }
 
 8vpn-disconnect() {
