@@ -2,8 +2,11 @@
 if [ -f /usr/local/bin/hh ]; then
     shopt -s histappend
     export HH_CONFIG=hicolor,keywords,rawhistory
-    export PROMPT_COMMAND="history -a; history -n; ${PROMPT_COMMAND}"
     export HISTCONTROL=ignorespace
+
+    if ! [[ ${PROMPT_COMMAND} =~ "history -a; history -n;" ]]; then
+        export PROMPT_COMMAND="history -a; history -n; ${PROMPT_COMMAND}"
+    fi
 
     if ! [[ "$TERM" == "vt100" || "$TERM" == "dumb"  || "$TERM" == "eterm-color" ]]; then
         [[ $- =~ .*i.* ]] && bind '"\C-r": "\C-a hh -- \C-j"'
