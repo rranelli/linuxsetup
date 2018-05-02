@@ -76,4 +76,5 @@ silently() { "$@" >/dev/null 2>&1 ;}
 }
 export -f 8bry
 
-alias '8browser-debug'='google-chrome --remote-debugging-port=9222'
+# first argument is the line to grab;
+8line() { tail -n +"$@" | head -n1 ;}
