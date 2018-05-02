@@ -95,7 +95,7 @@ setup_ps1() {
       return $ret
     }
     function failure_prompt {
-      ret=$?; [ $ret != 0 ] && echo "✘._"
+      ret=$?; [ $ret != 0 ] && echo "✘.${ret}"
       return $ret
     }
 
