@@ -5,11 +5,17 @@ gitmulticast-telnyx() {
 alias 8gmt='gitmulticast-telnyx'
 
 grn-echo() { echo -e "\e[0;32m${@}\e[0m"; }
+red-echo() { echo -e "\e[0;31m${@}\e[0m"; }
+
+__activate_sudo() { sudo echo -n ;}
 
 8vpn-connect() {
-  sudo echo > /dev/null
-  mimipass get telnyx.okta.com/password | sudo vpnc \
-      && grn-echo "Connected!"
+  __activate_sudo
+
+  (
+    mimipass get telnyx.okta.com/password \
+        | silently sudo vpnc
+  ) && grn-echo "Connected!" || red-echo "Error!"
 }
 
 8get-vpn-pid() { pgrep vpnc ;}
@@ -23,6 +29,8 @@ grn-echo() { echo -e "\e[0;32m${@}\e[0m"; }
 }
 
 8vpn-disconnect() {
+  __activate_sudo
+
   local pid=$(8get-vpn-pid)
   if [ -n "${pid}" ]; then
       sudo kill "${pid}"
