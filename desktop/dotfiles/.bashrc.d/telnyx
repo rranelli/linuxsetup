@@ -41,4 +41,10 @@ __activate_sudo() { sudo echo -n ;}
   fi
 }
 
+8meld-latest() {
+  local REPO_ROOT=$(git rev-parse --show-toplevel)
+  local LATEST_OUTPUT=$(ls -1 output/ | tail -n1)
+  meld "${REPO_ROOT}/output/${LATEST_OUTPUT}"/{elixir,red}
+}
+
 PS1="\$(8vpn-ps1)$PS1"
