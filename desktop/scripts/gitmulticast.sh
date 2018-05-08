@@ -128,6 +128,17 @@ set-upstream() {
     )
 }
 
+gitmulticast() {
+    local COMMAND="${1}"
+    OLDIFS=$IFS; IFS=$'\n'
+    declare -a commands=(
+        $(ls $CODE_DIR -1 | xargs -n1 -I{} echo "git -C $CODE_DIR/{} ${COMMAND}")
+    )
+    IFS=$OLDIFS
+
+    parallel "${commands[@]}"
+}
+
 gitmulticast-clone() {
     repos=$(fetch-repos $repos_url)                                       # fetch all the repos for the user
     git_urls=$(echo "$repos" | jq '.[] | .ssh_url')                       # grab all the remote urls for his/her repos
@@ -148,24 +159,8 @@ gitmulticast-clone() {
     parallel "${set_upstream_commands[@]}"   # set upstreams for repos which are forked
 }
 
-gitmulticast-pull() {
-    OLDIFS=$IFS; IFS=$'\n'
-    declare -a pull_commands=(
-        $(ls $CODE_DIR -1 | xargs -n1 -I{} echo "git -C $CODE_DIR/{} pull --rebase")
-    )
-    IFS=$OLDIFS
-
-    parallel "${pull_commands[@]}"
-}
-
-gitmulticast-status() {
-    OLDIFS=$IFS; IFS=$'\n'
-    declare -a status_commands=(
-        $(ls $CODE_DIR -1 | xargs -n1 -I{} echo "git -C $CODE_DIR/{} status")
-    )
-    IFS=$OLDIFS
-
-    parallel "${status_commands[@]}"
-}
+gitmulticast-fetch() { gitmulticast "fetch" ;}
+gitmulticast-status() { gitmulticast "status" ;}
+gitmulticast-pull() { gitmulticast "pull --rebase" ;}
 
 gitmulticast-${1-clone}
