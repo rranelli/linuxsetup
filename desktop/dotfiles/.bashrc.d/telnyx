@@ -47,6 +47,14 @@ __activate_sudo() { sudo echo -n ;}
   meld "${REPO_ROOT}/output/${LATEST_OUTPUT}"/{elixir,red}
 }
 
+8te-clean-snapshots() {
+  local REPO_ROOT=$(git rev-parse --show-toplevel)
+  ls -1 snapshots/ \
+      | sort -r \
+      | tail -n +2 \
+      | xargs -n1 -I{} rm -rf snapshots/{}
+}
+
 8te-update-snapshot() {
   local REPO_ROOT=$(git rev-parse --show-toplevel)
   local LATEST_SNAPSHOT=$(ls -1 snapshots/ | tail -n1)
