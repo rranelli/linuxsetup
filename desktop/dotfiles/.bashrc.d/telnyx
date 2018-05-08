@@ -41,10 +41,16 @@ __activate_sudo() { sudo echo -n ;}
   fi
 }
 
-8meld-latest() {
+8te-meld-latest() {
   local REPO_ROOT=$(git rev-parse --show-toplevel)
   local LATEST_OUTPUT=$(ls -1 output/ | tail -n1)
   meld "${REPO_ROOT}/output/${LATEST_OUTPUT}"/{elixir,red}
+}
+
+8te-update-snapshot() {
+  local REPO_ROOT=$(git rev-parse --show-toplevel)
+  local LATEST_SNAPSHOT=$(ls -1 snapshots/ | tail -n1)
+  sed -i -e "s/SNAPSHOT=\\/snapshots\\/.*$/SNAPSHOT=\\/snapshots\\/${LATEST_SNAPSHOT}/g" mockserver.env
 }
 
 PS1="\$(8vpn-ps1)$PS1"
