@@ -33,3 +33,6 @@
 
 - name: "peek"
   include_tasks: 'peek.yml'
+
+- name: "skype"
+  include_tasks: 'skype.yml'

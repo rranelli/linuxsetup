@@ -1,0 +1,18 @@
+- name: "check if skype is installed"
+  command: dpkg-query --show skypeforlinux
+  register: skype
+  changed_when: skype.rc != 0
+  failed_when: false
+
+- name: "download skype"
+  # weirdly this is not downloading the actual deb package....
+  get_url:
+    dest="/var/cache/apt/archives/skype.deb"
+    url="https://go.skype.com/skypeforlinux-64.deb"
+  when: skype.changed
+
+- name: "install skype"
+  apt:
+    deb="/var/cache/apt/archives/skype.deb"
+    force="yes"
+  when: skype.changed
