@@ -7,10 +7,10 @@ alias 8gmt='gitmulticast-telnyx'
 grn-echo() { echo -e "\e[0;32m${@}\e[0m"; }
 red-echo() { echo -e "\e[0;31m${@}\e[0m"; }
 
-__activate_sudo() { sudo echo -n ;}
+__make_me_sudo() { sudo echo -n ;}
 
 8vpn-connect() {
-  __activate_sudo
+  __make_me_sudo
 
   (
     mimipass get telnyx.okta.com/password \
@@ -29,7 +29,7 @@ __activate_sudo() { sudo echo -n ;}
 }
 
 8vpn-disconnect() {
-  __activate_sudo
+  __make_me_sudo
 
   local pid=$(8get-vpn-pid)
   if [ -n "${pid}" ]; then
@@ -41,13 +41,15 @@ __activate_sudo() { sudo echo -n ;}
   fi
 }
 
-8te-meld-latest() {
+8tv-meld-latest() {
   local REPO_ROOT=$(git rev-parse --show-toplevel)
   local LATEST_OUTPUT=$(ls -1 output/ | tail -n1)
   meld "${REPO_ROOT}/output/${LATEST_OUTPUT}"/{elixir,red}
+
+  echo ${LATEST_OUTPUT}
 }
 
-8te-clean-snapshots() {
+8tv-clean-snapshots() {
   local REPO_ROOT=$(git rev-parse --show-toplevel)
   ls -1 snapshots/ \
       | sort -r \
@@ -55,7 +57,7 @@ __activate_sudo() { sudo echo -n ;}
       | xargs -n1 -I{} rm -rf snapshots/{}
 }
 
-8te-update-snapshot() {
+8tv-update-snapshot() {
   local REPO_ROOT=$(git rev-parse --show-toplevel)
   local LATEST_SNAPSHOT=$(ls -1 snapshots/ | tail -n1)
   sed -i -e "s/SNAPSHOT=\\/snapshots\\/.*$/SNAPSHOT=\\/snapshots\\/${LATEST_SNAPSHOT}/g" mockserver.env
