@@ -50,6 +50,11 @@ alias 8pcp='gitmulticast pull'
 #
 silently() { "$@" >/dev/null 2>&1 ;}
 
+8get-docker-ip() {
+  local CONTAINER_NAME="${1}"
+  docker inspect $(docker ps -qf name="${CONTAINER_NAME}") | jq -r '.[].NetworkSettings.Networks[].IPAddress'
+}
+
 8iwatch() {
   [ ${$@} -le 1 ] && exit 1  # must have at least one argument
 
