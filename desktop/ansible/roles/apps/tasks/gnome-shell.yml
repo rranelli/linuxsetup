@@ -71,6 +71,10 @@
     content: |
       #!/bin/bash
       dconf dump / > "{{ code_dir }}/linuxsetup/desktop/ansible/roles/apps/files/dconf.dump"
+      (cd "{{ code_dir }}/linuxsetup" \
+         && git add desktop/ansible/roles/apps/files/dconf.dump \
+         && git commit -m "Update dconf dump" \
+         && git push)
     dest: "/home/{{ local_user }}/bin/8dconf-dump"
     mode: "+x"
     owner: "{{ local_user }}"
