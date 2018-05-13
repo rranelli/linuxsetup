@@ -1,3 +1,8 @@
+- name: "(inputrc) ignore casing for bash completion"
+  copy:
+    src=etc/inputrc
+    dest=/etc/inputrc
+
 - name: "hh"
   include_tasks: 'hh.yml'
 

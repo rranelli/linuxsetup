@@ -1,8 +1,3 @@
-- name: "(inputrc) ignore casing for bash completion"
-  template:
-    src=etc/inputrc
-    dest=/etc/inputrc
-
 - name: "Check absence of the ONE TRUE EDITOR"
   stat: path="/usr/local/bin/emacs-{{ emacs_version }}"
   register: emacs
@@ -48,6 +43,8 @@
     - "/tmp/emacs-{{ emacs_version }}"
     - "/tmp/emacs-{{ emacs_version }}.tar.xz"
 
+- file: path='/home/{{ local_user }}/.local/share/applications' state=directory owner='{{ local_user }}' group='{{ local_user }}'
+
 - file: path=/usr/share/icons/hicolor/1024x1024/apps state=directory mode=0644
 - name: "copy source Emacs icon"
   copy:
@@ -68,9 +65,34 @@
 
 - name: "setup Emacs shortcut"
   become: false
-  copy:
+  template:
     src=emacs.desktop
     dest=~/.local/share/applications/emacs.desktop
+    mode=0644
+
+- file: path=/usr/share/icons/hicolor/1024x1024/apps state=directory mode=0644
+- name: "copy source KeynotEmacs icon"
+  copy:
+    src="keynotemacs.png"
+    dest="/usr/share/icons/hicolor/1024x1024/apps/keynotemacs25.png"
+    mode=0644
+  register: emacs_icon
+
+- name: "setup KeynotEmacs icons"
+  when: emacs_icon.changed
+  shell: |
+    for s in 512 128 20 256 36 48 64 16 22 32 40 72 192 24 32 96; do
+      size="${s}x${s}"
+      convert "/usr/share/icons/hicolor/1024x1024/apps/keynotemacs25.png" \
+              -resize "${size}" \
+              "/usr/share/icons/hicolor/${size}/apps/keynotemacs25.png"
+    done
+
+- name: "setup KeynotEmacs shortcut"
+  become: false
+  template:
+    src=keynotemacs.desktop
+    dest=~/.local/share/applications/keynotemacs.desktop
     mode=0644
 
 - name: "setup Emacs dotfiles"

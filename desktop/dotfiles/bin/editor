@@ -1,4 +1,9 @@
 #!/bin/bash
 export WORKON_HOME="$HOME/.pyenv/versions"
 source ~/.bashrc
-emacsclient -c "$@" || emacs -e "server-start" "$@"
+
+if [ $KEYNOTEMACS = "" ]; then
+    emacsclient -c "$@" || emacs -e "server-start" "$@"
+else
+  emacs "$@"
+fi
