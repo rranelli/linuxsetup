@@ -48,7 +48,6 @@
     - bash-completion
     - build-essential
     - curl
-    - curl
     - dnsutils
     - g++-multilib
     - gcc-multilib
@@ -68,7 +67,6 @@
     - libssl-dev
     - libtool-bin
     - libxml2-utils # needed to pretty print xml @ Emacs
-    - mysql-server
     - ncftp
     - netcat
     - openssh-server
