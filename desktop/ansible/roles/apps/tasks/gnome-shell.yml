@@ -19,6 +19,8 @@
     - gnome-games*
     - uim-mozc
     - mozc*
+    - xult-ext-mozvoikko
+    - task-finnish-desktop
     - debian-reference*
     - hdate-applet
     - thunderbird

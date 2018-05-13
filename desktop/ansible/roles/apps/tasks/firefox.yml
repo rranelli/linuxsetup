@@ -1,3 +1,8 @@
+- name: "remove stock firefox"
+  apt:
+    name='firefox-esr'
+    state='absent'
+
 - stat: path='/opt/firefox/firefox-bin'
   register: firefox
 
@@ -12,39 +17,20 @@
     dest='/opt'
   when: not firefox.stat.exists
 
-- file:
-    path='/opt/firefox'
-    state=directory
-    owner='{{ local_user }}'
-    group='{{ local_user }}'
-
+- file: path='/opt/firefox' state=directory owner='{{ local_user }}' group='{{ local_user }}'
 - file:
     src='/opt/firefox/firefox-bin'
     dest='/usr/local/bin/nightly'
     state=link
 
-- file:
-    path='~/.local/share/applications'
-    state=directory
-  become: false
-
+- file: path='/home/{{ local_user }}/.local/share/applications' state=directory owner='{{ local_user }}' group='{{ local_user }}'
 - copy:
     src='nightly.desktop'
     dest='~/.local/share/applications/nightly.desktop'
   become: false
 
-- file:
-    path='~/.local/share/icons'
-    state=directory
-  become: false
-
+- file: path='~/.local/share/icons' state=directory owner='{{ local_user }}' group='{{ local_user }}'
 - copy:
     src='nightly.ico'
     dest='~/.local/share/icons/nightly.ico'
   become: false
-
-- name: "remove stock firefox"
-  apt:
-    name='firefox-esr'
-    state='absent'
-  when: firefox.stat.exists
