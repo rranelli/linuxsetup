@@ -54,7 +54,7 @@
   become: false
   command: "~/.asdf/bin/asdf install rebar {{ rebar_version }}"
   args:
-    creates: "~/.asdf/installs/rebar/{{ rebar_version }}/bin/rebar"
+    creates: "~/.asdf/installs/rebar/{{ rebar_version }}/bin/rebar3"
 
 - name: "use global Rebar {{ rebar_version }}"
   become: false
