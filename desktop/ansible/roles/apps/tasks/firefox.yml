@@ -2,7 +2,6 @@
   register: firefox
 
 - name: "download firefox"
-
   get_url:
     url='https://download.mozilla.org/?product=firefox-nightly-latest-ssl&os=linux64&lang=en-US'
     dest='/tmp/firefox.tar.gz'
@@ -11,9 +10,13 @@
 - unarchive:
     src='/tmp/firefox.tar.gz'
     dest='/opt'
+  when: not firefox.stat.exists
+
+- file:
+    path='/opt/firefox'
+    state=directory
     owner='{{ local_user }}'
     group='{{ local_user }}'
-  when: not firefox.stat.exists
 
 - file:
     src='/opt/firefox/firefox-bin'
