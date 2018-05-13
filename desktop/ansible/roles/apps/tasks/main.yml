@@ -15,7 +15,7 @@
 
 - name: "remove unnecessary dirs @ home"
   file:
-    path="/home/renan/{{ item }}"
+    path="/home/{{ local_user }}/{{ item }}"
     state="absent"
   with_items: ["Documents","Music","Videos","Templates","Public","Desktop"]
 
