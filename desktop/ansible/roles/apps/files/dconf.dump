@@ -125,6 +125,9 @@ show-input-slider=true
 
 [org/gnome/shell/extensions/caffeine]
 user-enabled=false
+enable-fullscreen=true
+show-indicator=true
+show-notifications=false
 
 [org/gnome/shell/extensions/datetime-format]
 statusbar-format='%A, %T ~ %F'
@@ -318,7 +321,7 @@ check-timestamp=int64 1526115605
 [org/gtk/settings/file-chooser]
 sort-column='modified'
 sidebar-width=168
-window-position=(359, 114)
+window-position=(198, 27)
 show-size-column=true
 show-hidden=false
 window-size=(1203, 825)
