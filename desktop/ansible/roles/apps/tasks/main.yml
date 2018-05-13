@@ -1,4 +1,4 @@
-- name: "desktop application packages"
+- name: "desktop apps: stable"
   apt:
     name="{{ item }}"
     state="present"
@@ -7,7 +7,6 @@
   with_items:
     - calibre
     - deluge
-    - libreoffice
     - spotify-client
     - telegram
     - libappindicator3-1
@@ -28,11 +27,11 @@
 - name: "slack"
   include_tasks: "slack.yml"
 
-- name: "gsettings"
-  include_tasks: "gsettings.yml"
-
 - name: "peek"
   include_tasks: 'peek.yml'
 
 - name: "skype"
   include_tasks: 'skype.yml'
+
+- name: "gnome-shell"
+  include_tasks: "gnome-shell.yml"

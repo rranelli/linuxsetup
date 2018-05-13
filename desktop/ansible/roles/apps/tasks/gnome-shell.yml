@@ -1,0 +1,75 @@
+- name: "gnome-shell: testing"
+  apt:
+    name="{{ item }}"
+    default_release="testing"
+    autoremove="yes"
+    state="present"
+    update_cache="yes"
+    cache_valid_time="7200"
+  with_items:
+    - gnome-shell
+    - libreoffice
+
+- name: "remove debian/gnome cruft"
+  apt:
+    name="{{ item }}"
+    state="absent"
+    autoremove="yes"
+  with_items:
+    - gnome-games*
+    - uim-mozc
+    - mozc*
+    - debian-reference*
+    - hdate-applet
+    - thunderbird
+    - xiterm+thai
+    - brasero
+    - transmission
+    - rhythmbox
+
+- name: "get extension install script"
+  get_url:
+    url="https://raw.githubusercontent.com/NicolasBernaerts/ubuntu-scripts/c79ef91c916cfe24725f4deb7f14d9c03c58c397/ubuntugnome/gnomeshell-extension-manage"
+    dest="/home/{{ local_user }}/shell-extension-manage"
+    mode="+x"
+
+- name: "install gnome extensions"
+  become: false
+  command: /home/{{ local_user }}/shell-extension-manage --install --system --version latest --extension-id {{ item.id }}
+  with_items:
+    # https://extensions.gnome.org/extension-info/?pk={id}
+    # https://extensions.gnome.org/extension/959/disable-workspace-switcher-popup/
+    - {id: 959,  uuid: 'disable-workspace-switcher-popup@github.com'}
+    # https://extensions.gnome.org/extension/906/sound-output-device-chooser/
+    - {id: 906,  uuid: 'sound-output-device-chooser@kgshank.net'}
+    # https://extensions.gnome.org/extension/517/caffeine/
+    - {id: 517,  uuid: 'caffeine@patapon.info'}
+    # https://extensions.gnome.org/extension/826/suspend-button/
+    - {id: 826,  uuid: 'suspend-button@laserb'}
+    # https://extensions.gnome.org/extension/1173/datetime-format/
+    - {id: 1173, uuid: 'datetime-format@Daniel-Khodabakhsh.github.com'}
+    # https://extensions.gnome.org/extension/1236/noannoyance/
+    - {id: 1236, uuid: 'noannoyance@sindex.com'}
+    # https://extensions.gnome.org/extension/723/pixel-saver/
+    - {id: 723,  uuid: 'pixel-saver@deadalnix.me'}
+    # https://extensions.gnome.org/extension/1055/docker-integration/
+    - {id: 1055, uuid: 'docker-integration@jan.trejbal.gmail.com'}
+    # https://extensions.gnome.org/extension/615/appindicator-support/
+    - {id: 615,  uuid: 'appindicatorsupport@rgcjonas.gmail.com'}
+  args:
+    creates: '/usr/local/share/gnome-shell/extensions/{{ item.uuid }}'
+
+- name: "dconf load"
+  become: false
+  command: dconf load / < "{{ code_dir }}/linuxsetup/desktop/ansible/roles/apps/files/dconf.dump"
+  changed_when: false
+
+- name: "create 8dconf-dump script"
+  copy:
+    content: |
+      #!/bin/bash
+      dconf dump / > "{{ code_dir }}/linuxsetup/desktop/ansible/roles/apps/files/dconf.dump"
+    dest: "/home/{{ local_user }}/bin/8dconf-dump"
+    mode: "+x"
+    owner: "{{ local_user }}"
+    group: "{{ local_user }}"
