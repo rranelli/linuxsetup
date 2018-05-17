@@ -13,6 +13,9 @@ sleep-inactive-ac-timeout=3600
 sleep-inactive-ac-type='nothing'
 sleep-inactive-battery-timeout=1800
 
+[org/gnome/settings-daemon/plugins/color]
+night-light-last-coordinates=(-23.5733, -46.6417)
+
 [org/gnome/settings-daemon/plugins/media-keys]
 custom-keybindings=['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/']
 
@@ -95,7 +98,7 @@ migrated=true
 toggle-application-view=['<Super>a']
 
 [org/gnome/shell]
-enabled-extensions=['suspend-button@laserb', 'alternate-tab@gnome-shell-extensions.gcampax.github.com', 'drive-menu@gnome-shell-extensions.gcampax.github.com', 'windowsNavigator@gnome-shell-extensions.gcampax.github.com', 'disable-workspace-switcher-popup@github.com', 'sound-output-device-chooser@kgshank.net', 'caffeine@patapon.info', 'datetime-format@Daniel-Khodabakhsh.github.com', 'noannoyance@sindex.com', 'pixel-saver@deadalnix.me', 'docker-integration@jan.trejbal.gmail.com', 'appindicatorsupport@rgcjonas.gmail.com']
+enabled-extensions=['suspend-button@laserb', 'alternate-tab@gnome-shell-extensions.gcampax.github.com', 'drive-menu@gnome-shell-extensions.gcampax.github.com', 'windowsNavigator@gnome-shell-extensions.gcampax.github.com', 'disable-workspace-switcher-popup@github.com', 'caffeine@patapon.info', 'datetime-format@Daniel-Khodabakhsh.github.com', 'noannoyance@sindex.com', 'pixel-saver@deadalnix.me', 'docker-integration@jan.trejbal.gmail.com', 'appindicatorsupport@rgcjonas.gmail.com', 'sound-output-device-chooser@kgshank.net']
 command-history=['r']
 app-picker-view=uint32 1
 favorite-apps=['emacs.desktop', 'org.gnome.Terminal.desktop', 'chrome-hnpfjngllnobngcgfapefoaidbinmjnm-Default.desktop', 'telegramdesktop.desktop', 'slack.desktop', 'spotify.desktop', 'google-chrome.desktop']
@@ -133,7 +136,7 @@ show-notifications=false
 statusbar-format='%A, %T ~ %F'
 
 [org/gnome/meld]
-folder-status-filters=['normal']
+folder-status-filters=['normal', 'new', 'modified']
 vc-status-filters=['flatten', 'modified']
 window-state='maximized'
 window-size=(960, 752)
@@ -279,7 +282,10 @@ schema-version=uint32 3
 default-show-menubar=false
 
 [org/gnome/control-center]
-last-panel='search'
+last-panel='wifi'
+
+[org/gnome/system/location]
+enabled=true
 
 [org/gnome/eog/view]
 background-color='rgb(0,0,0)'
@@ -294,6 +300,10 @@ source-name='Default'
 database='!'
 
 [org/gnome/nm-applet/eap/f29ea51f-251e-4d69-a104-167d7492ec7e]
+ignore-phase2-ca-cert=false
+ignore-ca-cert=false
+
+[org/gnome/nm-applet/eap/144a8ed0-e48f-4633-aa45-ba53d8f62a6f]
 ignore-phase2-ca-cert=false
 ignore-ca-cert=false
 
@@ -316,12 +326,12 @@ window-maximized=false
 window-size=[800, 500]
 
 [org/gnome/software]
-check-timestamp=int64 1526115605
+check-timestamp=int64 1526378068
 
 [org/gtk/settings/file-chooser]
 sort-column='modified'
 sidebar-width=168
-window-position=(198, 27)
+window-position=(2279, 117)
 show-size-column=true
 show-hidden=false
 window-size=(1203, 825)
@@ -348,7 +358,7 @@ height=476
 
 [apps/seahorse/listing]
 sidebar-width=148
-keyrings-selected=['secret-service://login', 'gnupg://']
+keyrings-selected=['secret-service://login']
 
 [com/uploadedlobster/peek]
 persist-window-geometry=(485, 111, 565, 903)
