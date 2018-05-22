@@ -1,9 +1,6 @@
 #!/bin/bash
 set -euo pipefail
 
-sudo apt install -y git python-pip dirmngr aptitude --allow-downgrades
-sudo pip install ansible
-
 if [ ! -f ~/.ssh/id_rsa.pub ]; then
     cat /dev/zero | ssh-keygen -q -N ""
 
@@ -11,6 +8,10 @@ if [ ! -f ~/.ssh/id_rsa.pub ]; then
     cat ~/.ssh/id_rsa.pub
     echo "Press [Enter] to continue..." && read
 fi
+
+sudo apt update -qq || true
+sudo apt install -y git python-pip dirmngr aptitude --allow-downgrades
+sudo pip install ansible
 
 mkdir -p ~/code
 [ -d ~/code/linuxsetup ] || (cd ~/code && git clone git@github.com:rranelli/linuxsetup.git)
