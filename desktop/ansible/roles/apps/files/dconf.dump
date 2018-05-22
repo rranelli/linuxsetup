@@ -14,6 +14,10 @@ sleep-inactive-ac-type='nothing'
 sleep-inactive-battery-timeout=1800
 
 [org/gnome/settings-daemon/plugins/color]
+night-light-schedule-automatic=false
+night-light-schedule-to=23.983333333333334
+night-light-schedule-from=0.0
+night-light-enabled=false
 night-light-last-coordinates=(-23.5733, -46.6417)
 
 [org/gnome/settings-daemon/plugins/media-keys]
@@ -68,15 +72,16 @@ world-clocks=[{'location': <(uint32 2, <('Chicago', 'KMDW', true, [(0.7292712893
 locations=[<(uint32 2, <('São Paulo, São Paulo, Brazil', 'SBBU', false, [(-0.38318669868148014, -0.85561685723826375)], [(-0.38949931722116538, -0.85637489212964857)])>)>, <(uint32 2, <('Chicago', 'KMDW', true, [(0.72927128935316143, -1.5316185371029443)], [(0.73042086791828009, -1.529781996944241)])>)>]
 
 [org/gnome/nautilus/preferences]
+search-view='icon-view'
 default-folder-viewer='icon-view'
 search-filter-time-type='last_modified'
 
 [org/gnome/nautilus/window-state]
-geometry='890x550+38+65'
+geometry='890x550+26+23'
 maximized=false
 
 [org/gnome/evince/default]
-window-ratio=(1.0270833333333333, 1.0231481481481481)
+window-ratio=(3.2268907563025211, 1.2505938242280286)
 
 [org/gnome/file-roller/listing]
 sort-method='name'
@@ -98,7 +103,7 @@ migrated=true
 toggle-application-view=['<Super>a']
 
 [org/gnome/shell]
-enabled-extensions=['suspend-button@laserb', 'alternate-tab@gnome-shell-extensions.gcampax.github.com', 'drive-menu@gnome-shell-extensions.gcampax.github.com', 'windowsNavigator@gnome-shell-extensions.gcampax.github.com', 'disable-workspace-switcher-popup@github.com', 'caffeine@patapon.info', 'datetime-format@Daniel-Khodabakhsh.github.com', 'noannoyance@sindex.com', 'pixel-saver@deadalnix.me', 'docker-integration@jan.trejbal.gmail.com', 'appindicatorsupport@rgcjonas.gmail.com', 'sound-output-device-chooser@kgshank.net']
+enabled-extensions=['suspend-button@laserb', 'alternate-tab@gnome-shell-extensions.gcampax.github.com', 'drive-menu@gnome-shell-extensions.gcampax.github.com', 'windowsNavigator@gnome-shell-extensions.gcampax.github.com', 'disable-workspace-switcher-popup@github.com', 'caffeine@patapon.info', 'datetime-format@Daniel-Khodabakhsh.github.com', 'noannoyance@sindex.com', 'pixel-saver@deadalnix.me', 'docker-integration@jan.trejbal.gmail.com', 'appindicatorsupport@rgcjonas.gmail.com', 'sound-output-device-chooser@kgshank.net', 'night-light-slider.timur@linux.com']
 command-history=['r']
 app-picker-view=uint32 1
 favorite-apps=['emacs.desktop', 'org.gnome.Terminal.desktop', 'chrome-hnpfjngllnobngcgfapefoaidbinmjnm-Default.desktop', 'telegramdesktop.desktop', 'slack.desktop', 'spotify.desktop', 'google-chrome.desktop']
@@ -282,7 +287,7 @@ schema-version=uint32 3
 default-show-menubar=false
 
 [org/gnome/control-center]
-last-panel='wifi'
+last-panel='display'
 
 [org/gnome/system/location]
 enabled=true
@@ -326,7 +331,7 @@ window-maximized=false
 window-size=[800, 500]
 
 [org/gnome/software]
-check-timestamp=int64 1526378068
+check-timestamp=int64 1526838188
 
 [org/gtk/settings/file-chooser]
 sort-column='modified'
