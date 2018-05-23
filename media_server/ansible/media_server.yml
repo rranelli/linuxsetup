@@ -6,6 +6,7 @@
     # - etc
     # - disks
     # - packages
-    - plex
+    # - plex
     # - torrent
     # - nginx
+    - pihole
