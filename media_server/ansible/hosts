@@ -1,2 +1,2 @@
 [media]
-vengerberg.rep
+stockholm ansible_port=2372 ansible_host=192.168.0.31

@@ -5,8 +5,8 @@ After=network.target
 [Service]
 ExecStart=/usr/bin/znc -f
 Type=simple
-User=renan
-Group=renan
+User=milhouse
+Group=milhouse
 Restart=on-failure
 RestartSec=5
 StartLimitBurst=3

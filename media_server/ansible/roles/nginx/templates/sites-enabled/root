@@ -19,12 +19,6 @@ server {
         proxy_pass http://plex/manage;
     }
 
-    location /books/ {
-        include /etc/nginx/proxy_params;
-
-        proxy_pass http://calibre/;
-    }
-
     location / {
         include /etc/nginx/proxy_params;
 

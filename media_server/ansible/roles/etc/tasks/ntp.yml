@@ -1,0 +1,16 @@
+- name: "check current timezone"
+  command: timedatectl status
+  register: timedatectlStatus
+  changed_when: 'not "America/Sao_Paulo" in timedatectlStatus.stdout'
+
+- name: "adjust clock timezone"
+  command: timedatectl set-timezone America/Sao_Paulo
+  when: 'not "America/Sao_Paulo" in timedatectlStatus.stdout'
+
+- name: "enable ntp"
+  command: timedatectl set-ntp true
+  when: 'not "Network time on: yes" in timedatectlStatus.stdout'
+
+- name: "adjust system clock"
+  command: timedatectl --adjust-system-clock
+  when: 'not "NTP synchronized: yes" in timedatectlStatus.stdout'

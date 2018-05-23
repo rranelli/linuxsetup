@@ -1,69 +1,26 @@
-- name: "set init files"
-  copy:
-    src=etc/init.d/calibre-server
-    dest=/etc/init.d/calibre-server
-    mode=755
+- name: "ssh configuration"
+  include_tasks: "ssh.yml"
 
-- name: "set /etc/locale.gen"
-  copy:
-    src=etc/locale.gen
-    dest=/etc/locale.gen
-    mode=0644
-  notify:
-    - generate locales
-
-- name: "configure sshd"
-  copy:
-    src=etc/ssh/sshd_config
-    dest=/etc/ssh/sshd_config
-    mode=0644
-  notify:
-    - restart sshd
+- name: "config locales"
+  locale_gen:
+   name: "{{ item }}"
+   state: "present"
+  with_items:
+    - en_US.UTF-8
+    - pt_BR.UTF-8
 
 - name: "configures the hostname"
   hostname:
     name={{ inventory_hostname }}
 
-- name: "check current timezone"
-  command: timedatectl status
-  register: timedatectlStatus
-  changed_when: 'not "America/Sao_Paulo" in timedatectlStatus.stdout'
-
-- name: "adjust clock timezone"
-  command: timedatectl set-timezone America/Sao_Paulo
-  when: 'not "America/Sao_Paulo" in timedatectlStatus.stdout'
-
-- name: "enable ntp"
-  command: timedatectl set-ntp true
-  when: 'not "NTP enabled: yes" in timedatectlStatus.stdout'
-
-- name: "adjust system clock"
-  command: timedatectl --adjust-system-clock
-  when: 'not "NTP synchronized: yes" in timedatectlStatus.stdout'
-
-- name: "set /etc/network/interfaces"
-  copy:
-    src=etc/network/interfaces
-    dest=/etc/network/interfaces
-  notify:
-    - restart networking
-
-- name: "set /etc/grub.conf"
-  copy:
-    src=etc/default/grub
-    dest=/etc/default/grub
-  notify:
-    - update grub
-
-- name: "check completion case"
-  command: 'grep -q "set completion-ignore-case on" /etc/inputrc'
-  register: completion_case_ignore_on
-  changed_when: completion_case_ignore_on.rc != 0
-  ignore_errors: true
+- name: "configure timezone"
+  include_tasks: "ntp.yml"
 
 - name: "set completion case"
-  shell: echo 'set completion-ignore-case on' >> /etc/inputrc
-  when: completion_case_ignore_on.rc != 0
+  lineinfile:
+    path="/etc/inputrc"
+    line="set completion-ignore-case on"
+    state="present"
 
 - name: "set default editor"
   copy:

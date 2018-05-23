@@ -1,33 +1,37 @@
 ---
 
-- name: "fetch plex"
-  get_url:
-    url={{ plex_url_i386 }}
-    sha256sum={{ plex_sha256_i386 }}
-    dest=/var/cache/apt/archives/plex.deb
-
-####################################################################
-# workaround for #2430                                             #
-# see: https://github.com/ansible/ansible-modules-core/issues/2430 #
-- name: "check installed plex version"                             #
-  shell: dpkg-query --show plexmediaserver | awk '{print $2}'      #
-  register: plex_installed_version                                 #
-  changed_when: false                                              #
-                                                                   #
-- name: "fetch deb file version"                                   #
-  command: dpkg -f /var/cache/apt/archives/plex.deb VERSION        #
-  register: plex_deb_version                                       #
-  changed_when: false                                              #
-####################################################################
+- name: "add ARM plex repository"
+  apt_repository:
+    repo: "deb [trusted=yes] http://dl.bintray.com/tproenca/pmsarm7 jessie main"
+    state: "present"
 
 - name: "install plex"
+  register: plexinstall
   apt:
-    deb=/var/cache/apt/archives/plex.deb
-    update_cache=false
-    state="present"
-  when: plex_deb_version.stdout != plex_installed_version.stdout
-  notify:
-    - restart plex
+    name="plexmediaserver"
+    state="latest"
+    update_cache="yes"
+    cache_valid_time="7200"
+
+- name: "fix plex weird /etc/init.d"
+  shell: |
+    (stat /usr/lib/plexmediaserver/Resources/start.sh && exit 0) || \
+    test -f /usr/lib/plexmediaserver/Resources/start.sh && \
+      ln -sf /usr/lib/plexmediaserver{/Resources,}/start.sh
+  args:
+    executable: /bin/bash
+
+- name: "enable plex"
+  service:
+    name="plexmediaserver"
+    enabled="true"
+    state="started"
+
+- name: "restart plex, if newly installed"
+  service:
+    name="plexmediaserver"
+    state="restarted"
+  when: plexinstall.changed
 
 - name: "check if subliminal is installed"
   command: stat "{{ plex_plugin_path }}/Subliminal.bundle"
@@ -46,7 +50,7 @@
   when: subliminal_installed.changed
   unarchive:
     copy=no
-    src=/var/cache/apt/archives/Subliminal.bundle-master.zip
+    src=/var/cache/apt/archives/Subliminal.bundle.zip
     dest="{{ plex_plugin_path }}"
   notify:
     - restart plex
@@ -56,6 +60,12 @@
   command: |
     mv "{{ plex_plugin_path }}/Subliminal.bundle-master"
        "{{ plex_plugin_path }}/Subliminal.bundle"
+
+# - file:
+#     state=directory
+#     owner=plex
+#     recurse=yes
+#     path={{ plex_plugin_path }}/Subliminal.bundle
 
 - name: "check if trakttv is installed"
   command: stat "{{ plex_plugin_path }}/WebTools.bundle"
@@ -80,23 +90,17 @@
   notify:
     - restart plex
 
-- name: "fix traktv plugin path"
-  when: subliminal_installed.rc != 0
-  command: |
-    mv "{{ plex_plugin_path }}/WebTools.bundle-master"
-       "{{ plex_plugin_path }}/WebTools.bundle"
-
-- file:
-    state=directory
-    owner=plex
-    group=plex
-    recurse=yes
-    path={{ plex_plugin_path }}/WebTools.bundle
+# - file:
+#     state=directory
+#     owner=plex
+#     recurse=yes
+#     path={{ plex_plugin_path }}/WebTools.bundle
 
 - name: "set up auto-refresh with cron"
   cron:
-    job="curl -s http://localhost:32400/library/sections/{{ plex_tv_show_section }}/refresh?force=1"
-    name="auto-refresh with cron"
-    hour="*/4"
-    user="renan"
+    job="curl -s http://localhost:32400/library/sections/{{ item }}/refresh?force=1"
+    name="auto-refresh library with cron"
+    hour="*/5"
+    user="plex"
     state="present"
+  with_items: ["0", "1", "2", "3", "4", "5"]

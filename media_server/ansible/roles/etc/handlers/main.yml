@@ -1,16 +1,5 @@
 ---
 
-- name: "generate locales"
-  command: /usr/sbin/locale-gen
-
-- name: "restart networking"
-  service:
-    name=networking
-    state=restarted
-
-- name: "update grub"
-  command: update-grub
-
 - name: "restart sshd"
   service:
     name=sshd

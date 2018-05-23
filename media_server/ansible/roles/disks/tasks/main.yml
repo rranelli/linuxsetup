@@ -1,0 +1,16 @@
+- name: "create mount directories"
+  file:
+    path="/mnt/{{ item.name }}"
+    state="directory"
+    owner="milhouse"
+    group="milhouse"
+  with_items: "{{ disks }}"
+
+- name: "mount external disks"
+  mount:
+    path="/mnt/{{ item.name }}"
+    src="UUID={{ item.uuid }}"
+    fstype="ext4"
+    state="mounted"
+    opts="defaults,auto,users"
+  with_items: "{{ disks }}"

@@ -1,8 +1,0 @@
-# see http://askubuntu.com/questions/47311/how-do-i-disable-my-system-from-going-to-sleep
-GRUB_DEFAULT=0
-GRUB_TIMEOUT=5
-GRUB_DISTRIBUTOR=`lsb_release -i -s 2> /dev/null || echo Debian`
-GRUB_CMDLINE_LINUX_DEFAULT="quiet"
-
-# {acpi,apm}=off will keep your pc from sleeping
-GRUB_CMDLINE_LINUX="initrd=/install/initrd.gz acpi=off apm=off"

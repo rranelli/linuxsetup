@@ -1,0 +1,3 @@
+disks:
+  - {"name": "1tb", "uuid": "de60b6ec-e9af-4d01-b397-d74e462c9b4c"}
+  - {"name": "500gb", "uuid": "a1b8da50-30d1-4738-90f6-c43615dc12ec"}

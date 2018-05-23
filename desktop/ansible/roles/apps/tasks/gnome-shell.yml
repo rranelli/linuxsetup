@@ -25,19 +25,31 @@
     - hdate-applet
     - thunderbird
     - xiterm+thai
-    - brasero
-    - transmission
+    - brasero*
+    - transmission*
     - rhythmbox
+
+- name: "remove cruf from desktop entries"
+  file:
+    path="{{ item }}"
+    state="absent"
+  with_fileglob:
+    - /usr/share/applications/telegram.desktop
+    - /usr/share/applications/fcitx*.desktop
+    - /usr/share/applications/JB-*.desktop
+    - /usr/share/applications/khmerconverter.desktop
+    - /usr/share/applications/mono-runtime-*.desktop
+    - /usr/share/applications/debian-u?xterm*.desktop
 
 - name: "get extension install script"
   get_url:
     url="https://raw.githubusercontent.com/NicolasBernaerts/ubuntu-scripts/c79ef91c916cfe24725f4deb7f14d9c03c58c397/ubuntugnome/gnomeshell-extension-manage"
-    dest="/home/{{ local_user }}/shell-extension-manage"
+    dest="/home/{{ local_user }}/bin/shell-extension-manage"
     mode="+x"
 
 - name: "install gnome extensions"
   become: false
-  command: /home/{{ local_user }}/shell-extension-manage --install --system --version latest --extension-id {{ item.id }}
+  command: /home/{{ local_user }}/bin/shell-extension-manage --install --system --version latest --extension-id {{ item.id }}
   with_items:
     # https://extensions.gnome.org/extension-info/?pk={id}
     # https://extensions.gnome.org/extension/959/disable-workspace-switcher-popup/
@@ -58,6 +70,8 @@
     - {id: 1055, uuid: 'docker-integration@jan.trejbal.gmail.com'}
     # https://extensions.gnome.org/extension/615/appindicator-support/
     - {id: 615,  uuid: 'appindicatorsupport@rgcjonas.gmail.com'}
+    # https://extensions.gnome.org/extension/1276/night-light-slider/
+    - {id: 1276, uuid: 'night-light-slider.timur@linux.com'}
   args:
     creates: '/usr/local/share/gnome-shell/extensions/{{ item.uuid }}'
 

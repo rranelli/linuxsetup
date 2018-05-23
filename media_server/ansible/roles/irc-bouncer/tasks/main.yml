@@ -29,4 +29,4 @@
 - name: "configure znc"
   command: cat "you have to run `znc --makeconf` manually!"
   args:
-    creates: /home/renan/.znc/configs/znc.conf
+    creates: /home/milhouse/.znc/configs/znc.conf

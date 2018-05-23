@@ -5,15 +5,7 @@
     update_cache="yes"
     cache_valid_time="7200"
   with_items:
-    - emacs24-nox
+    - emacs-nox
     - bash-completion
-    - build-essential
-    - calibre
     - curl
     - dnsutils
-    - ftp
-    - git
-    - vim
-    - wget
-    - p7zip-full
-    - mkvtoolnix

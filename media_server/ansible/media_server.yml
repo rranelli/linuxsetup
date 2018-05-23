@@ -1,15 +1,11 @@
-# TODO: beets
-# TODO: periodic music upload to cellphone
-# TODO: configure podnapsi subtitles
 ---
 
 - hosts: media
   become: yes
-
   roles:
-    - etc
-    - packages
-    - plex
-    - nginx
+    # - etc
+    # - disks
+    # - packages
+    # - plex
     - torrent
-    - irc-bouncer
+    - nginx

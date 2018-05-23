@@ -1,4 +1,4 @@
-deluge_autoadd_path: "/home/renan/Downloads/Torrent/AutoAdd"
-deluge_torrent_path: "/home/renan/Downloads/Torrent/Torrents"
-deluge_download_location: "/home/renan/Downloads/Torrent/Incomplete"
-deluge_complete_location: "/home/renan/Downloads/Torrent/Complete"
+deluge_autoadd_path: "/mnt/1tb/Torrent/AutoAdd"
+deluge_torrent_path: "/mnt/1tb/Torrent/Torrents"
+deluge_download_location: "/mnt/1tb/Torrent/Incomplete"
+deluge_complete_location: "/mnt/1tb/Torrent/Complete"

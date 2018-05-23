@@ -14,11 +14,8 @@
     mode=0644
   with_items:
     - .htpasswd
-    - sites-enabled/calibre
-    - sites-enabled/monit
     - sites-enabled/plex
     - sites-enabled/root
     - sites-enabled/torrent
-    - sites-enabled/znc
   notify:
     - restart nginx
