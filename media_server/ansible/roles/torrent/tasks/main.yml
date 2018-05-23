@@ -21,7 +21,7 @@
     path="/etc/init.d/deluged"
     state="absent"
 
-- file: path=/mnt/1tb/Torrent state=directory owner=milhouse group=milhouse
+- file: path=/mnt/1tb/Torrent state=directory owner=milhouse group=milhouse mode=0755
 - file: path=/home/milhouse/.config/deluge state=directory owner=milhouse group=milhouse
 - name: "set deluge auth config file"
   copy:

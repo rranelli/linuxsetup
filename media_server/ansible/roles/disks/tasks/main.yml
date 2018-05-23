@@ -4,6 +4,7 @@
     state="directory"
     owner="milhouse"
     group="milhouse"
+    mode="0755"
   with_items: "{{ disks }}"
 
 - name: "mount external disks"
