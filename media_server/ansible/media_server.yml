@@ -6,6 +6,6 @@
     # - etc
     # - disks
     # - packages
-    # - plex
-    - torrent
-    - nginx
+    - plex
+    # - torrent
+    # - nginx

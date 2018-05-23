@@ -1,0 +1,35 @@
+- name: "check if subliminal is installed"
+  command: stat "{{ plex_plugin_path }}/Subliminal.bundle"
+  register: subliminal_installed
+  failed_when: false
+  changed_when: subliminal_installed.rc != 0
+
+- name: "fetch subliminal plugin"
+  when: subliminal_installed.changed
+  get_url:
+    url={{ plex_subliminal_plugin_url }}
+    dest=/var/cache/apt/archives/Subliminal.bundle.zip
+    sha256sum={{ plex_subliminal_plugin_sha256 }}
+
+- name: "install subliminal"
+  when: subliminal_installed.changed
+  unarchive:
+    copy=no
+    src=/var/cache/apt/archives/Subliminal.bundle.zip
+    dest="{{ plex_plugin_path }}"
+  notify:
+    - restart plex
+
+- name: "fix subliminal plugin path"
+  when: subliminal_installed.rc != 0
+  command: |
+    mv "{{ plex_plugin_path }}/Subliminal.bundle-master"
+       "{{ plex_plugin_path }}/Subliminal.bundle"
+
+- file:
+    state=directory
+    owner=plex
+    group=plex
+    mode=0770
+    recurse=yes
+    path={{ plex_plugin_path }}/Subliminal.bundle

@@ -1,0 +1,41 @@
+- name: "check if trakttv is installed"
+  stat: path="{{ plex_plugin_path }}/Trakttv.bundle/Contents"
+  register: trakttv
+
+# see the following link for more information
+# https://github.com/trakt/Plex-Trakt-Scrobbler/wiki/Installation%20-%20Debian%20%28Terminal%29
+- name: "fetch trakttv plugin"
+  when: not trakttv.stat.exists
+  get_url:
+    url={{ plex_trakttv_plugin_url }}
+    dest=/var/cache/apt/archives/Trakttv.bundle.zip
+
+- name: "install trakttv"
+  when: not trakttv.stat.exists
+  unarchive:
+    copy=no
+    src=/var/cache/apt/archives/Trakttv.bundle.zip
+    dest="{{ plex_plugin_path }}"
+  notify:
+    - restart plex
+
+- file: path="{{ plex_plugin_path }}/Trakttv.bundle" state="directory"
+- name: "move trakkt"
+  when: not trakttv.stat.exists
+  shell: |
+    mv {{ plex_plugin_path }}/Plex-Trakt-Scrobbler-master/Trakttv.bundle/* {{ plex_plugin_path }}/Trakttv.bundle/
+  args:
+    creates: "{{ plex_plugin_path }}/Trakttv.bundle/Contents"
+
+- name: "remove old directory"
+  file:
+    path="{{ plex_plugin_path }}/Plex-Trakt-Scrobbler-master"
+    state="absent"
+
+- file:
+    state=directory
+    owner=plex
+    group=plex
+    mode=0770
+    recurse=yes
+    path={{ plex_plugin_path }}/Trakttv.bundle

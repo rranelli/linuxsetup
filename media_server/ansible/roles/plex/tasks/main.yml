@@ -5,6 +5,12 @@
     repo: "deb [trusted=yes] http://dl.bintray.com/tproenca/pmsarm7 jessie main"
     state: "present"
 
+- name: "create plex group"
+  group: name="plex" state="present"
+
+- name: "create plex user"
+  user: name="plex" state="present"
+
 - name: "install plex"
   register: plexinstall
   apt:
@@ -15,11 +21,10 @@
 
 - name: "fix plex weird /etc/init.d"
   shell: |
-    (stat /usr/lib/plexmediaserver/Resources/start.sh && exit 0) || \
-    test -f /usr/lib/plexmediaserver/Resources/start.sh && \
-      ln -sf /usr/lib/plexmediaserver{/Resources,}/start.sh
+    ln -sf /usr/lib/plexmediaserver{/Resources,}/start.sh
   args:
     executable: /bin/bash
+    creates: /usr/lib/plexmediaserver/Resources/start.sh
 
 - name: "enable plex"
   service:
@@ -33,68 +38,11 @@
     state="restarted"
   when: plexinstall.changed
 
-- name: "check if subliminal is installed"
-  command: stat "{{ plex_plugin_path }}/Subliminal.bundle"
-  register: subliminal_installed
-  failed_when: false
-  changed_when: subliminal_installed.rc != 0
+- name: "install subliminal plugin"
+  include_tasks: "subliminal_plugin.yml"
 
-- name: "fetch subliminal plugin"
-  when: subliminal_installed.changed
-  get_url:
-    url={{ plex_subliminal_plugin_url }}
-    dest=/var/cache/apt/archives/Subliminal.bundle.zip
-    sha256sum={{ plex_subliminal_plugin_sha256 }}
-
-- name: "install subliminal"
-  when: subliminal_installed.changed
-  unarchive:
-    copy=no
-    src=/var/cache/apt/archives/Subliminal.bundle.zip
-    dest="{{ plex_plugin_path }}"
-  notify:
-    - restart plex
-
-- name: "fix subliminal plugin path"
-  when: subliminal_installed.rc != 0
-  command: |
-    mv "{{ plex_plugin_path }}/Subliminal.bundle-master"
-       "{{ plex_plugin_path }}/Subliminal.bundle"
-
-# - file:
-#     state=directory
-#     owner=plex
-#     recurse=yes
-#     path={{ plex_plugin_path }}/Subliminal.bundle
-
-- name: "check if trakttv is installed"
-  command: stat "{{ plex_plugin_path }}/WebTools.bundle"
-  register: trakttv_installed
-  failed_when: false
-  changed_when: trakttv_installed.rc != 0
-
-# see the following link for more information
-# https://github.com/trakt/Plex-Trakt-Scrobbler/wiki/Installation%20-%20Debian%20%28Terminal%29
-- name: "fetch trakttv plugin"
-  when: trakttv_installed.changed
-  get_url:
-    url={{ plex_trakttv_plugin_url }}
-    dest=/var/cache/apt/archives/WebTools.bundle.zip
-
-- name: "install trakttv"
-  when: trakttv_installed.changed
-  unarchive:
-    copy=no
-    src=/var/cache/apt/archives/WebTools.bundle.zip
-    dest="{{ plex_plugin_path }}"
-  notify:
-    - restart plex
-
-# - file:
-#     state=directory
-#     owner=plex
-#     recurse=yes
-#     path={{ plex_plugin_path }}/WebTools.bundle
+- name: "install trakttv plugin"
+  include_tasks: "trakttv_plugin.yml"
 
 - name: "set up auto-refresh with cron"
   cron:
