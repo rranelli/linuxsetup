@@ -16,6 +16,11 @@
   notify:
     - restart deluge
 
+- name: "remove broken deluge init script"
+  file:
+    path="/etc/init.d/deluged"
+    state="absent"
+
 - file: path=/mnt/1tb/Torrent state=directory owner=milhouse group=milhouse
 - file: path=/home/milhouse/.config/deluge state=directory owner=milhouse group=milhouse
 - name: "set deluge auth config file"
@@ -59,7 +64,7 @@
   become: false
   pip:
     name="flexget"
-    state="latest"
+    state="present"
 
 - file: path={{ deluge_autoadd_path }} state=directory owner=milhouse group=milhouse
 - file: path="/home/milhouse/.flexget" state=directory owner=milhouse group=milhouse
