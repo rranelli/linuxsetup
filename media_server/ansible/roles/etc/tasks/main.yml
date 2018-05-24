@@ -11,7 +11,7 @@
 
 - name: "configures the hostname"
   hostname:
-    name={{ inventory_hostname }}
+    name={{ server_name }}
 
 - name: "configure timezone"
   include_tasks: "ntp.yml"

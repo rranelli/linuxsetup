@@ -3,10 +3,10 @@
 - hosts: media
   become: yes
   roles:
-    # - etc
-    # - disks
-    # - packages
-    # - plex
-    # - torrent
-    # - nginx
+    - etc
+    - disks
+    - packages
+    - plex
+    - torrent
     - pihole
+    - nginx

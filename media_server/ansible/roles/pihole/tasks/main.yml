@@ -1,6 +1,6 @@
 - name: "copy config file"
   register: setupvars
-  copy:
+  template:
     src="setupVars.conf"
     dest="/etc/pihole/setupVars.conf"
 
@@ -10,39 +10,19 @@
   args:
     creates: /usr/local/bin/pihole
 
-- name: "install unbound"
-  apt:
-    name="unbound"
+- name: "setup dns"
+  include_tasks: "dns.yml"
+
+- name: "fix lighttpd config to play well with nginx"
+  register: lighttpd_config
+  lineinfile:
+    path="/etc/lighttpd/lighttpd.conf"
+    regexp="^server.port *= *\d+$"
+    line="server.port = 11867"
     state="present"
-    update_cache="yes"
-    cache_valid_time="7200"
 
-- name: "add pihole conf file"
-  register: pi_hole_conf
-  copy:
-    src: "pi-hole.conf"
-    dest: "/etc/unbound/unbound.conf.d/pi-hole.conf"
-
-- name: "add dns entries"
-  register: home_dns_conf
-  copy:
-    src: "home.conf"
-    dest: "/etc/unbound/unbound.conf.d/home.conf"
-
-- name: "ensure unbound is correctly configured"
-  when: "home_dns_conf.changed or pi_hole_conf.changed"
-  command: unbound-checkconf
-
-- name: "restart pihole dns"
-  when: "home_dns_conf.changed or pi_hole_conf.changed"
-  command: pihole restartdns
-
-- name: "enable & start unbound"
-  when: "home_dns_conf.changed or pi_hole_conf.changed"
+- name: "restart lighttpd if config changed"
+  when: lighttpd_config.changed
   service:
-    name="{{ item }}"
+    name="lighttpd"
     state="restarted"
-    enabled="yes"
-  with_items:
-    - "unbound"
-    - "unbound-resolvconf"

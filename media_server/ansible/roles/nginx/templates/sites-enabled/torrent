@@ -5,7 +5,7 @@ upstream torrent {
 
 server {
     listen 80;
-    server_name torrent.{{ inventory_hostname }};
+    server_name torrent.{{ server_name }};
 
     location / {
         include /etc/nginx/proxy_params;
