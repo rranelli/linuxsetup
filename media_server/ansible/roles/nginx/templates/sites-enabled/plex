@@ -5,21 +5,10 @@ upstream plex {
 
 server {
     listen 80;
-    server_name plex.{{ server_name }};
-
-    location /plex/ {
-        include /etc/nginx/proxy_params;
-
-        proxy_pass http://plex/manage;
-    }
-
-    location = / {
-        rewrite "^(/)$" http://plex.{{ server_name }}/plex permanent;
-    }
+    server_name plex.{{ inventory_hostname }};
 
     location / {
         include /etc/nginx/proxy_params;
-
-        proxy_pass http://plex;
+        proxy_pass http://plex/;
     }
 }

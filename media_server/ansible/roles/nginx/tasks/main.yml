@@ -13,9 +13,7 @@
     dest="/etc/nginx/{{ item }}"
     mode=0644
   with_items:
-    - .htpasswd
     - sites-enabled/plex
-    - sites-enabled/root
     - sites-enabled/torrent
     - sites-enabled/pihole
   notify:

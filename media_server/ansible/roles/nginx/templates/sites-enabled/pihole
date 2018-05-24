@@ -1,18 +1,14 @@
 # -*- mode: nginx -*-
 upstream pihole {
-    server 127.0.0.1:32400;
+    server 127.0.0.1:11867;
 }
 
 server {
     listen 80;
     server_name pihole.{{ server_name }};
 
-    location = / {
-        rewrite "^(/)$" http://pihole.{{ server_name }}/pihole permanent;
-    }
-
-    location / {
+    location /admin {
         include /etc/nginx/proxy_params;
-        proxy_pass http://pihole/admin/;
+        proxy_pass http://pihole/admin;
     }
 }
