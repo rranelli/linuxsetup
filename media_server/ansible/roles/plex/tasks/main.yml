@@ -47,7 +47,7 @@
 - name: "set up auto-refresh with cron"
   cron:
     job="curl -s http://localhost:32400/library/sections/{{ item }}/refresh?force=1"
-    name="auto-refresh library with cron"
+    name="auto-refresh library with cron secion {{ item }}"
     hour="*/5"
     user="plex"
     state="present"

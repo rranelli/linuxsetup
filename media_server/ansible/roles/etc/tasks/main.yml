@@ -26,4 +26,4 @@
   copy:
     content="#!/bin/bash\nemacs -nw -Q \"$@\""
     dest=/usr/bin/editor
-    mode=0644
+    mode=0755

@@ -7,7 +7,7 @@
     update_cache=true
     cache_valid_time=86400
   with_items:
-    - python-pip
+    - python3-pip
     - p7zip-full
     - libsqlite3-dev # needed by flexget
     - deluged
@@ -61,8 +61,8 @@
     - restart deluge
 
 - name: "install flexget"
-  become: false
   pip:
+    executable="pip3"
     name="flexget"
     state="present"
 
