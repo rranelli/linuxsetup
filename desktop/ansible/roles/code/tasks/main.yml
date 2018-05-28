@@ -68,6 +68,17 @@
     chdir: "{{ code_dir }}"
     creates: "{{ code_dir }}/.fetched"
 
+- name: "creates a cron job to automatically fetch from all repos"
+  cron:
+    hour: "*/4"
+    name: "{{ item.name }}"
+    job: "env CODE_DIR={{ item.dir }} {{ code_dir }}/linuxsetup/desktop/scripts/gitmulticast.sh fetch"
+    user: "{{ local_user }}"
+  with_items:
+    - {name: "code", dir: "{{ code_dir }}"}
+    - {name: "telnyx", dir: "/home/{{ local_user }}/telnyx"}
+    - {name: "taming-chaos", dir: "/home/{{ local_user }}/taming-chaos"}
+
 - file: path="~/.fonts" state="directory"
   become: false
 

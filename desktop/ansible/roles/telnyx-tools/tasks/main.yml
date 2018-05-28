@@ -37,6 +37,7 @@
   command: dpkg-query --show zoom
   register: zoom
   changed_when: zoom.rc != 0
+  failed_when: false
 
 - name: "zoom: dpkg"
   apt:
