@@ -21,6 +21,9 @@
 - name: "firefox"
   include_tasks: "firefox.yml"
 
+- name: "google chrome"
+  include_tasks: "chrome.yml"
+
 - name: "dropbox"
   include_tasks: "dropbox.yml"
 

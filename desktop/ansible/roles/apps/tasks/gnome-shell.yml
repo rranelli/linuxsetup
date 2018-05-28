@@ -3,7 +3,7 @@
     name="{{ item }}"
     default_release="testing"
     autoremove="yes"
-    state="present"
+    state="latest"
     update_cache="yes"
     cache_valid_time="7200"
   with_items:
