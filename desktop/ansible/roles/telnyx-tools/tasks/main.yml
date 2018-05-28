@@ -14,10 +14,11 @@
   failed_when: false
 
 - name: "download zoiper"
-  # weirdly this is not downloading the actual deb package....
+  # We've got some weird fuleragem here
   get_url:
     dest="/var/cache/apt/archives/zoiper.deb"
     url="https://www.zoiper.com/en/voip-softphone/download/zoiper5/for/linux-deb"
+    headers="Cookie:PHPSESSID=nffnjtleimu5ljla2ips8qos33"
   when: zoiper.changed
 
 - name: "install zoiper"
