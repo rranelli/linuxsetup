@@ -17,8 +17,14 @@ ls() {
 8inf() {
   local rc=${RC:-0}
   (exit $rc)
-  until [[ $? != $rc ]]; do "$@"; sleep 0.3; done
+  while [ $? == $rc ]; do "$@"; with-rc sleep 0.3; done
   zenity --info --text="Finished the infinite loop of $1"
+}
+
+8retry() {
+  local rc=${RC:-0}
+  (exit $(( ${rc} + 1 )))
+  while [ $? != $rc ]; do "$@"; with-rc sleep 0.3; done
 }
 
 8changelog() {
@@ -28,27 +34,26 @@ ls() {
 }
 8mkch() { 8changelog $1 | 8txc ;}
 
-xopen() {
+8open() {
   silently xdg-open "$@" &
   disown $!
 }
+xopen() { 8open "$@" ;}
 
 gitmulticast() { ~/code/linuxsetup/desktop/scripts/gitmulticast.sh $@ ;}
 
 alias 8gm='gitmulticast'
 alias 8pcp='gitmulticast pull'
 
-8set-brightness () {
-  xrandr -q \
-      | awk '/ connected/ {print $1}' \
-      | tee \
-      | xargs -n1 -I{} xrandr --output {} --brightness $1
-}
-
 #
 ## Programming
 #
 silently() { "$@" >/dev/null 2>&1 ;}
+with-rc() {
+  local rc=$?
+  "$@"
+  return "${rc}"
+}
 
 8get-docker-ip() {
   local CONTAINER_NAME="${1}"
