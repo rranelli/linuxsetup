@@ -21,7 +21,6 @@
   notify: "dns changed"
 
 - name: "enable unbound"
-  when: "home_dns_conf.changed or pi_hole_conf.changed"
   service:
     name="{{ item }}"
     enabled="yes"

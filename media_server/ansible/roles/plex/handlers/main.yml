@@ -1,6 +1,7 @@
 ---
 
-- name: restart plex
+- name: "restart plex service"
+  listen: "restart plex"
   service:
     name=plexmediaserver
     state=restarted

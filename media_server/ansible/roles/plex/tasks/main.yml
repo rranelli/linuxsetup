@@ -12,12 +12,12 @@
   user: name="plex" state="present"
 
 - name: "install plex"
-  register: plexinstall
   apt:
     name="plexmediaserver"
     state="latest"
     update_cache="yes"
     cache_valid_time="7200"
+  notify: "restart plex"
 
 - name: "fix plex weird /etc/init.d"
   shell: |
@@ -31,12 +31,6 @@
     name="plexmediaserver"
     enabled="true"
     state="started"
-
-- name: "restart plex, if newly installed"
-  service:
-    name="plexmediaserver"
-    state="restarted"
-  when: plexinstall.changed
 
 - name: "install subliminal plugin"
   include_tasks: "subliminal_plugin.yml"
