@@ -14,22 +14,16 @@
   include_tasks: "dns.yml"
 
 - name: "change lighttpd default port"
-  register: lighttpd_config
   lineinfile:
     path="/etc/lighttpd/lighttpd.conf"
     regexp="^server.port *= *\d+$"
     line="server.port = 11867"
     state="present"
+  notify: "lighttpd config changed"
 
 - name: "fix lighttpd config to play well with nginx"
-  register: lighttpd_config
   lineinfile:
     path="/etc/lighttpd/lighttpd.conf"
     regexp='^ *"X-Frame-Options" => "DENY"$'
     state="absent"
-
-- name: "restart lighttpd if config changed"
-  when: lighttpd_config.changed
-  service:
-    name="lighttpd"
-    state="restarted"
+  notify: "lighttpd config changed"

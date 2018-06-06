@@ -4,32 +4,26 @@
     state="present"
     update_cache="yes"
     cache_valid_time="7200"
+  notify: "dns changed"
 
 - name: "add pihole conf file"
   register: pi_hole_conf
   copy:
     src: "pi-hole.conf"
     dest: "/etc/unbound/unbound.conf.d/pi-hole.conf"
+  notify: "dns changed"
 
 - name: "add dns entries"
   register: home_dns_conf
   template:
     src: "home.conf"
     dest: "/etc/unbound/unbound.conf.d/home.conf"
+  notify: "dns changed"
 
-- name: "ensure unbound is correctly configured"
-  when: "home_dns_conf.changed or pi_hole_conf.changed"
-  command: unbound-checkconf
-
-- name: "restart pihole dns"
-  when: "home_dns_conf.changed or pi_hole_conf.changed"
-  command: pihole restartdns
-
-- name: "enable & start unbound"
+- name: "enable unbound"
   when: "home_dns_conf.changed or pi_hole_conf.changed"
   service:
     name="{{ item }}"
-    state="restarted"
     enabled="yes"
   with_items:
     - "unbound"
