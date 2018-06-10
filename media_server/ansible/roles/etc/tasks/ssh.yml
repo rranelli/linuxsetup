@@ -91,5 +91,4 @@
     src=etc/ssh/sshd_config
     dest=/etc/ssh/sshd_config
     mode=0644
-  notify:
-    - restart sshd
+  notify: "sshd config changed"

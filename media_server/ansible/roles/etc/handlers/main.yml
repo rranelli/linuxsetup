@@ -1,6 +1,7 @@
 ---
 
 - name: "restart sshd"
+  listen: "sshd config changed"
   service:
-    name=sshd
-    state=restarted
+    name="sshd"
+    state="restarted"

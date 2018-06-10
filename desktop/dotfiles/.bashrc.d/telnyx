@@ -44,8 +44,7 @@ __make_me_sudo() { sudo echo -n ;}
 8tv-meld-latest() {
   local REPO_ROOT=$(git rev-parse --show-toplevel)
   local LATEST_OUTPUT=$(ls -1 output/ | tail -n1)
-  local FSDIALPLAN=${1:-red}
-  meld "${REPO_ROOT}/output/${LATEST_OUTPUT}"/{elixir,"${FSDIALPLAN}"}
+  meld "${REPO_ROOT}/output/${LATEST_OUTPUT}"/elixir{,-master}
 
   echo ${LATEST_OUTPUT}
 }
@@ -63,5 +62,7 @@ __make_me_sudo() { sudo echo -n ;}
   local LATEST_SNAPSHOT=$(ls -1 snapshots/ | tail -n1)
   sed -i -e "s/SNAPSHOT=\\/snapshots\\/.*$/SNAPSHOT=\\/snapshots\\/${LATEST_SNAPSHOT}/g" mockserver.env
 }
+
+declare -a TANKERS=(ams3-tanker01 ch1-tanker01 ch1-tanker02 dal9-tanker01 dal9-tanker02 ld6-tanker01 ld6-tanker02 sjc3-tanker01 sjc3-tanker02 tor1-tanker01 van2-tanker01 van2-tanker02 wdc4-tanker01 wdc4-tanker02)
 
 PS1="\$(8vpn-ps1)$PS1"
