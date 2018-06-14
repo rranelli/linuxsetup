@@ -10,6 +10,8 @@ ls() {
   fi
 }
 
+8night-light () { gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled true ;}
+
 8txc() { xclip -i -selection clipboard; }
 
 8gr() { cd $(git rev-parse --show-toplevel); }
@@ -38,7 +40,7 @@ ls() {
   silently xdg-open "$@" &
   disown $!
 }
-xopen() { 8open "$@" ;}
+xopen() { echo 'this is deprecated. use 8open instead'; 8open "$@" ;}
 
 gitmulticast() { ~/code/linuxsetup/desktop/scripts/gitmulticast.sh $@ ;}
 
@@ -68,10 +70,10 @@ with-rc() {
 
   file=$1; shift
   while :; do
-     "$@" &
-     PID=$!
-     inotifywait -e modify -e move -e create -e delete -e attrib "$file"
-     kill -9 $PID
+    "$@" &
+    PID=$!
+    inotifywait -e modify -e move -e create -e delete -e attrib "$file"
+    kill -9 $PID
   done
 }
 
