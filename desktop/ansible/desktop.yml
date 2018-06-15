@@ -3,6 +3,7 @@
   connection: local
   become: yes
   roles:
+    - browserpass
     - packages
     - ssh
     - apps

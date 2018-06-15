@@ -2,7 +2,7 @@
 export WORKON_HOME="$HOME/.pyenv/versions"
 source ~/.bashrc
 
-if [ $KEYNOTEMACS = "" ]; then
+if [ -z $KEYNOTEMACS ]; then
     emacsclient -c "$@" || emacs -e "server-start" "$@"
 else
   emacs "$@"

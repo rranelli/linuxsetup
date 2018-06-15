@@ -16,8 +16,8 @@
     path="/usr/local/bin/mimipass"
     state="link"
     src="{{ code_dir }}/mimipass/mimipass"
-    owner="root"
-    group="root"
+    owner="{{ local_user }}"
+    group="{{ local_user }}"
 
 - name: "install mimipass bash completion"
   copy:
