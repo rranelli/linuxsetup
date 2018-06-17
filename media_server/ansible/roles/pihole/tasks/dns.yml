@@ -6,21 +6,21 @@
     cache_valid_time="7200"
   notify: "dns changed"
 
-- name: "add pihole conf file"
+- name: "unbound | add pihole conf file"
   register: pi_hole_conf
   copy:
     src: "pi-hole.conf"
     dest: "/etc/unbound/unbound.conf.d/pi-hole.conf"
   notify: "dns changed"
 
-- name: "add dns entries"
+- name: "unbound | add dns entries"
   register: home_dns_conf
   template:
     src: "home.conf"
     dest: "/etc/unbound/unbound.conf.d/home.conf"
   notify: "dns changed"
 
-- name: "enable unbound"
+- name: "unbound | enable unbound"
   service:
     name="{{ item }}"
     enabled="yes"

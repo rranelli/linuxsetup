@@ -1,3 +1,5 @@
+- file: path="/etc/pihole", status="directory"
+
 - name: "copy config file"
   register: setupvars
   template:
