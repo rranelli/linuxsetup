@@ -13,5 +13,5 @@
     src="UUID={{ item.uuid }}"
     fstype="ext4"
     state="mounted"
-    opts="defaults,auto,users"
+    opts="defaults,auto,users,nofail"
   with_items: "{{ disks }}"
