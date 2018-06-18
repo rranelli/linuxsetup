@@ -1,0 +1,20 @@
+- name: "local_user | create user"
+  user:
+    name="{{ local_user }}"
+    groups="sudo"
+    password="{{ local_user_password }}"
+    create_home="yes"
+
+- file: path="/home/{{ local_user }}/.ssh/" state="directory" mode="0700" owner="{{ local_user }}" group="{{ local_user }}"
+- name: "local_user | copy public ssh"
+  copy:
+    src="id_rsa.pub"
+    dest="/home/{{ local_user }}/.ssh/id_rsa.pub"
+
+- name: "local_user | authorize ssh key"
+  lineinfile:
+    path="/home/{{ local_user }}/.ssh/authorized_keys"
+    line="{{ lookup('file', 'id_rsa.pub') }}"
+    state="present"
+    create="yes"
+    owner="{{ local_user }}"

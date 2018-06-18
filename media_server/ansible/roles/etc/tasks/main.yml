@@ -1,6 +1,16 @@
 - name: "ssh configuration"
   include_tasks: "ssh.yml"
 
+- name: "local user"
+  include_tasks: "local_user.yml"
+
+- name: "configure timezone"
+  include_tasks: "ntp.yml"
+
+- name: "configures the hostname"
+  hostname:
+    name={{ server_name }}
+
 - name: "config locales"
   locale_gen:
    name: "{{ item }}"
@@ -8,13 +18,6 @@
   with_items:
     - en_US.UTF-8
     - pt_BR.UTF-8
-
-- name: "configures the hostname"
-  hostname:
-    name={{ server_name }}
-
-- name: "configure timezone"
-  include_tasks: "ntp.yml"
 
 - name: "set completion case"
   lineinfile:

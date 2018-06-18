@@ -1,2 +1,2 @@
 [media]
-stockholm ansible_port=2372 ansible_host=192.168.0.2
+stockholm ansible_host=192.168.0.2 ansible_user=pi

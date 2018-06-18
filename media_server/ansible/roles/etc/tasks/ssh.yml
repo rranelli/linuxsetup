@@ -1,6 +1,6 @@
 - name: Set configured port fact
   set_fact:
-    configured_port: "{{ ansible_port }}"
+    configured_port: "2372"
 
 # From localhost, check if we're able to reach {{ inventory_hostname }} on
 # port 22
@@ -25,11 +25,11 @@
   register: ssh_port_set
 
 # If unreachable on port 22, check if we're able to reach
-# {{ inventory_hostname }} on {{ ansible_port }} provided by the inventory
+# {{ inventory_hostname }} on {{ configured_port }} provided by the inventory
 # from localhost
 - name: Check if we're using the inventory-provided SSH port
   wait_for:
-    port: "{{ ansible_port }}"
+    port: "{{ configured_port }}"
     state: "started"
     host: "{{ inventory_hostname }}"
     connect_timeout: "5"
@@ -40,7 +40,7 @@
   when: default_ssh is defined and
         default_ssh.state is undefined
 
-# If {{ ansible_port }} is reachable, we don't need to do anything special
+# If {{ configured_port }} is reachable, we don't need to do anything special
 - name: SSH port is configured properly
   debug:
     msg: "SSH port is configured properly"
@@ -52,15 +52,15 @@
 # If the SSH port is neither the default or the configured, give up.
 - name: Fail if SSH port was not auto-detected (unknown)
   fail:
-    msg: "The SSH port is neither 22 or {{ ansible_port }}."
+    msg: "The SSH port is neither 22 or {{ configured_port }}."
   when: ssh_port_set is undefined
 
 # If unreachable on port 22, check if we're able to reach
-# {{ inventory_hostname }} on {{ ansible_port }} provided by the inventory
+# {{ inventory_hostname }} on {{ configured_port }} provided by the inventory
 # from localhost
 - name: Check if we're using the inventory-provided SSH port
   wait_for:
-    port: "{{ ansible_port }}"
+    port: "{{ configured_port }}"
     state: "started"
     host: "{{ inventory_hostname }}"
     connect_timeout: "5"
@@ -71,7 +71,7 @@
   when: default_ssh is defined and
         default_ssh.state is undefined
 
-# If {{ ansible_port }} is reachable, we don't need to do anything special
+# If {{ configured_port }} is reachable, we don't need to do anything special
 - name: SSH port is configured properly
   debug:
     msg: "SSH port is configured properly"
@@ -83,7 +83,7 @@
 # If the SSH port is neither the default or the configured, give up.
 - name: Fail if SSH port was not auto-detected (unknown)
   fail:
-    msg: "The SSH port is neither 22 or {{ ansible_port }}."
+    msg: "The SSH port is neither 22 or {{ configured_port }}."
   when: ssh_port_set is undefined
 
 - name: "configure sshd"
