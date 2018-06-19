@@ -2,6 +2,7 @@
   user:
     name="{{ local_user }}"
     groups="sudo"
+    shell="/bin/bash"
     password="{{ local_user_password }}"
     create_home="yes"
 

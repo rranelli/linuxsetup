@@ -24,7 +24,7 @@
     ln -sf /usr/lib/plexmediaserver{/Resources,}/start.sh
   args:
     executable: /bin/bash
-    creates: /usr/lib/plexmediaserver/Resources/start.sh
+    creates: /usr/lib/plexmediaserver/start.sh
 
 - name: "enable plex"
   service:

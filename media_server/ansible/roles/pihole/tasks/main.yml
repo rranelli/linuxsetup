@@ -1,4 +1,7 @@
-- file: path="/etc/pihole", status="directory"
+- file: path="/etc/pihole" state="directory"
+
+- name: "setup unbound dns"
+  include_tasks: "unbound.yml"
 
 - name: "copy config file"
   register: setupvars
@@ -12,10 +15,8 @@
   args:
     creates: /usr/local/bin/pihole
 
-- name: "setup dns"
-  include_tasks: "dns.yml"
-
 - name: "change lighttpd default port"
+  register: lighttpd_config   # TODO FIXME Remove when `notify_now` is on ansible
   lineinfile:
     path="/etc/lighttpd/lighttpd.conf"
     regexp="^server.port *= *\d+$"
@@ -24,8 +25,14 @@
   notify: "lighttpd config changed"
 
 - name: "fix lighttpd config to play well with nginx"
+  register: lighttpd_config2 # TODO FIXME Remove when `notify_now` is on ansible
   lineinfile:
     path="/etc/lighttpd/lighttpd.conf"
     regexp='^ *"X-Frame-Options" => "DENY"$'
     state="absent"
   notify: "lighttpd config changed"
+
+# TODO FIXME Remove when `notify_now` is on ansible
+- name: "restart lighttpd"
+  when: lighttpd_config.changed or lighttpd_config2.changed
+  service: name="lighttpd" status="restarted"

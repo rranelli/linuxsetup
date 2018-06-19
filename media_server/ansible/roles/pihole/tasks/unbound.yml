@@ -1,4 +1,4 @@
-- name: "install unbound"
+- name: "unbound | install unbound"
   apt:
     name="unbound"
     state="present"
