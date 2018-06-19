@@ -101,9 +101,9 @@ setup_ps1() {
 
     function clr { echo -e "${1}${2}\[\e[0m\]"; }
 
-    local time="$(clr $higrn θ)[$(clr $higrn $time24h)]"
-    local user_at_host="$(clr $hicyn υ)[$(clr $hicyn $user)]$(clr $hiwht ρ)[$(clr $hiwht $host)]"
-    local path="$(clr $hipur δ)[$(clr $hipur $path)]"
+    local time="$(clr $higrn 🕥)$(clr $higrn $time24h)"
+    local user_at_host="$(clr $hicyn 🕴) $(clr $hicyn $user)$(clr $hiwht 🖧) $(clr $hiwht $host)"
+    local path="$(clr $hipur 🖿) $(clr $hipur $path)"
     local success='$(success_prompt)'
     local failure='$(failure_prompt)'
     local arrow='⟶  '
