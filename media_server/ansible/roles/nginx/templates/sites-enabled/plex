@@ -5,7 +5,7 @@ upstream plex {
 
 server {
     listen 80;
-    server_name plex.{{ inventory_hostname }};
+    server_name plex.{{ server_name }};
 
     location / {
         include /etc/nginx/proxy_params;
