@@ -2,21 +2,22 @@
 
 - file: path=/mnt/1tb/Torrent state=directory owner=milhouse group=milhouse mode=0755
 - file: path=/home/milhouse/.config/deluge state=directory owner=milhouse group=milhouse
-- name: "set deluge auth config file"
-  copy:
-    content="{{ deluge_auth }}\n"
-    dest="/home/{{ local_user }}/.config/deluge/auth"
-    mode=0600
-    owner="{{ local_user }}"
-    group="{{ local_user }}"
-  notify:
-    - restart deluge
 
 - name: "enable deluged on /etc/default"
   copy:
     content="ENABLE_DELUGED=1"
     dest=/etc/default/deluged
     mode=0600
+
+- name: "set deluge auth config file"
+  copy:
+    src="auth"
+    dest="/home/{{ local_user }}/.config/deluge/auth"
+    mode=0600
+    owner="{{ local_user }}"
+    group="{{ local_user }}"
+  notify:
+    - restart deluge
 
 - name: "set deluge core.conf file"
   template:
@@ -82,14 +83,6 @@
     minute="*/30"
     user="milhouse"
     state="present"
-
-- name: "setup a cronjob for file extract"
-  cron:
-    job="/usr/local/bin/rar-torrent-extract"
-    name="extract rar torrents"
-    minute="*/30"
-    user="plex"
-    state="absent"
 
 - name: "enable deluged & deluge-web"
   service:

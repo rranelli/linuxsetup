@@ -1,9 +1,0 @@
-#!/bin/bash
-for file in $(find /mnt/1tb/Torrent/Complete -name *.rar); do
-  (
-    cd $(dirname "${file}")
-    7z e "${file}" -y && rm "${file}"
-  )
-done
-
-true
