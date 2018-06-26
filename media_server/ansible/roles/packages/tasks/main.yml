@@ -9,3 +9,4 @@
     - bash-completion
     - curl
     - dnsutils
+    - pi-bluetooth
