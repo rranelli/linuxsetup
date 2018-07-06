@@ -95,8 +95,12 @@ setup_ps1() {
       return $ret
     }
     function failure_prompt {
-      ret=$?; [ $ret != 0 ] && echo "✘.${ret}"
-      return $ret
+      pipestatus=${PIPESTATUS[@]}
+      return=$?
+
+      [ "${pipestatus}" != 0 ] && echo "✘.${pipestatus}"
+
+      return "${return}"
     }
 
     function clr { echo -e "${1}${2}\[\e[0m\]"; }
