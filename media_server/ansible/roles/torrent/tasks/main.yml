@@ -80,7 +80,7 @@
   cron:
     job="/usr/local/bin/flexget --cron execute"
     name="flexget download torrents"
-    minute="*/30"
+    minute="*/3"
     user="milhouse"
     state="present"
 
