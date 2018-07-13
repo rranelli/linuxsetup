@@ -1,10 +1,18 @@
-- name: "restart deluge"
+- name: "restart deluge services"
+  listen: "restart deluge"
   service:
     name="{{ item }}"
     state="restarted"
   with_items:
     - deluged
     - deluge-web
+
+- name: "restore deluge config attributes"
+  listen: "restart deluge"
+  file: path="{{ item }}" attr="e"
+  with_items:
+    - "/home/{{ local_user }}/.config/deluge/core.conf"
+    - "/home/{{ local_user }}/.config/deluge/auth"
 
 - name: "systemd reload"
   command: systemctl daemon-reload

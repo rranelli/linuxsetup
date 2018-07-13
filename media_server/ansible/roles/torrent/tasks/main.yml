@@ -9,26 +9,6 @@
     dest=/etc/default/deluged
     mode=0600
 
-- name: "set deluge auth config file"
-  copy:
-    src="auth"
-    dest="/home/{{ local_user }}/.config/deluge/auth"
-    mode=0600
-    owner="{{ local_user }}"
-    group="{{ local_user }}"
-  notify:
-    - restart deluge
-
-- name: "set deluge core.conf file"
-  template:
-    src=core.conf
-    dest="/home/{{ local_user }}/.config/deluge/core.conf"
-    mode=0666
-    owner="{{ local_user }}"
-    group="{{ local_user }}"
-  notify:
-    - restart deluge
-
 - name: "add deluge{-web,d}.service"
   copy:
     src="lib/systemd/system/{{ item }}"
@@ -56,10 +36,48 @@
   notify:
     - restart deluge
 
+- name: "remove imutabble attribute of deluge conf files"
+  file: path="{{ item }}" attr="e"
+  with_items:
+    - "/home/{{ local_user }}/.config/deluge/core.conf"
+    - "/home/{{ local_user }}/.config/deluge/auth"
+
+- name: "set deluge auth & core config file"
+  register: deluge_conf
+  template:
+    src="{{ item }}"
+    dest="/home/{{ local_user }}/.config/deluge/{{ item }}"
+    mode=0600
+    owner="{{ local_user }}"
+    group="{{ local_user }}"
+  notify:
+    - restart deluge
+  with_items:
+    - "auth"
+    - "core.conf"
+
+- name: "set deluge core & auth files immutable if changed"
+  when: deluge_conf.changed
+  file: path="{{ item }}" attr="i"
+  with_items:
+    - "/home/{{ local_user }}/.config/deluge/core.conf"
+    - "/home/{{ local_user }}/.config/deluge/auth"
+
 - name: "remove broken deluge init script"
   file:
     path="/etc/init.d/deluged"
     state="absent"
+
+- name: "enable deluged & deluge-web"
+  service:
+    name="{{ item }}"
+    enabled="yes"
+    state="started"
+  with_items:
+    - deluged
+    - deluge-web
+  notify:
+    - systemd reload
 
 - name: "install flexget"
   pip:
@@ -83,14 +101,3 @@
     minute="*/3"
     user="milhouse"
     state="present"
-
-- name: "enable deluged & deluge-web"
-  service:
-    name="{{ item }}"
-    enabled="yes"
-    state="started"
-  with_items:
-    - deluged
-    - deluge-web
-  notify:
-    - systemd reload
