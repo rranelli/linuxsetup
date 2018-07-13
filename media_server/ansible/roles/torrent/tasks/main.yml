@@ -1,6 +1,6 @@
 - include_vars: "secret.yml"
 
-- file: path=/mnt/1tb/Torrent state=directory owner=milhouse group=milhouse mode=0755
+- file: path=/mnt/1.5tb/Torrent state=directory owner=milhouse group=milhouse mode=0755
 - file: path=/home/milhouse/.config/deluge state=directory owner=milhouse group=milhouse
 
 - name: "enable deluged on /etc/default"
