@@ -26,11 +26,17 @@
     executable: /bin/bash
     creates: /usr/lib/plexmediaserver/start.sh
 
-- name: "enable plex"
-  service:
-    name="plexmediaserver"
-    enabled="true"
-    state="started"
+- name: "create plex directory on the external disk"
+  file: path="/mnt/1.5tb/plex_library" state="directory" owner="plex" group="plex"
+
+- name: "link plex local config to external disk"
+  file:
+    src="/mnt/1.5tb/plex_library"
+    path="/home/plex/Library"
+    state="link"
+    force="yes"
+    owner="plex"
+    group="plex"
 
 - name: "install subliminal plugin"
   include_tasks: "subliminal_plugin.yml"
@@ -38,11 +44,14 @@
 - name: "install trakttv plugin"
   include_tasks: "trakttv_plugin.yml"
 
-- name: "set up auto-refresh with cron"
+- name: "remove auto-refresh with cron"
   cron:
-    job="curl -s http://localhost:32400/library/sections/{{ item }}/refresh?force=1"
     name="auto-refresh library with cron secion {{ item }}"
-    hour="*/5"
-    user="plex"
-    state="present"
+    state="absent"
   with_items: ["0", "1", "2", "3", "4", "5"]
+
+- name: "enable plex"
+  service:
+    name="plexmediaserver"
+    enabled="true"
+    state="started"
