@@ -16,9 +16,12 @@
 - name: "unbound | add dns entries"
   register: home_dns_conf
   template:
-    src: "home.conf"
-    dest: "/etc/unbound/unbound.conf.d/home.conf"
+    src: "dns.conf"
+    dest: "/etc/unbound/unbound.conf.d/dns.conf"
   notify: "dns changed"
+
+- name: "unbound | remove old dns file"
+  file: path="/etc/unbound/unbound.conf.d/home.conf" state="absent"
 
 - name: "unbound | enable unbound"
   service:
