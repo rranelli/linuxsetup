@@ -1,0 +1,14 @@
+# -*- mode: nginx -*-
+upstream calibre {
+    server 127.0.0.1:9780;
+}
+
+server {
+    listen 80;
+    server_name calibre.{{ server_name }};
+
+    location / {
+        include /etc/nginx/proxy_params;
+        proxy_pass http://calibre/;
+    }
+}

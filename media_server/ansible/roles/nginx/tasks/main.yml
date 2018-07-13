@@ -16,5 +16,6 @@
     - sites-enabled/plex
     - sites-enabled/torrent
     - sites-enabled/pihole
+    - sites-enabled/calibre
   notify:
     - restart nginx

@@ -1,0 +1,39 @@
+- name: "create library directory"
+  file:
+    path="/mnt/1.5tb/calibre_library"
+    state="directory"
+    owner="{{ local_user }}"
+    group="{{ local_user }}"
+
+- name: "install calibre"
+  command: sudo python -c "import sys; py3 = sys.version_info[0] > 2; u = __import__('urllib.request' if py3 else 'urllib', fromlist=1); exec(u.urlopen('http://status.calibre-ebook.com/linux_installer').read()); main()"
+  args:
+    creates: "/opt/calibre/calibre-server"
+
+- name: "add service file to systemd"
+  register: calibre_service
+  copy:
+    dest: "/etc/systemd/system/calibre-server.service"
+    content: |
+      [Unit]
+      Description=calibre content server
+      After=network.target
+
+      [Service]
+      Type=simple
+      User={{ local_user }}
+      Group={{ local_user }}
+      ExecStart=/opt/calibre/calibre-server "/mnt/1.5tb/calibre_library" --port 9780
+
+      [Install]
+      WantedBy=multi-user.target
+
+- name: "daemon-reload if calibre service created"
+  when: calibre_service.changed
+  command: systemctl daemon-reload
+
+- name: "enable & start calibre"
+  service:
+    name="calibre-server"
+    state="started"
+    enabled="yes"
