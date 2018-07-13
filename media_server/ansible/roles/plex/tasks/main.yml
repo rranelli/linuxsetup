@@ -44,12 +44,6 @@
 - name: "install trakttv plugin"
   include_tasks: "trakttv_plugin.yml"
 
-- name: "remove auto-refresh with cron"
-  cron:
-    name="auto-refresh library with cron secion {{ item }}"
-    state="absent"
-  with_items: ["0", "1", "2", "3", "4", "5"]
-
 - name: "enable plex"
   service:
     name="plexmediaserver"
