@@ -90,10 +90,6 @@ setup_ps1() {
         ret=$?; shopt -q login_shell && echo 'ξ[login]'
         return $ret
     }
-    function success_prompt {
-      ret=$?; [ $ret = 0 ] && echo "𝛌.x"
-      return $ret
-    }
     function failure_prompt {
       pipestatus=${PIPESTATUS[@]}
       return=$?
@@ -106,9 +102,8 @@ setup_ps1() {
     function clr { echo -e "${1}${2}\[\e[0m\]"; }
 
     local time="$(clr $higrn 🕥)$(clr $higrn $time24h)"
-    local user_at_host="$(clr $hicyn 🕴) $(clr $hicyn $user)$(clr $hiwht 🖧) $(clr $hiwht $host)"
-    local path="$(clr $hipur 🖿) $(clr $hipur $path)"
-    local success='$(success_prompt)'
+    local user_at_host="$(clr $hicyn 🚹)$(clr $hicyn $user)$(clr $hiwht 💻)$(clr $hiwht $host)"
+    local path="$(clr $hipur 🗁) $(clr $hipur $path)"
     local failure='$(failure_prompt)'
     local arrow='⟶  '
     local login_shell_indicator="$(clr $hired '$(parse_login_shell)')"
@@ -119,7 +114,6 @@ setup_ps1() {
     PS1+="$path"
     PS1+="$newline"
     PS1+="$login_shell_indicator"
-    PS1+="$(clr $hicyn $success)"
     PS1+="$(clr $bldred $failure)"
     PS1+="$arrow"
 
