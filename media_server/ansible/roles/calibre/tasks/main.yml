@@ -6,9 +6,11 @@
     group="{{ local_user }}"
 
 - name: "install calibre"
-  command: sudo python -c "import sys; py3 = sys.version_info[0] > 2; u = __import__('urllib.request' if py3 else 'urllib', fromlist=1); exec(u.urlopen('http://status.calibre-ebook.com/linux_installer').read()); main()"
-  args:
-    creates: "/opt/calibre/calibre-server"
+  apt:
+    name="calibre"
+    state="present"
+    update_cache="yes"
+    cache_valid_time="7200"
 
 - name: "add service file to systemd"
   register: calibre_service
@@ -23,7 +25,7 @@
       Type=simple
       User={{ local_user }}
       Group={{ local_user }}
-      ExecStart=/opt/calibre/calibre-server "/mnt/1.5tb/calibre_library" --port 9780
+      ExecStart=/usr/bin/calibre-server /mnt/1.5tb/calibre_library --port 9780 --with-library /mnt/1.5tb/calibre_library
 
       [Install]
       WantedBy=multi-user.target

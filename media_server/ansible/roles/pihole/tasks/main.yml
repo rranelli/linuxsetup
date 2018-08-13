@@ -9,6 +9,15 @@
     src="setupVars.conf"
     dest="/etc/pihole/setupVars.conf"
 
+- name: "whitelist googleadservice because it is so annoying not to"
+  lineinfile:
+    path="/etc/pihole/whitelist.txt"
+    line="{{ item }}"
+    state="present"
+  with_items:
+    - "googleadservices.com"
+    - "www.googleadservices.com"
+
 - name: "run automagic installation"
   register: pihole_installed
   shell: curl -L https://install.pi-hole.net | bash /dev/stdin --unattended
@@ -35,4 +44,4 @@
 # TODO FIXME Remove when `notify_now` is on ansible
 - name: "restart lighttpd"
   when: lighttpd_config.changed or lighttpd_config2.changed
-  service: name="lighttpd" status="restarted"
+  service: name="lighttpd" state="restarted"
