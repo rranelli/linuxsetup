@@ -1,8 +1,5 @@
 - file: path="/etc/pihole" state="directory"
 
-- name: "setup unbound dns"
-  include_tasks: "unbound.yml"
-
 - name: "copy config file"
   register: setupvars
   template:
@@ -19,7 +16,6 @@
     - plex.stockholm
     - calibre.stockholm
     - torrent.stockholm
-    - eita.stockholm
   notify:
     - "dns changed"
 
@@ -31,6 +27,12 @@
   with_items:
     - "googleadservices.com"
     - "www.googleadservices.com"
+
+- name: "create pihole group"
+  group: name="pihole" state="present"
+
+- name: "create pihole user"
+  user: name="pihole" state="present" system="yes"
 
 - name: "run automagic installation"
   register: pihole_installed
@@ -59,3 +61,9 @@
 - name: "restart lighttpd"
   when: lighttpd_config.changed or lighttpd_config2.changed
   service: name="lighttpd" state="restarted"
+
+- name: "start & enable pihole"
+  service:
+    name="pihole-FTL"
+    state="started"
+    enabled="yes"

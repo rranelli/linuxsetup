@@ -1,6 +1,7 @@
 - name: "restart pihole dns"
   listen: "dns changed"
   command: pihole restartdns
+  failed_when: false
 
 - name: "restart lighttpd if config changed"
   listen: "lighttpd config changed"
