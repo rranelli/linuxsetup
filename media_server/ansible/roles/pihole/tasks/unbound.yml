@@ -1,29 +1,15 @@
 - name: "unbound | install unbound"
   apt:
     name="unbound"
-    state="present"
+    state="absent"
+    purge="yes"
     update_cache="yes"
     cache_valid_time="7200"
-  notify: "dns changed"
 
 - name: "unbound | add pihole conf file"
   register: pi_hole_conf
-  copy:
-    src: "pi-hole.conf"
-    dest: "/etc/unbound/unbound.conf.d/pi-hole.conf"
-  notify: "dns changed"
+  file: path="/etc/unbound/unbound.conf.d/pi-hole.conf" state="absent"
 
 - name: "unbound | add dns entries"
   register: home_dns_conf
-  template:
-    src: "dns.conf"
-    dest: "/etc/unbound/unbound.conf.d/dns.conf"
-  notify: "dns changed"
-
-- name: "unbound | enable unbound"
-  service:
-    name="{{ item }}"
-    enabled="yes"
-  with_items:
-    - "unbound"
-    - "unbound-resolvconf"
+  file: path="/etc/unbound/unbound.conf.d/dns.conf" state="absent"

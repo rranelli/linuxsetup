@@ -9,6 +9,20 @@
     src="setupVars.conf"
     dest="/etc/pihole/setupVars.conf"
 
+- name: "add local addresses to /etc/hosts so that dnsmasq can serve'em"
+  lineinfile:
+    path="/etc/hosts"
+    line="{{ server_ip }}	{{ item }}"
+    state="present"
+  with_items:
+    - stockholm
+    - plex.stockholm
+    - calibre.stockholm
+    - torrent.stockholm
+    - eita.stockholm
+  notify:
+    - "dns changed"
+
 - name: "whitelist googleadservice because it is so annoying not to"
   lineinfile:
     path="/etc/pihole/whitelist.txt"
