@@ -6,7 +6,7 @@
   with_items:
     - description: "spotify"
       keyserver: "keyserver.ubuntu.com"
-      id: "0DF731E45CE24F27EEEB1450EFDC8610341D9410"
+      id: "931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90"
     - description: "telegram"
       keyserver: "keyserver.ubuntu.com"
       id: "A3D8A366869FE2DC5FFD79C36A9653F936FD5529"
