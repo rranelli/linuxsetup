@@ -6,7 +6,7 @@
 - name: "install emacs's build deps"
   when: emacs.changed
   apt:
-    name="emacs24"
+    name="emacs25"
     state="build-dep"
     update_cache="yes"
     cache_valid_time="7200"
