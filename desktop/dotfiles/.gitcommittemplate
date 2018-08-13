@@ -1,7 +1,10 @@
-rr/current-jira-task Who do you love?
+rr/current-jira-task [reason and stuff]
 
-[WHAT]
+- What, Why, How
 
-[WHY]
 
-[HOW]
+Checklist:
+- [ ] FeatureFlag?
+- [ ] Logs
+- [ ] Metrics
+- [ ] Backwards compatibility
