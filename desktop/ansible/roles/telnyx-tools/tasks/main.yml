@@ -6,6 +6,7 @@
     cache_valid_time="7200"
   with_items:
     - meld
+    - sngrep
 
 - name: "check if zoiper is installed"
   command: dpkg-query --show zoiper5
