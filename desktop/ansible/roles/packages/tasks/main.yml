@@ -76,6 +76,7 @@
     - socat
     - ssh
     - strace
+    - tcpdump
     - tshark
     - wget
     - wireshark
