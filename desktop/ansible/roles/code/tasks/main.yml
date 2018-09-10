@@ -70,9 +70,10 @@
 
 - name: "creates a cron job to automatically fetch from all repos"
   cron:
+    minute: "0"
     hour: "*/4"
     name: "{{ item.name }}"
-    job: "env CODE_DIR={{ item.dir }} {{ code_dir }}/linuxsetup/desktop/scripts/gitmulticast.sh fetch"
+    job: "env CODE_DIR={{ item.dir }} {{ code_dir }}/linuxsetup/desktop/scripts/gitmulticast.sh fetch > /home/{{ local_user }}/.local/log.{{ item.name }} 2>&1"
     user: "{{ local_user }}"
   with_items:
     - {name: "code", dir: "{{ code_dir }}"}
