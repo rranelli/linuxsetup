@@ -14,7 +14,7 @@ __make_me_sudo() { sudo echo -n ;}
 
   (
     mimipass get telnyx.okta.com/password \
-        | silently sudo vpnc
+      | silently sudo vpnc
   ) && grn-echo "Connected!" || red-echo "Error!"
 }
 
@@ -33,12 +33,26 @@ __make_me_sudo() { sudo echo -n ;}
 
   local pid=$(8get-vpn-pid)
   if [ -n "${pid}" ]; then
-      sudo kill "${pid}"
-      sleep 0.2
-      grn-echo "Disconnected from ${pid}"
+    sudo kill "${pid}"
+    sleep 0.2
+    grn-echo "Disconnected from ${pid}"
   else
     grn-echo "Not connected"
   fi
+}
+
+8dialplan-json-to-query() {
+  local path=$1
+  (cd dialplan &&
+     elixir -pa _build/dev/lib/poison/ebin -e '
+content = IO.read(:stdio, :all)
+|> Poison.decode!
+|> Enum.map(fn {key, value} -> "#{key}=#{URI.encode_www_form(value)}" end)
+|> Enum.join("&")
+
+File.write!("'"${path}"'.temp", content)
+' < "${path}" && mv "${path}"{.temp,}
+  )
 }
 
 8tv-meld-latest() {
@@ -52,19 +66,15 @@ __make_me_sudo() { sudo echo -n ;}
 8tv-clean-snapshots() {
   local REPO_ROOT=$(git rev-parse --show-toplevel)
   ls -1 snapshots/ \
-      | sort -r \
-      | tail -n +2 \
-      | xargs -n1 -I{} rm -rf snapshots/{}
+    | sort -r \
+    | tail -n +2 \
+    | xargs -n1 -I{} rm -rf snapshots/{}
 }
 
 8tv-update-snapshot() {
   local REPO_ROOT=$(git rev-parse --show-toplevel)
   local LATEST_SNAPSHOT=$(ls -1 snapshots/ | tail -n1)
   sed -i -e "s/SNAPSHOT=\\/snapshots\\/.*$/SNAPSHOT=\\/snapshots\\/${LATEST_SNAPSHOT}/g" mockserver.env
-}
-
-8tv-drop-billing-data() {
-  for f in output/dialplan_*/dialplan-{red,master}/*; do sed -i '/billing_data=/d' $f; done
 }
 
 declare -a TANKERS=(ams3-tanker01 ch1-tanker01 ch1-tanker02 dal9-tanker01 dal9-tanker02 ld6-tanker01 ld6-tanker02 sjc3-tanker01 sjc3-tanker02 tor1-tanker01 van2-tanker01 van2-tanker02 wdc4-tanker01 wdc4-tanker02)
