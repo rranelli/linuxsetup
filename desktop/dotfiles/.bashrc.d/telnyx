@@ -77,6 +77,32 @@ File.write!("'"${path}"'.temp", content)
   sed -i -e "s/SNAPSHOT=\\/snapshots\\/.*$/SNAPSHOT=\\/snapshots\\/${LATEST_SNAPSHOT}/g" mockserver.env
 }
 
+8tv-clean() {
+  (
+    cd $(git rev-parse --show-toplevel) && \
+      8retry bin/snapshotter prod && 8tv-clean-snapshots && 8tv-update-snapshot && docker-compose pull --ignore-pull-failures
+  )
+}
+
+8tv-clean-verify() {
+  (
+    cd $(git rev-parse --show-toplevel) && \
+      8tv-clean && \
+      bin/up.sh dialplan && \
+      sleep 220 && \
+      8tv-verify
+  )
+}
+
+8tv-verify() {
+  (
+    cd $(git rev-parse --show-toplevel) && \
+      for q in queries/*; do
+        bin/verifier -n8 dialplan --process all "$q" && 8tv-meld-latest
+      done
+  )
+}
+
 declare -a TANKERS=(ams3-tanker01 ch1-tanker01 ch1-tanker02 dal9-tanker01 dal9-tanker02 ld6-tanker01 ld6-tanker02 sjc3-tanker01 sjc3-tanker02 tor1-tanker01 van2-tanker01 van2-tanker02 wdc4-tanker01 wdc4-tanker02)
 
 PS1="\$(8vpn-ps1)$PS1"

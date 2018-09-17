@@ -1,19 +1,18 @@
 ---
+- name: "add transport http"
+  apt:
+    name="apt-transport-https"
+    state="present"
 
 - name: "add ARM plex repository"
   apt_repository:
-    repo: "deb [trusted=yes] http://dl.bintray.com/tproenca/pmsarm7 jessie main"
-    state: "present"
-
-- name: "create plex group"
-  group: name="plex" state="present"
-
-- name: "create plex user"
-  user: name="plex" state="present"
+    repo="deb [trusted=yes] https://dev2day.de/pms/ stretch main"
+    state="present"
+    update_cache="yes"
 
 - name: "install plex"
   apt:
-    name="plexmediaserver"
+    name="plexmediaserver-installer"
     state="latest"
     update_cache="yes"
     cache_valid_time="7200"

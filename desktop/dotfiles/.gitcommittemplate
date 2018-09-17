@@ -5,6 +5,8 @@ rr/current-jira-task [reason and stuff]
 
 Checklist:
 - [ ] FeatureFlag?
+- [ ] Internal Documentation(?)
+- [ ] External Documentation(?)
 - [ ] Logs
 - [ ] Metrics
 - [ ] Backwards compatibility
