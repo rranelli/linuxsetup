@@ -1,0 +1,67 @@
+# See
+# https://pandasauce.org/post/bluetooth-on-linux/
+# https://freedompenguin.com/articles/how-to/ubuntu-bluetooth-headphones-fix/
+
+- name: "desktop apps: stable"
+  apt:
+    name="{{ item }}"
+    state="present"
+    update_cache="yes"
+    cache_valid_time="7200"
+  with_items:
+    - blueman
+
+- name: "desktop apps: testing"
+  apt:
+    name="{{ item }}"
+    state="present"
+    update_cache="yes"
+    cache_valid_time="7200"
+    default_release="testing"
+  with_items:
+    - bluez
+
+- name: "change pairing strategy"
+  lineinfile:
+    path="/etc/bluetooth/main.conf"
+    state="present"
+    regexp="^ControllerMode ?=.*"
+    line="ControllerMode = bredr"
+  notify: "bluetooth config changed"
+
+- name: "set audio configuration"
+  copy:
+    dest: "/etc/bluetooth/audio.conf"
+    content: |
+      [General]
+      Disable=Socket
+      Disable=Headset
+      Enable=Media,Source,Sink,Gateway
+      AutoConnect=true
+      load-module module-switch-on-connect
+  notify: "bluetooth config changed"
+
+- name: "set input configuration"
+  copy:
+    dest: "/etc/bluetooth/input.conf"
+    content: |
+      [General]
+      IdleTimeout=0
+  notify: "bluetooth config changed"
+
+- name: "remove bluetooth-discover from default.pa"
+  lineinfile:
+    path="/etc/pulse/default.pa"
+    state="present"
+    regexp="load-module module-bluetooth-discover"
+    line="#load-module module-bluetooth-discover"
+  notify: "bluetooth config changed"
+
+- name: "start bluetooth-discover from pulseaudio x11"
+  lineinfile:
+    path="/usr/bin/start-pulseaudio-x11"
+    state="present"
+    insertafter='SESSION_MANAGER'
+    regexp="/usr/bin/pactl load-module module-bluetooth-discover"
+    line="        /usr/bin/pactl load-module module-bluetooth-discover"
+  notify: "bluetooth config changed"

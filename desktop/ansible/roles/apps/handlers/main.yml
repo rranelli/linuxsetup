@@ -1,0 +1,5 @@
+- name: "restart bluetooth"
+  listen: "bluetooth config changed"
+  service:
+    name="bluetooth"
+    state="restarted"

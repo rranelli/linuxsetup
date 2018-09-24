@@ -10,7 +10,19 @@
     - spotify-client
     - telegram
     - libappindicator3-1
+    - webcamoid
+    - blueman
     - ttf-ancient-fonts # adds fonts needed by emacs
+
+- name: "desktop apps: testing"
+  apt:
+    name="{{ item }}"
+    state="present"
+    update_cache="yes"
+    cache_valid_time="7200"
+    default_release="testing"
+  with_items:
+    - bluez
 
 - name: "remove unnecessary dirs @ home"
   file:
@@ -38,3 +50,6 @@
 
 - name: "gnome-shell"
   include_tasks: "gnome-shell.yml"
+
+- name: "bluetooth"
+  include_tasks: "bluetooth.yml"
