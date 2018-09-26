@@ -103,6 +103,15 @@ File.write!("'"${path}"'.temp", content)
   )
 }
 
+8fscli() {
+  local ENV=${1:-dev}
+  local TANKER=${2:-ld6-tanker02}
+  local LOGFILE=${3:-b2bualog.log}
+
+  local container_ip="$(ssh -t ${TANKER} sudo docker inspect b2bua-${ENV} 2>/dev/null | jq .[].NetworkSettings.Networks[].IPAddress)"
+  ssh -t ${TANKER} sudo docker exec -ti "b2bua-${ENV}" fs_cli -H "${container_ip}" -p "$(mimipass get telnyx/fscli)" |& tee "${LOGFILE}"
+}
+
 declare -a TANKERS=(ams3-tanker01 ch1-tanker01 ch1-tanker02 dal9-tanker01 dal9-tanker02 ld6-tanker01 ld6-tanker02 sjc3-tanker01 sjc3-tanker02 tor1-tanker01 van2-tanker01 van2-tanker02 wdc4-tanker01 wdc4-tanker02)
 
 PS1="\$(8vpn-ps1)$PS1"
