@@ -5,3 +5,14 @@ be set-up for you.
 ```
 wget -O - https://raw.githubusercontent.com/rranelli/linuxsetup/master/bootstrap.sh | bash -s
 ```
+
+
+# Dump dconf
+```sh
+dconf dump / > $(find . -name *dconf*)
+```
+
+# Load dconf
+```sh
+dconf load / < $(find . -name *dconf*)
+```
