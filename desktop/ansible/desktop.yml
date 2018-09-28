@@ -15,11 +15,11 @@
     - nodejs
     - python
     - docker
-    - csharp
-    - scala
-    - cassandra
-    - mongodb
     - langtool
     - postgresql
     - java
-    - clojure
+    - csharp
+    # - cassandra
+    # - scala
+    # - mongodb
+    # - clojure
