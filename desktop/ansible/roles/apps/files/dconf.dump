@@ -370,7 +370,7 @@ photo-x-resolution=1280
 video-x-resolution=1280
 
 [org/gnome/control-center]
-last-panel='keyboard'
+last-panel='sound'
 
 [org/gnome/system/location]
 enabled=true
