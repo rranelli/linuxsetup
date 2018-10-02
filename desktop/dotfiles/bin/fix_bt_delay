@@ -1,9 +1,8 @@
 #!/bin/bash
 set -euo pipefail
 BLUEZCARD=$(pactl list cards short | egrep -o bluez.*[[:space:]])
-YETICARD=$(pactl list cards short | grep -o alsa_card.*Yeti.*[[:space:]])
 
 pactl set-card-profile $BLUEZCARD headset_head_unit
 sleep 0.5
 pactl set-card-profile $BLUEZCARD a2dp_sink
-pactl set-card-profile $YETICARD input:iec958-stereo
+pacmd set-default-source 'alsa_input.usb-Blue_Microphones_Yeti_Stereo_Microphone_REV8-00.iec958-stereo'
