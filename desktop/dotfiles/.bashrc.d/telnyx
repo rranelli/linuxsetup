@@ -8,6 +8,7 @@ grn-echo() { echo -e "\e[0;32m${@}\e[0m"; }
 red-echo() { echo -e "\e[0;31m${@}\e[0m"; }
 
 __make_me_sudo() { sudo echo -n ;}
+__get-vpn-pid() { pgrep vpnc ;}
 
 8vpn-connect() {
   __make_me_sudo
@@ -18,20 +19,10 @@ __make_me_sudo() { sudo echo -n ;}
   ) && grn-echo "Connected!" || red-echo "Error!"
 }
 
-8get-vpn-pid() { pgrep vpnc ;}
-
-8vpn-ps1() {
-  local ret=$?
-  local pid=$(8get-vpn-pid)
-  [ -n "${pid}" ] && echo "(vpn)"
-
-  return $ret
-}
-
 8vpn-disconnect() {
   __make_me_sudo
 
-  local pid=$(8get-vpn-pid)
+  local pid=$(__get-vpn-pid)
   if [ -n "${pid}" ]; then
     sudo kill "${pid}"
     sleep 0.2
@@ -41,7 +32,15 @@ __make_me_sudo() { sudo echo -n ;}
   fi
 }
 
-8dialplan-json-to-query() {
+8vpn-ps1() {
+  local ret=$?
+  local pid=$(__get-vpn-pid)
+  [ -n "${pid}" ] && echo "(vpn)"
+
+  return $ret
+}
+
+8te-dialplan-json-to-query() {
   local path=$1
   (cd dialplan &&
      elixir -pa _build/dev/lib/poison/ebin -e '
@@ -103,21 +102,54 @@ File.write!("'"${path}"'.temp", content)
   )
 }
 
-8fscli() {
-  local TANKER=${1:-ld6-tanker02}
-  local ENV=${2:-dev}
-  local LOGFILE=${3:-b2bualog-$TANKER.log}
+8te-fscli() {
+  (
+    set -euo pipefail
 
-  local container_ip="$(ssh -t ${TANKER} sudo docker inspect b2bua-${ENV} 2>/dev/null | jq .[].NetworkSettings.Networks[].IPAddress)"
-  ssh -t ${TANKER} sudo docker exec -ti "b2bua-${ENV}" fs_cli -H "${container_ip}" -p "$(mimipass get telnyx/fscli)" |& tee "${LOGFILE}"
+    local TANKER=${1:-ld6-tanker02}
+    local ENV=${2:-dev}
+    local LOGFILE=${3:-b2bualog-$TANKER.log}
+
+    local container_ip="$(ssh -t ${TANKER} sudo docker inspect b2bua-${ENV} 2>/dev/null | jq .[].NetworkSettings.Networks[].IPAddress)"
+    ssh -t ${TANKER} sudo docker exec -ti "b2bua-${ENV}" fs_cli -H "${container_ip}" -p "$(mimipass get telnyx/fscli)" |& tee "${LOGFILE}"
+  )
 }
 
-8check-container-version() {
+8te-check-container-version() {
   for tanker in ${TANKERS[@]}; do
     for container in "$@"; do
       ssh "$tanker" "sudo docker inspect ${container}" 2>/dev/null | jq "\"${container}@${tanker} - commit:\(.[].Config.Labels.GIT_COMMIT) created:\(.[].Created)\""
     done
   done
+}
+
+8te-remote-iex() {
+  (
+    set -euo pipefail
+
+    local HOST=$1
+    local CONTAINER=${2:-dialplan-dev}
+    local ERLANG_COOKIE=${3:-dialplan-dev-cookie}
+
+    ssh -t "${HOST}" sudo docker exec -it "${CONTAINER}" iex --name "mimi@127.0.0.1" --cookie "${ERLANG_COOKIE}" --remsh "app@127.0.0.1"
+  )
+}
+
+8te-remote-iex-tunnel() {
+  (
+    set -euo pipefail
+
+    local HOST=$1
+    local ERLANG_COOKIE=${2:-dialplan-dev-cookie}
+
+    ssh -NT -o ServerAliveInterval=60 -L4369:localhost:36060 $HOST &
+    local tunnel_pid=$!
+    trap "kill ${tunnel_pid}" EXIT RETURN
+
+    sleep 20
+
+    iex --name "mimi@127.0.0.1" --cookie "${ERLANG_COOKIE}" --remsh "app@127.0.0.1"
+  )
 }
 
 declare -a TANKERS=(ams3-tanker01 ch1-tanker01 ch1-tanker02 dal9-tanker01 dal9-tanker02 ld6-tanker01 ld6-tanker02 sjc3-tanker01 sjc3-tanker02 tor1-tanker01 van2-tanker01 van2-tanker02 wdc4-tanker01 wdc4-tanker02)
