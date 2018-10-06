@@ -1,0 +1,65 @@
+*** Targets ***
+
+probe = FPing
+
+menu  = Top
+title = Network Latency Grapher
+
++ LocalNetwork
+menu  = LocalNetwork
+title = LocalNetwork
+
+++ Kattegat
+menu  = Kattegat
+title = Kattegat
+host  = 192.168.0.3
+
+++ August
+menu  = August Connect
+title = August Connect
+host  = 192.168.0.13
+
++ External
+menu  = External
+title = External network monitoring
+
+++ Google
+menu  = Google
+title = Google
+host  = 8.8.8.8
+
+++ Google2
+menu  = Google (2)
+title = Google (2)
+host  = 8.8.4.4
+
++ ExternalDNS
+probe = DNS
+
+menu  = DNS
+title = DNS queries
+
+++ example
+menu   = example
+title  = example
+lookup = www.example.org
+
+++ facebook
+menu   = facebook
+title  = facebook
+lookup = facebook.com
+
+++ telegram
+menu   = telegram
+title  = telegram
+lookup = telegram.com
+
+++ telnyx
+menu   = telnyx
+title  = telnyx
+lookup =  telnyx.com
+
+++ slack
+menu   = slack
+title  = slack
+lookup = slack.com

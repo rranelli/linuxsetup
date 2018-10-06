@@ -1,0 +1,11 @@
+- name: restart nginx
+  listen: "nginx config changed"
+  service:
+    name="nginx"
+    state="restarted"
+
+- name: restart smokeping
+  listen: "smokeping config changed"
+  service:
+    name="smokeping"
+    state="restarted"

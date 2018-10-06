@@ -1,0 +1,72 @@
+- name: "install smokeping package"
+  apt:
+    name="smokeping"
+    state="present"
+    update_cache="yes"
+    cache_valid_time="7200"
+    install_recommends="false"
+
+- name: "install other required packages for smokeping"
+  apt:
+    name="{{ item }}"
+    state="present"
+    update_cache="yes"
+    cache_valid_time="7200"
+  with_items:
+    - libsocket6-perl
+    - dnsutils
+    - echoping
+    - fcgiwrap
+
+- name: "start and enable fcgiwrap service"
+  service:
+    name="{{ item }}"
+    enabled="true"
+    state="started"
+  with_items:
+    - fcgiwrap
+    - fcgiwrap.socket
+
+- name: "remove pathnames"
+  file:
+    path="/etc/smokeping/config.d/pathnames"
+    state="absent"
+  notify: "smokeping config changed"
+
+- name: "copy General"
+  template:
+    src="config.d/General"
+    dest="/etc/smokeping/config.d/General"
+  notify: "smokeping config changed"
+
+- name: "copy Targets"
+  template:
+    src="config.d/Targets"
+    dest="/etc/smokeping/config.d/Targets"
+  notify: "smokeping config changed"
+
+- name: "copy Probes"
+  template:
+    src="config.d/Probes"
+    dest="/etc/smokeping/config.d/Probes"
+  notify: "smokeping config changed"
+
+- name: "fix assets path"
+  file:
+    src="/usr/share/smokeping/www"
+    dest="/usr/share/smokeping/www/smokeping"
+    state="link"
+
+- name: "add correct fcgi file"
+  copy:
+    content: |
+      #!/bin/sh
+      /usr/lib/cgi-bin/smokeping.cgi /etc/smokeping/config
+    dest: "/usr/share/smokeping/www/smokeping.fcgi"
+    mode: "+rx"
+
+- name: "add nginx vhost"
+  template:
+    src="nginx/smokeping"
+    dest="/etc/nginx/sites-enabled/smokeping"
+  notify: "nginx config changed"

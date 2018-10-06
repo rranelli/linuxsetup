@@ -1,0 +1,21 @@
+# -*- mode: nginx -*-
+server {
+    server_name smokeping.{{ server_name }};
+    listen 80;
+
+    root /usr/share/smokeping/www/;
+
+    index smokeping.fcgi;
+    gzip off;
+
+    location ~ \.fcgi$ {
+        fastcgi_intercept_errors on;
+        include /etc/nginx/fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME /usr/share/smokeping/www/smokeping.fcgi;
+        fastcgi_pass unix:/var/run/fcgiwrap.socket;
+    }
+    location ^~ /smokeping/imgcache {
+        alias /var/cache/smokeping/images;
+        gzip off;
+    }
+}

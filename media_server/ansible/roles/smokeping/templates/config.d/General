@@ -1,0 +1,21 @@
+*** General ***
+
+owner    = Renan Ranelli
+contact  = dont@dont
+cgiurl   = http://smokeping.{{ server_name }}/
+
+# specify this to get syslog logging
+syslogfacility = local0
+
+# each probe is now run in its own process
+# disable this to revert to the old behaviour
+# concurrentprobes = no
+
+## pathnames
+sendmail = /bin/false
+imgcache = /var/cache/smokeping/images
+imgurl   = ../smokeping/images
+datadir  = /var/lib/smokeping
+piddir  = /var/run/smokeping
+smokemail = /etc/smokeping/smokemail
+tmail = /etc/smokeping/tmail

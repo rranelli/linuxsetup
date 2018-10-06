@@ -1,0 +1,16 @@
+*** Probes ***
+
++ FPing
+
+binary = /usr/bin/fping
+
++ DNS
+
+binary = /usr/bin/dig
+forks = 5
+offset = 50%
+step = 300
+timeout = 15
+
+server = {{ server_ip }}
+pings = 5
