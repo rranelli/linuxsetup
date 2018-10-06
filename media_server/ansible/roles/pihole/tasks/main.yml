@@ -12,10 +12,11 @@
     line="{{ server_ip }}	{{ item }}"
     state="present"
   with_items:
-    - stockholm
-    - plex.stockholm
-    - calibre.stockholm
-    - torrent.stockholm
+    - "{{ server_name }}"
+    - "plex.{{ server_name }}"
+    - "calibre.{{ server_name }}"
+    - "torrent.{{ server_name }}"
+    - "smokeping.{{ server_name }}"
   notify:
     - "dns changed"
 
