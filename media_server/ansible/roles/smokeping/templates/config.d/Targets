@@ -33,6 +33,21 @@ menu  = Google (2)
 title = Google (2)
 host  = 8.8.4.4
 
+++ telegram
+menu   = telegram
+title  = telegram
+host   = telegram.com
+
+++ telnyx
+menu   = telnyx
+title  = telnyx
+host   = www.telnyx.com
+
+++ whatsapp
+menu   = whatsapp
+title  = whatsapp
+host   = web.whatsapp.com
+
 + ExternalDNS
 probe = DNS
 
@@ -43,23 +58,28 @@ title = DNS queries
 menu   = example
 title  = example
 lookup = www.example.org
+host   = {{ server_ip }}
 
 ++ facebook
 menu   = facebook
 title  = facebook
-lookup = facebook.com
+lookup = www.facebook.com
+host   = {{ server_ip }}
 
 ++ telegram
 menu   = telegram
 title  = telegram
 lookup = telegram.com
+host   = {{ server_ip }}
 
 ++ telnyx
 menu   = telnyx
 title  = telnyx
-lookup =  telnyx.com
+lookup = www.telnyx.com
+host   = {{ server_ip }}
 
 ++ slack
 menu   = slack
 title  = slack
-lookup = slack.com
+lookup = www.slack.com
+host   = {{ server_ip }}

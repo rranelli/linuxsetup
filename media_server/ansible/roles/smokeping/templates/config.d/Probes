@@ -2,6 +2,7 @@
 
 + FPing
 
+step = 300
 binary = /usr/bin/fping
 
 + DNS
@@ -9,8 +10,10 @@ binary = /usr/bin/fping
 binary = /usr/bin/dig
 forks = 5
 offset = 50%
+pings = 5
 step = 300
 timeout = 15
 
+# The following variables can be overridden in each target section
+lookup = www.foobar.com
 server = {{ server_ip }}
-pings = 5
