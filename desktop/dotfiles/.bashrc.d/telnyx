@@ -116,11 +116,21 @@ File.write!("'"${path}"'.temp", content)
 }
 
 8te-check-container-version() {
-  for tanker in ${TANKERS[@]}; do
-    for container in "$@"; do
-      ssh "$tanker" "sudo docker inspect ${container}" 2>/dev/null | jq "\"${container}@${tanker} - commit:\(.[].Config.Labels.GIT_COMMIT) created:\(.[].Created)\""
+  (
+    local checks
+    declare -A checks=()
+
+    for tanker in ${TANKERS[@]}; do
+      for container in "$@"; do
+        ssh "$tanker" "sudo docker inspect ${container}" 2>/dev/null | jq -r "\"\(.[].Config.Labels.GIT_COMMIT) - ${container}@${tanker}\"" 2>/dev/null &
+        checks[$tanker]=$!
+      done
+    done | sort
+
+    for pid in ${checks[@]}; do
+      wait "${pid}"
     done
-  done
+  )
 }
 
 8te-remote-iex() {
