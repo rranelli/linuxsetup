@@ -36,6 +36,13 @@
     # We will use debian testing
     - deb http://ftp.br.debian.org/debian testing main non-free contrib
 
+- name: "wireshark for non-root users"
+  debconf:
+    name="wireshark-common"
+    question="wireshark-common/install-setuid"
+    value="true"
+    vtype="select"
+
 - name: "install essential"
   apt:
     name="{{ item }}"
@@ -83,3 +90,9 @@
     - wordnet
     - xclip
     - xdg-utils
+
+- name: "add local user to wireshark group"
+  user:
+    name="{{ local_user }}"
+    groups="wireshark"
+    append="yes"

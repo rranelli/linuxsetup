@@ -20,8 +20,9 @@
 
 - name: "add local user to docker group"
   user:
-    name={{ local_user }}
-    groups=sudo,docker
+    name="{{ local_user }}"
+    groups="docker"
+    append="yes"
 
 - name: "install docker compose"
   pip:
