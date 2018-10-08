@@ -77,7 +77,10 @@
 
 # See squalou.jenkins@gmail.com's comment @ https://extensions.gnome.org/extension/723/pixel-saver/
 - name: "fix pixel saver"
-  command: sed -s 's/global.screen/global.workspace_manager/g' -i '/usr/local/share/gnome-shell/extensions/pixel-saver@deadalnix.me/decoration.js'
+  replace:
+    path="/usr/local/share/gnome-shell/extensions/pixel-saver@deadalnix.me/decoration.js"
+    regexp="global\.screen"
+    replace="global.workspace_manager"
 
 - name: "dconf load"
   become: false
