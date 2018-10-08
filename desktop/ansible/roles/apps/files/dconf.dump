@@ -110,7 +110,7 @@ search-filter-time-type='last_modified'
 
 [org/gnome/nautilus/window-state]
 sidebar-width=225
-geometry='1116x550+2552+215'
+geometry='1116x550+2014+313'
 maximized=false
 
 [org/gnome/nautilus/desktop]
@@ -120,7 +120,7 @@ network-icon-visible=false
 document-directory=@ms nothing
 
 [org/gnome/evince/default]
-window-ratio=(3.1372549019607843, 1.3295454545454546)
+window-ratio=(1.4853783072876374, 1.1441453657875111)
 
 [org/gnome/file-roller/listing]
 sort-method='name'
@@ -172,10 +172,11 @@ icon-theme='monochrome'
 show-input-slider=true
 
 [org/gnome/shell/extensions/caffeine]
-user-enabled=true
+show-notifications=false
 enable-fullscreen=true
 show-indicator=true
-show-notifications=false
+user-enabled=true
+restore-state=true
 
 [org/gnome/shell/extensions/datetime-format]
 statusbar-format='%A, %T ~ %F'
@@ -184,7 +185,7 @@ statusbar-format='%A, %T ~ %F'
 folder-status-filters=['new', 'modified']
 vc-status-filters=['flatten', 'modified']
 window-state='normal'
-window-size=(960, 752)
+window-size=(1677, 937)
 
 [org/gnome/desktop/interface]
 clock-show-date=true
@@ -196,7 +197,7 @@ show-battery-percentage=true
 gtk-theme='Adwaita-dark'
 
 [org/gnome/desktop/notifications]
-application-children=['slack', 'chromium', 'org-gnome-nautilus', 'chrome-hnpfjngllnobngcgfapefoaidbinmjnm-default', 'com-uploadedlobster-peek', 'gnome-network-panel', 'spotify', 'org-gnome-software', 'emacs', 'google-chrome', 'org-gnome-tweaks', 'calibre-gui', 'chrome-ejmhngakhhogbbiehfimfdeadlmpcnbg-default', 'telegramdesktop']
+application-children=['slack', 'chromium', 'org-gnome-nautilus', 'chrome-hnpfjngllnobngcgfapefoaidbinmjnm-default', 'com-uploadedlobster-peek', 'gnome-network-panel', 'spotify', 'org-gnome-software', 'emacs', 'google-chrome', 'org-gnome-tweaks', 'calibre-gui', 'chrome-ejmhngakhhogbbiehfimfdeadlmpcnbg-default', 'telegramdesktop', 'zoiper5']
 show-banners=true
 show-in-lock-screen=true
 
@@ -214,6 +215,9 @@ application-id='google-chrome.desktop'
 
 [org/gnome/desktop/notifications/application/chrome-hnpfjngllnobngcgfapefoaidbinmjnm-default]
 application-id='chrome-hnpfjngllnobngcgfapefoaidbinmjnm-Default.desktop'
+
+[org/gnome/desktop/notifications/application/zoiper5]
+application-id='zoiper5.desktop'
 
 [org/gnome/desktop/notifications/application/calibre-gui]
 application-id='calibre-gui.desktop'
@@ -370,7 +374,7 @@ photo-x-resolution=1280
 video-x-resolution=1280
 
 [org/gnome/control-center]
-last-panel='sound'
+last-panel='wifi'
 
 [org/gnome/system/location]
 enabled=true
@@ -379,7 +383,7 @@ enabled=true
 show-tabs-mode='auto'
 
 [org/gnome/gedit/plugins/filebrowser]
-virtual-root='file:///home/milhouse/Downloads/Telegram%20Desktop'
+virtual-root='file:///home/milhouse/Downloads'
 tree-view=true
 root='file:///'
 
@@ -388,7 +392,7 @@ active-plugins=['modelines', 'spell', 'docinfo', 'filebrowser', 'time']
 
 [org/gnome/gedit/state/window]
 size=(900, 700)
-state=43908
+state=43652
 bottom-panel-size=140
 side-panel-size=200
 side-panel-active-page='GeditWindowDocumentsPanel'
@@ -411,7 +415,7 @@ night-light-schedule-automatic=false
 night-light-schedule-to=23.983333333333334
 night-light-schedule-from=0.0
 night-light-enabled=false
-night-light-last-coordinates=(-23.5733, -46.6417)
+night-light-last-coordinates=(-23.626999999999999, -46.634999999999998)
 night-light-temperature=uint32 3172
 
 [org/gnome/settings-daemon/plugins/media-keys]
@@ -473,7 +477,7 @@ col-6-visible=true
 col-6-width=0
 
 [org/gnome/software]
-check-timestamp=int64 1538170364
+check-timestamp=int64 1539032757
 
 [org/gnome/mutter]
 dynamic-workspaces=true
@@ -486,7 +490,7 @@ toggle-tiled-left=['<Control><Super>Left']
 [org/gtk/settings/file-chooser]
 sort-column='modified'
 sidebar-width=175
-window-position=(359, 117)
+window-position=(2279, 117)
 show-size-column=false
 show-hidden=false
 window-size=(1203, 825)
