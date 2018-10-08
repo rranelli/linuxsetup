@@ -1,5 +1,6 @@
-- name:  "copy ssh keys"
+- name:  "ssh | copy keys"
   become: false
+  register: key_changed
   copy:
     src="{{ item }}"
     dest="~/.ssh/{{ item }}"
@@ -12,6 +13,10 @@
     - id_rsa.home
     - id_rsa.home.pub
 
-- name: "ssh-add"
+- name: "ssh | add keys"
   become: false
-  command: /usr/bin/ssh-add
+  command: /usr/bin/ssh-add {{ item }}
+  when: key_changed.changed
+  with_items:
+    - id_rsa.work
+    - id_rsa.home
