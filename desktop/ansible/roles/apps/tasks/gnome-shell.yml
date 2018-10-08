@@ -75,6 +75,10 @@
   args:
     creates: '/usr/local/share/gnome-shell/extensions/{{ item.uuid }}'
 
+# See squalou.jenkins@gmail.com's comment @ https://extensions.gnome.org/extension/723/pixel-saver/
+- name: "fix pixel saver"
+  command: sed -s 's/global.screen/global.workspace_manager/g' -i '/usr/local/share/gnome-shell/extensions/pixel-saver@deadalnix.me/decoration.js'
+
 - name: "dconf load"
   become: false
   command: dconf load / < "{{ code_dir }}/linuxsetup/desktop/ansible/roles/apps/files/dconf.dump"
