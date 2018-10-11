@@ -65,6 +65,7 @@ File.write!("'"${path}"'.temp", content)
 8tv-clean-snapshots() {
   local REPO_ROOT=$(git rev-parse --show-toplevel)
   ls -1 snapshots/ \
+    | egrep '(prod_|dev_)' \
     | sort -r \
     | tail -n +2 \
     | xargs -n1 -I{} rm -rf snapshots/{}
@@ -72,7 +73,7 @@ File.write!("'"${path}"'.temp", content)
 
 8tv-update-snapshot() {
   local REPO_ROOT=$(git rev-parse --show-toplevel)
-  local LATEST_SNAPSHOT=$(ls -1 snapshots/ | tail -n1)
+  local LATEST_SNAPSHOT=$(ls -1 snapshots | tail -n1)
   sed -i -e "s/SNAPSHOT=\\/snapshots\\/.*$/SNAPSHOT=\\/snapshots\\/${LATEST_SNAPSHOT}/g" mockserver.env
 }
 
