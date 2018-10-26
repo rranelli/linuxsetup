@@ -12,6 +12,8 @@ export EDITOR="editor"
 export MIMIPASS_HOME="$HOME/Dropbox/.secrets/mimipass"
 export MIMIPASS_RECIPIENT="renanranelli@gmail.com"
 
+export ERL_AFLAGS="-kernel shell_history enabled"
+
 # This enables bash eternal history
 export HISTFILESIZE=
 export HISTSIZE=
