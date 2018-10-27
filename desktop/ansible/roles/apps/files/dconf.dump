@@ -3,7 +3,7 @@ default-view=1
 
 [org/blueman/general]
 latest-last=false
-window-properties=[859, 787, 1926, 133]
+window-properties=[859, 787, 1009, 78]
 last-adapter='hci1'
 services-last-item=0
 
@@ -11,7 +11,7 @@ services-last-item=0
 nap-enable=false
 
 [org/blueman/plugins/recentconns]
-recent-connections='eNotj7tOw0AQRU3IC/MM76dEQUFjtJuQ4GwXgUQRKU0aN0isvZtkRexw/aBDwoX5Bz6Br6HjJ/gJdq1MMZqZe+5I96MytJ5gvWPl2mtYlsUFf01ljEog/Cyxx2msoqmNVa+lxTZhtM0oZbTLqMvce1QL1HLUl1YRyyRBY7akXYMOuqxzxx76jPTQLLCWw/Zqhp4rnmBds029hSpUk0UksVFgM8eWV9VHFSwibGvCNnwm1MIJeCywU6CVY7dkIh5K7JXEwBCXYxW9YL/UskwJHGj/lV6ILkqJ75jBoaa5phHiku6k73duJz4OCxzlOC7dqdKfTx4Hv3/fP72vZ6+ub0K+qUDidFRGCFUqQ5yNyvTTRE0jPsf50Mr4Jy5u/gEC3FmH'
+recent-connections='eNotj7tOw0AQRU3IC/MM4f2QKFLQBO0SQpztLFCQiBQJpXFDsfZuzIrY4fpBh4QL8wv8Gd9Ayx+wNkwxmpl77kj3vTI2HmG8YencaRiGwQV/SWSEiifcNDanSaRC38Sy09Ji/4aNemxAmDVi1GI2RTVHLUP93yoiGcdoPP3RlxajlNl91huw2yEj12jmWMlgOrWCniseY1WzTb0FKlCzRSixlmM9w4ZT1UflLUJsasIs+FSoRdfjkcBWjlaG7ZIJeSDRLgm7IM6mKnzGTqmlqRLY1f6OXoguSonbLYYuLZpVNEIs0p8N3d7VzMVejv0MB6U7Ufrz4Z399fN9//nQdur6JuSr8iSOJmWEQCUywPGkTO/Hyg/5HCdjI+UfOL34BTa2WVM='
 
 [org/blueman/transfer]
 shared-path='/home/milhouse/Downloads'
@@ -19,14 +19,17 @@ shared-path='/home/milhouse/Downloads'
 [org/gnome/documents]
 window-maximized=true
 
+[org/gnome/software]
+check-timestamp=int64 1540547428
+
 [org/gnome/GWeather]
 temperature-unit='centigrade'
 
 [org/gnome/polari]
-saved-channel-list=[{'account': <'/org/freedesktop/Telepathy/Account/idle/irc/milhouse0'>, 'channel': <'#elixir-lang'>}]
-last-selected-channel={'account': <'/org/freedesktop/Telepathy/Account/idle/irc/milhouse0'>, 'channel': <'#elixir-lang'>}
-window-maximized=false
 window-size=[800, 500]
+saved-channel-list=@aa{sv} []
+run-in-background=false
+window-maximized=false
 
 [org/gnome/brasero/plugins/dvd-rw-format]
 priority=0
@@ -110,17 +113,17 @@ search-filter-time-type='last_modified'
 
 [org/gnome/nautilus/window-state]
 sidebar-width=225
-geometry='1116x550+2014+313'
+geometry='1270x631+2014+313'
 maximized=false
 
 [org/gnome/nautilus/desktop]
 network-icon-visible=false
 
 [org/gnome/evince]
-document-directory=@ms nothing
+document-directory=@ms 'file:///home/milhouse/Dropbox/Documents/Documentos%20da%20Vida/anexos'
 
 [org/gnome/evince/default]
-window-ratio=(1.4853783072876374, 1.1441453657875111)
+window-ratio=(1.2952029520295203, 0.43096723868954756)
 
 [org/gnome/file-roller/listing]
 sort-method='name'
@@ -142,9 +145,10 @@ migrated=true
 toggle-application-view=['<Super>a']
 
 [org/gnome/shell]
-enabled-extensions=['suspend-button@laserb', 'alternate-tab@gnome-shell-extensions.gcampax.github.com', 'drive-menu@gnome-shell-extensions.gcampax.github.com', 'windowsNavigator@gnome-shell-extensions.gcampax.github.com', 'disable-workspace-switcher-popup@github.com', 'caffeine@patapon.info', 'datetime-format@Daniel-Khodabakhsh.github.com', 'noannoyance@sindex.com', 'pixel-saver@deadalnix.me', 'docker-integration@jan.trejbal.gmail.com', 'appindicatorsupport@rgcjonas.gmail.com', 'sound-output-device-chooser@kgshank.net', 'night-light-slider.timur@linux.com']
+enabled-extensions=['suspend-button@laserb', 'alternate-tab@gnome-shell-extensions.gcampax.github.com', 'windowsNavigator@gnome-shell-extensions.gcampax.github.com', 'caffeine@patapon.info', 'datetime-format@Daniel-Khodabakhsh.github.com', 'noannoyance@sindex.com', 'pixel-saver@deadalnix.me', 'docker-integration@jan.trejbal.gmail.com', 'appindicatorsupport@rgcjonas.gmail.com', 'sound-output-device-chooser@kgshank.net', 'night-light-slider.timur@linux.com', 'disable-workspace-switcher-popup@github.com', 'drive-menu@gnome-shell-extensions.gcampax.github.com']
 command-history=['r']
 had-bluetooth-devices-setup=false
+disable-user-extensions=false
 app-picker-view=uint32 1
 favorite-apps=['emacs.desktop', 'org.gnome.Terminal.desktop', 'chrome-hnpfjngllnobngcgfapefoaidbinmjnm-Default.desktop', 'telegramdesktop.desktop', 'spotify.desktop', 'google-chrome.desktop', 'chrome-ejmhngakhhogbbiehfimfdeadlmpcnbg-Default.desktop']
 
@@ -175,11 +179,14 @@ show-input-slider=true
 show-notifications=false
 enable-fullscreen=true
 show-indicator=true
-user-enabled=true
+user-enabled=false
 restore-state=true
 
 [org/gnome/shell/extensions/datetime-format]
 statusbar-format='%A, %T ~ %F'
+
+[org/gnome/shell/extensions/window-list]
+grouping-mode='never'
 
 [org/gnome/meld]
 folder-status-filters=['new', 'modified']
@@ -197,7 +204,7 @@ show-battery-percentage=true
 gtk-theme='Adwaita-dark'
 
 [org/gnome/desktop/notifications]
-application-children=['slack', 'chromium', 'org-gnome-nautilus', 'chrome-hnpfjngllnobngcgfapefoaidbinmjnm-default', 'com-uploadedlobster-peek', 'gnome-network-panel', 'spotify', 'org-gnome-software', 'emacs', 'google-chrome', 'org-gnome-tweaks', 'calibre-gui', 'chrome-ejmhngakhhogbbiehfimfdeadlmpcnbg-default', 'telegramdesktop', 'zoiper5']
+application-children=['slack', 'chromium', 'org-gnome-nautilus', 'chrome-hnpfjngllnobngcgfapefoaidbinmjnm-default', 'com-uploadedlobster-peek', 'gnome-network-panel', 'spotify', 'org-gnome-software', 'emacs', 'google-chrome', 'org-gnome-tweaks', 'calibre-gui', 'chrome-ejmhngakhhogbbiehfimfdeadlmpcnbg-default', 'telegramdesktop', 'zoiper5', 'org-gnome-evolution']
 show-banners=true
 show-in-lock-screen=true
 
@@ -239,6 +246,9 @@ application-id='chromium.desktop'
 
 [org/gnome/desktop/notifications/application/org-gnome-software]
 application-id='org.gnome.Software.desktop'
+
+[org/gnome/desktop/notifications/application/org-gnome-evolution]
+application-id='org.gnome.Evolution.desktop'
 
 [org/gnome/desktop/notifications/application/slack]
 application-id='slack.desktop'
@@ -323,11 +333,12 @@ event-sounds=true
 automatic-timezone=true
 
 [org/gnome/desktop/background]
-picture-uri='file:///usr/share/backgrounds/gnome/adwaita-timed.xml'
+picture-uri='file:///usr/share/desktop-base/joy-theme/wallpaper/gnome-background.xml'
 show-desktop-icons=false
-primary-color='#ffffff'
+color-shading-type='horizontal'
+primary-color='#0099cc'
 picture-options='zoom'
-secondary-color='#000000'
+secondary-color='#006699'
 
 [org/gnome/desktop/input-sources]
 sources=[('xkb', 'us+intl')]
@@ -369,15 +380,15 @@ default-show-menubar=false
 photo-y-resolution=720
 burst-delay=1000
 video-y-resolution=720
-camera='Integrated_Webcam_HD'
+camera='/dev/video1'
 photo-x-resolution=1280
 video-x-resolution=1280
 
 [org/gnome/control-center]
-last-panel='wifi'
+last-panel='network'
 
-[org/gnome/system/location]
-enabled=true
+[org/gnome/libgnomekbd/desktop]
+group-per-window=false
 
 [org/gnome/gedit/preferences/ui]
 show-tabs-mode='auto'
@@ -414,9 +425,9 @@ sleep-inactive-battery-timeout=1800
 night-light-schedule-automatic=false
 night-light-schedule-to=23.983333333333334
 night-light-schedule-from=0.0
-night-light-enabled=false
+night-light-enabled=true
 night-light-last-coordinates=(-23.626999999999999, -46.634999999999998)
-night-light-temperature=uint32 3172
+night-light-temperature=uint32 0
 
 [org/gnome/settings-daemon/plugins/media-keys]
 custom-keybindings=['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/']
@@ -438,26 +449,16 @@ hinting='slight'
 [org/gnome/settings-daemon/peripherals/keyboard]
 numlock-state='off'
 
+[org/gnome/system/location]
+enabled=true
+
 [org/gnome/dictionary]
 strategy='exact'
 source-name='Default'
 database='!'
 
-[org/gnome/nm-applet/eap/f29ea51f-251e-4d69-a104-167d7492ec7e]
-ignore-phase2-ca-cert=false
-ignore-ca-cert=false
-
-[org/gnome/nm-applet/eap/8b18b5ab-9a22-40ab-af0c-e63e360b5b91]
-ignore-phase2-ca-cert=false
-ignore-ca-cert=false
-
-[org/gnome/nm-applet/eap/144a8ed0-e48f-4633-aa45-ba53d8f62a6f]
-ignore-phase2-ca-cert=false
-ignore-ca-cert=false
-
-[org/gnome/nm-applet/eap/a3997480-1352-4a26-a5b2-94dbbaf6ad1a]
-ignore-phase2-ca-cert=false
-ignore-ca-cert=false
+[org/gnome/evolution/calendar]
+last-notification-time=1540640700
 
 [org/gnome/Totem]
 subtitle-encoding='UTF-8'
@@ -476,8 +477,21 @@ show-whose-processes='user'
 col-6-visible=true
 col-6-width=0
 
-[org/gnome/software]
-check-timestamp=int64 1539032757
+[org/gnome/nm-applet/eap/f29ea51f-251e-4d69-a104-167d7492ec7e]
+ignore-phase2-ca-cert=false
+ignore-ca-cert=false
+
+[org/gnome/nm-applet/eap/8b18b5ab-9a22-40ab-af0c-e63e360b5b91]
+ignore-phase2-ca-cert=false
+ignore-ca-cert=false
+
+[org/gnome/nm-applet/eap/144a8ed0-e48f-4633-aa45-ba53d8f62a6f]
+ignore-phase2-ca-cert=false
+ignore-ca-cert=false
+
+[org/gnome/nm-applet/eap/a3997480-1352-4a26-a5b2-94dbbaf6ad1a]
+ignore-phase2-ca-cert=false
+ignore-ca-cert=false
 
 [org/gnome/mutter]
 dynamic-workspaces=true
@@ -490,7 +504,7 @@ toggle-tiled-left=['<Control><Super>Left']
 [org/gtk/settings/file-chooser]
 sort-column='modified'
 sidebar-width=175
-window-position=(2279, 117)
+window-position=(839, 104)
 show-size-column=false
 show-hidden=false
 window-size=(1203, 825)
@@ -520,7 +534,7 @@ sidebar-width=148
 keyrings-selected=['secret-service://login', 'gnupg://']
 
 [com/uploadedlobster/peek]
-persist-window-geometry=(33, 36, 1156, 797)
+persist-window-geometry=(1920, 130, 1249, 893)
 
 [desktop/gnome/crypto/cache]
 gpg-cache-method='timeout'
