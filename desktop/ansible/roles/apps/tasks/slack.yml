@@ -8,4 +8,4 @@
   when: slack.changed
   apt:
     deb="{{ slack_deb_url }}"
-    state="present"
+    state="absent"
