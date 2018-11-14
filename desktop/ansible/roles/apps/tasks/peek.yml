@@ -12,34 +12,9 @@
     - gettext
     - txt2man
 
-- command: dpkg-query --show --showformat='${db:Status-Status}\n' peek
-  register: peek_absent
-  failed_when: false
-  changed_when: peek_absent.rc != 0
-
-- git:
-    repo=https://github.com/phw/peek.git
-    dest=/tmp/peek
-  when: peek_absent.changed
-
-- file:
-    path=/tmp/peek/build
-    state=directory
-  when: peek_absent.changed
-
-- shell: '{{ item }}'
-  args:
-    chdir: /tmp/peek/build
-  with_items:
-    - cmake -DCMAKE_INSTALL_PREFIX=/usr -DGSETTINGS_COMPILE=OFF ..
-    - make package
-    - mv peek*.deb peek.deb
-  when: peek_absent.changed
-
 - apt:
-    deb=/tmp/peek/build/peek.deb
-  when: peek_absent.changed
-
-- file:
-    path=/tmp/peek
-    state=absent
+    name=peek
+    state=present
+    update_cache=yes
+    cache_valid_time=7200
+    default_release=testing
