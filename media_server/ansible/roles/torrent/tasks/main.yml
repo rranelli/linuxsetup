@@ -98,6 +98,6 @@
   cron:
     job="/usr/local/bin/flexget --cron execute"
     name="flexget download torrents"
-    minute="*/3"
+    minute="*/30"
     user="milhouse"
     state="present"
