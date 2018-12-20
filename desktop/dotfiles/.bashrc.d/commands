@@ -81,12 +81,16 @@ with-rc() {
   read -ep "(B)ry err:${?}> "
 
   if [ "$REPLY" != exit ]; then
-      local evald=$(eval "$REPLY")
-      echo "${evald}" >$(tty)
-      bry $@
+    local evald=$(eval "$REPLY")
+    echo "${evald}" >$(tty)
+    bry $@
   fi
 }
 export -f 8bry
+
+8nord-vpn() {
+  sudo openvpn /etc/openvpn/openvpn_tcp/br21.nordvpn.com.udp.ovpn
+}
 
 # first argument is the line to grab;
 8line() { tail -n +"$@" | head -n1 ;}
