@@ -5,7 +5,6 @@
     update_cache="yes"
     cache_valid_time="7200"
   with_items:
-    - calibre
     - deluge
     - spotify-client
     - telegram
@@ -22,6 +21,7 @@
     cache_valid_time="7200"
     default_release="testing"
   with_items:
+    - calibre
     - bluez
 
 - name: "remove unnecessary dirs @ home"
