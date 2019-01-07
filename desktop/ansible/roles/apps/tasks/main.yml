@@ -39,9 +39,6 @@
 - name: "dropbox"
   include_tasks: "dropbox.yml"
 
-- name: "slack"
-  include_tasks: "slack.yml"
-
 - name: "peek"
   include_tasks: 'peek.yml'
 
