@@ -33,6 +33,11 @@
     src="{{ installation.path }}/browserpass-linux64.zip"
     dest="{{ installation.path }}"
 
-- name: "run the installation script"
+- name: "run the installation"
   when: not browserpass.stat.exists
-  command: "{{ installation.path }}/install.sh chrome"
+  command: "{{ item }}"
+  args:
+    chdir: "{{ installation.path }}"
+  items:
+    - make BIN=browserpass-linux64 configure
+    - make BIN=browserpass-linux64 install
