@@ -37,8 +37,8 @@
     owner="plex"
     group="plex"
 
-- name: "install subliminal plugin"
-  include_tasks: "subliminal_plugin.yml"
+- name: "install subzero plugin"
+  include_tasks: "subzero_plugin.yml"
 
 - name: "install trakttv plugin"
   include_tasks: "trakttv_plugin.yml"

@@ -1,0 +1,29 @@
+- name: "check if Sub-Zero is installed"
+  command: stat "{{ plex_plugin_path }}/Sub-Zero.bundle"
+  register: subzero_installed
+  failed_when: false
+  changed_when: subzero_installed.rc != 0
+
+- name: "fetch Sub-Zero plugin"
+  when: subzero_installed.changed
+  get_url:
+    url={{ plex_subzero_plugin_url }}
+    dest=/var/cache/apt/archives/Sub-Zero.bundle.zip
+    sha256sum={{ plex_subzero_plugin_sha256 }}
+
+- name: "install Sub-Zero"
+  when: subzero_installed.changed
+  unarchive:
+    copy=no
+    src=/var/cache/apt/archives/Sub-Zero.bundle.zip
+    dest="{{ plex_plugin_path }}"
+  notify:
+    - restart plex
+
+- file:
+    state=directory
+    owner=plex
+    group=plex
+    mode=0770
+    recurse=yes
+    path={{ plex_plugin_path }}/Sub-Zero.bundle
