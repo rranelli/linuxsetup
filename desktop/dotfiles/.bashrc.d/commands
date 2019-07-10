@@ -3,12 +3,6 @@
 #
 ## Life quality
 #
-ls() {
-  if [ "$#" = 0 ]
-  then /bin/ls --block-size=M --color -l
-  else /bin/ls "$@"
-  fi
-}
 
 8night-light () { gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled true ;}
 
