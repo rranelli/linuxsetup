@@ -1,45 +1,19 @@
-- name: "setup nodejs 8.x source"
-  shell: "curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -"
+- name: "install asdf's plugin"
+  become: false
+  command: "asdf plugin-add nodejs https://github.com/asdf-vm/asdf-nodejs.git"
   args:
-    creates: "/usr/bin/nodejs"
+    creates: "~/.asdf/plugins/nodejs/LICENSE"
 
-- name: "install nodejs and npm"
-  apt:
-    name="{{ item }}"
-    state="present"
-    update_cache="yes"
-    cache_valid_time="7200"
-  with_items:
-    - nodejs
+- name: "Import keyring"
+  command: "~/.asdf/plugins/nodejs/bin/import-release-team-keyring"
 
-- name: "install ndenv"
+- name: "install {{ nodejs_version }}"
   become: false
-  git:
-    repo="https://github.com/riywo/ndenv"
-    dest="{{ ndenv_home }}"
-    depth="1"
-    clone="yes"
-
-- name: "install ndenv-build"
-  become: false
-  git:
-    repo="https://github.com/riywo/node-build.git"
-    dest="{{ ndenv_home }}/plugins/node-build"
-    depth="1"
-    clone="yes"
-
-- name: "install ndenv-install-yarn"
-  become: false
-  git:
-    repo="https://github.com/pine/ndenv-yarn-install.git"
-    dest="{{ ndenv_home }}/plugins/ndenv-yarn-install"
-    depth="1"
-    clone="yes"
-
-- name: "install nodejs {{ nodejs_version }}"
-  become: false
-  shell: |
-    {{ ndenv_home }}/bin/ndenv install {{ nodejs_version }}
-    {{ ndenv_home }}/bin/ndenv global  {{ nodejs_version }}
+  command: "~/.asdf/bin/asdf install nodejs {{ nodejs_version }}"
   args:
-    creates: "{{ ndenv_home }}/versions/{{ nodejs_version }}/bin/node"
+    creates: "~/.asdf/installs/elixir/{{ nodejs_version }}/bin/elixir"
+
+- name: "use global {{ nodejs_version }}"
+  become: false
+  command: "~/.asdf/bin/asdf global nodejs {{ nodejs_version }}"
+  changed_when: false
