@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-if [ $OSTYPE =~ "darwin" ]; then
+if [[ $OSTYPE =~ "darwin" ]]; then
   echo -e '\n. $(brew --prefix asdf)/asdf.sh' >> ~/.bash_profile
   echo -e '\n. $(brew --prefix asdf)/etc/bash_completion.d/asdf.bash' >> ~/.bash_profile
 elif [ -d ~/.asdf ]; then

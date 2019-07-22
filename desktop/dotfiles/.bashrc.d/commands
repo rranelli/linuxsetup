@@ -86,5 +86,14 @@ export -f 8bry
   sudo openvpn /etc/openvpn/openvpn_tcp/br21.nordvpn.com.udp.ovpn
 }
 
+8gitlab-clone() {
+  local token=$(mimipass get podium/gitlab-token)
+  for i in {1..200}; do
+    curl "http://gitlab.podium.com/api/v4/projects?page=${i}&private_token=${token}" \
+      | jq .[].ssh_url_to_repo \
+      | xargs -P10 -I{} -0 git clone {}
+  done
+}
+
 # first argument is the line to grab;
 8line() { tail -n +"$@" | head -n1 ;}

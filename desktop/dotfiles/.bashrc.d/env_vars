@@ -5,7 +5,7 @@ export PATH="$PATH:$HOME/.cask/bin"
 export PATH="$PATH:$HOME/code/elixir/bin"
 
 export CODE_DIR="$HOME/code"
-export CDPATH=".:$CODE_DIR:$HOME/telnyx:$HOME/tamingchaos:$HOME/5a:$HOME/xerpa"
+export CDPATH=".:$CODE_DIR:$HOME/podium"
 
 export EDITOR="editor"
 
