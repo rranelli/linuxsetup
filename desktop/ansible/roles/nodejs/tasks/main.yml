@@ -1,4 +1,4 @@
-- name: "install asdf's plugin"
+- name: "add asdf's nodejs plugin"
   become: false
   command: "asdf plugin-add nodejs https://github.com/asdf-vm/asdf-nodejs.git"
   args:
@@ -7,13 +7,30 @@
 - name: "Import keyring"
   command: "~/.asdf/plugins/nodejs/bin/import-release-team-keyring"
 
-- name: "install {{ nodejs_version }}"
+- name: "add asdf's yarn plugin"
+  become: false
+  command: "asdf plugin-add yarn"
+  args:
+    creates: "~/.asdf/plugins/yarn/LICENSE"
+
+- name: "install nodejs {{ nodejs_version }}"
   become: false
   command: "~/.asdf/bin/asdf install nodejs {{ nodejs_version }}"
   args:
-    creates: "~/.asdf/installs/elixir/{{ nodejs_version }}/bin/elixir"
+    creates: "~/.asdf/installs/nodejs/{{ nodejs_version }}/bin/node"
 
-- name: "use global {{ nodejs_version }}"
+- name: "install yarn {{ nodejs_version }}"
+  become: false
+  command: "~/.asdf/bin/asdf install yarn {{ yarn_version }}"
+  args:
+    creates: "~/.asdf/installs/yarn/{{ yarn_version }}/bin/yarn"
+
+- name: "use global nodejs {{ nodejs_version }}"
   become: false
   command: "~/.asdf/bin/asdf global nodejs {{ nodejs_version }}"
+  changed_when: false
+
+- name: "use global yarn {{ nodejs_version }}"
+  become: false
+  command: "~/.asdf/bin/asdf global yarn {{ yarn_version }}"
   changed_when: false
