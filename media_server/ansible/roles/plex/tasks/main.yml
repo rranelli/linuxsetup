@@ -48,3 +48,9 @@
     name="plexmediaserver"
     enabled="true"
     state="started"
+
+- name: "add local user to plex group"
+  user:
+    name="{{ local_user }}"
+    groups="plex"
+    append="yes"

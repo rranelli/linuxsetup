@@ -1,7 +1,7 @@
 - name: 'torrent'
   include_vars: "secret.yml"
 
-- file: path=/mnt/1.5tb/Torrent state=directory recurse=yes owner=plex group=plex mode=0775
+- file: path=/mnt/1.5tb/Torrent state=directory recurse=yes owner=plex group=plex mode=0777
 - file: path=/home/milhouse/.config/deluge state=directory owner=milhouse group=milhouse
 
 - name: "enable deluged on /etc/default"
