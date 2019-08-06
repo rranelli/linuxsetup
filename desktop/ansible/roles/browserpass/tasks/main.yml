@@ -1,5 +1,5 @@
 - name: "check browserpass is installed"
-  stat: path="/etc/opt/chrome/native-messaging-hosts/com.dannyvankooten.browserpass.json"
+  stat: path="/etc/opt/chrome/native-messaging-hosts/com.github.browserpass.native.json"
   register: browserpass
 
 - name: "create install directory"
@@ -41,3 +41,4 @@
   with_items:
     - make BIN=browserpass-linux64 configure
     - make BIN=browserpass-linux64 install
+    - make hosts-chrome
