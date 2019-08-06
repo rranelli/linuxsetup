@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+8gitlab-clone() {
+  mkdir -p ~/podium && cd ~/podium
+
+  local token=$(mimipass get podium/gitlab-token)
+  for i in {1..200}; do
+    curl "http://gitlab.podium.com/api/v4/projects?page=${i}&private_token=${token}" \
+      | jq .[].ssh_url_to_repo \
+      | xargs -P10 -I{} -0 git clone {}
+  done
+}
