@@ -17,20 +17,19 @@
     - libgdbm3
     - libgdbm-dev
 
-- name: "install rbenv & friends"
+- name: "add asdf's ruby plugin"
   become: false
-  shell: |
-    curl -fsSL https://raw.githubusercontent.com/rbenv/rbenv-installer/master/bin/rbenv-installer | bash
+  command: "asdf plugin-add ruby"
   args:
-    creates: "{{ rbenv_home }}"
+    creates: "~/.asdf/plugins/ruby/LICENSE"
 
 - name: "install ruby {{ ruby_version }}"
   become: false
-  shell: |
-    export PATH="{{rbenv_home}}/bin:$PATH"
-    eval "$({{rbenv_home}}/bin/rbenv init -)"
-
-    {{rbenv_home}}/bin/rbenv install "{{ ruby_version }}"
-    {{rbenv_home}}/bin/rbenv global  "{{ ruby_version }}"
+  command: "~/.asdf/bin/asdf install ruby {{ ruby_version }}"
   args:
-    creates: "{{ rbenv_home }}/versions/{{ ruby_version }}/bin/ruby"
+    creates: "~/.asdf/installs/ruby/{{ ruby_version }}/bin/ruby"
+
+- name: "use global ruby {{ ruby_version }}"
+  become: false
+  command: "~/.asdf/bin/asdf global ruby {{ ruby_version }}"
+  changed_when: false
