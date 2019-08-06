@@ -9,7 +9,7 @@
     - spotify-client
     - telegram
     - libappindicator3-1
-    - webcamoid
+    - libreoffice
     - blueman
     - ttf-ancient-fonts # adds fonts needed by emacs
 

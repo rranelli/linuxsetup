@@ -91,13 +91,13 @@
     - xclip
     - xdg-utils
 
-- name: "add local user to wireshark group"
-  user:
-    name="{{ local_user }}"
-    groups="wireshark"
-    append="yes"
+# - name: "add local user to wireshark group"
+#   user:
+#     name="{{ local_user }}"
+#     groups="wireshark"
+#     append="yes"
 
-- name: "make dumpcap's group wireshark"
-  file:
-    path="/usr/bin/dumpcap"
-    group="wireshark"
+# - name: "make dumpcap's group wireshark"
+#   file:
+#     path="/usr/bin/dumpcap"
+#     group="wireshark"

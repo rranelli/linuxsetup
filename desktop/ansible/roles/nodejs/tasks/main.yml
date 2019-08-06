@@ -5,6 +5,7 @@
     creates: "~/.asdf/plugins/nodejs/LICENSE"
 
 - name: "Import keyring"
+  become: false
   command: "~/.asdf/plugins/nodejs/bin/import-release-team-keyring"
 
 - name: "add asdf's yarn plugin"

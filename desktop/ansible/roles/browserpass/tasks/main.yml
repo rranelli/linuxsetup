@@ -38,6 +38,6 @@
   command: "{{ item }}"
   args:
     chdir: "{{ installation.path }}"
-  items:
+  with_items:
     - make BIN=browserpass-linux64 configure
     - make BIN=browserpass-linux64 install

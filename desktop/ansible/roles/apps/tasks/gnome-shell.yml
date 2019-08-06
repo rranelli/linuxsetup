@@ -3,12 +3,11 @@
     name="{{ item }}"
     default_release="testing"
     autoremove="yes"
-    state="latest"
+    state="present"
     update_cache="yes"
     cache_valid_time="7200"
   with_items:
     - gnome-shell
-    - libreoffice
 
 - name: "remove debian/gnome cruft"
   apt:

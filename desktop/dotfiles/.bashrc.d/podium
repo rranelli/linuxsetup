@@ -7,6 +7,6 @@
   for i in {1..200}; do
     curl "http://gitlab.podium.com/api/v4/projects?page=${i}&private_token=${token}" \
       | jq .[].ssh_url_to_repo \
-      | xargs -P10 -I{} -0 git clone {}
+      | xargs -P10 -I{} -n1 git clone {}
   done
 }
