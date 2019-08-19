@@ -18,6 +18,7 @@
     value: "{{ item.value }}"
     scope: global
   with_items:
+    - { name: "pull.rebase", value: "true" }
     - { name: "user.name", value: "Milhouse" }
     - { name: "user.email", value: "renanranelli@gmail.com" }
     - { name: "user.signingKey", value: "BDD12B22" }
@@ -28,7 +29,6 @@
     - { name: "github.token", value: "{{ github_oauth_token }}" }
     - { name: "github.oauth-token", value: "{{ github_oauth_token }}" }
     - { name: "core.excludesfile", value: "/home/{{ local_user }}/.gitignore_global"}
-
 
 - name: "install python3 & python3-pip"
   apt:
