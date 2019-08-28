@@ -19,6 +19,7 @@
     scope: global
   with_items:
     - { name: "pull.rebase", value: "true" }
+    - { name: "pull.autostash", value: "true" }
     - { name: "user.name", value: "Milhouse" }
     - { name: "user.email", value: "renanranelli@gmail.com" }
     - { name: "user.signingKey", value: "BDD12B22" }
