@@ -40,6 +40,7 @@
     - /usr/share/applications/mono-runtime-*.desktop
     - /usr/share/applications/debian-u?xterm*.desktop
 
+- file: path="/home/{{ local_user }}/bin" state=directory owner="{{ local_user }}"
 - name: "get extension install script"
   get_url:
     url="https://raw.githubusercontent.com/NicolasBernaerts/ubuntu-scripts/c79ef91c916cfe24725f4deb7f14d9c03c58c397/ubuntugnome/gnomeshell-extension-manage"

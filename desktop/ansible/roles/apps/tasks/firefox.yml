@@ -23,13 +23,13 @@
     dest='/usr/local/bin/nightly'
     state=link
 
-- file: path='/home/{{ local_user }}/.local/share/applications' state=directory owner='{{ local_user }}' group='{{ local_user }}'
+- file: path='/home/{{ local_user }}/.local/share/applications' recurse=yes state=directory owner='{{ local_user }}' group='{{ local_user }}'
 - copy:
     src='nightly.desktop'
     dest='~/.local/share/applications/nightly.desktop'
   become: false
 
-- file: path='~/.local/share/icons' state=directory owner='{{ local_user }}' group='{{ local_user }}'
+- file: path='~/.local/share/icons' recurse=yes state=directory owner='{{ local_user }}' group='{{ local_user }}'
 - copy:
     src='nightly.ico'
     dest='~/.local/share/icons/nightly.ico'

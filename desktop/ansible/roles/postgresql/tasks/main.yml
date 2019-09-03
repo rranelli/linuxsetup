@@ -18,7 +18,7 @@
 - name: "pg_hba.conf"
   copy:
     src=pg_hba.conf
-    dest=/etc/postgresql/9.6/main/pg_hba.conf
+    dest=/etc/postgresql/11/main/pg_hba.conf
   notify:
     - restart-postgresql
 

@@ -9,6 +9,12 @@
   apt_key:
     id="EEA14886"
     keyserver="keyserver.ubuntu.com"
+    state="absent"
+
+- name: "set up apt-keys"
+  apt_key:
+    id="73C3DB2A"
+    keyserver="keyserver.ubuntu.com"
     state="present"
 
 - name: "set up oracle java repo"

@@ -7,7 +7,7 @@
   with_items:
     - deluge
     - spotify-client
-    - telegram
+    - telegram-desktop
     - libappindicator3-1
     - libreoffice
     - blueman

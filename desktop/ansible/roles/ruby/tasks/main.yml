@@ -15,7 +15,6 @@
     - zlib1g-dev
     - libncurses5-dev
     - libffi-dev
-    - libgdbm3
     - libgdbm-dev
 
 - name: "add asdf's ruby plugin"
