@@ -3,6 +3,7 @@ if [[ $OSTYPE =~ "darwin" ]]; then
   echo -e '\n. $(brew --prefix asdf)/asdf.sh' >> ~/.bash_profile
   echo -e '\n. $(brew --prefix asdf)/etc/bash_completion.d/asdf.bash' >> ~/.bash_profile
 elif [ -d ~/.asdf ]; then
+  export KERL_BUILD_DOCS=true
   source $HOME/.asdf/asdf.sh
   source $HOME/.asdf/completions/asdf.bash
 fi
