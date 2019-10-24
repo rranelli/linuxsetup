@@ -11,6 +11,13 @@
     update_cache="yes"
     cache_valid_time="7200"
 
+- name: "install libgtkwebkit"
+  apt:
+    name=["libgtk-3-dev", "libwebkit2gtk-4.0-dev"]
+    state="present"
+    update_cache="yes"
+    cache_valid_time="7200"
+
 - name: "download the ONE TRUE EDITOR"
   when: emacs.changed
   get_url:
@@ -29,7 +36,7 @@
   when: emacs.changed
   shell: |
     cd /tmp/emacs-{{ emacs_version }} && {
-      CFLAGS='-no-pie -O0 -g3' ./configure --enable-checking='yes,glyphs' \
+      CFLAGS='-no-pie -O0 -g3' ./configure -with-cairo --with-xwidgets --with-x-toolkit=gtk3 --enable-checking='yes,glyphs' \
         && make \
         && make install
     }
