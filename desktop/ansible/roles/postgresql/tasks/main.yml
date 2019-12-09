@@ -1,13 +1,13 @@
 - name: "install postgresql & libpq-dev"
   apt:
-    name="{{ item }}"
-    state="present"
-    update_cache="yes"
-    cache_valid_time="7200"
-  with_items:
-    - postgresql
-    - libpq-dev
-    - python-pip
+    name:
+      - postgresql
+      - libpq-dev
+      - python-pip
+      - pspg
+    state: "present"
+    update_cache: "yes"
+    cache_valid_time: "7200"
 
 - name: "enable postgresql"
   service:

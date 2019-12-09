@@ -3,18 +3,18 @@
   connection: local
   become: yes
   roles:
-    - browserpass
-    - packages
-    - ssh
-    - apps
-    - mimipass
-    - code
-    - emacs
-    - elixir
-    - ruby
-    - nodejs
-    - python
-    - docker
+    # - browserpass
+    # - packages
+    # - ssh
+    # - apps
+    # - mimipass
+    # - code
+    # - emacs
+    # - elixir
+    # - ruby
+    # - nodejs
+    # - python
+    # - docker
     # - langtool
     - postgresql
     # - java

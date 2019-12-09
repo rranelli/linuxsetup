@@ -1,14 +1,7 @@
------------------------------------------
--- psqlrc file to set psql preferences --
--- Author : Prashanth Goriparthi       --
------------------------------------------
-
 \set QUIET ON
 
-\set PROMPT1 '%[%033[1;32;40m%]%M%;> %n@%/%[%033[0m%]% # '
-\set PAGER OFF
 \set HISTFILE ~/.psql_history-:DBNAME
-\set HISTSIZE 2000
+\set HISTSIZE 20000
 \set ECHO_HIDDEN ON
 \set COMP_KEYWORD_CASE upper
 
@@ -16,6 +9,9 @@
 \encoding unicode
 
 \pset null 'NULL'
+
+\setenv PAGER '/usr/bin/pspg'
+\pset linestyle unicode
 \pset border 2
 
 \set QUIET OFF
@@ -35,11 +31,6 @@
 \echo '\t\t\t:menu\t\t-- Help Menu'
 \echo '\t\t\t\\h\t\t-- Help with SQL commands'
 \echo '\t\t\t\\?\t\t-- Help with psql commands\n'
-
-\echo 'Development queries:\n'
-\echo '\t\t\t:sp\t\t-- Current Search Path'
-\echo '\t\t\t:clear\t\t-- Clear screen'
-\echo '\t\t\t:ll\t\t-- List\n'
 
 -- Administration queries
 

@@ -4,6 +4,7 @@
 ## Life quality
 #
 alias cat="$(which bat >/dev/null 2>&1 && echo 'bat -p --pager=never' || which cat)"
+alias pgcli="$(which pspg >/dev/null 2>&1 && echo 'PAGER="pspg -abX" pgcli' || which pgcli)"
 
 8night-light () { gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled true ;}
 
@@ -86,7 +87,6 @@ export -f 8bry
 8nord-vpn() {
   sudo openvpn /etc/openvpn/openvpn_tcp/br21.nordvpn.com.udp.ovpn
 }
-
 
 # first argument is the line to grab;
 8line() { tail -n +"$@" | head -n1 ;}
