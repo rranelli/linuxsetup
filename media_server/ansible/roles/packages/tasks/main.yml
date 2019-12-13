@@ -1,12 +1,11 @@
 - name: install packages
   apt:
-    name="{{ item }}"
-    state="present"
-    update_cache="yes"
-    cache_valid_time="7200"
-  with_items:
-    - emacs-nox
-    - bash-completion
-    - curl
-    - dnsutils
-    - pi-bluetooth
+    name:
+      - emacs-nox
+      - bash-completion
+      - curl
+      - dnsutils
+      - pi-bluetooth
+    state: "present"
+    update_cache: "yes"
+    cache_valid_time: "7200"
