@@ -7,7 +7,7 @@
 - name: "download Dropbox's deb file"
   when: dropbox.changed
   get_url:
-    url="https://www.dropbox.com/download?dl=packages/debian/dropbox_2015.10.28_amd64.deb"
+    url="https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2019.02.14_amd64.deb"
     dest="/tmp/dropbox.deb"
 
 - name: "install dropbox"
