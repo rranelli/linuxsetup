@@ -102,3 +102,11 @@
     minute="*/30"
     user="milhouse"
     state="present"
+
+- name: "refresh trakt token every day"
+  cron:
+    job="/usr/local/bin/flexget --cron trakt refresh rranelli"
+    name="flexget trakt refresh"
+    hour="0"
+    user="milhouse"
+    state="present"
