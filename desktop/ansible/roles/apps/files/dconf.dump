@@ -425,7 +425,7 @@ sleep-inactive-battery-timeout=1800
 night-light-schedule-automatic=false
 night-light-schedule-to=23.983333333333334
 night-light-schedule-from=0.0
-night-light-enabled=true
+night-light-enabled=false
 night-light-last-coordinates=(-23.626999999999999, -46.634999999999998)
 night-light-temperature=uint32 0
 
