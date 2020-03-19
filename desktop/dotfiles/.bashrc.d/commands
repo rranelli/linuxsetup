@@ -4,7 +4,7 @@
 ## Life quality
 #
 alias cat="$(which bat >/dev/null 2>&1 && echo 'bat -p --pager=never' || which cat)"
-alias pgcli="$(which pspg >/dev/null 2>&1 && echo 'PAGER="pspg -abX" pgcli' || which pgcli)"
+alias pgcli="$(which pspg >/dev/null 2>&1 && echo 'PAGER="pspg -abXF" pgcli' || which pgcli)"
 
 8night-light () { gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled true ;}
 
