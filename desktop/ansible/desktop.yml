@@ -8,7 +8,7 @@
     # - ssh
     # - apps
     # - mimipass
-    # - code
+    - code
     # - emacs
     # - elixir
     # - ruby
@@ -16,7 +16,7 @@
     # - python
     # - docker
     # - langtool
-    - postgresql
+    # - postgresql
     # - java
     # - csharp
     # - cassandra

@@ -31,6 +31,19 @@
     - { name: "github.oauth-token", value: "{{ github_oauth_token }}" }
     - { name: "core.excludesfile", value: "/home/{{ local_user }}/.gitignore_global"}
 
+- name: "install bat galaxy role"
+  become: false
+  command:
+    "ansible-galaxy install aeimer.install_bat"
+  args:
+    creates: "~/.ansible/roles/aeimer.install_bat"
+
+- name: "install bat"
+  include_role:
+    apply:
+      become: false
+    name: "aeimer.install_bat"
+
 - name: "install python3 & python3-pip"
   apt:
     name="{{ item }}"
