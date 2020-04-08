@@ -14,3 +14,12 @@ media_server:
 		--vault-password-file ~/.emacs.d/.ansible-vault \
                 ${OPTS} \
 		media_server/ansible/media_server.yml
+
+podium:
+	ansible-playbook \
+		-i desktop/ansible/hosts \
+		--ask-become-pass \
+		--vault-password-file ~/.emacs.d/.ansible-vault \
+                --tags "podium" \
+                ${OPTS} \
+		desktop/ansible/desktop.yml

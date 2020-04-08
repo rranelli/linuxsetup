@@ -1,0 +1,34 @@
+- name: "install ruby-build dependencies"
+  apt:
+    name:
+      - autoconf
+      - bison
+      - build-essential
+      - ruby-dev
+      - libssl-dev
+      - libyaml-dev
+      - libreadline6-dev
+      - zlib1g-dev
+      - libncurses5-dev
+      - libffi-dev
+      - libgdbm-dev
+    state: "present"
+    update_cache: "yes"
+    cache_valid_time: "7200"
+
+- name: "add asdf's ruby plugin"
+  become: false
+  command: "asdf plugin-add ruby"
+  args:
+    creates: "~/.asdf/plugins/ruby/LICENSE"
+
+- name: "install ruby {{ ruby_version }}"
+  become: false
+  command: "~/.asdf/bin/asdf install ruby {{ ruby_version }}"
+  args:
+    creates: "~/.asdf/installs/ruby/{{ ruby_version }}/bin/ruby"
+
+- name: "use global ruby {{ ruby_version }}"
+  become: false
+  command: "~/.asdf/bin/asdf global ruby {{ ruby_version }}"
+  changed_when: false

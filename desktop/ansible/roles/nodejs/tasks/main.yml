@@ -7,6 +7,7 @@
 - name: "Import keyring"
   become: false
   command: "~/.asdf/plugins/nodejs/bin/import-release-team-keyring"
+  changed_when: false
 
 - name: "add asdf's yarn plugin"
   become: false

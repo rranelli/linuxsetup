@@ -1,0 +1,16 @@
+- name: "install asdf's K9s plugin"
+  become: false
+  command: "~/.asdf/bin/asdf plugin-add k9s"
+  args:
+    creates: "~/.asdf/plugins/k9s/LICENSE"
+
+- name: "install K9s {{ k9s_version }}"
+  become: false
+  command: "~/.asdf/bin/asdf install k9s {{ k9s_version }}"
+  args:
+    creates: "~/.asdf/installs/k9s/{{ k9s_version }}/bin/k9s"
+
+- name: "use global K9s {{ k9s_version }}"
+  become: false
+  command: "~/.asdf/bin/asdf global k9s {{ k9s_version }}"
+  changed_when: false

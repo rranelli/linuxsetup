@@ -37,8 +37,6 @@
   command: "~/.asdf/bin/asdf install erlang {{ erlang_version }}"
   args:
     creates: "~/.asdf/installs/erlang/{{ erlang_version }}/bin/erl"
-  # environment:
-  #   KERL_BUILD_DOCS: true
 
 - name: "use global Erlang {{ erlang_version }}"
   become: false

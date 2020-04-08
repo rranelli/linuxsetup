@@ -13,7 +13,7 @@
 
 - name: "install docker"
   apt:
-    name="docker-engine"
+    name="docker-ce"
     state="present"
     update_cache="yes"
     cache_valid_time="7200"

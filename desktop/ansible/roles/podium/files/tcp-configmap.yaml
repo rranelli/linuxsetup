@@ -1,0 +1,14 @@
+apiVersion: v1
+data:
+  "5432": default/postgres:5432
+  "9200": default/elasticsearch-master:9200
+  "9092": default/kafka:9092
+  "8083": default/kafka-connect:8083
+  "5672": default/rabbitmq:5672
+  "6379": default/redis-master:6379
+kind: ConfigMap
+metadata:
+  name: tcp-services
+  namespace: kube-system
+  labels:
+    version: "1"

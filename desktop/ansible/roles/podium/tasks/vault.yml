@@ -1,0 +1,38 @@
+- name: "add asdf's vault plugin"
+  become: false
+  command: "asdf plugin-add vault"
+  args:
+    creates: "~/.asdf/plugins/vault/LICENSE"
+
+- name: "install vault {{ vault_version }}"
+  become: false
+  command: "~/.asdf/bin/asdf install vault {{ vault_version }}"
+  args:
+    creates: "~/.asdf/installs/vault/{{ vault_version }}/bin/vault"
+
+- name: "use global vault {{ vault_version }}"
+  become: false
+  command: "~/.asdf/bin/asdf global vault {{ vault_version }}"
+  changed_when: false
+
+- name: "Check if logged in to vault"
+  become: false
+  command: "vault token lookup -address=https://vault.podium-dev.com"
+  failed_when: false
+  changed_when: token_lookup.rc != 0
+  register: token_lookup
+
+- set_fact:
+    vault_login_required: "{{ token_lookup.changed }}"
+
+- name: "Log in to vault"
+  when: vault_login_required
+  become: false
+  command: "vault login -address=https://vault.podium-dev.com -method=oidc"
+
+- name: "Clear kubernetes vault-secret if changed"
+  when: vault_login_required
+  become: false
+  command: "kubectl delete secret vault-token"
+  changed_when: vault_login_required
+  failed_when: false

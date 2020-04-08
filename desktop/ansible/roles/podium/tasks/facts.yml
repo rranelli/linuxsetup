@@ -1,0 +1,16 @@
+- name: Register current user's name
+  become: false
+  command: whoami
+  changed_when: false
+  register: whoami
+
+- name: "Register current distribution"
+  command: "lsb_release -cs"
+  changed_when: false
+  register: lsb_release
+
+- name: Set a fact with collect variables
+  set_fact:
+    current_user: "{{ whoami.stdout | trim }}"
+    distribution: "{{ lsb_release.stdout | trim }}"
+  changed_when: false

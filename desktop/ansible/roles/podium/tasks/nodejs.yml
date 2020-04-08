@@ -1,0 +1,81 @@
+- name: "Add asdf's nodejs plugin"
+  become: false
+  command: "asdf plugin-add nodejs https://github.com/asdf-vm/asdf-nodejs.git"
+  args:
+    creates: "~/.asdf/plugins/nodejs/LICENSE"
+
+- name: "Import keyring"
+  become: false
+  command: "~/.asdf/plugins/nodejs/bin/import-release-team-keyring"
+  changed_when: false
+
+- name: "Install nodejs {{ nodejs_version }}"
+  become: false
+  command: "~/.asdf/bin/asdf install nodejs {{ nodejs_version }}"
+  args:
+    creates: "~/.asdf/installs/nodejs/{{ nodejs_version }}/bin/node"
+
+- name: "Use global Nodejs {{ nodejs_version }}"
+  become: false
+  command: "~/.asdf/bin/asdf global nodejs {{ nodejs_version }}"
+  changed_when: false
+
+- name: "Add asdf's yarn plugin"
+  become: false
+  command: "asdf plugin-add yarn"
+  args:
+    creates: "~/.asdf/plugins/yarn/LICENSE"
+
+- name: "Install yarn {{ nodejs_version }}"
+  become: false
+  command: "~/.asdf/bin/asdf install yarn {{ yarn_version }}"
+  args:
+    creates: "~/.asdf/installs/yarn/{{ yarn_version }}/bin/yarn"
+
+- name: "Use global Yarn {{ nodejs_version }}"
+  become: false
+  command: "~/.asdf/bin/asdf global yarn {{ yarn_version }}"
+  changed_when: false
+
+- name: "Install npm-login-cli"
+  become: false
+  npm:
+    name: "npm-cli-login"
+    state: "present"
+    global: "true"
+
+- name: "Check if already logged in to npm"
+  become: false
+  stat: path="~/.npmrc"
+  register: npmrc
+
+- set_fact:
+    npm_login_required: not npmrc.stat.exists
+
+- name: "Get npm username"
+  when: npm_login_required | bool
+  pause:
+    prompt: NPM Username
+    echo: yes
+  register: npm_username
+
+- name: "Get npm password"
+  when: npm_login_required | bool
+  pause:
+    prompt: NPM Password
+    echo: no
+  register: npm_password
+
+- name: "Get npm email"
+  when: npm_login_required | bool
+  pause:
+    prompt: NPM Email
+    echo: yes
+  register: npm_email
+
+- name: "Login to podium's npm"
+  become: false
+  when: npm_login_required | bool
+  command: "npm-cli-login -u {{ npm_username.prompt.user_input }} -p {{ npm_password.prompt.user_input }} -e {{ npm_email.prompt.user_input }}"
+  args:
+    creates: "~/.npmrc"

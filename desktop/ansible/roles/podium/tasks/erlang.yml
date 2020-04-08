@@ -1,0 +1,50 @@
+- name: "install required packages to build erlang"
+  apt:
+    name:
+      - libwxgtk3.0-dev
+      - libgl1-mesa-dev
+      - libglu1-mesa-dev
+      - libpng-dev
+      - libncurses5-dev
+      - m4
+      - autoconf
+      - build-essential
+      - fop
+      - libxslt1-dev
+    state: "present"
+    update_cache: "yes"
+    cache_valid_time: "7200"
+
+- name: "install asdf's Erlang plugin"
+  become: false
+  command: "~/.asdf/bin/asdf plugin-add erlang"
+  args:
+    creates: "~/.asdf/plugins/erlang/LICENSE"
+
+- name: "install Erlang {{ erlang_version }}"
+  become: false
+  command: "~/.asdf/bin/asdf install erlang {{ erlang_version }}"
+  args:
+    creates: "~/.asdf/installs/erlang/{{ erlang_version }}/bin/erl"
+
+- name: "use global Erlang {{ erlang_version }}"
+  become: false
+  command: "~/.asdf/bin/asdf global erlang {{ erlang_version }}"
+  changed_when: false
+
+- name: "install asdf's Rebar plugin"
+  become: false
+  command: "~/.asdf/bin/asdf plugin-add rebar"
+  args:
+    creates: "~/.asdf/plugins/rebar/LICENSE"
+
+- name: "install Rebar {{ rebar_version }}"
+  become: false
+  command: "~/.asdf/bin/asdf install rebar {{ rebar_version }}"
+  args:
+    creates: "~/.asdf/installs/rebar/{{ rebar_version }}/bin/rebar3"
+
+- name: "use global Rebar {{ rebar_version }}"
+  become: false
+  command: "~/.asdf/bin/asdf global rebar {{ rebar_version }}"
+  changed_when: false

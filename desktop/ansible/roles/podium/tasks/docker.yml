@@ -1,0 +1,88 @@
+- name: "Install docker dependencies"
+  apt:
+    name:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - software-properties-common
+      - gnupg2
+    state: "present"
+    update_cache: "yes"
+    cache_valid_time: "7200"
+
+- name: "Set up docker apt-key"
+  apt_key:
+    url: "https://download.docker.com/linux/debian/gpg"
+    state: "present"
+
+- name: "Set up docker repository"
+  apt_repository:
+    repo: "deb [arch=amd64] https://download.docker.com/linux/debian {{ distribution }} stable"
+    state: "present"
+    update_cache: "yes"
+    filename: "docker"
+
+- name: "Install docker engine"
+  apt:
+    name: "docker-ce"
+    state: "present"
+    update_cache: "yes"
+    cache_valid_time: "7200"
+
+- name: "Add local user to docker group"
+  user:
+    name: "{{ current_user }}"
+    groups: "docker"
+    append: "yes"
+
+- name: "Install docker compose"
+  pip:
+    name: "docker-compose"
+    state: "present"
+    version: "{{ docker_compose_version }}"
+
+- name: "Enable docker @ systemd"
+  service:
+    name: "docker"
+    state: "started"
+    enabled: "yes"
+  notify:
+    - systemd-reload
+
+- name: "Check if logged in to podium registry"
+  become: false
+  command: "grep registry.podium.com ~/.docker/config.json"
+  failed_when: false
+  changed_when: docker_login.rc != 0
+  register: docker_login
+
+- set_fact:
+    docker_login_required: "{{ docker_login.changed }}"
+
+- name: "Get podium email"
+  when: docker_login_required
+  pause:
+    prompt: "Podium email"
+    echo: "yes"
+  register: podium_email
+
+- name: "Get Gitlab token"
+  when: docker_login_required
+  pause:
+    prompt: "Gitlab api token ()"
+    echo: "no"
+  register: gitlab_api_token
+
+- when: docker_login_required
+  set_fact:
+    podium_email: "{{ podium_email.prompt.user_input }}"
+    gitlab_api_token: "{{ gitlab_api_token.prompt.user_input }}"
+
+- name: "Login to podium's registry"
+  when: docker_login_required
+  docker_login:
+    state: "present"
+    registry: "registry.podium.com"
+    username: "{{ podium_email }}"
+    password: "{{ gitlab_api_token }}"
+    reauthorize: "no"

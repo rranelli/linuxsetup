@@ -1,0 +1,110 @@
+- name: "Configure minikube"
+  become: false
+  command: "minikube {{ item }}"
+  with_items:
+    - config set driver docker
+    - config set cpus 6
+    - config set disk-size '60000mb'
+    - config set feature-gates 'TTLAfterFinished=true'
+    - config set kubernetes-version "{{ k8s_version }}"
+    - addons enable metrics-server
+    - addons enable ingress
+    - addons enable ingress-dns
+  changed_when: false
+
+- name: "Gather current namespace"
+  become: false
+  shell: |
+    kubectl config view -o json | jq -r --arg context "$(
+      kubectl config view -o jsonpath='{.current-context}'
+    )" '.contexts[] | select(.name == $context) | .context.namespace'
+  register: current_namespace
+
+- set_fact:
+    desired_namespace: "{{ lookup('env', 'ACTIVE_NAMESPACE') or 'default' }}"
+    current_namespace: "{{ current_namespace.stdout | trim }}"
+
+- name: "Set current namespace to supplied if not already"
+  become: false
+  when: desired_namespace != current_namespace
+  command: "kubectl config set-context --current --namespace={{ desired_namespace }}"
+
+- name: "Check if tiller serviceaccount exists"
+  become: false
+  failed_when: false
+  command: "kubectl get sa tiller"
+  changed_when: sa_tiller.rc != 0
+  register: sa_tiller
+
+- name: "Check if tiller-manager role exists"
+  become: false
+  command: "kubectl get role tiller-manager"
+  failed_when: false
+  changed_when: role_exists.rc != 0
+  register: role_exists
+
+- name: "Check if rolebinding for tiller-manager exists"
+  become: false
+  command: "kubectl get rolebinding tiller-binding"
+  failed_when: false
+  changed_when: rolebinding_exists.rc != 0
+  register: rolebinding_exists
+
+- name: "Check if chartmuseum-dev is added"
+  become: false
+  shell: "grep chartmuseum-dev <(helm repo list)"
+  failed_when: false
+  changed_when: repo_exists.rc != 0
+  register: repo_exists
+
+- name: "Check if Helm has been initialized"
+  become: false
+  command: "helm ls"
+  failed_when: false
+  changed_when: helm_init.rc != 0
+  register: helm_init
+
+- set_fact:
+    serviceaccount_required: sa_tiller.changed
+    role_required: role_exists.changed
+    rolebinding_required: rolebinding_exists.changed
+    helm_init_required: helm_init.changed
+
+- name: "Create tiller serviceaccount"
+  become: false
+  when: serviceaccount_required|bool
+  shell: "kubectl create serviceaccount tiller"
+
+- name: "Create tiller role"
+  become: false
+  when: role_required
+  command: "kubectl apply -f {{ role_path }}/files/role-tiller.yaml"
+
+- name: "Create tiller rolebinding"
+  become: false
+  when: rolebinding_required
+  command: "kubectl apply -f {{ role_path }}/files/rolebinding-tiller.yaml"
+
+- name: "Initialize helm"
+  become: false
+  when: helm_init_required
+  command: "helm init --upgrade --service-account tiller"
+
+- name: "Add charmuseum"
+  become: false
+  when: repo_exists.changed
+  shell: |
+    data=$(vault kv get -address=https://vault.podium-dev.com -format=json -field=data k8s/helm)
+
+    url=$(echo $data | jq -r '.CHARTMUSEUM_DEV_URL')
+    username=$(echo $data | jq -r '.CHARTMUSEUM_DEV_USERNAME')
+    password=$(echo $data | jq -r '.CHARTMUSEUM_DEV_PASSWORD')
+
+    helm repo add chartmuseum-dev "$url" \
+      --username "$username" \
+      --password "$password"
+
+# - name: "Configure tcp ingress"
+# - name: "Configure kube vault secret"
+# - name: "Configure kube gitlab secret"
+# - name: "Configure kube helm secret"
