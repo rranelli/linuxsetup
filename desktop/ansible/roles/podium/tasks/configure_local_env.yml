@@ -18,6 +18,7 @@
     kubectl config view -o json | jq -r --arg context "$(
       kubectl config view -o jsonpath='{.current-context}'
     )" '.contexts[] | select(.name == $context) | .context.namespace'
+  changed_when: false
   register: current_namespace
 
 - set_fact:
@@ -52,43 +53,37 @@
 
 - name: "Check if chartmuseum-dev is added"
   become: false
-  shell: "grep chartmuseum-dev <(helm repo list)"
+  shell: "helm repo list | grep chartmuseum-dev"
   failed_when: false
   changed_when: repo_exists.rc != 0
   register: repo_exists
 
 - name: "Check if Helm has been initialized"
   become: false
-  command: "helm ls"
+  command: "helm --tiller-namespace '{{ current_namespace }}' ls"
   failed_when: false
   changed_when: helm_init.rc != 0
   register: helm_init
 
-- set_fact:
-    serviceaccount_required: sa_tiller.changed
-    role_required: role_exists.changed
-    rolebinding_required: rolebinding_exists.changed
-    helm_init_required: helm_init.changed
-
 - name: "Create tiller serviceaccount"
   become: false
-  when: serviceaccount_required|bool
+  when: sa_tiller.changed
   shell: "kubectl create serviceaccount tiller"
 
 - name: "Create tiller role"
   become: false
-  when: role_required
+  when: role_exists.changed
   command: "kubectl apply -f {{ role_path }}/files/role-tiller.yaml"
 
 - name: "Create tiller rolebinding"
   become: false
-  when: rolebinding_required
+  when: rolebinding_exists.changed
   command: "kubectl apply -f {{ role_path }}/files/rolebinding-tiller.yaml"
 
 - name: "Initialize helm"
   become: false
-  when: helm_init_required
-  command: "helm init --upgrade --service-account tiller"
+  when: helm_init.changed
+  command: "helm --tiller-namespace '{{ current_namespace }}' init --upgrade --service-account tiller"
 
 - name: "Add charmuseum"
   become: false
