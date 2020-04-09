@@ -10,6 +10,10 @@
   tags: [install, k8s, docker]
   import_tasks: "docker.yml"
 
+- name: "Configure gitlab"
+  tags: [install, gitlab]
+  import_tasks: "configure_gitlab.yml"
+
 - name: "Install ASDF version manager"
   tags: [install, asdf]
   import_tasks: "asdf.yml"

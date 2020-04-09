@@ -60,7 +60,7 @@
 
 - name: "Check if Helm has been initialized"
   become: false
-  command: "helm --tiller-namespace '{{ current_namespace }}' ls"
+  command: "helm --tiller-namespace '{{ desired_namespace }}' ls"
   failed_when: false
   changed_when: helm_init.rc != 0
   register: helm_init
@@ -83,7 +83,7 @@
 - name: "Initialize helm"
   become: false
   when: helm_init.changed
-  command: "helm --tiller-namespace '{{ current_namespace }}' init --upgrade --service-account tiller"
+  command: "helm --tiller-namespace '{{ desired_namespace }}' init --upgrade --service-account tiller"
 
 - name: "Add charmuseum"
   become: false
@@ -106,8 +106,8 @@
     version=$(kubectl get cm tcp-services -n kube-system -o jsonpath='{.metadata.labels.version}' 2>/dev/null)
 
     if [ "$version" != "$current_version" ]; then
-      kubectl apply -n kube-system -f config/tcp-configmap.yaml
-      kubectl patch deployment nginx-ingress-controller --patch "$(cat config/tcp-ingress-patch.yaml)" -n kube-system
+      kubectl apply -n kube-system -f "{{ role_path }}/files/tcp-configmap.yaml"
+      kubectl patch deployment nginx-ingress-controller --patch "$(cat {{ role_path }}/tcp-ingress-patch.yaml)" -n kube-system
     fi
 
 - name: "Configure secrets"

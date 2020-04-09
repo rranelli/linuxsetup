@@ -1,0 +1,27 @@
+- name: "Get Gitlab token"
+  when: gitlab_api_token is not defined
+  pause:
+    prompt: "Gitlab api token ()"
+    echo: "no"
+  register: gitlab_api_token_asked
+
+- when: false
+  set_fact:
+    gitlab_api_token: "{{ gitlab_api_token_asked.user_input }}"
+
+- name: "Generate an ssh key solely for gitlab use"
+  become: false
+  openssh_keypair:
+    path: "~/.ssh/gitlab_ssh_rsa"
+    size: 4096
+  register: gitlab_ssh_key
+
+- name: "Set key on gitlab"
+  when: false
+  gitlab_user:
+    api_url: "https://gitlab.podium.com"
+    api_token: "{{ gitlab_api_token }}"
+    state: "present"
+    sshkey_name: "{{ current_user }}@podium"
+    sshkey_file: "{{ gitlab_ssh_key.public_key }}"
+  delegate_to: localhost
