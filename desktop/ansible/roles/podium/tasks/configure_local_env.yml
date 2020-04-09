@@ -7,10 +7,44 @@
     - config set disk-size '60000mb'
     - config set feature-gates 'TTLAfterFinished=true'
     - config set kubernetes-version "{{ k8s_version }}"
+  changed_when: false
+
+- name: "Check if minikube is up"
+  become: false
+  shell: "minikube status | grep 'host: Running'"
+  changed_when: minikube_up.rc != 0
+  failed_when: false
+  register: minikube_up
+
+- name: "Start minikube"
+  become: false
+  when: minikube_up.changed
+  command: "minikube start"
+
+- name: "Configure minikube runtime"
+  become: false
+  command: "minikube {{ item }}"
+  with_items:
     - addons enable metrics-server
     - addons enable ingress
     - addons enable ingress-dns
-  changed_when: false
+
+- name: "Gather minikube ip"
+  become: false
+  command: "minikube ip"
+  register: minikube_ip
+
+- name: "Update local DNS config for minikube"
+  lineinfile:
+    path: "/etc/NetworkManager/dnsmasq.d/kube"
+    regexp: "server=/dev\\.podium-dev\\.com/.*"
+    line: "server=/dev.podium-dev.com/{{ minikube_ip.stdout|trim }}"
+    state: "present"
+  register: update_local_dns
+
+- name: "Restart networkmanager"
+  when: update_local_dns.changed
+  command: "systemctl restart network-manager"
 
 - name: "Gather current namespace"
   become: false

@@ -1,4 +1,4 @@
-.PHONY: desktop media_server
+.PHONY: desktop media_server podium-up podium-down podium-install
 
 desktop:
 	ansible-playbook \
@@ -15,11 +15,23 @@ media_server:
                 ${OPTS} \
 		media_server/ansible/media_server.yml
 
-podium:
+podium-install:
 	ansible-playbook \
 		-i desktop/ansible/hosts \
 		--ask-become-pass \
 		--vault-password-file ~/.emacs.d/.ansible-vault \
                 --tags "podium" \
+                ${OPTS} \
+		desktop/ansible/desktop.yml
+
+podium-down:
+	minikube delete
+
+podium-up:
+	ansible-playbook \
+		-i desktop/ansible/hosts \
+		--ask-become-pass \
+		--vault-password-file ~/.emacs.d/.ansible-vault \
+                --tags "configure" \
                 ${OPTS} \
 		desktop/ansible/desktop.yml
