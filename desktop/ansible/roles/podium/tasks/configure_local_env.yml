@@ -99,7 +99,16 @@
       --username "$username" \
       --password "$password"
 
-# - name: "Configure tcp ingress"
-# - name: "Configure kube vault secret"
-# - name: "Configure kube gitlab secret"
-# - name: "Configure kube helm secret"
+- name: "Configure tcp ingress"
+  become: false
+  shell: |
+    current_version=$(yq r {{ role_path }}/files/tcp-configmap.yaml 'metadata.labels.version')
+    version=$(kubectl get cm tcp-services -n kube-system -o jsonpath='{.metadata.labels.version}' 2>/dev/null)
+
+    if [ "$version" != "$current_version" ]; then
+      kubectl apply -n kube-system -f config/tcp-configmap.yaml
+      kubectl patch deployment nginx-ingress-controller --patch "$(cat config/tcp-ingress-patch.yaml)" -n kube-system
+    fi
+
+- name: "Configure secrets"
+  import_tasks: "configure_secrets.yml"
