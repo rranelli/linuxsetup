@@ -34,18 +34,6 @@
   command: "minikube ip"
   register: minikube_ip
 
-- name: "Update local DNS config for minikube"
-  lineinfile:
-    path: "/etc/NetworkManager/dnsmasq.d/kube"
-    regexp: "server=/dev\\.podium-dev\\.com/.*"
-    line: "server=/dev.podium-dev.com/{{ minikube_ip.stdout|trim }}"
-    state: "present"
-  register: update_local_dns
-
-- name: "Restart networkmanager"
-  when: update_local_dns.changed
-  command: "systemctl restart network-manager"
-
 - name: "Gather current namespace"
   become: false
   shell: |
@@ -117,7 +105,7 @@
 - name: "Initialize helm"
   become: false
   when: helm_init.changed
-  command: "helm --tiller-namespace '{{ desired_namespace }}' init --upgrade --service-account tiller"
+  command: "helm --tiller-namespace '{{ desired_namespace }}' init --wait --upgrade --service-account tiller"
 
 - name: "Add charmuseum"
   become: false
