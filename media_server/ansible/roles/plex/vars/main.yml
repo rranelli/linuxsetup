@@ -1,5 +1,5 @@
 ---
-plex_plugin_path: '/usr/lib/plexmediaserver/Resources/Plug-ins-78232c603'
+plex_plugin_path: '/usr/lib/plexmediaserver/Resources/Plug-ins-ccb6eb67e/'
 
 plex_subzero_plugin_url: https://github.com/pannal/Sub-Zero.bundle/releases/download/2.6.5.3099/Sub-Zero.bundle-2.6.5.3099.zip
 plex_subzero_plugin_sha256: 2bee81c56799e57846ec03f7876b8c07a99c64f31eb8506eab70192e8e6b1394

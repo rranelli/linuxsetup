@@ -20,7 +20,7 @@ podium-install:
 		-i desktop/ansible/hosts \
 		--ask-become-pass \
 		--vault-password-file ~/.emacs.d/.ansible-vault \
-                --tags "podium" \
+                --tags "install" \
                 ${OPTS} \
 		desktop/ansible/desktop.yml
 
