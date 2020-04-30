@@ -1,0 +1,51 @@
+- name: "Ensure dnsmasq is installed"
+  apt:
+    name: "dnsmasq"
+    state: "present"
+    update_cache: "yes"
+    cache_valid_time: "7200"
+
+- name: "Ensure dnsmasq is enabled && running"
+  service:
+    name: "dnsmasq"
+    state: "started"
+    enabled: true
+
+- name: "Set listen-address to local addresses only"
+  lineinfile:
+    path: "/etc/dnsmasq.conf"
+    regexp: "\blisten-address="
+    line: "listen-address=::1,127.0.0.1"
+    state: "present"
+  notify: "restart-dnsmasq"
+
+- name: "Set our local dns server"
+  copy:
+    dest: "/etc/dnsmasq.d/server"
+    content: "server=192.168.0.2"
+
+- name: "Check if /etc/resolv.conf needs to change"
+  check_mode: yes
+  copy:
+    src: "resolv.conf"
+    dest: "/etc/resolv.conf"
+  register: resolvconf
+
+- name: "Make `/etc/resolv.conf` mutable"
+  when: resolvconf.changed
+  file:
+    path: "/etc/resolv.conf"
+    attributes: "-i"
+  changed_when: false
+
+- name: "Make /etc/resolv.conf point to local dnsmasq"
+  when: resolvconf.changed
+  copy:
+    src: "resolv.conf"
+    dest: "/etc/resolv.conf"
+
+- name: "Make `/etc/resolv.conf` immutable"
+  when: resolvconf.changed
+  file:
+    path: "/etc/resolv.conf"
+    attributes: "+i"

@@ -50,3 +50,6 @@
 
 - name: "bluetooth"
   include_tasks: "bluetooth.yml"
+
+- name: "dns service"
+  include_tasks: "dns.yml"
