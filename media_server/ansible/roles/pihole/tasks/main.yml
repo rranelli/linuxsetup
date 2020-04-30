@@ -28,6 +28,8 @@
   with_items:
     - "googleadservices.com"
     - "www.googleadservices.com"
+    - "ads.twitter.com"
+    - "newrelic.com"
 
 - name: "create pihole group"
   group: name="pihole" state="present"
