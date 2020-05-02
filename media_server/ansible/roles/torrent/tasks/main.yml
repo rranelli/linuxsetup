@@ -23,17 +23,16 @@
 
 - name: "installs deluge && python-pip"
   apt:
-    name={{ item }}
-    state=present
-    update_cache=true
-    cache_valid_time=86400
-  with_items:
-    - python3-pip
-    - p7zip-full
-    - libsqlite3-dev # needed by flexget
-    - deluged
-    - deluge-web
-    - mkvtoolnix
+    name:
+      - python3-pip
+      - p7zip-full
+      - libsqlite3-dev # needed by flexget
+      - deluged
+      - deluge-web
+      - mkvtoolnix
+    state: present
+    update_cache: yes
+    cache_valid_time: 7200
   notify:
     - restart deluge
 
@@ -80,28 +79,25 @@
   notify:
     - systemd reload
 
-- name: "install flexget"
+- name: "Install sonarr"
+  import_tasks: "sonarr.yml"
+
+- name: "uninstall flexget"
   pip:
     executable="pip3"
     name="flexget"
-    state="present"
+    state="absent"
 
+- file: path="/home/milhouse/.flexget" state="absent" owner="milhouse" group="milhouse"
+
+- file: path=/home/milhouse/.flexget/config.yml state=absent
 - file: path={{ deluge_autoadd_path }} state="directory" owner="milhouse" group="milhouse"
-- file: path="/home/milhouse/.flexget" state="directory" owner="milhouse" group="milhouse"
-- name: "copy flexget config"
-  template:
-    src=flexget-config.yml
-    dest=/home/milhouse/.flexget/config.yml
-    owner=milhouse
-    mode=0600
-
 - name: "setup a cronjob for flexget"
   cron:
     job="/usr/local/bin/flexget --cron execute"
     name="flexget download torrents"
-    minute="*/30"
     user="milhouse"
-    state="present"
+    state="absent"
 
 - name: "refresh trakt token every day"
   cron:
@@ -109,4 +105,4 @@
     name="flexget trakt refresh"
     hour="0"
     user="milhouse"
-    state="present"
+    state="absent"

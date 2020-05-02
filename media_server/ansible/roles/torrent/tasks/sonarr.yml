@@ -1,0 +1,45 @@
+---
+- name: Instal required apt packages
+  apt:
+    name:
+      - apt-transport-https
+      - dirmngr
+      - gnupg
+      - ca-certificates
+    state: present
+    update_cache: yes
+    cache_valid_time: 7200
+
+- name: Install mediaarea
+  apt:
+    deb: https://mediaarea.net/repo/deb/repo-mediaarea_1.0-12_all.deb
+    state: present
+
+- name: Add mono apt keys
+  apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
+
+- name: Add mono repository
+  apt_repository:
+    repo: deb https://download.mono-project.com/repo/debian stable-stretch main
+    state: present
+    update_cache: yes
+
+- name: Add sonarr apt keys
+  apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: 2009837CBFFD68F45BC180471F4F90DE2A9B4BF8
+
+- name: Add sonarr repository
+  apt_repository:
+    repo: deb https://apt.sonarr.tv/debian stretch main
+    state: present
+    update_cache: yes
+
+- name: Install sonarr
+  apt:
+    name: sonarr
+    state: latest
+    update_cache: yes
+    cache_valid_time: 7200

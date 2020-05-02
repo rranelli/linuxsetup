@@ -17,5 +17,6 @@
     - sites-enabled/torrent
     - sites-enabled/pihole
     - sites-enabled/calibre
+    - sites-enabled/sonarr
   notify:
     - restart nginx

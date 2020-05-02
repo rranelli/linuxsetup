@@ -17,6 +17,7 @@
     - "calibre.{{ server_name }}"
     - "torrent.{{ server_name }}"
     - "smokeping.{{ server_name }}"
+    - "sonarr.{{ server_name }}"
   notify:
     - "dns changed"
 
