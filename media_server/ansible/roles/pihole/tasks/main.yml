@@ -29,8 +29,8 @@
   with_items:
     - "googleadservices.com"
     - "www.googleadservices.com"
-    - "ads.twitter.com"
     - "newrelic.com"
+    - "sdk.split.io"
 
 - name: "create pihole group"
   group: name="pihole" state="present"
