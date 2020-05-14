@@ -10,13 +10,13 @@
   with_items:
     - blueman
 
-- name: "bluetooth | packages: testing"
+- name: "bluetooth | packages: buster"
   apt:
     name="{{ item }}"
     state="present"
     update_cache="yes"
     cache_valid_time="7200"
-    default_release="testing"
+    default_release="buster"
   with_items:
     - bluez
     - pulseaudio

@@ -1,33 +1,24 @@
 - name: "desktop apps: stable"
   apt:
-    name="{{ item }}"
-    state="present"
-    update_cache="yes"
-    cache_valid_time="7200"
-  with_items:
-    - deluge
-    - spotify-client
-    - telegram-desktop
-    - libappindicator3-1
-    - libreoffice
-    - blueman
-    - ttf-ancient-fonts # adds fonts needed by emacs
-
-- name: "desktop apps: testing"
-  apt:
-    name="{{ item }}"
-    state="present"
-    update_cache="yes"
-    cache_valid_time="7200"
-    default_release="testing"
-  with_items:
-    - calibre
-    - bluez
+    name:
+      - deluge
+      - spotify-client
+      - telegram-desktop
+      - libappindicator3-1
+      - libreoffice
+      - blueman
+      - ttf-ancient-fonts # adds fonts needed by emacs
+      - calibre
+      - bluez
+    state: "present"
+    update_cache: "yes"
+    cache_valid_time: "7200"
+    default_release: "buster"
 
 - name: "remove unnecessary dirs @ home"
   file:
-    path="/home/{{ local_user }}/{{ item }}"
-    state="absent"
+    path: "/home/{{ local_user }}/{{ item }}"
+    state: "absent"
   with_items: ["Documents","Music","Videos","Templates","Public","Desktop"]
 
 - name: "firefox"

@@ -1,7 +1,7 @@
-- name: "gnome-shell: testing"
+- name: "gnome-shell: buster"
   apt:
     name="{{ item }}"
-    default_release="testing"
+    default_release="buster"
     autoremove="yes"
     state="present"
     update_cache="yes"

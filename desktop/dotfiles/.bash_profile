@@ -13,3 +13,4 @@ export GPG_AGENT_INFO
 # load bashrc, because we want our environment and everything else regardless of
 # being in a login shell
 . ~/.bashrc
+source ~/.bashrc.d/asdf

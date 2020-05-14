@@ -17,4 +17,4 @@
     state=present
     update_cache=yes
     cache_valid_time=7200
-    default_release=testing
+    default_release=buster
