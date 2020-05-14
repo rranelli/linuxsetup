@@ -1,42 +1,43 @@
 - name: "Check absence of the ONE TRUE EDITOR"
-  stat: path="/usr/local/bin/emacs-{{ emacs_version }}"
+  stat: 
+    path: "/usr/local/bin/emacs-{{ emacs_version }}"
   register: emacs
-  changed_when: emacs.stat.exists == False
+  changed_when: not emacs.stat.exists
 
 - name: "install emacs's build deps"
   when: emacs.changed
   apt:
-    name="emacs25"
-    state="build-dep"
-    update_cache="yes"
-    cache_valid_time="7200"
+    name: "emacs25"
+    state: "build-dep"
+    update_cache: "yes"
+    cache_valid_time: "7200"
 
 - name: "install libgtkwebkit"
   apt:
-    name=["libgtk-3-dev", "libwebkit2gtk-4.0-dev"]
-    state="present"
-    update_cache="yes"
-    cache_valid_time="7200"
+    name: ["libgtk-3-dev", "libwebkit2gtk-4.0-dev"]
+    state: "present"
+    update_cache: "yes"
+    cache_valid_time: "7200"
 
 - name: "download the ONE TRUE EDITOR"
   when: emacs.changed
   get_url:
-    url="http://ftp.gnu.org/gnu/emacs/emacs-{{ emacs_version }}.tar.xz"
-    dest="/tmp/emacs-{{emacs_version}}.tar.xz"
-    sha256sum="{{ emacs_tarball_sha256sum }}"
+    url: "http://ftp.gnu.org/gnu/emacs/emacs-{{ emacs_version }}.tar.xz"
+    dest: "/tmp/emacs-{{emacs_version}}.tar.xz"
+    sha256sum: "{{ emacs_tarball_sha256sum }}"
 
 - name: "untar the ONE TRUE EDITOR"
   when: emacs.changed
   unarchive:
-    src="/tmp/emacs-{{ emacs_version }}.tar.xz"
-    dest="/tmp/"
-    copy=no
+    src: "/tmp/emacs-{{ emacs_version }}.tar.xz"
+    dest: "/tmp/"
+    copy: no
 
 - name: "compile the ONE TRUE EDITOR"
   when: emacs.changed
   shell: |
     cd /tmp/emacs-{{ emacs_version }} && {
-      CFLAGS='-no-pie -O0 -g3' ./configure -with-cairo --with-xwidgets --with-x-toolkit=gtk3 --enable-checking='yes,glyphs' \
+      CFLAGS: '-no-pie -O0 -g3' ./configure -with-cairo --with-xwidgets --with-x-toolkit: gtk3 --enable-checking: 'yes,glyphs' \
         && make \
         && make install
     }
@@ -44,27 +45,34 @@
 - name: "remove the ONE TRUE EDITOR sources"
   when: emacs.changed
   file:
-    path="{{ item }}"
-    state="absent"
+    path: "{{ item }}"
+    state: "absent"
   with_items:
     - "/tmp/emacs-{{ emacs_version }}"
     - "/tmp/emacs-{{ emacs_version }}.tar.xz"
 
-- file: path='/home/{{ local_user }}/.local/share/applications' state=directory owner='{{ local_user }}' group='{{ local_user }}'
+- file: 
+    path: '/home/{{ local_user }}/.local/share/applications' 
+    state: directory 
+    owner: '{{ local_user }}' 
+    group: '{{ local_user }}'
 
-- file: path=/usr/share/icons/hicolor/1024x1024/apps state=directory mode=0644
+- file: 
+    path: /usr/share/icons/hicolor/1024x1024/apps 
+    state: directory 
+    mode: 0644
 - name: "copy source Emacs icon"
   copy:
-    src="emacs.png"
-    dest="/usr/share/icons/hicolor/1024x1024/apps/emacs25.png"
-    mode=0644
+    src: "emacs.png"
+    dest: "/usr/share/icons/hicolor/1024x1024/apps/emacs25.png"
+    mode: 0644
   register: emacs_icon
 
 - name: "setup emacs icons"
   when: emacs_icon.changed
   shell: |
     for s in 512 128 20 256 36 48 64 16 22 32 40 72 192 24 32 96; do
-      size="${s}x${s}"
+      size: "${s}x${s}"
       convert "/usr/share/icons/hicolor/1024x1024/apps/emacs25.png" \
               -resize "${size}" \
               "/usr/share/icons/hicolor/${size}/apps/emacs25.png"
@@ -73,23 +81,26 @@
 - name: "setup Emacs shortcut"
   become: false
   template:
-    src=emacs.desktop
-    dest=~/.local/share/applications/emacs.desktop
-    mode=0644
+    src: emacs.desktop
+    dest: ~/.local/share/applications/emacs.desktop
+    mode: 0644
 
-- file: path=/usr/share/icons/hicolor/1024x1024/apps state=directory mode=0644
+- file: 
+    path: /usr/share/icons/hicolor/1024x1024/apps 
+    state: directory 
+    mode: 0644
 - name: "copy source KeynotEmacs icon"
   copy:
-    src="keynotemacs.png"
-    dest="/usr/share/icons/hicolor/1024x1024/apps/keynotemacs25.png"
-    mode=0644
+    src: "keynotemacs.png"
+    dest: "/usr/share/icons/hicolor/1024x1024/apps/keynotemacs25.png"
+    mode: 0644
   register: emacs_icon
 
 - name: "setup KeynotEmacs icons"
   when: emacs_icon.changed
   shell: |
     for s in 512 128 20 256 36 48 64 16 22 32 40 72 192 24 32 96; do
-      size="${s}x${s}"
+      size: "${s}x${s}"
       convert "/usr/share/icons/hicolor/1024x1024/apps/keynotemacs25.png" \
               -resize "${size}" \
               "/usr/share/icons/hicolor/${size}/apps/keynotemacs25.png"
@@ -98,9 +109,9 @@
 - name: "setup KeynotEmacs shortcut"
   become: false
   template:
-    src=keynotemacs.desktop
-    dest=~/.local/share/applications/keynotemacs.desktop
-    mode=0644
+    src: keynotemacs.desktop
+    dest: ~/.local/share/applications/keynotemacs.desktop
+    mode: 0644
 
 - name: "setup Emacs dotfiles"
   become: false

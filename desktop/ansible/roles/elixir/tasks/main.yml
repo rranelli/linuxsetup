@@ -1,27 +1,26 @@
 - name: "install required packages to build erlang"
   apt:
-    name=[
-      "libwxgtk3.0-dev",
-      "libgl1-mesa-dev",
-      "libglu1-mesa-dev",
-      "libpng-dev",
-      "libncurses5-dev",
-      "m4",
-      "autoconf",
-      "build-essential",
-      "fop",
-      "libxslt1-dev"
-    ]
-    state="present"
-    update_cache="yes"
-    cache_valid_time="7200"
+    name:
+      - "libwxgtk3.0-dev"
+      - "libgl1-mesa-dev"
+      - "libglu1-mesa-dev"
+      - "libpng-dev"
+      - "libncurses5-dev"
+      - "m4"
+      - "autoconf"
+      - "build-essential"
+      - "fop"
+      - "libxslt1-dev"
+    state: present
+    update_cache: yes
+    cache_valid_time: 7200
 
 - name: "install asdf"
   become: false
   git:
-    repo="https://github.com/asdf-vm/asdf.git"
-    dest="~/.asdf"
-    version="v0.4.1"
+    repo: "https://github.com/asdf-vm/asdf.git"
+    dest: "~/.asdf"
+    version: "v0.4.1"
 
 #
 ## Erlang
@@ -86,6 +85,6 @@
 
 - name: "set up mix completion"
   copy:
-    src=mix-completion
-    dest=/etc/bash_completion.d/mix
-    mode=755
+    src: mix-completion
+    dest: /etc/bash_completion.d/mix
+    mode: 755
