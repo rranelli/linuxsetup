@@ -3,3 +3,9 @@
   service:
     name="bluetooth"
     state="restarted"
+
+- name: "restart-dnsmasq"
+  listen: "restart-dnsmasq"
+  service:
+    name: dnsmasq
+    state: restarted

@@ -15,7 +15,7 @@
 
 - name: "ssh | add keys"
   become: false
-  command: /usr/bin/ssh-add {{ item }}
+  command: /usr/bin/ssh-add ~/.ssh/{{ item }}
   when: key_changed.changed
   with_items:
     - id_rsa.work
