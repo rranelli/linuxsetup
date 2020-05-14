@@ -5,9 +5,8 @@ sudo apt update -qq || true
 sudo apt install -y git python-pip dirmngr aptitude --allow-downgrades
 sudo pip install ansible
 
-mkdir -p ~/code
-[ -d ~/code/linuxsetup ] || (cd ~/code && git clone git@github.com:rranelli/linuxsetup.git)
-cd ~/code/linuxsetup
+[ -d linuxsetup ] || (git clone https://github.com/rranelli/linuxsetup.git)
+cd linuxsetup
 
 ansible-playbook --ask-become-pass \
                  --ask-vault-pass \
