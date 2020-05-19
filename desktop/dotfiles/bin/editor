@@ -5,6 +5,6 @@ source ~/.bashrc
 if [ -z $KEYNOTEMACS ]; then
     emacsclient -c "$@" || emacs -e "server-start" "$@"
 else
-  eval $(ssh-agent)
+  export SSH_AUTH_SOCK=/run/user/1000/keyring/ssh
   emacs "$@"
 fi
