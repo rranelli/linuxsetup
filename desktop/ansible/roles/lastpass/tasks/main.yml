@@ -1,0 +1,67 @@
+---
+- set_fact:
+    lpass_build_dir: /tmp/lastpass-cli
+
+- name: ensure build deps are present (buster)
+  apt:
+    name:
+      - bash-completion
+      - build-essential
+      - cmake
+      - libssl-dev
+      - libxml2
+      - libxml2-dev
+      - libssl1.1
+      - pkg-config
+      - ca-certificates
+      - xclip
+    state: present
+    update_cache: yes
+    cache_valid_time: "{{ 2 * 60 * 60 }}"
+
+- name: ensure build deps are present (bullseye)
+  apt:
+    name:
+      - libcurl4
+      - libcurl4-openssl-dev
+    state: present
+    update_cache: yes
+    cache_valid_time: "{{ 2 * 60 * 60 }}"
+
+- name: check if lastpass is installed
+  stat:
+    path: /usr/bin/lpass
+  failed_when: false
+  changed_when: not lpass_missing.stat.exists
+  register: lpass_missing
+
+- name: clone lastpass-cli
+  when: lpass_missing.changed
+  git:
+    accept_hostkey: true
+    dest: "{{ lpass_build_dir }}"
+    repo: https://github.com/lastpass/lastpass-cli.git
+
+- name: install laspass-cli
+  when: lpass_missing.changed
+  command: make install
+  args:
+    chdir: "{{ lpass_build_dir }}"
+
+- name: remove lastpass-cli build directory
+  file:
+    dest: "{{ lpass_build_dir }}"
+    state: absent
+
+- name: check if logged in
+  become: false
+  command: lpass status
+  register: lpass_needs_login
+  failed_when: false
+  changed_when: lpass_needs_login.stdout.find('Not logged in') != -1
+
+- name: login to lastpass
+  become: false
+  when: lpass_needs_login.changed
+  command: |
+    lpass login --trust "{{ lpass_username }}"

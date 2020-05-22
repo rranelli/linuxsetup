@@ -5,7 +5,8 @@
   roles:
     - role: facts
       tags: always
-    - browserpass
+    - role: lastpass
+      tags: lastpass
     - packages
     - ssh
     - apps
