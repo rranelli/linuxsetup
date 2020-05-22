@@ -19,11 +19,11 @@
     dest: /etc/apt/preferences
     content: |
       Package: *
-      Pin: release a=buster
+      Pin: release a=stable
       Pin-Priority: 900
 
       Package: *
-      Pin: release a=bullseye
+      Pin: release a=testing
       Pin-Priority: -10
 
 - name: "set up required repositories"
@@ -35,8 +35,17 @@
   with_items:
     - deb http://repository.spotify.com stable non-free
     - deb http://ppa.launchpad.net/atareao/telegram/ubuntu xenial main
-    - deb http://ftp.br.debian.org/debian buster main non-free contrib
+#    - deb http://ftp.br.debian.org/debian buster main non-free contrib
     - deb http://ftp.br.debian.org/debian bullseye main non-free contrib
+
+- name: "set up required repositories"
+  apt_repository:
+    repo="{{ item }}"
+    state="absent"
+    update_cache="yes"
+    mode="644"
+  with_items:
+    - deb http://ftp.br.debian.org/debian buster main non-free contrib
 
 - name: "wireshark for non-root users"
   debconf:

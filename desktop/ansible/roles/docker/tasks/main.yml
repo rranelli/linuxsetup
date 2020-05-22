@@ -1,38 +1,48 @@
-- name: "set up docker apt-key"
-  apt_key:
-    id="58118E89F3A912897C070ADBF76221572C52609D"
-    keyserver="p80.pool.sks-keyservers.net"
-    state="present"
-
-- name: "set up docker repository"
-  apt_repository:
-    repo="deb https://apt.dockerproject.org/repo ubuntu-xenial main"
-    state="present"
-    update_cache="yes"
-    mode="0644"
-
-- name: "install docker"
+---
+- name: "Install docker dependencies"
   apt:
-    name="docker-ce"
-    state="present"
-    update_cache="yes"
-    cache_valid_time="7200"
+    name:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - software-properties-common
+      - gnupg2
+    state: "present"
+    update_cache: "yes"
+    cache_valid_time: "7200"
 
-- name: "add local user to docker group"
+- name: "Set up docker apt-key"
+  apt_key:
+    url: "https://download.docker.com/linux/debian/gpg"
+    state: "present"
+
+- name: "Set up docker repository"
+  apt_repository:
+    repo: "deb [arch=amd64] https://download.docker.com/linux/debian {{ distribution }} stable"
+    state: "present"
+    update_cache: "yes"
+    filename: "docker"
+
+- name: "Install docker engine"
+  apt:
+    name: "docker-ce"
+    state: "present"
+    update_cache: "yes"
+    cache_valid_time: "7200"
+
+- name: "Add local user to docker group"
   user:
-    name="{{ local_user }}"
-    groups="docker"
-    append="yes"
+    name: "{{ current_user }}"
+    groups: "docker"
+    append: "yes"
 
-- name: "install docker compose"
-  pip:
-    name="docker-compose"
-    state="present"
-
-- name: "enable docker @ systemd"
+- name: "Enable docker @ systemd"
   service:
-    name="docker"
-    state="started"
-    enabled="yes"
-  notify:
-    - systemd-reload
+    name: "docker"
+    state: "started"
+    enabled: "yes"
+  register: docker_systemd
+
+- name: "systemd reload"
+  when: docker_systemd.changed
+  command: systemctl daemon-reload

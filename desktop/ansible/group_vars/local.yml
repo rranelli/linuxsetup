@@ -1,2 +1,2 @@
-local_user: milhouse
-code_dir: /home/milhouse/code
+---
+ansible_become_password: "{{ ansible_become_password_vault }}"

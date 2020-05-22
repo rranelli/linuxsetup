@@ -5,12 +5,6 @@
     update_cache: "yes"
     cache_valid_time: "7200"
 
-- name: "Ensure dnsmasq is enabled && running"
-  service:
-    name: "dnsmasq"
-    state: "started"
-    enabled: true
-
 - name: "Set listen-address to local addresses only"
   lineinfile:
     path: "/etc/dnsmasq.conf"
@@ -23,6 +17,12 @@
   copy:
     dest: "/etc/dnsmasq.d/server"
     content: "server=192.168.0.2"
+
+- name: "Ensure dnsmasq is enabled && running"
+  service:
+    name: "dnsmasq"
+    state: "restarted"
+    enabled: true
 
 - name: "Check if /etc/resolv.conf needs to change"
   check_mode: yes

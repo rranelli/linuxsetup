@@ -58,7 +58,7 @@
 - name: "install wakatime"
   pip:
     name=wakatime
-    state=present
+    state=absent
 
 - name: "wakatime config"
   become: false

@@ -3,24 +3,22 @@
   connection: local
   become: yes
   roles:
+    - role: facts
+      tags: always
     - browserpass
     - packages
     - ssh
     - apps
     - mimipass
     - code
-    - emacs
-    - elixir
-    - ruby
-    - nodejs
-    - python
+    - role: emacs
+      tags: emacs
     - docker
     - langtool
     - postgresql
-    # - java
-    # - csharp
-    # - cassandra
-    # - scala
-    # - mongodb
-    # - clojure
-    - podium
+    - ruby
+    - nodejs
+    - python
+    - elixir
+  vars_files:
+    - vars/secrets.yml

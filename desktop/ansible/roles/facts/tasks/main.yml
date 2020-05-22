@@ -1,3 +1,4 @@
+---
 - name: Register current user's name
   become: false
   command: whoami
@@ -9,8 +10,12 @@
   changed_when: false
   register: lsb_release
 
-- name: Set a fact with collect variables
-  set_fact:
+- set_fact:
     current_user: "{{ whoami.stdout | trim }}"
+  changed_when: false
+
+- set_fact:
+    code_dir: "/home/{{ current_user }}/code"
     distribution: "{{ lsb_release.stdout | trim }}"
+    local_user: "{{ current_user }}"
   changed_when: false

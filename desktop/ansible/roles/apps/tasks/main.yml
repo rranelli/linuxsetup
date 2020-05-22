@@ -1,19 +1,24 @@
 - name: "desktop apps: stable"
   apt:
     name:
-      - deluge
       - spotify-client
-      - telegram-desktop
+      - telegram
       - libappindicator3-1
-      - libreoffice
-      - blueman
       - ttf-ancient-fonts # adds fonts needed by emacs
-      - calibre
-      - bluez
     state: "present"
     update_cache: "yes"
     cache_valid_time: "7200"
     default_release: "buster"
+
+- name: "desktop apps: stable"
+  apt:
+    name:
+      - bluez
+      - blueman
+    state: "present"
+    update_cache: "yes"
+    cache_valid_time: "7200"
+    default_release: "bullseye"
 
 - name: "remove unnecessary dirs @ home"
   file:
@@ -29,12 +34,6 @@
 
 - name: "dropbox"
   include_tasks: "dropbox.yml"
-
-- name: "peek"
-  include_tasks: 'peek.yml'
-
-- name: "skype"
-  include_tasks: 'skype.yml'
 
 - name: "gnome-shell"
   include_tasks: "gnome-shell.yml"
