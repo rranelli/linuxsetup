@@ -84,8 +84,8 @@
   command: "~/.asdf/bin/asdf global elixir {{ elixir_version }}"
   changed_when: false
 
-- name: "set up mix completion"
+- name: "set up elixir completion"
   copy:
-    src: mix-completion
-    dest: /etc/bash_completion.d/mix
-    mode: 755
+    src: elixir-completion
+    dest: /etc/bash_completion.d/elixir
+    mode: 0755

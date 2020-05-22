@@ -7,20 +7,17 @@
       tags: always
     - role: lastpass
       tags: lastpass
-    - packages
-    - ssh
-    - apps
-    - mimipass
-    - code
+    - role: packages
+    - role: ssh
+    - role: apps
+    - role: code
     - role: emacs
-      tags: emacs
-    - docker
-    - langtool
+    - role: docker
+    - role: langtool
     - role: postgresql
-      tags: postgresql
-    - ruby
-    - nodejs
-    - python
-    - elixir
+    - role: elixir
+    - role: ruby
+    - role: nodejs
+    - role: python
   vars_files:
     - vars/secrets.yml
