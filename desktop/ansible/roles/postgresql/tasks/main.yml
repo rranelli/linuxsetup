@@ -3,7 +3,7 @@
     name:
       - postgresql
       - libpq-dev
-      - python-pip
+      - python3-pip
       - pspg
     state: "present"
     update_cache: "yes"
@@ -31,9 +31,6 @@
 
 - name: "install pg-cli"
   pip:
-    name="{{ item }}"
-    state="present"
-  with_items:
-    - pgcli
-    - mycli
-    - wcwidth
+    executable: pip3
+    name: pgcli
+    state: "present"

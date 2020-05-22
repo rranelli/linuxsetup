@@ -15,7 +15,8 @@
       tags: emacs
     - docker
     - langtool
-    - postgresql
+    - role: postgresql
+      tags: postgresql
     - ruby
     - nodejs
     - python
