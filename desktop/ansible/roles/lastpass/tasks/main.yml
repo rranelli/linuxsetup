@@ -65,3 +65,12 @@
   when: lpass_needs_login.changed
   command: |
     lpass login --trust "{{ lpass_username }}"
+
+- name: Create lpass-backed vault script
+  become: false
+  copy:
+    dest: "~/bin/ansible-vault-pwd"
+    mode: 0755
+    content: |
+      #!/usr/bin/env bash
+      lpass show --password weak

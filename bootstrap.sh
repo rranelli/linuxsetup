@@ -14,7 +14,6 @@ else
   cd linuxsetup
 fi
 
-ansible-playbook --ask-become-pass \
-                 --ask-vault-pass \
+ansible-playbook --ask-vault-pass \
                  -i desktop/ansible/hosts \
                  desktop/ansible/desktop.yml
