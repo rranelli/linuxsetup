@@ -24,5 +24,5 @@ vault-lock:
 	@for f in $$(cat .unlocked); do \
 	  echo encrypting $$f ; \
 	  ansible-vault encrypt --vault-password-file ~/bin/ansible-vault-pwd "$$f"; \
-	done
-	@rm .unlocked
+	done || rm .unlocked
+	@rm .unlocked || true

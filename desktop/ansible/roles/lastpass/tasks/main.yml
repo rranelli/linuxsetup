@@ -73,4 +73,19 @@
     mode: 0755
     content: |
       #!/usr/bin/env bash
-      lpass show --password weak
+      lpass show --password ansible-vault
+
+- name: Check if own gpg key is added
+  become: false
+  command: gpg --list-keys {{ personal_email }}
+  failed_when: false
+  register: gpg_key_missing
+  changed_when: gpg_key_missing.rc != 0
+
+- name: Import gpg key
+  become: false
+  when: gpg_key_missing.changed
+  shell: |
+    gpg --import <(echo "{{ lookup('file', 'gpgkey') }}") <(echo "{{ lookup('file', 'gpgkey.pub') }}")
+  args:
+    executable: /bin/bash
