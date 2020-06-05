@@ -1,8 +1,7 @@
-- name: "desktop apps: stable"
+- name: "desktop apps: buster"
   apt:
     name:
       - spotify-client
-      - telegram
       - libappindicator3-1
       - ttf-ancient-fonts # adds fonts needed by emacs
     state: "present"
@@ -10,11 +9,12 @@
     cache_valid_time: "7200"
     default_release: "buster"
 
-- name: "desktop apps: stable"
+- name: "desktop apps: bullseye"
   apt:
     name:
       - bluez
       - blueman
+      - telegram-desktop
     state: "present"
     update_cache: "yes"
     cache_valid_time: "7200"

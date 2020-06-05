@@ -1,13 +1,11 @@
-- name: "gnome-shell: buster"
+- name: "gnome-shell"
   apt:
-    name="{{ item }}"
-    default_release="buster"
-    autoremove="yes"
-    state="present"
-    update_cache="yes"
-    cache_valid_time="7200"
-  with_items:
-    - gnome-shell
+    name: gnome-shell
+    default_release: bullseye
+    autoremove: yes
+    state: present
+    update_cache: yes
+    cache_valid_time: 7200
 
 - name: "remove debian/gnome cruft"
   apt:

@@ -16,6 +16,7 @@
     - role: langtool
     - role: postgresql
     - role: elixir
+      tags: elixir
     - role: ruby
     - role: nodejs
     - role: python
