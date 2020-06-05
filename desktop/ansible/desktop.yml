@@ -10,6 +10,7 @@
     - role: packages
     - role: ssh
     - role: apps
+      tags: apps
     - role: code
     - role: emacs
     - role: docker
