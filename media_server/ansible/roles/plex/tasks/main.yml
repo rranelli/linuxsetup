@@ -37,6 +37,17 @@
     owner="plex"
     group="plex"
 
+- name: Create {{ item }} directory
+  file:
+    path: /mnt/1.5tb/shows
+    state: directory
+    mode: 0777
+    owner: plex
+    group: plex
+  with_items:
+    - series
+    - movies
+
 - name: "install subzero plugin"
   include_tasks: "subzero_plugin.yml"
 

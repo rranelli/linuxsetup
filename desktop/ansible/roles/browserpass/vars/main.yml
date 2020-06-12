@@ -1,3 +1,0 @@
-browserpass_version: 3.0.3
-browserpass_url: https://github.com/browserpass/browserpass-native/releases/download/{{ browserpass_version }}/browserpass-linux64.zip
-browserpass_sig_url: https://github.com/browserpass/browserpass-native/releases/download/{{ browserpass_version }}/browserpass-linux64.zip.sig

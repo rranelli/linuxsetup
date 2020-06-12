@@ -1,2 +1,2 @@
-nodejs_version: "10.14.1"
-yarn_version: "1.17.3"
+nodejs_version: "14.3.0"
+yarn_version: "1.22.4"
