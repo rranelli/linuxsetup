@@ -1,23 +1,4 @@
 ---
-- name: "add transport http"
-  apt:
-    name="apt-transport-https"
-    state="present"
-
-- name: "remove ARM plex repository"
-  apt_repository:
-    repo="deb [trusted=yes] https://dev2day.de/pms/ stretch main"
-    state="absent"
-    update_cache="yes"
-
-# TODO: we need to automate the oficial repo
-- name: "remove deprecated plex-installer"
-  apt:
-    name="plexmediaserver-installer"
-    state="absent"
-    update_cache="yes"
-    cache_valid_time="7200"
-
 - name: "fix plex weird /etc/init.d"
   shell: |
     ln -sf /usr/lib/plexmediaserver{/Resources,}/start.sh

@@ -1,0 +1,19 @@
+---
+- name: "install radarr galaxy role"
+  become: false
+  delegate_to: 127.0.0.1
+  command:
+    "ansible-galaxy install MoHD20.Radarr"
+  args:
+    creates: "~/.ansible/roles/MoHD20.Radarr"
+
+- name: "install radarr"
+  include_role:
+    name: "MoHD20.Radarr"
+
+- name: Create movies directory
+  file:
+    path: /mnt/1.5tb/movies
+    state: directory
+    owner: Radarr
+    group: Radarr

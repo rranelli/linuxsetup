@@ -43,3 +43,10 @@
     state: latest
     update_cache: yes
     cache_valid_time: 7200
+
+- name: Create series directory
+  file:
+    path: /mnt/1.5tb/series
+    state: directory
+    owner: sonarr
+    group: sonarr

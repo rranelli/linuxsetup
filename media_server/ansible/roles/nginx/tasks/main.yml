@@ -7,16 +7,12 @@
     update_cache=true
     cache_valid_time=86400
 
-- name: "copy vhosts"
+- name: "include vhosts"
   template:
     src="{{ item }}"
     dest="/etc/nginx/{{ item }}"
     mode=0644
-  with_items:
-    - sites-enabled/plex
-    - sites-enabled/torrent
-    - sites-enabled/pihole
-    - sites-enabled/calibre
-    - sites-enabled/sonarr
+  with_fileglob:
+    - sites-enabled/*
   notify:
     - restart nginx

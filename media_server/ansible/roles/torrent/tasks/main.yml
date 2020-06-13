@@ -79,30 +79,10 @@
   notify:
     - systemd reload
 
+- file: path={{ deluge_autoadd_path }} state="directory" owner="milhouse" group="milhouse"
+
 - name: "Install sonarr"
   import_tasks: "sonarr.yml"
 
-- name: "uninstall flexget"
-  pip:
-    executable="pip3"
-    name="flexget"
-    state="absent"
-
-- file: path="/home/milhouse/.flexget" state="absent" owner="milhouse" group="milhouse"
-
-- file: path=/home/milhouse/.flexget/config.yml state=absent
-- file: path={{ deluge_autoadd_path }} state="directory" owner="milhouse" group="milhouse"
-- name: "setup a cronjob for flexget"
-  cron:
-    job="/usr/local/bin/flexget --cron execute"
-    name="flexget download torrents"
-    user="milhouse"
-    state="absent"
-
-- name: "refresh trakt token every day"
-  cron:
-    job="/usr/local/bin/flexget --cron trakt refresh rranelli"
-    name="flexget trakt refresh"
-    hour="0"
-    user="milhouse"
-    state="absent"
+- name: "Install radarr"
+  import_tasks: "radarr.yml"

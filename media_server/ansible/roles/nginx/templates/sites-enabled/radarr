@@ -1,0 +1,14 @@
+# -*- mode: nginx -*-
+upstream radarr {
+    server 127.0.0.1:7878;
+}
+
+server {
+    listen 80;
+    server_name radarr.{{ server_name }};
+
+    location / {
+        include /etc/nginx/proxy_params;
+        proxy_pass http://radarr/;
+    }
+}
