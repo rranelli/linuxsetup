@@ -6,7 +6,7 @@
 
 - name: "add mono repository"
   apt_repository:
-    repo="deb http://download.mono-project.com/repo/debian wheezy main"
+    repo="deb http://download.mono-project.com/repo/debian stable-stretch main"
     update_cache="yes"
     state="present"
     mode="0644"

@@ -54,61 +54,48 @@
     value="true"
     vtype="select"
 
-- name: "install essential"
+- name: "Install essential"
   apt:
-    name="{{ item }}"
-    state="present"
-    update_cache="yes"
-    cache_valid_time="7200"
-  with_items:
-    - ansible
-    - aspell-pt-br
-    - bash-completion
-    - build-essential
-    - curl
-    - dnsutils
-    - g++-multilib
-    - gcc-multilib
-    - git
-    - gnupg
-    - gnupg-agent
-    - gnutls-bin
-    - inotify-tools
-    - jq
-    - libcrypto++6
-    - libcurl4
-    - libgraphicsmagick1-dev
-    - libncursesw5-dev
-    - libreadline-dev
-    - libreadline7
-    - libsqlite3-dev
-    - libssl-dev
-    - libtool-bin
-    - libxml2-utils # needed to pretty print xml @ Emacs
-    - ncftp
-    - netcat
-    - openssh-server
-    - pkg-config
-    - redis-server
-    - silversearcher-ag
-    - socat
-    - ssh
-    - strace
-    - tcpdump
-    - tshark
-    - wget
-    - wireshark
-    - wordnet
-    - xclip
-    - xdg-utils
-
-# - name: "add local user to wireshark group"
-#   user:
-#     name="{{ local_user }}"
-#     groups="wireshark"
-#     append="yes"
-
-# - name: "make dumpcap's group wireshark"
-#   file:
-#     path="/usr/bin/dumpcap"
-#     group="wireshark"
+    name:
+      - aspell-pt-br
+      - bash-completion
+      - build-essential
+      - curl
+      - dnsutils
+      - g++-multilib
+      - gcc-multilib
+      - git
+      - gnupg
+      - gnupg-agent
+      - gnutls-bin
+      - inotify-tools
+      - jq
+      - libcrypto++6
+      - libcurl4
+      - libgraphicsmagick1-dev
+      - libncursesw5-dev
+      - libreadline-dev
+      - libreadline7
+      - libsqlite3-dev
+      - libssl-dev
+      - libtool-bin
+      - libxml2-utils
+      - ncftp
+      - netcat
+      - openssh-server
+      - pkg-config
+      - redis-server
+      - silversearcher-ag
+      - socat
+      - ssh
+      - strace
+      - tcpdump
+      - tshark
+      - wget
+      - wireshark
+      - wordnet
+      - xclip
+      - xdg-utils
+    state: "present"
+    update_cache: "yes"
+    cache_valid_time: "7200"

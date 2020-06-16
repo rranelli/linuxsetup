@@ -22,7 +22,7 @@
 
 - name: Add mono repository
   apt_repository:
-    repo: deb https://download.mono-project.com/repo/debian stable-stretch main
+    repo: deb https://download.mono-project.com/repo/debian stable-buster main
     state: present
     update_cache: yes
 

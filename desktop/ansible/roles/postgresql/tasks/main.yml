@@ -31,6 +31,5 @@
 
 - name: "install pg-cli"
   pip:
-    executable: pip3
     name: pgcli
     state: "present"
