@@ -11,23 +11,23 @@
 
 - name: "enable postgresql"
   service:
-    name="postgresql"
-    state="started"
-    enabled="yes"
+    name: "postgresql"
+    state: "started"
+    enabled: "yes"
 
-- name: "pg_hba.conf"
+- name: "add pg_hba.conf"
   copy:
-    src=pg_hba.conf
-    dest=/etc/postgresql/11/main/pg_hba.conf
+    src: pg_hba.conf
+    dest: /etc/postgresql/11/main/pg_hba.conf
   notify:
     - restart-postgresql
 
 - name: "ensure python-dev is installed"
   apt:
-    name="python-dev"
-    state="present"
-    update_cache="yes"
-    cache_valid_time="7200"
+    name: "python-dev"
+    state: "present"
+    update_cache: "yes"
+    cache_valid_time: "7200"
 
 - name: "install pg-cli"
   pip:

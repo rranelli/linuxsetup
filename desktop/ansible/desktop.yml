@@ -13,6 +13,7 @@
       tags: apps
     - role: code
     - role: emacs
+      tags: emacs
     - role: docker
     - role: langtool
     - role: postgresql
