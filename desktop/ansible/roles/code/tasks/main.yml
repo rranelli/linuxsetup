@@ -1,7 +1,7 @@
 - name: "(inputrc) ignore casing for bash completion"
   copy:
-    src=etc/inputrc
-    dest=/etc/inputrc
+    src: etc/inputrc
+    dest: /etc/inputrc
 
 - name: "hh"
   include_tasks: 'hh.yml'
@@ -46,14 +46,13 @@
 
 - name: "install python3 & python3-pip"
   apt:
-    name="{{ item }}"
-    state="present"
-    update_cache="yes"
-    cache_valid_time="7200"
-    state=present
-  with_items:
-    - python3
-    - python3-pip
+    name:
+      - python3
+      - python3-pip
+    state: "present"
+    update_cache: "yes"
+    cache_valid_time: "7200"
+    state: present
 
 - name: "download all of your github code"
   become: false
@@ -64,18 +63,6 @@
   args:
     chdir: "{{ code_dir }}"
     creates: "{{ code_dir }}/.fetched"
-
-- name: "creates a cron job to automatically fetch from all repos"
-  cron:
-    minute: "0"
-    hour: "*/4"
-    name: "{{ item.name }}"
-    job: "env CODE_DIR={{ item.dir }} {{ code_dir }}/linuxsetup/desktop/scripts/gitmulticast.sh fetch > /home/{{ local_user }}/.local/log.{{ item.name }} 2>&1"
-    user: "{{ local_user }}"
-  with_items:
-    - {name: "code", dir: "{{ code_dir }}"}
-    - {name: "telnyx", dir: "/home/{{ local_user }}/telnyx"}
-    - {name: "taming-chaos", dir: "/home/{{ local_user }}/taming-chaos"}
 
 - file: path="~/.fonts" state="directory"
   become: false
