@@ -52,7 +52,6 @@
     state: "present"
     update_cache: "yes"
     cache_valid_time: "7200"
-    state: present
 
 - name: "download all of your github code"
   become: false

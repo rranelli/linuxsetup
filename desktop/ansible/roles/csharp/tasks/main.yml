@@ -1,33 +1,32 @@
 - name: "set up mono apt-key"
   apt_key:
-    id="3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF"
-    keyserver="keyserver.ubuntu.com"
-    state="present"
+    id: "3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF"
+    keyserver: "keyserver.ubuntu.com"
+    state: "present"
 
 - name: "add mono repository"
   apt_repository:
-    repo="deb http://download.mono-project.com/repo/debian stable-stretch main"
-    update_cache="yes"
-    state="present"
-    mode="0644"
+    repo: "deb http://download.mono-project.com/repo/debian stable-stretch main"
+    update_cache: "yes"
+    state: "present"
+    mode: "0644"
 
 - name: "install mono-complete and nuget"
   apt:
-    name="{{ item }}"
-    state="present"
-    update_cache="yes"
-    cache_valid_time="7200"
-  with_items:
-    - mono-complete
-    - nuget
+    name:
+      - mono-complete
+      - nuget
+    state: "present"
+    update_cache: "yes"
+    cache_valid_time: "7200"
 
 - name: "get omnisharp"
   become: false
   git:
-    repo="https://github.com/OmniSharp/omnisharp-server.git"
-    dest="{{ code_dir }}/omnisharp-server"
-    depth=1
-    clone="yes"
+    repo: "https://github.com/OmniSharp/omnisharp-server.git"
+    dest: "{{ code_dir }}/omnisharp-server"
+    depth: 1
+    clone: "yes"
   register: omnisharp
 
 - name: "build omnisharp"

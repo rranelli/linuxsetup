@@ -1,33 +1,23 @@
 # See
 # https://pandasauce.org/post/bluetooth-on-linux/
 # https://freedompenguin.com/articles/how-to/ubuntu-bluetooth-headphones-fix/
-- name: "bluetooth | packages: stable"
-  apt:
-    name="{{ item }}"
-    state="present"
-    update_cache="yes"
-    cache_valid_time="7200"
-  with_items:
-    - blueman
-
 - name: "bluetooth | packages: buster"
   apt:
-    name="{{ item }}"
-    state="present"
-    update_cache="yes"
-    cache_valid_time="7200"
-    default_release="buster"
-  with_items:
-    - bluez
-    - pulseaudio
-    - pulseaudio-module-bluetooth
+    name:
+      - bluez
+      - blueman
+      - pulseaudio
+      - pulseaudio-module-bluetooth
+    state: "present"
+    update_cache: "yes"
+    cache_valid_time: "7200"
 
 - name: "bluetooth | change pairing strategy"
   lineinfile:
-    path="/etc/bluetooth/main.conf"
-    state="present"
-    regexp="^ControllerMode ?=.*"
-    line="ControllerMode = bredr"
+    path: "/etc/bluetooth/main.conf"
+    state: "present"
+    regexp: "^ControllerMode ?=.*"
+    line: "ControllerMode = bredr"
   notify: "bluetooth config changed"
 
 - name: "bluetooth | set audio configuration"
@@ -52,17 +42,17 @@
 
 - name: "bluetooth | remove bluetooth-discover from default.pa"
   lineinfile:
-    path="/etc/pulse/default.pa"
-    state="present"
-    regexp="load-module module-bluetooth-discover"
-    line="#load-module module-bluetooth-discover"
+    path: "/etc/pulse/default.pa"
+    state: "present"
+    regexp: "load-module module-bluetooth-discover"
+    line: "#load-module module-bluetooth-discover"
   notify: "bluetooth config changed"
 
 - name: "bluetooth | start bluetooth-discover from pulseaudio x11"
   lineinfile:
-    path="/usr/bin/start-pulseaudio-x11"
-    state="present"
-    insertafter='SESSION_MANAGER'
-    regexp="/usr/bin/pactl load-module module-bluetooth-discover"
-    line="        /usr/bin/pactl load-module module-bluetooth-discover"
+    path: "/usr/bin/start-pulseaudio-x11"
+    state: "present"
+    insertafter: 'SESSION_MANAGER'
+    regexp: "/usr/bin/pactl load-module module-bluetooth-discover"
+    line: "        /usr/bin/pactl load-module module-bluetooth-discover"
   notify: "bluetooth config changed"

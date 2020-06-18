@@ -1,21 +1,20 @@
 - name: "remove debian/gnome cruft"
   apt:
-    name="{{ item }}"
-    state="absent"
-    autoremove="yes"
-  with_items:
-    - gnome-games*
-    - uim-mozc
-    - mozc*
-    - xult-ext-mozvoikko
-    - task-finnish-desktop
-    - debian-reference*
-    - hdate-applet
-    - thunderbird
-    - xiterm+thai
-    - brasero*
-    - transmission*
-    - rhythmbox
+    name:
+      - gnome-games*
+      - uim-mozc
+      - mozc*
+      - xult-ext-mozvoikko
+      - task-finnish-desktop
+      - debian-reference*
+      - hdate-applet
+      - thunderbird
+      - xiterm+thai
+      - brasero*
+      - transmission*
+      - rhythmbox
+    state: "absent"
+    autoremove: "yes"
 
 - name: "remove cruf from desktop entries"
   file:

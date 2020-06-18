@@ -1,48 +1,34 @@
-- name: "install python3 & python3-pip"
+- name: "Install required packages"
   apt:
-    name="{{ item }}"
-    state="present"
-    update_cache="yes"
-    cache_valid_time="7200"
-    state=present
-    default_release="bullseye"
-  with_items:
-    - python3
-    - python3-pip
+    name:
+      - build-essential
+      - libssl-dev
+      - zlib1g-dev
+      - libbz2-dev
+      - libreadline-dev
+      - libsqlite3-dev
+      - llvm
+      - libncurses5-dev
+      - libncursesw5-dev
+      - xz-utils
+      - tk-dev
+    state: "present"
+    update_cache: "yes"
+    cache_valid_time: "7200"
 
-- name: "install required packages"
-  apt:
-    name="{{ item }}"
-    state="present"
-    update_cache="yes"
-    cache_valid_time="7200"
-  with_items:
-    - make
-    - build-essential
-    - libssl-dev
-    - zlib1g-dev
-    - libbz2-dev
-    - libreadline-dev
-    - libsqlite3-dev
-    - wget
-    - curl
-    - llvm
-    - libncurses5-dev
-    - libncursesw5-dev
-    - xz-utils
-    - tk-dev
-
-- name: "install pyenv & friends"
+- name: "add asdf's python plugin"
   become: false
-  shell: |
-    curl -L https://raw.githubusercontent.com/pyenv/pyenv-installer/master/bin/pyenv-installer | bash
+  command: "asdf plugin-add python"
   args:
-    creates: "{{ pyenv_home }}"
+    creates: "~/.asdf/plugins/python/LICENSE"
 
 - name: "install python {{ python_version }}"
   become: false
-  shell: |
-    {{pyenv_home}}/bin/pyenv install {{ python_version }}
-    {{pyenv_home}}/bin/pyenv global  {{ python_version }}
+  command: "~/.asdf/bin/asdf install python {{ python_version }}"
   args:
-    creates: "{{ pyenv_home }}/versions/{{ python_version }}/bin/python"
+    creates: "~/.asdf/installs/python/{{ python_version }}/bin/python"
+
+- name: "use global python {{ python_version }}"
+  become: false
+  command: "~/.asdf/bin/asdf global python {{ python_version }}"
+  changed_when: false
