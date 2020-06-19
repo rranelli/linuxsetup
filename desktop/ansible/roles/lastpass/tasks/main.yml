@@ -75,6 +75,15 @@
       #!/usr/bin/env bash
       lpass show --password ansible-vault
 
+- name: Create lpass-backed become script
+  become: false
+  copy:
+    dest: "~/bin/ansible-become-pwd"
+    mode: 0755
+    content: |
+      #!/usr/bin/env bash
+      lpass show --password ansible-become-pass
+
 - name: Check if own gpg key is added
   become: false
   command: gpg --list-keys {{ personal_email }}
