@@ -46,9 +46,9 @@
     # https://extensions.gnome.org/extension/906/sound-output-device-chooser/
     - {id: 906,  uuid: 'sound-output-device-chooser@kgshank.net'}
     # https://extensions.gnome.org/extension/517/caffeine/
-    - {id: 517,  uuid: 'caffeine@patapon.info', version: 'gnome-shell-3.10-3.30'}
+    - {id: 517,  uuid: 'caffeine@patapon.info', version: '3.30'}
     # https://extensions.gnome.org/extension/826/suspend-button/
-    - {id: 826,  uuid: 'suspend-button@laserb', version: 'release/3.2x'}
+    - {id: 826,  uuid: 'suspend-button@laserb', version: '3.30'}
     # https://extensions.gnome.org/extension/1173/datetime-format/
     - {id: 1173, uuid: 'datetime-format@Daniel-Khodabakhsh.github.com'}
     # https://extensions.gnome.org/extension/1236/noannoyance/
@@ -61,6 +61,8 @@
     - {id: 615,  uuid: 'appindicatorsupport@rgcjonas.gmail.com'}
     # https://extensions.gnome.org/extension/1276/night-light-slider/
     - {id: 1276, uuid: 'night-light-slider.timur@linux.com'}
+    # https://extensions.gnome.org/extension/28/gtile/
+    - {id: 28, uuid: 'gTile@vibou', version: '3.30'}
   args:
     creates: '/usr/local/share/gnome-shell/extensions/{{ item.uuid }}'
 

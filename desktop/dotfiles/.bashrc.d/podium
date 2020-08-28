@@ -10,3 +10,30 @@
       | xargs -P10 -I{} -n1 git clone {}
   done
 }
+
+8with-k8s() {
+  (
+    eval $(minikube -p minikube docker-env);
+    "$@"
+  )
+}
+
+8setup() {
+  (
+    export ASK_BECOME_PASS='no'
+    cd podium-cli
+    ./bin/setup \
+      --extra-vars "ansible_become_password='$(~/bin/ansible-become-pwd)'" \
+      --vault-password-file ~/bin/ansible-vault-pwd \
+      "$@"
+  )
+}
+
+8dns() { 8setup --tags dns ;}
+
+8mamba-k8s() {
+  (ASK_BECOME_PASS='no' podium up --reconfigure --extras '--extra-vars "ansible_become_password='"'$(~/bin/ansible-become-pwd)'"'"' && 8with-k8s docker build --build-arg MIX_ENV=prod --build-arg HEX_API_PULL_KEY=1f5c77f33ec9cdf321a74a5714b0cd55 -t black-mamba-local-test . && (podium services:uninstall black-mamba || true) && podium services:install --offline)
+}
+
+# podium autocomplete
+PODIUM_AC_BASH_SETUP_PATH=/home/milhouse/.cache/@podiumhq/podium-cli/autocomplete/bash_setup && test -f $PODIUM_AC_BASH_SETUP_PATH && source $PODIUM_AC_BASH_SETUP_PATH;

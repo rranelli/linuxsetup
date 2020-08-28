@@ -90,3 +90,19 @@ export -f 8bry
 
 # first argument is the line to grab;
 8line() { tail -n +"$@" | head -n1 ;}
+
+8osx() {
+  (
+    cd Docker-OSX
+
+    docker build -t docker-osx:latest --build-arg VERSION=10.14.6 --build-arg SIZE=30G .
+    docker run \
+           -e RAM=4 \
+           -e SMP=4 \
+           -e CORES=4 \
+           -e EXTRA='-usb -device usb-host,hostbus=1,hostaddr=8' \
+           -e INTERNAL_SSH_PORT=23 \
+           --privileged -v /tmp/.X11-unix:/tmp/.X11-unix \
+           docker-osx:latest
+  )
+}
