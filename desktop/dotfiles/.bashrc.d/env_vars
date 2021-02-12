@@ -1,22 +1,28 @@
 #!/usr/bin/env bash
-export PATH="$HOME/bin:$PATH"
-export PATH="$PATH:$HOME/.lein"
-export PATH="$PATH:$HOME/.cask/bin"
-export PATH="$PATH:$HOME/code/elixir/bin"
 
+#
+## Path
+#
 export CODE_DIR="$HOME/code"
+
+export PATH="${PATH}:${CODE_DIR}/rerun/rerun"
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/bin:$PATH"
+
 export CDPATH=".:$CODE_DIR:$HOME/podium"
 
+#
+## Tooling
+#
 export EDITOR="editor"
-
-export MIMIPASS_HOME="$HOME/Dropbox/.secrets/mimipass"
-export MIMIPASS_RECIPIENT="renanranelli@gmail.com"
 
 export ERL_AFLAGS="-kernel shell_history enabled"
 
-# This enables bash eternal history
-export HISTFILESIZE=
-export HISTSIZE=
+export HISTFILESIZE= # This enables bash eternal history
+export HISTSIZE= # This enables bash eternal history
 
+
+#
+## Bash debug prompt
 export PS4='(${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]} - [${SHLVL},${BASH_SUBSHELL}, $?]
 '
