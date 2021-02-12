@@ -5,7 +5,9 @@
 #
 export CODE_DIR="$HOME/code"
 
-export PATH="${PATH}:${CODE_DIR}/rerun/rerun"
+export PATH="${PATH}:${CODE_DIR}/rerun"
+export RERUN_MODULES="${CODE_DIR}/mimiland/desktop/rerun-modules:${CODE_DIR}/rerun/modules"
+
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/bin:$PATH"
 

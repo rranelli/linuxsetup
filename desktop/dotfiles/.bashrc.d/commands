@@ -106,3 +106,5 @@ export -f 8bry
            docker-osx:latest
   )
 }
+
+alias mimi=rerun
